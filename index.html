@@ -119,6 +119,7 @@ body.paused .time{animation:fade 1.6s ease-in-out infinite}
 .jar svg{width:66px;height:83px;display:block}
 .jar .jc{font-size:13px;font-weight:800}
 .jar .jh{font-size:11px;color:var(--soft);opacity:.8}
+.jar .jn{opacity:1;font-weight:700}
 .jar.glow svg{animation:glow 1s ease-in-out 4}
 /* scenery: the park for zoomies, the sofa for sofa time */
 .scene{position:absolute;inset:0;pointer-events:none}
@@ -167,6 +168,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 .ctl button{flex:1;min-height:58px;border-radius:14px;background:rgba(255,255,255,.12);font-size:17px;font-weight:700}
 .ctl .main{flex:2;background:#fff;color:var(--bg);font-size:20px;font-weight:800;letter-spacing:.04em}
 .ctl .sure{background:#fff;color:var(--bg)}
+.ctl button:disabled{opacity:.45;cursor:default}
 
 /* lumi's moves */
 .breathe{animation:breathe 3.2s ease-in-out infinite;transform-origin:50% 100%}
@@ -199,7 +201,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 .dbtn.main{background:var(--go);color:#fff;font-weight:900;letter-spacing:.03em}
 .cameUp{align-self:center;min-height:40px;padding:0 16px;margin-top:6px;border-radius:999px;background:rgba(255,255,255,.12);font-size:14px;font-weight:700}
 .ring .cameUp{margin-top:8px;min-height:38px;padding:0 12px;font-size:13px}
-#plan{gap:16px}
+#plan{gap:16px;max-width:560px}
 .phd{display:flex;align-items:center;gap:12px}
 .phd h1{margin:0;font-size:28px;font-weight:900;letter-spacing:.05em;color:var(--accent)}
 .phd .sub{font-size:13px;color:var(--dim)}
@@ -211,36 +213,12 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 .shStep button{min-height:44px;border-radius:10px;background:var(--btn);font-size:20px;font-weight:700}
 .shStep output{text-align:center;font-size:17px;font-weight:800;font-variant-numeric:tabular-nums}
 .linkbtn{background:transparent;color:var(--accent);font-weight:700;text-decoration:underline;padding:4px 2px;font-size:inherit}
-.blk{display:flex;align-items:stretch;gap:6px;background:var(--card);border-radius:14px;margin-bottom:6px;border-left:6px solid var(--bc,#ff9a7d)}
-.blk.drag{opacity:.7;outline:2px dashed var(--accent)}
-.blk.done,.blk.skip{opacity:.6}
-.blk.skip{background:repeating-linear-gradient(135deg,var(--card) 0 8px,#222a35 8px 16px)}
-.grab{flex:none;width:34px;background:transparent;color:var(--dim);font-size:20px;touch-action:none;cursor:grab}
-.grab:disabled{opacity:.2;cursor:default}
-.bmain{flex:1;min-width:0;background:transparent;text-align:left;padding:10px 10px 10px 0;display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:8px;align-items:center}
-.bt{font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
-.bi b{display:block;font-size:15px}.bi small{display:block;font-size:12.5px;color:var(--dim);margin-top:1px}
-.bd{font-size:14px;font-weight:800;font-variant-numeric:tabular-nums}
-.chips2{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
-.chip{font-size:11px;font-weight:700;border-radius:999px;padding:2px 8px;background:rgba(255,255,255,.1);color:var(--soft)}
-.chip.pin{background:#334155;color:#e2e8f0}.chip.warn{background:#7f1d1d;color:#fecaca}.chip.nice{opacity:.75}
 .k-deep{--bc:#ff9a7d}.k-lfoc{--bc:#ff7a55}.k-admin{--bc:#fdba74}.k-box{--bc:#5eead4}.k-meet{--bc:#94a3b8}.k-zoom{--bc:#4ade80}.k-sofa{--bc:#b9a2ff}.k-up{--bc:#7dd3fc}
-.bedit{background:#222a35;border-radius:14px;margin:-2px 0 8px;padding:8px 12px 10px}
 .fld{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600;color:var(--soft);padding:4px 0}
 .fld input{min-height:44px;border-radius:10px;border:2px solid var(--btn);background:#10141a;color:#fff;font:inherit;padding:0 12px}
-.seg2{display:flex;gap:6px}
-.seg2 button{min-height:40px;padding:0 12px;border-radius:10px;background:var(--btn);font-size:14px;font-weight:700}
-.seg2 button[aria-pressed=true]{background:#fff;color:#0e1116}
-.shRow.acts{justify-content:flex-start}
-.shRow.acts button{min-height:40px;padding:0 14px;border-radius:10px;background:var(--btn);font-weight:700}
-.shRow.acts .danger{margin-left:auto;background:#7f1d1d}
-.gapRow{font-size:13px;color:var(--soft);border:2px dashed var(--rule);border-radius:12px;padding:8px 12px;margin-bottom:6px}
-.empty{font-size:14px;color:var(--dim);line-height:1.4;margin:0}
+.hint2{margin:0 0 4px;font-size:12px;color:var(--dim);line-height:1.35}
 .ifrow{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--card);border-radius:12px;padding:8px 12px;margin-bottom:6px;font-size:14px}
 .ifrow button{min-height:38px;padding:0 12px;border-radius:10px;background:var(--btn);font-weight:700}
-.palette{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.pal2{background:var(--card);border-radius:12px;padding:10px 12px;text-align:left;border-left:6px solid var(--bc);min-height:56px}
-.pal2 b{display:block;font-size:14px}.pal2 small{font-size:12px;color:var(--dim)}
 .mini2{display:flex;gap:8px;flex-wrap:wrap}
 .mini2 button{min-height:44px;padding:0 14px;border-radius:12px;background:var(--btn);font-weight:700;font-size:14px}
 .go:disabled{opacity:.4}
@@ -248,6 +226,67 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 .seg.day.done{background:var(--c)}
 .seg.day.skip{background:repeating-linear-gradient(135deg,var(--c) 0 3px,transparent 3px 6px)}
 .seg.day .fill{background:var(--c)}
+#plan{--calw:276px}
+.pgrid{display:grid;gap:16px;grid-template-columns:minmax(0,1fr);grid-template-areas:"times" "cal" "stat"}
+.pgrid .timesCard{grid-area:times}.pcal{grid-area:cal;min-width:0}.pstat{grid-area:stat;display:flex;flex-direction:column;gap:12px}
+@media (min-width:900px){
+  #plan{max-width:1180px}
+  .pgrid{grid-template-columns:minmax(0,1fr) 340px;column-gap:40px;grid-template-areas:"cal times" "cal stat" "cal ."; grid-template-rows:auto auto 1fr}
+}
+@media (max-width:600px){#plan{--calw:196px}.civ .gp{padding:0 7px;min-width:34px;font-size:12px}}
+.mForm{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px}
+.mForm label{display:flex;flex-direction:column;gap:3px;font-size:13px;font-weight:600;color:var(--soft)}
+.mForm input{width:96px;min-height:48px;border-radius:12px;border:2px solid var(--btn);background:#10141a;color:#fff;font:inherit;font-size:20px;font-weight:800;text-align:center;font-variant-numeric:tabular-nums}
+.mForm .dbtn{min-height:48px}
+.cal{position:relative;margin-top:6px;user-select:none;-webkit-user-select:none}
+.cal .hl{position:absolute;left:56px;right:0;border-top:1px solid var(--rule)}
+.cal .ql{position:absolute;left:60px;right:0;border-top:1px dotted #2a313d}.cal .ql.hf{border-top-color:#323a47}
+.cal .ht{position:absolute;left:0;width:50px;text-align:right;font-size:13px;color:var(--dim);font-variant-numeric:tabular-nums}
+.civ{position:absolute;left:60px;right:0;border:2px dashed #3b4656;border-radius:10px;box-sizing:border-box;display:flex;align-items:center;justify-content:flex-end;gap:6px;padding:0 6px}
+.civ.past{opacity:.35}.civ.open{border-style:dotted}
+.civl{margin-right:auto;font-size:13px;color:var(--dim);font-weight:600;padding-left:6px}
+.civ .gp{height:26px;min-width:44px;padding:0 10px;border-radius:999px;background:var(--btn);font-size:13px;font-weight:700}
+.civ .gp[aria-pressed=true]{background:#fff;color:#0e1116}
+.cb{position:absolute;left:60px;right:0;border-radius:10px;background:var(--bc);color:#0e1116;padding:0 12px;display:flex;align-items:center;gap:8px;overflow:hidden;box-sizing:border-box;font-size:15px;font-weight:800;text-align:left;cursor:pointer}
+.cb.fill{right:var(--calw)}
+.cb.small{font-size:12px;padding:0 8px}.cb.small .cbs{display:none}
+.cb .cbn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.cb .cbs{font-size:12.5px;font-weight:700;opacity:.75;white-space:nowrap}
+.cb .cbt{margin-left:auto;font-size:13px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;opacity:.85}
+.cb .lk{flex:none;opacity:.8}
+.cb.pin.ed{cursor:grab;touch-action:none}
+.cb.drag{cursor:grabbing;box-shadow:0 0 0 3px #ff9a7d,0 12px 28px rgba(0,0,0,.5);z-index:3}
+.cb.sel{box-shadow:0 0 0 3px #ff9a7d}
+.cb.clash,.cb.over{box-shadow:0 0 0 3px #f87171}
+.cb.done,.cb.skip{opacity:.5}
+.cb.skip{background:repeating-linear-gradient(135deg,var(--bc) 0 8px,#3a4250 8px 16px)}
+.rsz{position:absolute;left:0;right:0;bottom:0;height:11px;cursor:ns-resize;touch-action:none}
+.rsz::after{content:"";position:absolute;left:50%;bottom:3px;width:28px;height:4px;margin-left:-14px;border-radius:2px;background:rgba(0,0,0,.35)}
+.fin{position:absolute;left:56px;right:0;height:3px;border-radius:2px;background:#fbbf24}.fin.over{background:#f87171}
+.finl{position:absolute;right:0;font-size:13px;font-weight:800;color:#fbbf24}.finl.over{color:#fca5a5}
+.pcard{background:var(--card);border-radius:18px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.pcard.warn{box-shadow:inset 0 0 0 2px #fbbf24}
+.pcard .ph{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.pcard .pb{font-size:24px;font-weight:900;color:#4ade80;line-height:1.15}.pcard .pb.warn{color:#fbbf24}
+.pcard p{margin:0;font-size:14px;color:var(--soft);line-height:1.45}
+.pcard .pgoal{font-size:14px;color:var(--soft)}
+.selc{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-bottom:10px;background:#222a35;border-radius:14px;padding:8px 12px}
+.selc .selt{font-size:15px}.selc .selt span{color:var(--soft);font-variant-numeric:tabular-nums}
+.selc .shRow{padding:0;gap:8px}.selc .shStep{max-width:210px}
+.selc .sela{display:flex;gap:8px;margin-left:auto}
+.selc button:not(.shStep button){min-height:40px;padding:0 14px;border-radius:10px;background:var(--btn);font-weight:700}
+.selc .danger{background:#7f1d1d}
+.selc .seln{color:var(--soft);font-size:14px}
+.seg.gapS{background:transparent;min-width:0}
+.trackRow[role=button]{cursor:pointer}
+#setTrack{position:relative}
+.dayPop{position:absolute;left:0;right:0;bottom:100%;margin-bottom:8px;z-index:6;background:#1b2029;color:#fff;border-radius:18px;padding:14px 16px;box-shadow:0 16px 40px rgba(0,0,0,.5);text-align:left;display:flex;flex-direction:column;gap:2px}
+.dayPop h3{margin:0 0 4px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.dpRow{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:15px}
+.dpRow i{width:8px;height:20px;border-radius:4px;background:var(--bc);flex:none}
+.dpRow b{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dpRow span{color:var(--soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+.dpFoot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;font-size:13px;color:var(--soft)}
 /* sheets */
 .sheet{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center}
 .shBack{position:absolute;inset:0;background:rgba(0,0,0,.6)}
@@ -476,6 +515,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
       <div class="tLumi" id="tLumi"><div class="lumi" id="tLumiArt"></div></div>
     </div>
     <div class="trackText"><span id="next"></span><span id="setLeft"></span></div>
+    <div class="dayPop" id="dayPop" hidden></div>
   </section>
   <div class="hint" id="soundHint" hidden>Tap anywhere to wake the chime up</div>
   <div class="ctl">
@@ -509,25 +549,32 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 <main id="plan" class="screen" hidden>
   <div class="phd">
     <button type="button" class="back" id="planBack">‹ Back</button>
-    <div><h1>Day shape</h1><div class="sub" id="planSub">Build your day, then let Lumi walk you through it</div></div>
+    <div><h1>Plan your day</h1><div class="sub" id="planSub">Meetings in, gaps filled, off you go</div></div>
   </div>
-  <section class="timesCard" id="planStart">
-    <div class="shRow"><span>Starts at</span><div class="shStep"><button type="button" id="planStartDn" aria-label="Earlier start">−</button><output id="planStartV"></output><button type="button" id="planStartUp" aria-label="Later start">+</button></div></div>
-    <div class="shRow"><span>Finish by</span><div class="shStep"><button type="button" id="planFinDn" aria-label="Earlier finish">−</button><output id="planFinV"></output><button type="button" id="planFinUp" aria-label="Later finish">+</button></div></div>
-    <div class="shRow"><span></span><button type="button" class="linkbtn" id="planFinOff">Remove the finish line</button></div>
-  </section>
-  <section>
-    <h2>Your day</h2>
-    <div id="blocks"></div>
-    <div class="note" id="planNote"></div>
-    <div id="ifTime"></div>
-  </section>
-  <section>
-    <h2>Add a block</h2>
-    <div class="palette" id="palette"></div>
-  </section>
-  <section class="mini2"><button type="button" id="tplBtn">Save as my usual day</button><button type="button" id="clearBtn">Clear this day</button></section>
+  <div class="pgrid">
+    <section class="timesCard" id="planStart">
+      <div class="shRow"><span>Starts at</span><div class="shStep"><button type="button" id="planStartDn" aria-label="Earlier start">−</button><output id="planStartV"></output><button type="button" id="planStartUp" aria-label="Later start">+</button></div></div>
+      <div class="shRow"><span>Finish by</span><div class="shStep"><button type="button" id="planFinDn" aria-label="Earlier finish">−</button><output id="planFinV"></output><button type="button" id="planFinUp" aria-label="Later finish">+</button></div></div>
+      <div class="shRow"><span></span><button type="button" class="linkbtn" id="planFinOff">Remove the finish line</button></div>
+    </section>
+    <section class="pcal">
+      <form class="mForm" id="mForm" autocomplete="off">
+        <label>Meeting from<input id="mFrom" type="text" inputmode="numeric" maxlength="5" placeholder="09:00" autocomplete="off"></label>
+        <label>to<input id="mTo" type="text" inputmode="numeric" maxlength="5" placeholder="09:30" autocomplete="off"></label>
+        <button type="submit" class="dbtn main">+ Add meeting</button>
+      </form>
+      <p class="hint2">Just the times from your calendar. Drag a meeting to move it, or drag its bottom edge to change its length. Tap one for finer control.</p>
+      <div class="cal" id="cal"></div>
+    </section>
+    <section class="pstat">
+      <div class="pcard" id="planCard"></div>
+      <div class="note" id="planNote"></div>
+      <div id="ifTime"></div>
+      <div class="mini2"><button type="button" id="tplBtn">Save as my usual day</button><button type="button" id="clearBtn">Clear this day</button></div>
+    </section>
+  </div>
   <div class="bar">
+    <div id="selCard"></div>
     <div class="row">
       <span class="sum" id="planSum"></span>
       <button type="button" class="go" id="planGo">START DAY</button>
@@ -611,7 +658,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
     const K = KINDS[x.k];
     return { id, k: x.k, label: typeof x.label === 'string' ? x.label.slice(0, 30) : '', n: K.ph ? clampN(x.n, 1, 8, K.n) : 1, f: K.f || 0, sb: K.sb || 0,
       min: K.ph ? 0 : clampN(x.min, 5, 480, K.min), pin: clampN(x.pin, 0, 1439, null), prio: x.prio === 'nice' ? 'nice' : 'must',
-      st: ['todo', 'run', 'done', 'skip', 'drop'].includes(x.st) ? x.st : 'todo', si: clampN(x.si, 0, 20, 0), d: clampN(x.d, 0, 8, 0), sk: clampN(x.sk, 0, 8, 0) };
+      st: ['todo', 'run', 'done', 'skip', 'drop'].includes(x.st) ? x.st : 'todo', si: clampN(x.si, 0, 20, 0), d: clampN(x.d, 0, 8, 0), sk: clampN(x.sk, 0, 8, 0), g: !!x.g };
   }
   function cleanPlan(p) {
     if (!p || typeof p !== 'object' || p.day !== today() || !Array.isArray(p.blocks)) return null;
@@ -1064,7 +1111,15 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     else { sess.left = sess.phase === 'up' ? Math.max(0, now() - sess.startAt) : Math.max(0, sess.endAt - now()); sess.paused = true; say(pick('paused'), 0); }
     save(); scheduleSounds(); renderRun();
   }
+  // inside a day shape a timebox can't be stretched into the next pinned block (a meeting holds its clock time)
+  function canExtend(endTs) {
+    if (!sess || !sess.pl || !plan) return true;
+    const nb = plan.blocks.find((b) => b.st === 'todo' && b.pin != null);
+    return !nb || endTs + 5 * 60000 <= dayMs(nb.pin);
+  }
+  const boxEnd = () => (sess.paused ? now() + sess.left : sess.endAt);
   function extendBox() {                 // +5 min on a timebox
+    if (!canExtend(boxEnd())) return;
     const add = 5 * 60000;
     sess.dur += add;
     if (sess.paused) sess.left += add; else sess.endAt += add;
@@ -1141,7 +1196,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     const s = Math.max(0, up ? Math.floor(ms / 1000) : Math.ceil(ms / 1000)), h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), pad = (x) => String(x).padStart(2, '0');
     return h ? h + ':' + pad(m) + ':' + pad(s % 60) : m + ':' + pad(s % 60);
   };
-  const clock = (ts) => new Date(ts).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+  const clock = (ts) => new Date(ts).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });   // 24 hour clock
   const plural = (n, w) => n + ' ' + w + (n === 1 ? '' : 's');
   const hm = (min) => { min = Math.max(1, Math.round(min)); const h = Math.floor(min / 60), m = min % 60; return (h ? h + ' h ' : '') + (m ? m + ' min' : '').trim(); };
   // the set as segments: focus, short, focus, short ... focus, long
@@ -1185,7 +1240,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     const which = planOpen ? 'plan' : !sess ? 'home' : sess.wait ? 'wait' : 'run';
     $('home').hidden = which !== 'home'; $('run').hidden = which !== 'run'; $('wait').hidden = which !== 'wait'; $('plan').hidden = which !== 'plan';
     document.body.dataset.theme = which === 'plan' || !sess ? 'home' : sess.phase;
-    if (which === 'plan') { renderPlan(); document.title = 'Day shape · LOAF'; }
+    if (which === 'plan') { renderPlan(); document.title = 'Plan your day · LOAF'; }
     if (which === 'home') { renderHome(); document.title = 'LOAF'; }
     if (which === 'run') setupRun();
     if (which === 'wait') setupWait();
@@ -1205,6 +1260,9 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     $('setTrack').classList.toggle('plain', plain && !day);
     $('cameUp').hidden = !day;
     $('sofa').style.visibility = '';
+    const row = document.querySelector('#setTrack .trackRow');
+    if (day) { row.removeAttribute('aria-hidden'); row.setAttribute('role', 'button'); row.tabIndex = 0; row.setAttribute('aria-label', 'Your day. Show what is coming up.'); }
+    else { row.setAttribute('aria-hidden', 'true'); row.removeAttribute('role'); row.removeAttribute('tabindex'); row.removeAttribute('aria-label'); dayPopOpen = false; $('dayPop').hidden = true; }
     if (day) { planRunText(); buildDayTrack(); }
     else if (plain) {
       $('runTitle').textContent = p === 'box' ? 'TIMEBOX' : 'STOPWATCH';
@@ -1212,8 +1270,9 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
       $('of').textContent = p === 'box' ? 'of ' + fmt(sess.dur) : 'counting up';
       $('next').textContent = p === 'box' ? 'No breaks. Just this.' : 'Stretch reminder every hour';
     } else buildTrack();
-    $('skipBtn').textContent = p === 'box' ? '+5 min' : day && p === 'up' ? 'Finish' : day && p === 'meet' ? 'Ended early' : 'Skip';
+    $('skipBtn').textContent = p === 'box' ? (canExtend(boxEnd()) ? '+5 min' : 'Meeting next') : day && p === 'up' ? 'Finish' : day && p === 'meet' ? 'Ended early' : 'Skip';
     $('skipBtn').hidden = p === 'up' && !day;
+    $('skipBtn').disabled = p === 'box' && !canExtend(boxEnd());
     const corner = $('corner');
     corner.classList.toggle('lively', p === 'short' || p === 'long');
     setScene(p === 'short' ? 'park' : p === 'long' ? 'sofa' : 'room');
@@ -1250,6 +1309,8 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     else if (!plain) placeTrack(frac);
     else $('setLeft').textContent = sess.paused ? 'Paused' : up ? `Next stretch in ${hm((sess.dur - el % sess.dur) / 60000)}` : 'Ends at ' + clock(sess.endAt);
     document.body.classList.toggle('paused', sess.paused);
+    updateNext();
+    if (sess.phase === 'box') { const ok = canExtend(boxEnd()); $('skipBtn').disabled = !ok; $('skipBtn').textContent = ok ? '+5 min' : 'Meeting next'; }
     $('pauseBtn').textContent = sess.paused ? 'RESUME' : 'PAUSE';
     const t = `${sess.paused ? 'Paused · ' : ''}${shownT} ${{ focus: 'Focus', short: 'Zoomies', long: 'Sofa time', box: 'Timebox', up: 'Stopwatch', meet: 'Meeting' }[sess.phase]} · LOAF`;
     if (t !== lastTitle) { document.title = t; lastTitle = t; }
@@ -1319,13 +1380,25 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
 <path d="M28 24 Q28 18 34 18 L86 18 Q92 18 92 24 L98 134 Q98 144 88 144 L32 144 Q22 144 22 134 Z" fill="rgba(255,255,255,.12)" stroke="#f3c9bd" stroke-width="3"/>
 ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-dasharray="5 4"/></svg>`;
   }
+  // minutes of focus still needed for the next treat; the focus on screen right now counts, since finishing it banks it
+  function nextTreatMin() {
+    let got = jar.bank;
+    if (sess && !sess.wait && (sess.phase === 'focus' || sess.phase === 'box' || sess.phase === 'up')) {
+      got += sess.phase === 'up' ? Math.max(0, sess.paused ? sess.left : now() - sess.startAt) : Math.max(0, sess.dur - (sess.paused ? sess.left : Math.max(0, sess.endAt - now())));
+    }
+    return Math.max(1, Math.ceil((TREAT_MS - got % TREAT_MS) / 60000));
+  }
+  function updateNext() {
+    const t = 'next treat in ' + nextTreatMin() + ' min';
+    for (const id of ['jarRun', 'jarWait']) { const e = $(id).querySelector('.jn'); if (e && e.textContent !== t) e.textContent = t; }
+  }
   function renderJars() {
     rollDay();
     const art = jarArt(), label = `${jar.earned} of ${goalNow()} today`;
     const aria = `Treat jar: ${plural(jar.items.length, 'treat')} in it, ${label}. Tap to feed Lumi.`;
     for (const id of ['jarRun', 'jarWait', 'jarHome']) {
       const b = $(id);
-      b.innerHTML = art + `<span class="jc">${label}</span>` + (id === 'jarHome' ? '' : '<span class="jh">tap to feed Lumi</span>');
+      b.innerHTML = art + `<span class="jc">${label}</span>` + (id === 'jarHome' ? '' : `<span class="jh">tap to feed Lumi</span><span class="jh jn">next treat in ${nextTreatMin()} min</span>`);
       b.setAttribute('aria-label', aria);
     }
   }
@@ -1430,17 +1503,18 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   // so lateness never carries past it.
   function project(pl, cursor) {
     const rows = [];
-    let cur = cursor;
+    let cur = cursor, afterPin = false;
     for (const b of pl.blocks) {
       if (!live(b)) continue;
       let s = cur, e, late = 0;
       if (b.st === 'todo' && b.pin != null) {
         const p = dayMs(b.pin);
-        if (p >= cur) s = p; else late = cur - p;
+        if (p >= cur) s = p; else late = afterPin ? 0 : cur - p;      // double-booked meetings just run back to back: trimming can't fix them
         e = Math.max(s, p + bmin(b) * 60000);
       } else e = s + remMs(b);
       rows.push({ b, s, e, late });
       cur = e;
+      afterPin = b.pin != null;
     }
     return rows;
   }
@@ -1567,10 +1641,16 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     save(); showScreen();
     if (party) celebrate();
   }
-  function planStart() {
+  // ack: undefined = check the day fits first; a number = start anyway and treat that many minutes of lateness as already agreed
+  function planStart(ack) {
     if (!plan || !plan.blocks.some((b) => b.st === 'todo' || b.st === 'run')) return;
+    if (!plan.blocks.some((b) => b.st === 'run' || b.st === 'done')) plan.blocks.forEach((b) => { if (b.st === 'todo' && b.k === 'meet' && isPin(b) && dayMs(b.pin) + bmin(b) * 60000 <= now()) b.st = 'done'; });   // already over
+    if (ack === undefined && !hasClash()) {
+      const pr = problems(plan, now()), amount = Math.round(Math.max(pr.pins.length ? pr.pins[0].late : 0, pr.over) / 60000);
+      if (amount >= 5 && !plan.blocks.some((b) => b.st === 'run')) { openSheet({ t: 'pre', amount }); return; }
+    }
     ensureAudio().then(scheduleSounds); askNotify();
-    plan.run = true; plan.ack = 0; planOpen = false; sheetClose();
+    plan.run = true; plan.ack = ack || 0; planOpen = false; sheetClose();
     pending = pick('dayStart');
     const run = plan.blocks.find((b) => b.st === 'run');
     if (run) startPlanStep(run, run.si); else goNextBlock(now(), true);
@@ -1590,7 +1670,12 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const pl = sess.pl, b = blockById(pl.b);
     ensureAudio();
     if (kind === 'zoom' && b) { startPhase('short', 1, 0, [], Math.max(5 * 60000, dayMs(b.pin) - now()), { b: b.id, s: 0, gap: true, bound: false, prev: '' }); return; }
-    if (kind === 'more') {                           // five more minutes on the timebox that just finished
+    if (kind === 'over') {                           // the meeting is still going: ten more minutes, and the rest of the day moves
+      const last = plan.blocks.slice().reverse().find((x) => x.k === 'meet' && x.st === 'done');
+      if (last) { last.st = 'run'; last.si = 0; startPhase('meet', 1, 0, [], 10 * 60000, { b: last.id, s: 0, gap: false, bound: false, prev: '' }); }
+      return;
+    }
+    if (kind === 'more' && canExtend(now())) {       // five more minutes on the timebox that just finished
       const last = plan.blocks.slice().reverse().find((x) => x.k === 'box' && (x.st === 'done'));
       if (last) { last.st = 'run'; last.si = 0; pending = pick('boxMore'); startPhase('box', 1, 0, [], 5 * 60000, { b: last.id, s: 0, gap: false, bound: false, prev: '' }); }
     }
@@ -1605,7 +1690,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       title = pl.prev === 'box' ? "TIME'S UP!" : 'NEXT UP';
       sub = `${bname(b)} · ${hm(bmin(b))}${b.pin != null ? ' · at ' + tm(b.pin) : ''}`;
       go = 'START ' + (b.k === 'meet' ? 'MEETING' : KINDS[b.k].name.toUpperCase());
-      if (pl.prev === 'box') { alt = '5 more minutes'; act = 'more'; key = 'waitBox'; }
+      if (pl.prev === 'box' && canExtend(now())) { alt = '5 more minutes'; act = 'more'; key = 'waitBox'; }
+      else if (pl.prev === 'meet') { alt = 'Still in it: +10 min'; act = 'over'; }
     } else if (p === 'focus') { title = "BREAK'S OVER"; sub = `Pomodoro ${sess.n} of ${b.n} is ready when you are`; go = 'START FOCUS'; key = 'waitFocus'; }
     else { title = 'FOCUS DONE!'; sub = `Time for ${hm(sess.dur / 60000)} of zoomies`; go = 'START ZOOMIES'; }
     $('waitTitle').textContent = title; $('waitSub').textContent = sub; $('goBtn').textContent = go;
@@ -1664,16 +1750,40 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     meet: ['#94a3b8', 'rgba(148,163,184,.3)'], zoom: ['#4ade80', 'rgba(74,222,128,.25)'], sofa: ['#b9a2ff', 'rgba(185,162,255,.3)'], up: ['#7dd3fc', 'rgba(125,211,252,.25)'] };
   function buildDayTrack() {
     const list = plan.blocks.filter((b) => b.st !== 'drop'), cur = sess.pl.gap ? null : blockById(sess.pl.b);
+    const by = {};
+    project(plan, now()).forEach((r) => { by[r.b.id] = r; });
+    let prevE = null;
     $('segs').innerHTML = list.map((b) => {
-      const st = b === cur ? 'now' : b.st === 'done' ? 'done' : b.st === 'skip' ? 'skip' : 'todo', c = DAYC[b.k];
-      return `<div class="seg day ${st}" style="flex-grow:${Math.max(5, bmin(b))};--c:${c[0]};--cs:${c[1]}">${st === 'now' ? '<div class="fill"></div>' : ''}</div>`;
+      const st = b === cur ? 'now' : b.st === 'done' ? 'done' : b.st === 'skip' ? 'skip' : 'todo', c = DAYC[b.k], r = by[b.id];
+      let gap = '';
+      if (r && prevE != null && r.s - prevE >= 5 * 60000) gap = `<div class="seg gapS" style="flex-grow:${Math.round((r.s - prevE) / 60000)}"></div>`;   // free time before a meeting shows as space
+      if (r) prevE = r.e;
+      return gap + `<div class="seg day ${st}" style="flex-grow:${Math.max(5, bmin(b))};--c:${c[0]};--cs:${c[1]}">${st === 'now' ? '<div class="fill"></div>' : ''}</div>`;
     }).join('');
     const done = list.filter((b) => b.st === 'done').length;
     $('setTrack').setAttribute('aria-label', `Your day: ${done} of ${list.length} blocks done.`);
     $('tLumiArt').innerHTML = sess.phase === 'long' ? lumiLoaf(true) : lumiRun();
   }
+  let dayPopOpen = false;
+  function renderDayPop() {
+    const el = $('dayPop');
+    if (!dayPopOpen || !sess || !sess.pl || !plan) { el.hidden = true; return; }
+    const rows = project(plan, now()), cur = sess.pl.gap ? null : blockById(sess.pl.b);
+    el.innerHTML = '<h3>Coming up</h3>' + rows.slice(0, 5).map((r) => `<div class="dpRow k-${r.b.k}"><i></i><b>${esc(bname(r.b))}${r.b === cur ? ' · now' : ''}</b><span>${r.b === cur ? 'until ' + clock(r.e) : clock(r.s)}${isPin(r.b) && r.b.k === 'meet' ? ' · fixed' : ''}</span></div>`).join('') +
+      `<div class="dpFoot"><span>Day ends about ${clock(rows.length ? rows[rows.length - 1].e : now())}</span><button type="button" class="dbtn" data-dp="full">See the full day</button></div>`;
+    el.hidden = false;
+  }
+  $('setTrack').addEventListener('click', (e) => {
+    if (!sess || !sess.pl || !plan || $('run').hidden) return;
+    if (e.target.closest('[data-dp="full"]')) { dayPopOpen = false; openPlan(); return; }
+    if (e.target.closest('#dayPop')) return;
+    dayPopOpen = !dayPopOpen; renderDayPop();
+  });
+  $('setTrack').addEventListener('keydown', (e) => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.trackRow[role=button]')) { e.preventDefault(); dayPopOpen = !dayPopOpen; renderDayPop(); }
+  });
   function placeDayTrack() {
-    const list = plan.blocks.filter((b) => b.st !== 'drop'), segs = $('segs').children, pl = sess.pl;
+    const list = plan.blocks.filter((b) => b.st !== 'drop'), segs = $('segs').querySelectorAll('.seg:not(.gapS)'), pl = sess.pl;
     if (segs.length !== list.length) { buildDayTrack(); return; }
     let at = list.findIndex((b) => b.st === 'todo' || b.st === 'run'), prog = 0;
     if (pl.gap) { const i = list.findIndex((b) => b.id === pl.b); at = i < 0 ? at : i; }
@@ -1687,7 +1797,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     $('tLumi').style.bottom = '';
     const endsOnSofa = list[list.length - 1].k === 'sofa';
     $('sofa').style.visibility = endsOnSofa ? '' : 'hidden';
-    $('sofa').style.left = (base + last.offsetLeft + last.offsetWidth / 2) + 'px';
+    $('sofa').style.left = Math.min(base + last.offsetLeft + last.offsetWidth / 2, base + $('segs').offsetWidth - $('sofa').offsetWidth / 2) + 'px';   // never off the edge
+    renderDayPop();
     const L = lateness();
     $('setLeft').textContent = sess.paused ? 'Paused' : L && L.amount ? `${L.amount} min behind` : 'On time · ends about ' + clock(L ? L.pr.end : now());
   }
@@ -1724,6 +1835,11 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
           opt('push', 'Push everything', pin ? `${esc(bname(pin.b))} still holds ${tm(pin.b.pin)}, so you'd join it ${L.behind} min late` : `The day ends at ${clock(L.pr.end)} instead of ${tm(plan.fin)}`) +
           opt('later', 'Not now', '', 'quiet');
       }
+    } else if (sh.t === 'pre') {
+      const t = clonePlan(), notes = trimPlan(t, now()), pr = problems(plan, now()), pin = pr.pins[0];
+      h = `<h2 id="shTitle">This day won't quite fit</h2><p>${pin ? `Starting now, you'd join <b>${esc(bname(pin.b))}</b> ${sh.amount} min late.` : `It runs ${sh.amount} min past your finish line.`} Better to sort it now than halfway through.</p>` +
+        opt('pre-trim', 'Trim to fit and start', notes.length ? esc(notes.join('. ')) : 'Nothing nice-to-have left to trim', 'main') +
+        opt('pre-edit', 'Edit the day', 'Open the planner') + opt('pre-go', 'Start anyway', `I'll stay quiet about the ${sh.amount} min`) + opt('close', 'Never mind', '', 'quiet');
     } else if (sh.t === 'done') {
       h = `<h2 id="shTitle">${esc(sh.title)}</h2>${sh.list.length ? '<ul>' + sh.list.map((x) => `<li>${esc(x)}</li>`).join('') + '</ul>' : '<p>Nothing needed changing.</p>'}` + opt('close', 'OK', '', 'main');
     } else if (sh.t === 'up') {
@@ -1769,9 +1885,14 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   }
   function newBlock(k, o) {
     const K = KINDS[k];
-    return Object.assign({ id: nid++, k, label: '', n: K.ph ? K.n : 1, f: K.f || 0, sb: K.sb || 0, min: K.ph ? 0 : K.min, pin: null, prio: K.prio, st: 'todo', si: 0, d: 0, sk: 0 }, o || {});
+    return Object.assign({ id: nid++, k, label: '', n: K.ph ? K.n : 1, f: K.f || 0, sb: K.sb || 0, min: K.ph ? 0 : K.min, pin: null, prio: K.prio, st: 'todo', si: 0, d: 0, sk: 0, g: false }, o || {});
   }
-  function freshPlan(startMin) { return { day: today(), start: startMin == null ? nextQuarter(0) : startMin, fin: null, blocks: [], run: false, ack: 0, warned: 0 }; }
+  const DAYS = {
+    deep: ['A deep-work day', () => [newBlock('deep', { n: 3 }), newBlock('sofa', { min: 30, label: 'Lunch' }), newBlock('deep', { n: 3 }), newBlock('zoom'), newBlock('admin')]],
+    meet: ['A meeting-heavy day', () => [newBlock('admin', { n: 2 }), newBlock('meet', { min: 60, pin: 600 }), newBlock('deep'), newBlock('sofa', { min: 30, label: 'Lunch' }), newBlock('meet', { min: 30, pin: 840 }), newBlock('admin')]],
+    admin: ['An admin catch-up', () => [newBlock('admin', { n: 4 }), newBlock('zoom'), newBlock('admin', { n: 4 }), newBlock('sofa', { min: 30, label: 'Lunch' }), newBlock('admin')]],
+  };
+  function freshPlan(startMin) { const st = startMin == null ? nextQuarter(0) : startMin; return { day: today(), start: st, fin: Math.min(1439, st + 480), blocks: [], run: false, ack: 0, warned: 0 }; }
   // put a block where its time says it belongs: after everything that finishes before it, never ahead of the block on screen
   function insertAt(b) {
     let at = plan.blocks.length;
@@ -1805,7 +1926,11 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const val = a.includes(':') ? a.split(':')[1] : '';
     if (a === 'close') { sheetClose(); return; }
     if (a === 'up') { sh = { t: 'up' }; renderSheet(); return; }
-    if (sh.t === 'late') {
+    if (sh.t === 'pre') {
+      if (a === 'pre-trim') { trimPlan(plan, now()); save(); planStart(0); }
+      else if (a === 'pre-go') planStart(sh.amount);
+      else if (a === 'pre-edit') { sheetClose(); openPlan(); }
+    } else if (sh.t === 'late') {
       if (a === 'trim') {
         const notes = trimPlan(plan, now());
         plan.ack = 0; save(); sheetClose(); resync();
@@ -1876,7 +2001,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (!plan || !plan.blocks.length) {
       const pm = minDay(now()) >= 11 * 60;
       h = `<p class="dh">Line up the blocks for today and Lumi will walk you through them.</p><div class="drow"><button type="button" class="dbtn main" data-da="plan">${pm ? 'Plan the rest of my day' : 'Plan my day'}</button><button type="button" class="dbtn" data-da="how">How long have you got?</button></div>` +
-        (tpl.length ? '<div class="drow"><button type="button" class="dbtn" data-da="usual">Use my usual day</button></div>' : '');
+        (tpl.length ? '<div class="drow"><button type="button" class="dbtn" data-da="usual">Use my usual day</button></div>' : '') +
+        '<p class="dh">Or start from a ready-made day:</p><div class="drow">' + Object.keys(DAYS).map((k) => `<button type="button" class="dbtn" data-da="day:${k}">${DAYS[k][0]}</button>`).join('') + '</div>';
     } else {
       const rows = project(plan, plan.run ? now() : Math.max(now(), dayMs(plan.start))), end = rows.length ? rows[rows.length - 1].e : now();
       const doneN = plan.blocks.filter((b) => b.st === 'done').length;
@@ -1898,6 +2024,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (a === 'plan') openPlan();
     else if (a === 'how') openSheet({ t: 'how', mode: 'len', len: 60, until: Math.min(1425, nextQuarter(60)), kind: 'deep' });
     else if (a === 'usual') { plan = freshPlan(); plan.blocks = tpl.map((b) => Object.assign({}, b, { id: nid++ })); save(); openPlan(); }
+    else if (a.startsWith('day:')) { plan = freshPlan(); plan.blocks = DAYS[a.slice(4)][1](); save(); openPlan(); }
     else if (a === 'start') planStart();
     else if (a === 'clear') {
       if (plan && plan.blocks.some((b) => b.st === 'todo' || b.st === 'run') && !t.dataset.armed) {      // a second tap, so a stray thumb doesn't wipe the day
@@ -1913,137 +2040,288 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     }
   });
 
-  /* ---------- the planner ---------- */
-  let editId = 0, dragId = 0;
+  /* ---------- the planner: a calendar-style day ---------- */
+  const PXM = 64 / 60;                                 // pixels per minute on the grid
+  const LOCKSVG = '<svg class="lk" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="currentColor"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>';
+  let editId = 0, planMsg = '', lunchMsg = false, suppress = false;
+  const isPin = (b) => b.pin != null;
   function openPlan() {
     if (!plan) plan = freshPlan();
-    editId = 0; planOpen = true; showScreen();
+    editId = 0; planMsg = ''; planOpen = true;
+    if (!plan.run) { ensureLunch(); save(); }
+    showScreen();
   }
   function closePlan() {
-    if (plan && !plan.blocks.length && !plan.run) plan = null;
+    if (plan && !plan.run && plan.blocks.every((b) => b.label === 'Lunch')) plan = null;
     planOpen = false; save(); showScreen();
   }
-  function detail(b) { return KINDS[b.k].ph ? `${b.n} × ${b.f} min focus` + (b.n > 1 ? ', zoomies between' : '') : KINDS[b.k].d; }
+  // "9", "930", "09:30", "15:15" all work
+  function parseT(v) {
+    const m = /^\s*(\d{1,2})(?::?(\d{2}))?\s*$/.exec(v || '');
+    if (!m) return null;
+    const h = +m[1], mi = m[2] ? +m[2] : 0;
+    return h > 23 || mi > 59 ? null : h * 60 + mi;
+  }
+  // where every block sits on the day's clock: pinned ones at their time, the rest stacked from the end of the one before
+  function layout() {
+    const items = [];
+    let cur = plan.start;
+    for (const b of plan.blocks) {
+      if (b.st === 'drop') continue;
+      if (isPin(b)) { items.push({ b, s: b.pin, e: b.pin + bmin(b) }); cur = b.pin + bmin(b); }
+      else { items.push({ b, s: cur, e: cur + bmin(b) }); cur += bmin(b); }
+    }
+    return items;
+  }
+  // the stretches of free time: from the start to the first pinned block, between pinned blocks, and from the last one to the finish line
+  function segments() {
+    const items = layout(), segs = [];
+    let s0 = plan.start, run = [];
+    for (const it of items) {
+      if (isPin(it.b)) { segs.push({ s: s0, e: it.s, run, after: it.b }); run = []; s0 = it.e; }
+      else run.push(it);
+    }
+    segs.push({ s: s0, e: plan.fin, run, after: null });
+    return { items, segs };
+  }
+  function segRoom(sg) {                               // how much of a stretch is still free to fill; 5 min is kept clear before a meeting
+    let s0 = sg.s;
+    sg.run.forEach((it) => { if (it.b.st !== 'todo') s0 += bmin(it.b); });
+    if (plan.run) s0 = Math.max(s0, Math.ceil(minDay(now()) / 5) * 5);
+    const e = sg.e == null ? null : sg.e - (sg.after ? 5 : 0);
+    return { s0, e, avail: e == null ? 0 : e - s0 };
+  }
+  function fillSeg(sg, kind) {                         // replace what is still to do in a stretch with a preset; false if it won't fit
+    const pr = kind ? proposal(segRoom(sg).avail, kind) : { blocks: [] };
+    if (kind && !pr.blocks.length) return false;
+    const gone = sg.run.filter((it) => it.b.st === 'todo').map((it) => it.b);
+    plan.blocks = plan.blocks.filter((b) => !gone.includes(b));
+    pr.blocks.forEach((b) => { b.g = true; });          // made by a preset, so it may be re-fitted later
+    let at = sg.after ? plan.blocks.indexOf(sg.after) : plan.blocks.findIndex((b) => b.st === 'drop');
+    if (at < 0) at = plan.blocks.length;
+    plan.blocks.splice(at, 0, ...pr.blocks);
+    return true;
+  }
+  // put a pinned block in time order
+  function place(b) {
+    plan.blocks = plan.blocks.filter((x) => x !== b);
+    const hit = layout().find((it) => it.s >= b.pin);
+    let at = hit ? plan.blocks.indexOf(hit.b) : plan.blocks.findIndex((x) => x.st === 'drop');
+    if (at < 0) at = plan.blocks.length;
+    plan.blocks.splice(at, 0, b);
+  }
+  // a stretch that got shorter (a meeting moved in) shrinks its preset to fit
+  function refit() {
+    if (!plan) return;
+    for (const sg of segments().segs) {
+      if (sg.e == null) continue;
+      const td = sg.run.filter((it) => it.b.st === 'todo').map((it) => it.b);
+      if (!td.length || !td.every((b) => b.g)) continue;
+      const room = segRoom(sg);
+      if (room.s0 + td.reduce((m, b) => m + bmin(b), 0) <= room.e) continue;
+      if (!fillSeg(sg, td[0].k === 'lfoc' ? 'deep' : td[0].k)) fillSeg(sg, null);
+    }
+  }
+  function daySpan() {
+    const end = plan.fin != null ? plan.fin : layout().reduce((m, it) => Math.max(m, it.e), plan.start);
+    return end - plan.start;
+  }
+  // a day over 7 hours always has 30 min for lunch, as close to midday as the meetings allow
+  function ensureLunch() {
+    lunchMsg = false;
+    if (!plan || plan.run || daySpan() <= 420 || plan.blocks.some((b) => b.st !== 'drop' && (b.label === 'Lunch' || (!isPin(b) && !b.g)))) return;   // a day laid out by hand looks after its own breaks
+    const busy = layout().filter((it) => isPin(it.b));
+    let best = -1;
+    for (let t = 690; t <= 810; t += 15) {
+      if (t < plan.start || t + 30 > (plan.fin != null ? plan.fin : 1440) || busy.some((it) => t < it.e && t + 30 > it.s)) continue;
+      if (best < 0 || Math.abs(t - 720) < Math.abs(best - 720)) best = t;
+    }
+    if (best < 0) { lunchMsg = true; return; }
+    place(newBlock('sofa', { label: 'Lunch', min: 30, pin: best }));
+  }
+  function hasClash() {
+    const pins = layout().filter((it) => isPin(it.b));
+    return pins.some((it, i) => i && it.s < pins[i - 1].e);
+  }
+  function afterEdit() {
+    ensureLunch(); refit();
+    if (plan.run) { plan.ack = 0; resync(); }
+    save(); renderPlan();
+  }
+  function addMeeting() {
+    const f = parseT($('mFrom').value), t = parseT($('mTo').value);
+    planMsg = '';
+    if (f == null || t == null) planMsg = 'Type the times like 09:00 and 09:30.';
+    else if (t <= f) planMsg = 'A meeting has to end after it starts.';
+    if (planMsg) { renderPlan(); return; }
+    const b = newBlock('meet', { min: Math.min(480, t - f), pin: f });
+    place(b); editId = 0;
+    $('mFrom').value = ''; $('mTo').value = ''; $('mFrom').focus();
+    afterEdit();
+  }
   function renderPlan() {
     if (!plan) return;
-    const run = plan.run, cursor = run ? now() : dayMs(plan.start), rows = project(plan, cursor), by = {};
-    rows.forEach((r) => { by[r.b.id] = r; });
-    const fin = plan.fin != null ? dayMs(plan.fin) : 0;
-    $('planSub').textContent = run ? 'Finished blocks are locked. Change anything still to come.' : 'Build your day, then let Lumi walk you through it';
+    const run = plan.run, cursor = run ? now() : dayMs(plan.start), nowM = minDay(now());
+    const { items, segs } = segments();
+    $('planSub').textContent = run ? 'Finished blocks are locked. Change anything still to come.' : 'Meetings in, gaps filled, off you go';
     $('planStart').hidden = run;
     $('planStartV').textContent = tm(plan.start);
     $('planFinV').textContent = plan.fin != null ? tm(plan.fin) : 'No finish line';
     $('planFinOff').hidden = plan.fin == null;
-    let h = '', prevEnd = cursor;
-    const shown = plan.blocks.filter((b) => b.st !== 'drop');
-    shown.forEach((b) => {
-      const r = by[b.id], lock = !live(b), K = KINDS[b.k];
-      if (r && r.s - prevEnd >= 10 * 60000 && b.pin != null) h += `<div class="gapRow">${hm((r.s - prevEnd) / 60000)} spare before ${esc(bname(b))}. Lumi will offer a timebox.</div>`;
-      if (r) prevEnd = r.e;
-      const over = r && fin && r.e > fin + 30000, late = r && r.late > 30000;
-      const chips = (b.pin != null ? `<span class="chip pin">pinned ${tm(b.pin)}</span>` : '') + `<span class="chip ${b.prio}">${b.prio === 'must' ? 'must' : 'nice'}</span>` +
-        (late ? `<span class="chip warn">starts ${Math.round(r.late / 60000)} min late</span>` : '') + (over ? '<span class="chip warn">past the finish line</span>' : '');
-      const when = lock ? (b.st === 'skip' ? 'skipped' : b.st === 'run' ? 'now' : 'done') : r ? clock(r.s) : '';
-      h += `<div class="blk k-${b.k} ${b.st}" data-id="${b.id}"><button type="button" class="grab" data-pa="grab" aria-label="Drag ${esc(bname(b))} to reorder"${lock ? ' disabled' : ''}>⠿</button>` +
-        `<button type="button" class="bmain" data-pa="edit" aria-expanded="${editId === b.id}"><span class="bt">${when}</span><span class="bi"><b>${esc(bname(b))}</b><small>${detail(b)}</small><span class="chips2">${lock ? '' : chips}</span></span><span class="bd">${hm(bmin(b))}</span></button></div>`;
-      if (editId === b.id && !lock) {
-        const ph = !!K.ph;
-        h += `<div class="bedit" data-id="${b.id}"><label class="fld">Name<input type="text" data-pf="label" maxlength="30" placeholder="${esc(K.name)}" value="${esc(b.label)}"></label>` +
-          `<div class="shRow"><span>${ph ? 'Pomodoros' : 'Length'}</span>${stepper2('len', ph ? `${b.n} × ${b.f} min` : hm(b.min))}</div>` +
-          `<div class="shRow"><span>Priority</span><div class="seg2"><button type="button" data-pa="prio:must" aria-pressed="${b.prio === 'must'}">Must</button><button type="button" data-pa="prio:nice" aria-pressed="${b.prio === 'nice'}">Nice to have</button></div></div>` +
-          `<div class="shRow"><span>Clock time</span><div class="seg2"><button type="button" data-pa="pin:off" aria-pressed="${b.pin == null}">Flexible</button><button type="button" data-pa="pin:on" aria-pressed="${b.pin != null}">Pinned</button></div></div>` +
-          (b.pin != null ? `<div class="shRow"><span>Pinned at</span>${stepper2('pin', tm(b.pin))}</div>` : '') +
-          `<div class="shRow acts"><button type="button" data-pa="up">▲ Up</button><button type="button" data-pa="down">▼ Down</button><button type="button" data-pa="del" class="danger">Remove</button></div></div>`;
-      }
+    // flags: meetings that overlap, and blocks that run into the next meeting
+    const pins = items.filter((it) => isPin(it.b)), clash = new Set(), over = new Set();
+    pins.forEach((it, i) => { if (i && it.s < pins[i - 1].e) { clash.add(it.b.id); clash.add(pins[i - 1].b.id); } });
+    items.forEach((it, i) => { if (isPin(it.b)) return; const nx = items.slice(i + 1).find((x) => isPin(x.b)); if (nx && it.e > nx.s) over.add(it.b.id); });
+    const lo = Math.max(0, Math.floor(Math.min(plan.start, ...items.map((it) => it.s)) / 60) * 60);
+    const hi = Math.min(1440, Math.ceil(Math.max(plan.fin != null ? plan.fin : 0, plan.start + 120, ...items.map((it) => it.e)) / 60) * 60);
+    const y = (m) => Math.round((m - lo) * PXM);
+    let h = '';
+    for (let m = lo; m <= hi; m += 15) {
+      if (m % 60 === 0) h += `<div class="hl" style="top:${y(m)}px"></div><span class="ht" style="top:${y(m) - 9}px">${m === 1440 ? '24:00' : tm(m)}</span>`;
+      else if (m < hi) h += `<div class="ql${m % 30 ? '' : ' hf'}" style="top:${y(m)}px"></div>`;
+    }
+    segs.forEach((sg) => {
+      if (sg.e == null) { if (sg.s < hi) h += `<div class="civ open" style="top:${y(sg.s)}px;height:30px"><span class="civl">Set a finish line to plan after your last meeting</span></div>`; return; }
+      if (sg.e - sg.s < 5) return;
+      const past = run && sg.e <= nowM, can = !past && sg.e - sg.s >= 15, aid = sg.after ? sg.after.id : 0;
+      const td = sg.run.filter((it) => it.b.st === 'todo'), kind = td.length ? (td[0].b.k === 'lfoc' ? 'deep' : td[0].b.k) : '';
+      const chips = can ? [['deep', 'Focus'], ['admin', 'Admin'], ['box', 'Timebox']].map((c) => `<button type="button" class="gp" data-pa="gap:${aid}:${c[0]}" aria-pressed="${kind === c[0]}">${c[1]}</button>`).join('') +
+        (td.length ? `<button type="button" class="gp" data-pa="gap:${aid}:clear" aria-label="Clear this gap">✕</button>` : '') : '';
+      h += `<div class="civ${past ? ' past' : ''}" style="top:${y(sg.s)}px;height:${Math.max(22, y(sg.e) - y(sg.s) - 3)}px">${td.length ? '' : `<span class="civl">${hm(sg.e - sg.s)} free</span>`}${chips}</div>`;
     });
-    if (!shown.length) h = '<p class="empty">Nothing here yet. Tap a block below to add it, or let Lumi suggest a day with "How long have you got?".</p>';
-    $('blocks').innerHTML = h;
+    items.forEach((it) => {
+      const b = it.b, pin = isPin(b), ed = b.st === 'todo', ht = Math.max(18, y(it.e) - y(it.s) - 3);
+      const cls = ['cb', 'k-' + b.k, pin ? 'pin' : 'fill', b.st !== 'todo' ? b.st : '', ed && pin ? 'ed' : '', ht < 26 ? 'small' : '', editId === b.id ? 'sel' : '', clash.has(b.id) ? 'clash' : '', over.has(b.id) ? 'over' : ''].filter(Boolean).join(' ');
+      h += `<div class="${cls}" data-id="${b.id}" data-pa="sel" role="button" tabindex="0" style="top:${y(it.s)}px;height:${ht}px" aria-label="${esc(bname(b))}, ${tm(it.s)} to ${tm(it.e)}">` +
+        `<span class="cbn">${esc(bname(b))}</span>${KINDS[b.k].ph ? `<span class="cbs">${b.n} × ${b.f}</span>` : ''}${b.k === 'meet' ? LOCKSVG : ''}<span class="cbt">${tm(it.s)}–${tm(it.e)}</span>${pin && ed ? '<i class="rsz" aria-hidden="true"></i>' : ''}</div>`;
+    });
+    const tail = items.reduce((m, it) => Math.max(m, it.e), 0);
+    if (plan.fin != null) {
+      const ov = tail > plan.fin;
+      h += `<div class="fin${ov ? ' over' : ''}" style="top:${y(plan.fin) - 1}px"></div><div class="finl${ov ? ' over' : ''}" style="top:${y(plan.fin) + 6}px">🏁 Finish ${tm(plan.fin)}${ov ? ' · ' + hm(tail - plan.fin) + ' over' : ''}</div>`;
+    }
+    const cal = $('cal');
+    cal.style.height = (y(hi) + 40) + 'px'; cal.dataset.lo = lo;
+    cal.innerHTML = h;
     const dropped = plan.blocks.filter((b) => b.st === 'drop');
     $('ifTime').innerHTML = dropped.length ? `<h2>If there's time</h2>` + dropped.map((b) => `<div class="ifrow"><span><b>${esc(bname(b))}</b> · ${hm(bmin(b))}</span><button type="button" data-pa="back:${b.id}">Add back</button></div>`).join('') : '';
-    const pr = problems(plan, cursor), total = shown.filter(live).reduce((m, b) => m + bmin(b), 0);
-    let note = '';
-    if (pr.pins.length) note = `Blocks before ${esc(bname(pr.pins[0].b))} run ${Math.round(pr.pins[0].late / 60000)} min into its start.`;
-    else if (pr.over > 30000) note = `The day runs ${Math.round(pr.over / 60000)} min past your finish line.`;
-    $('planNote').innerHTML = note ? `${note} <button type="button" class="linkbtn" data-pa="trim">Trim to fit</button>` : '';
-    $('planSum').textContent = rows.length ? `${rows.length} block${rows.length === 1 ? '' : 's'} · ${hm(total)} · ${clock(rows[0].s)} → ${clock(pr.end)}` : 'No blocks yet';
+    // the verdict
+    const pr = problems(plan, cursor), liveB = plan.blocks.filter((b) => b.st !== 'drop' && live(b)), clashAny = clash.size > 0;
+    const ovr = Math.round(pr.over / 60000), bad = ovr >= 1 || (pr.pins.length && !clashAny);
+    let head = 'Looks good', big, sub = 'Meetings hold their times. Lumi nudges you 5 min before each one.', warn = false;
+    if (!liveB.some((b) => b.label !== 'Lunch')) { head = 'Start here'; big = 'Add your meetings'; sub = 'Type the times from your calendar. No names needed.'; }
+    else if (bad) { head = 'Needs a trim'; warn = true; big = ovr >= 1 ? `${hm(ovr)} too long` : 'Runs into a meeting'; sub = 'Trim to fit shrinks the nice-to-haves first. Meetings never move.'; }
+    else {
+      big = 'Ends about ' + clock(pr.end);
+      const spare = plan.fin != null ? Math.round((dayMs(plan.fin) - pr.end) / 60000) : 0;
+      if (spare >= 1) sub = `${hm(spare)} spare before ${tm(plan.fin)}. ` + sub;
+    }
+    const goal = goalNow(), hasFocus = plan.blocks.some((b) => b.st !== 'drop' && (KINDS[b.k].ph || b.k === 'box'));
+    $('planCard').innerHTML = `<div class="ph">${head}</div><div class="pb${warn ? ' warn' : ''}">${big}</div><p>${sub}</p>` + (hasFocus ? `<div class="pgoal">Treat goal <b>${goal}</b></div>` : '');
+    $('planCard').classList.toggle('warn', warn);
+    const notes = [];
+    if (clashAny) notes.push('Two meetings overlap. Drag one to a free slot.');
+    else if (pr.pins.length) notes.push(`Blocks before ${esc(bname(pr.pins[0].b))} run ${Math.round(pr.pins[0].late / 60000)} min into its start.`);
+    else if (ovr >= 1) notes.push(`The day runs ${hm(ovr)} past your finish line.`);
+    if (lunchMsg) notes.push('There is no free 30 min around midday for lunch. Free some time up.');
+    if (planMsg) notes.push(esc(planMsg));
+    $('planNote').innerHTML = notes.join('<br>') + (bad && !clashAny ? ' <button type="button" class="linkbtn" data-pa="trim">Trim to fit</button>' : '');
+    const meetN = plan.blocks.filter((b) => b.k === 'meet' && b.st !== 'drop').length;
+    const focusMin = plan.blocks.reduce((m, b) => m + (b.st === 'drop' ? 0 : KINDS[b.k].ph ? b.n * b.f : b.k === 'box' ? b.min : 0), 0);
+    $('planSum').textContent = plan.blocks.some((b) => b.st !== 'drop') ? `${meetN} meeting${meetN === 1 ? '' : 's'} · ${hm(focusMin || 0) === '0 min' ? 'no focus yet' : hm(focusMin) + ' of focus'}` : 'Nothing planned yet';
     $('planGo').textContent = run ? 'DONE' : 'START DAY';
-    $('planGo').disabled = !run && !rows.length;
-    $('palette').innerHTML = Object.keys(KINDS).map((k) => `<button type="button" class="pal2 k-${k}" data-pa="add:${k}"><b>${KINDS[k].name}</b><small>${KINDS[k].ph ? `${KINDS[k].n} × ${KINDS[k].f} min` : hm(KINDS[k].min)}</small></button>`).join('');
+    $('planGo').disabled = !run && !liveB.length;
     $('tplBtn').textContent = tpl.length ? 'Update my usual day' : 'Save as my usual day';
+    $('selCard').innerHTML = selHtml(items);
   }
   const stepper2 = (what, text) => `<div class="shStep"><button type="button" data-pa="${what}-" aria-label="Less">−</button><output>${text}</output><button type="button" data-pa="${what}+" aria-label="More">+</button></div>`;
-  function planAct(a, id, el) {
+  function selHtml(items) {                             // the card for the block you tapped
+    const it = editId && items.find((x) => x.b.id === editId);
+    if (!it) { editId = 0; return ''; }
+    const b = it.b, K = KINDS[b.k], title = `<b>${esc(bname(b))}</b> <span>${tm(it.s)}–${tm(it.e)}</span>`;
+    if (b.st !== 'todo') return `<div class="selc" data-id="${b.id}"><div class="selt">${title}</div><span class="seln">${b.st === 'run' ? 'On now' : b.st === 'skip' ? 'Skipped' : 'Done'}</span><button type="button" data-pa="close">OK</button></div>`;
+    let rows = '', del = '';
+    if (isPin(b)) rows = `<div class="shRow"><span>Starts</span>${stepper2('st', tm(b.pin))}</div><div class="shRow"><span>Length</span>${stepper2('len', hm(b.min))}</div>`;
+    else rows = `<div class="shRow"><span>${K.ph ? 'Pomodoros' : 'Length'}</span>${stepper2('len', K.ph ? `${b.n} × ${b.f} min` : hm(b.min))}</div>`;
+    if (isPin(b)) del = b.label === 'Lunch' && daySpan() > 420 ? '' : '<button type="button" class="danger" data-pa="del">Remove</button>';
+    else del = '<button type="button" data-pa="clrgap">Clear this gap</button>';
+    return `<div class="selc" data-id="${b.id}"><div class="selt">${title}</div>${rows}<div class="sela">${del}<button type="button" data-pa="close">OK</button></div></div>`;
+  }
+  function planAct(a, id) {
     const b = plan.blocks.find((x) => x.id === id), val = a.includes(':') ? a.split(':')[1] : '';
-    if (a.startsWith('add:')) { const nb = newBlock(val); plan.blocks.push(nb); editId = nb.id; }
-    else if (a.startsWith('back:')) { const x = plan.blocks.find((y) => y.id === +val); if (x) x.st = 'todo'; }
-    else if (a === 'trim') { const notes = trimPlan(plan, plan.run ? now() : dayMs(plan.start)); save(); renderPlan(); if (notes.length) say(pick('trimmed'), 6000); return; }
-    else if (a === 'edit') editId = editId === id ? 0 : id;
-    else if (b) {
-      const K = KINDS[b.k];
-      if (a === 'len-' || a === 'len+') {
-        const d = a === 'len+' ? 1 : -1;
-        if (K.ph) b.n = Math.min(8, Math.max(minN(b), b.n + d)); else b.min = Math.min(480, Math.max(5, b.min + d * 5));
-      }
-      else if (a === 'pin-' || a === 'pin+') b.pin = Math.min(1425, Math.max(0, b.pin + (a === 'pin+' ? 15 : -15)));
-      else if (a === 'pin:on') b.pin = b.pin == null ? nextQuarter(60) : b.pin;
-      else if (a === 'pin:off') b.pin = null;
-      else if (a.startsWith('prio:')) b.prio = val;
-      else if (a === 'up' || a === 'down') {
-        const i = plan.blocks.indexOf(b), dir = a === 'up' ? -1 : 1;
-        let j = i + dir;
-        while (plan.blocks[j] && plan.blocks[j].st === 'drop') j += dir;      // dropped blocks aren't on screen
-        if (plan.blocks[j] && live(plan.blocks[j])) { plan.blocks[i] = plan.blocks[j]; plan.blocks[j] = b; }
-      }
-      else if (a === 'del') { plan.blocks.splice(plan.blocks.indexOf(b), 1); editId = 0; }
+    planMsg = '';
+    if (a === 'sel') { editId = editId === id ? 0 : id; renderPlan(); return; }
+    if (a === 'close') { editId = 0; renderPlan(); return; }
+    if (a.startsWith('back:')) { const x = plan.blocks.find((y) => y.id === +val); if (x) x.st = 'todo'; afterEdit(); return; }
+    if (a === 'trim') { const notes = trimPlan(plan, plan.run ? now() : dayMs(plan.start)); save(); renderPlan(); if (notes.length) say(pick('trimmed'), 6000); return; }
+    if (a.startsWith('gap:')) {
+      const [, aid, kind] = a.split(':');
+      const sg = segments().segs.find((s) => (s.after ? s.after.id : 0) === +aid);
+      if (sg && !fillSeg(sg, kind === 'clear' ? null : kind)) planMsg = 'That gap is too short for that.';
+      afterEdit(); return;
     }
-    if (plan.run) { plan.ack = 0; resync(); }
-    save(); renderPlan();
-    if (a.startsWith('add:')) { const e = $('blocks').querySelector(`.bedit[data-id="${editId}"]`); if (e) e.scrollIntoView({ block: 'nearest' }); }
+    if (!b || b.st !== 'todo') { renderPlan(); return; }
+    const K = KINDS[b.k];
+    if (a === 'st-' || a === 'st+') { b.pin = clampN(b.pin + (a === 'st+' ? 5 : -5), 0, 1440 - b.min, b.pin); place(b); }
+    else if (a === 'len-' || a === 'len+') {
+      const d = a === 'len+' ? 1 : -1;
+      if (K.ph) b.n = Math.min(8, Math.max(1, b.n + d)); else b.min = Math.min(480, Math.max(5, b.min + d * 5));
+      if (isPin(b)) place(b);
+    }
+    else if (a === 'del') {
+      if (b.label === 'Lunch' && daySpan() > 420) planMsg = 'Lunch stays in on days over 7 hours. Drag it to move it.';
+      else { plan.blocks = plan.blocks.filter((x) => x !== b); editId = 0; }
+    }
+    else if (a === 'clrgap') { const sg = segments().segs.find((s) => s.run.some((it) => it.b === b)); if (sg) { fillSeg(sg, null); editId = 0; } }
+    afterEdit();
   }
   $('plan').addEventListener('click', (e) => {
     const t = e.target.closest('[data-pa]');
     if (!t || !plan) return;
-    if (t.dataset.pa === 'grab') return;
+    if (suppress && t.dataset.pa === 'sel') return;
     const row = t.closest('[data-id]');
-    planAct(t.dataset.pa, row ? +row.dataset.id : 0, t);
+    planAct(t.dataset.pa, row ? +row.dataset.id : 0);
   });
-  $('plan').addEventListener('input', (e) => {
-    const t = e.target.closest('[data-pf]');
-    if (!t || !plan) return;
-    const b = plan.blocks.find((x) => x.id === +t.closest('[data-id]').dataset.id);
-    if (b) { b.label = t.value.slice(0, 30); save(); }
+  $('cal').addEventListener('keydown', (e) => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('cb') && plan) { e.preventDefault(); planAct('sel', +e.target.dataset.id); }
   });
+  $('mForm').addEventListener('submit', (e) => { e.preventDefault(); if (plan) addMeeting(); });
   $('planBack').addEventListener('click', closePlan);
   $('planGo').addEventListener('click', () => { if (plan && plan.run) closePlan(); else planStart(); });
-  $('planStartDn').addEventListener('click', () => { plan.start = Math.max(0, plan.start - 15); save(); renderPlan(); });
-  $('planStartUp').addEventListener('click', () => { plan.start = Math.min(1425, plan.start + 15); save(); renderPlan(); });
-  $('planFinDn').addEventListener('click', () => { plan.fin = Math.max(15, (plan.fin == null ? nextQuarter(240) : plan.fin) - 15); save(); renderPlan(); });
-  $('planFinUp').addEventListener('click', () => { plan.fin = Math.min(1439, (plan.fin == null ? nextQuarter(240) : plan.fin) + 15); save(); renderPlan(); });
-  $('planFinOff').addEventListener('click', () => { plan.fin = null; save(); renderPlan(); });
+  const setStart = (d) => { plan.start = Math.min(1425, Math.max(0, plan.start + d)); afterEdit(); };
+  const setFin = (d) => { plan.fin = Math.min(1439, Math.max(15, (plan.fin == null ? nextQuarter(240) : plan.fin) + d)); afterEdit(); };
+  $('planStartDn').addEventListener('click', () => setStart(-15));
+  $('planStartUp').addEventListener('click', () => setStart(15));
+  $('planFinDn').addEventListener('click', () => setFin(-15));
+  $('planFinUp').addEventListener('click', () => setFin(15));
+  $('planFinOff').addEventListener('click', () => { plan.fin = null; afterEdit(); });
   $('tplBtn').addEventListener('click', () => { tpl = plan.blocks.filter((b) => b.st !== 'drop').map((b) => cleanBlock(Object.assign({}, b, { st: 'todo', si: 0, d: 0, sk: 0 }), b.id)).filter(Boolean); save(); renderPlan(); $('tplBtn').textContent = 'Saved'; });
   $('clearBtn').addEventListener('click', () => { if (plan.run) return; plan = null; save(); closePlan(); });
-  // drag a block by its handle (the Up and Down buttons do the same job for keyboards)
-  document.addEventListener('pointerdown', (e) => {
-    const g = e.target.closest && e.target.closest('.grab');
-    if (!g || g.disabled || !plan || $('plan').hidden) return;
-    const row = g.closest('.blk'), box = $('blocks');
-    e.preventDefault();
-    dragId = +row.dataset.id; row.classList.add('drag');
+  // drag a meeting to move it, or its bottom edge to change its length, in 15 min steps
+  $('cal').addEventListener('pointerdown', (e) => {
+    const cb = e.target.closest && e.target.closest('.cb.pin.ed');
+    if (!cb || !plan || e.button > 0) return;
+    const b = plan.blocks.find((x) => x.id === +cb.dataset.id);
+    if (!b) return;
+    const size = !!e.target.closest('.rsz'), y0 = e.clientY, o = { pin: b.pin, min: b.min }, lo = +$('cal').dataset.lo, tag = cb.querySelector('.cbt');
+    let moved = false, pin = o.pin, min = o.min;
     const move = (ev) => {
-      const rows = [...box.querySelectorAll('.blk')];
-      for (const r of rows) {
-        if (r === row || r.classList.contains('done') || r.classList.contains('skip')) continue;
-        const bb = r.getBoundingClientRect();
-        if (ev.clientY > bb.top && ev.clientY < bb.bottom) { if (ev.clientY < bb.top + bb.height / 2) r.before(row); else r.after(row); break; }
-      }
+      const d = ev.clientY - y0;
+      if (Math.abs(d) > 4) moved = true;
+      if (!moved) return;
+      const dm = Math.round(d / PXM / 15) * 15;
+      if (size) { min = Math.max(15, Math.min(480, o.min + dm)); cb.style.height = Math.max(18, Math.round(min * PXM) - 3) + 'px'; }
+      else { pin = Math.max(0, Math.min(1440 - o.min, o.pin + dm)); cb.style.top = Math.round((pin - lo) * PXM) + 'px'; }
+      cb.classList.add('drag');
+      if (tag) tag.textContent = `${tm(pin)}–${tm(pin + min)}`;
     };
     const end = () => {
       document.removeEventListener('pointermove', move); document.removeEventListener('pointerup', end); document.removeEventListener('pointercancel', end);
-      const order = [...box.querySelectorAll('.blk')].map((r) => +r.dataset.id), hidden = plan.blocks.filter((b) => b.st === 'drop');
-      const sorted = order.map((id) => plan.blocks.find((b) => b.id === id)).filter(Boolean);
-      plan.blocks = sorted.filter((b) => !live(b)).concat(sorted.filter(live), hidden);
-      dragId = 0; if (plan.run) { plan.ack = 0; resync(); }
-      save(); renderPlan();
+      if (!moved) return;
+      suppress = true; setTimeout(() => { suppress = false; }, 0);
+      b.pin = pin; b.min = min;
+      if (!size) place(b);
+      afterEdit();
     };
     document.addEventListener('pointermove', move); document.addEventListener('pointerup', end); document.addEventListener('pointercancel', end);
   });
