@@ -16,6 +16,9 @@
 body[data-theme=focus]{--bg:#5b1a12;--accent:#ff9a7d;--soft:#f3c9bd}
 body[data-theme=short]{--bg:#14532d;--accent:#86efac;--soft:#c9f2d3}
 body[data-theme=long]{--bg:#2a1d55;--accent:#b9a2ff;--soft:#d9cdfd}
+body[data-theme=box]{--bg:#0f3d3e;--accent:#5eead4;--soft:#c3f3ec}
+body[data-theme=up]{--bg:#0c3550;--accent:#7dd3fc;--soft:#cdeafb}
+body[data-theme=meet]{--bg:#2b3140;--accent:#cbd5e1;--soft:#e2e8f0}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:#fff;font:16px system-ui,-apple-system,"Segoe UI",sans-serif;transition:background-color .5s;-webkit-tap-highlight-color:transparent}
@@ -67,6 +70,24 @@ h2{margin:0 0 10px;font-size:14px;font-weight:700;letter-spacing:.12em;text-tran
 .go{min-height:58px;padding:0 30px;border-radius:14px;background:var(--go);color:#fff;font-size:22px;font-weight:900;letter-spacing:.06em}
 #home .credit{padding-top:10px}
 
+/* work styles + other ways to work (home) */
+.styles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.sty{background:var(--card);border-radius:14px;padding:10px 12px;text-align:left;min-height:62px;display:flex;flex-direction:column;gap:2px;box-shadow:inset 0 0 0 2px transparent}
+.sty .n{font-size:15px;font-weight:700}.sty .d{font-size:12.5px;color:var(--dim)}
+.sty[aria-pressed=true]{box-shadow:inset 0 0 0 2px #ff9a7d;background:#2a2230}
+.mode{background:var(--card);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.mode+.mode{margin-top:8px}
+.mode .t{display:block;font-size:15px;font-weight:700}.mode .h{display:block;font-size:13px;color:var(--dim);margin-top:2px;line-height:1.35}
+.mode.line{flex-direction:row;align-items:center;justify-content:space-between;gap:12px}
+.mrow{display:grid;grid-template-columns:46px minmax(0,1fr) 46px auto;align-items:center;gap:6px}
+.mrow button.st{min-height:46px;border-radius:10px;background:var(--btn);font-size:22px;font-weight:700}
+.mrow button.st:disabled{opacity:.35;cursor:default}
+.mrow output{text-align:center;font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}
+.mrow output small{font-size:14px;font-weight:600;color:var(--dim)}
+.mgo{min-height:46px;padding:0 18px;border-radius:12px;background:var(--go);color:#fff;font-size:16px;font-weight:900;letter-spacing:.05em}
+.chips{display:flex;gap:6px}.chips button{flex:1;min-height:40px;border-radius:10px;background:var(--btn);font-size:14px;font-weight:700}
+.chips button[aria-pressed=true]{background:#5eead4;color:#0e1116}
+
 /* ---------- running ---------- */
 #run,#wait{align-items:center;gap:12px;text-align:center}
 .phTitle{margin:0;font-size:clamp(32px,10vw,46px);font-weight:900;letter-spacing:.08em;color:var(--accent);line-height:1.05}
@@ -79,6 +100,8 @@ h2{margin:0 0 10px;font-size:14px;font-weight:700;letter-spacing:.12em;text-tran
 .time{font-size:calc(var(--ring) * .29);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
 .of{font-size:15px;color:var(--soft);margin-top:6px}
 body.paused .time{animation:fade 1.6s ease-in-out infinite}
+.time.long{font-size:calc(var(--ring) * .2)}
+.set.plain .trackRow{display:none}
 /* Lumi's corner: a little room under the ring (phone) or beside it (laptop) */
 .corner{position:relative;align-self:stretch;height:200px;flex:none;border-radius:22px;background:rgba(0,0,0,.22);overflow:hidden;text-align:left}
 .corner .deco{display:none}
@@ -168,6 +191,79 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 @keyframes cloud{0%{transform:translateX(0)}100%{transform:translateX(60%)}}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.5)}60%{box-shadow:0 0 0 14px rgba(255,255,255,0)}}
 
+/* ---------- the day shape ---------- */
+.daycard{background:var(--card);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.daycard .dh{margin:0;font-size:14px;color:var(--soft);line-height:1.4}
+.drow{display:flex;flex-wrap:wrap;gap:8px}
+.dbtn{min-height:46px;padding:0 16px;border-radius:12px;background:var(--btn);font-size:15px;font-weight:700}
+.dbtn.main{background:var(--go);color:#fff;font-weight:900;letter-spacing:.03em}
+.cameUp{align-self:center;min-height:40px;padding:0 16px;margin-top:6px;border-radius:999px;background:rgba(255,255,255,.12);font-size:14px;font-weight:700}
+.ring .cameUp{margin-top:8px;min-height:38px;padding:0 12px;font-size:13px}
+#plan{gap:16px}
+.phd{display:flex;align-items:center;gap:12px}
+.phd h1{margin:0;font-size:28px;font-weight:900;letter-spacing:.05em;color:var(--accent)}
+.phd .sub{font-size:13px;color:var(--dim)}
+.back{min-height:44px;padding:0 14px;border-radius:12px;background:var(--btn);font-weight:700;font-size:15px;flex:none}
+.timesCard{background:var(--card);border-radius:14px;padding:6px 12px;display:flex;flex-direction:column}
+.shRow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0;font-size:15px;font-weight:600}
+.shRow>span:first-child{flex:none}
+.shStep{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;align-items:center;gap:6px;min-width:0;flex:1;max-width:250px}
+.shStep button{min-height:44px;border-radius:10px;background:var(--btn);font-size:20px;font-weight:700}
+.shStep output{text-align:center;font-size:17px;font-weight:800;font-variant-numeric:tabular-nums}
+.linkbtn{background:transparent;color:var(--accent);font-weight:700;text-decoration:underline;padding:4px 2px;font-size:inherit}
+.blk{display:flex;align-items:stretch;gap:6px;background:var(--card);border-radius:14px;margin-bottom:6px;border-left:6px solid var(--bc,#ff9a7d)}
+.blk.drag{opacity:.7;outline:2px dashed var(--accent)}
+.blk.done,.blk.skip{opacity:.6}
+.blk.skip{background:repeating-linear-gradient(135deg,var(--card) 0 8px,#222a35 8px 16px)}
+.grab{flex:none;width:34px;background:transparent;color:var(--dim);font-size:20px;touch-action:none;cursor:grab}
+.grab:disabled{opacity:.2;cursor:default}
+.bmain{flex:1;min-width:0;background:transparent;text-align:left;padding:10px 10px 10px 0;display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:8px;align-items:center}
+.bt{font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
+.bi b{display:block;font-size:15px}.bi small{display:block;font-size:12.5px;color:var(--dim);margin-top:1px}
+.bd{font-size:14px;font-weight:800;font-variant-numeric:tabular-nums}
+.chips2{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.chip{font-size:11px;font-weight:700;border-radius:999px;padding:2px 8px;background:rgba(255,255,255,.1);color:var(--soft)}
+.chip.pin{background:#334155;color:#e2e8f0}.chip.warn{background:#7f1d1d;color:#fecaca}.chip.nice{opacity:.75}
+.k-deep{--bc:#ff9a7d}.k-lfoc{--bc:#ff7a55}.k-admin{--bc:#fdba74}.k-box{--bc:#5eead4}.k-meet{--bc:#94a3b8}.k-zoom{--bc:#4ade80}.k-sofa{--bc:#b9a2ff}.k-up{--bc:#7dd3fc}
+.bedit{background:#222a35;border-radius:14px;margin:-2px 0 8px;padding:8px 12px 10px}
+.fld{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600;color:var(--soft);padding:4px 0}
+.fld input{min-height:44px;border-radius:10px;border:2px solid var(--btn);background:#10141a;color:#fff;font:inherit;padding:0 12px}
+.seg2{display:flex;gap:6px}
+.seg2 button{min-height:40px;padding:0 12px;border-radius:10px;background:var(--btn);font-size:14px;font-weight:700}
+.seg2 button[aria-pressed=true]{background:#fff;color:#0e1116}
+.shRow.acts{justify-content:flex-start}
+.shRow.acts button{min-height:40px;padding:0 14px;border-radius:10px;background:var(--btn);font-weight:700}
+.shRow.acts .danger{margin-left:auto;background:#7f1d1d}
+.gapRow{font-size:13px;color:var(--soft);border:2px dashed var(--rule);border-radius:12px;padding:8px 12px;margin-bottom:6px}
+.empty{font-size:14px;color:var(--dim);line-height:1.4;margin:0}
+.ifrow{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--card);border-radius:12px;padding:8px 12px;margin-bottom:6px;font-size:14px}
+.ifrow button{min-height:38px;padding:0 12px;border-radius:10px;background:var(--btn);font-weight:700}
+.palette{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pal2{background:var(--card);border-radius:12px;padding:10px 12px;text-align:left;border-left:6px solid var(--bc);min-height:56px}
+.pal2 b{display:block;font-size:14px}.pal2 small{font-size:12px;color:var(--dim)}
+.mini2{display:flex;gap:8px;flex-wrap:wrap}
+.mini2 button{min-height:44px;padding:0 14px;border-radius:12px;background:var(--btn);font-weight:700;font-size:14px}
+.go:disabled{opacity:.4}
+.seg.day{background:var(--cs)}
+.seg.day.done{background:var(--c)}
+.seg.day.skip{background:repeating-linear-gradient(135deg,var(--c) 0 3px,transparent 3px 6px)}
+.seg.day .fill{background:var(--c)}
+/* sheets */
+.sheet{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.shBack{position:absolute;inset:0;background:rgba(0,0,0,.6)}
+.shPanel{position:relative;width:min(100%,520px);max-height:90vh;max-height:90dvh;overflow:auto;background:#1b2029;color:#fff;text-align:left;border-radius:22px 22px 0 0;padding:18px 16px max(16px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px}
+.shPanel h2{margin:0;font-size:20px;letter-spacing:.02em;text-transform:none;color:#fff}
+.shPanel p{margin:0;font-size:14.5px;color:var(--soft);line-height:1.45}
+.shPanel ul{margin:0;padding-left:20px;font-size:14.5px;color:var(--soft);line-height:1.5}
+.opt{text-align:left;background:var(--btn);border-radius:14px;padding:12px 14px;min-height:56px;display:flex;flex-direction:column;gap:2px}
+.opt b{font-size:16px}.opt small{font-size:13px;color:var(--soft);line-height:1.35}
+.opt.main{background:var(--go)}.opt.main small{color:#ffe1da}
+.opt.quiet{background:transparent;text-align:center;min-height:44px;justify-content:center;color:var(--soft)}
+.shPanel .chips{margin:4px 0}.shPanel .chips button{font-size:13px}
+.mini{min-height:44px;padding:0 12px;border-radius:10px;background:var(--btn);font-weight:700;flex:none}.mini.on{background:#fff;color:#0e1116}
+.prop{padding:6px 0}
+@media (min-width:700px){.sheet{align-items:center}.shPanel{border-radius:22px}}
+
 /* ---------- waiting for a tap ---------- */
 .stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;align-self:stretch}
 .stage .lumi{width:min(62vw,250px)}
@@ -188,6 +284,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
   .phSub{font-size:15px}
   :root{--ring:min(64vw,30vh,440px)}
   .corner{height:156px}
+  .ring .cameUp{margin-top:4px;min-height:32px;font-size:12px;padding:0 10px}
   .lounge{width:min(58%,210px)}
   .corner .pal{width:min(44%,190px);bottom:22px}
   .jar svg{width:54px;height:68px}
@@ -272,6 +369,16 @@ body.paused .tLumi .lumi{animation-play-state:paused}
   </header>
 
   <section>
+    <h2>Your day</h2>
+    <div class="daycard" id="dayCard"></div>
+  </section>
+
+  <section>
+    <h2>Work style</h2>
+    <div class="styles" id="styles"></div>
+  </section>
+
+  <section>
     <h2>How long</h2>
     <div class="lengths">
       <div class="len"><span class="lbl">Focus<small>pomodoro</small></span><span class="val" style="color:#ff9a7d"><span id="v-focus">25</span><small> min</small></span>
@@ -292,6 +399,24 @@ body.paused .tLumi .lumi{animation-play-state:paused}
       <button type="button" data-k="goal" data-d="-1" aria-label="Lower daily goal">−</button>
       <output id="v-goal">8</output>
       <button type="button" data-k="goal" data-d="1" aria-label="Higher daily goal">+</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Other ways to work</h2>
+    <div class="mode">
+      <div><span class="t">Timebox</span><span class="h">One countdown with no breaks. Lumi warns you before the end.</span></div>
+      <div class="chips" id="boxChips"></div>
+      <div class="mrow">
+        <button type="button" class="st" data-k="box" data-d="-1" aria-label="Shorter timebox">−</button>
+        <output><span id="v-box">20</span><small> min</small></output>
+        <button type="button" class="st" data-k="box" data-d="1" aria-label="Longer timebox">+</button>
+        <button type="button" class="mgo" id="boxBtn">START</button>
+      </div>
+    </div>
+    <div class="mode line">
+      <div><span class="t">Stopwatch</span><span class="h">Counts up with no end. A stretch and water reminder every hour.</span></div>
+      <button type="button" class="mgo" id="upBtn">START</button>
     </div>
   </section>
 
@@ -330,7 +455,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
   </div>
   <div class="ring">
     <svg viewBox="0 0 300 300" aria-hidden="true"><circle class="track" cx="150" cy="150" r="135"/><circle class="prog" id="prog" cx="150" cy="150" r="135"/></svg>
-    <div class="mid"><span class="time" id="time" role="timer" aria-live="off">25:00</span><span class="of" id="of"></span></div>
+    <div class="mid"><span class="time" id="time" role="timer" aria-live="off">25:00</span><span class="of" id="of"></span><button type="button" class="cameUp" id="cameUp" hidden>Something came up</button></div>
   </div>
   <section class="corner" id="corner" aria-label="Lumi's corner">
     <div class="scene" id="scene" aria-hidden="true"></div>
@@ -376,8 +501,45 @@ body.paused .tLumi .lumi{animation-play-state:paused}
   <div class="hint" id="soundHint2" hidden>Tap anywhere to wake the chime up</div>
   <button type="button" class="big" id="goBtn">START FOCUS</button>
   <button type="button" class="quiet" id="stopBtn2">Stop for now</button>
+  <button type="button" class="cameUp" id="cameUp2" hidden>Something came up</button>
   <div class="credit">A Bouncy Production · Made for Haz</div>
 </main>
+
+<!-- ================= DAY SHAPE PLANNER ================= -->
+<main id="plan" class="screen" hidden>
+  <div class="phd">
+    <button type="button" class="back" id="planBack">‹ Back</button>
+    <div><h1>Day shape</h1><div class="sub" id="planSub">Build your day, then let Lumi walk you through it</div></div>
+  </div>
+  <section class="timesCard" id="planStart">
+    <div class="shRow"><span>Starts at</span><div class="shStep"><button type="button" id="planStartDn" aria-label="Earlier start">−</button><output id="planStartV"></output><button type="button" id="planStartUp" aria-label="Later start">+</button></div></div>
+    <div class="shRow"><span>Finish by</span><div class="shStep"><button type="button" id="planFinDn" aria-label="Earlier finish">−</button><output id="planFinV"></output><button type="button" id="planFinUp" aria-label="Later finish">+</button></div></div>
+    <div class="shRow"><span></span><button type="button" class="linkbtn" id="planFinOff">Remove the finish line</button></div>
+  </section>
+  <section>
+    <h2>Your day</h2>
+    <div id="blocks"></div>
+    <div class="note" id="planNote"></div>
+    <div id="ifTime"></div>
+  </section>
+  <section>
+    <h2>Add a block</h2>
+    <div class="palette" id="palette"></div>
+  </section>
+  <section class="mini2"><button type="button" id="tplBtn">Save as my usual day</button><button type="button" id="clearBtn">Clear this day</button></section>
+  <div class="bar">
+    <div class="row">
+      <span class="sum" id="planSum"></span>
+      <button type="button" class="go" id="planGo">START DAY</button>
+    </div>
+    <div class="credit">A Bouncy Production · Made for Haz</div>
+  </div>
+</main>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="shBack" id="shBack"></div>
+  <div class="shPanel" id="shPanel" role="dialog" aria-modal="true" aria-labelledby="shTitle" tabindex="-1"></div>
+</div>
 
 <script src="lumi-messages.js"></script>
 <script>
@@ -387,10 +549,18 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 
   /* ---------- settings + saved session ---------- */
   const KEY = 'loafStore1';                     // bump the number when the saved shape changes
-  const NUDGE_GAP = 2 * 60000, NUDGE_MAX = 5;
-  const LIMITS = { focus: [5, 90, 5], short: [1, 30, 1], long: [5, 60, 5], every: [2, 8, 1], goal: [1, 20, 1] };   // min, max, step
-  const DEF = { focus: 25, short: 5, long: 15, every: 4, goal: 8, chime: true, notify: true, auto: false, nudge: true, humans: true };
-  const PHASES = ['focus', 'short', 'long'];
+  const NUDGE_GAP = 2 * 60000, NUDGE_MAX = 5, TREAT_MS = 25 * 60000;     // one treat for every 25 min of finished focus
+  const LIMITS = { focus: [5, 90, 5], short: [1, 30, 1], long: [5, 60, 5], every: [2, 8, 1], goal: [1, 20, 1], box: [5, 180, 5] };   // min, max, step
+  const DEF = { focus: 25, short: 5, long: 15, every: 4, goal: 8, box: 20, chime: true, notify: true, auto: false, nudge: true, humans: true };
+  const PHASES = ['focus', 'short', 'long', 'box', 'up', 'meet'];     // box = one-off timebox, up = stopwatch, meet = a meeting in the day shape
+  // work styles: one tap sets the whole rhythm. Whichever one matches the settings is highlighted.
+  const STYLES = [
+    { id: 'deep', name: 'Deep work', focus: 25, short: 5, long: 15, every: 4, goal: 8 },
+    { id: 'long', name: 'Long focus', focus: 50, short: 10, long: 20, every: 3, goal: 8 },
+    { id: 'admin', name: 'Admin sprints', focus: 15, short: 3, long: 10, every: 4, goal: 6 },
+    { id: 'meet', name: 'Meeting day', focus: 20, short: 5, long: 15, every: 3, goal: 4 },
+  ];
+  const STYLE_KEYS = ['focus', 'short', 'long', 'every', 'goal'];
   let stored = {};
   try { stored = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
   const set = Object.assign({}, DEF);
@@ -405,26 +575,70 @@ body.paused .tLumi .lumi{animation-play-state:paused}
   let sess = null;
   const s0 = stored.sess;
   if (s0 && PHASES.includes(s0.phase) && Number.isFinite(s0.n) && s0.n >= 1 && Number.isFinite(s0.dur) && s0.dur > 0) {
-    sess = { phase: s0.phase, n: Math.min(s0.n, set.every), dur: s0.dur, endAt: +s0.endAt || 0, paused: !!s0.paused, left: +s0.left || 0, wait: null,
-      skips: Array.isArray(s0.skips) ? s0.skips.filter((x) => Number.isInteger(x) && x >= 1 && x <= set.every) : [] };
+    sess = { phase: s0.phase, n: Math.min(s0.n, set.every), dur: s0.dur, endAt: +s0.endAt || 0, startAt: +s0.startAt || 0, marks: Math.max(0, +s0.marks || 0), paused: !!s0.paused, left: +s0.left || 0, wait: null,
+      skips: Array.isArray(s0.skips) ? s0.skips.filter((x) => Number.isInteger(x) && x >= 1 && x <= set.every) : [], pl: null };
+    const q = s0.pl;
+    if (q && typeof q === 'object' && Number.isFinite(+q.b)) sess.pl = { b: +q.b, s: Math.max(0, Math.min(20, +q.s || 0)), gap: !!q.gap, bound: !!q.bound, prev: typeof q.prev === 'string' ? q.prev.slice(0, 8) : '' };
     if (s0.wait && Number.isFinite(s0.wait.since)) sess.wait = { since: s0.wait.since, nudges: Math.min(NUDGE_MAX, +s0.wait.nudges || 0) };
-    else if (!sess.paused && !sess.endAt) sess = null;
+    else if (!sess.paused && !(sess.phase === 'up' ? sess.startAt : sess.endAt)) sess = null;
   }
   const now = () => Date.now();
+  const canNudge = () => set.nudge && (!set.auto || (!!sess && ((sess.phase === 'box' && !sess.pl) || !!(sess.pl && sess.pl.bound))));   // a timebox or a gap has no next bit to start by itself, so it nudges even with auto-start on
   // the treat jar: one per day. items are what's in it, in the order they went in: g = golden biscuit, b = biscuit, o = bone
   const today = () => { const d = new Date(now()); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); };
-  const freshJar = (ate) => ({ day: today(), earned: 0, items: [], fed: 0, goalDone: false, ate: ate || 0 });
+  const freshJar = (ate) => ({ day: today(), earned: 0, items: [], fed: 0, goalDone: false, ate: ate || 0, bank: 0 });
   let jar = freshJar(0);
   const j0 = stored.jar;
   if (j0 && typeof j0.day === 'string' && Array.isArray(j0.items)) {
     jar = { day: j0.day, earned: Math.max(0, +j0.earned || 0), items: j0.items.filter((x) => x === 'g' || x === 'b' || x === 'o').slice(0, 200),
-      fed: Math.max(0, +j0.fed || 0), goalDone: !!j0.goalDone, ate: Math.max(0, +j0.ate || 0) };
+      fed: Math.max(0, +j0.fed || 0), goalDone: !!j0.goalDone, ate: Math.max(0, +j0.ate || 0), bank: Math.max(0, Math.min(TREAT_MS - 1, +j0.bank || 0)) };
   }
-  const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ settings: set, sess, jar })); } catch (e) {} };
-  // a new day: Lumi has eaten whatever was left in the jar overnight
+  /* ---------- the day shape: blocks in a sequence, for today only ---------- */
+  const KINDS = {
+    deep: { name: 'Deep work', ph: 1, f: 25, sb: 5, n: 2, prio: 'must', d: 'focus, with zoomies between' },
+    lfoc: { name: 'Long focus', ph: 1, f: 50, sb: 10, n: 2, prio: 'must', d: 'focus, with longer zoomies' },
+    admin: { name: 'Admin sprint', ph: 1, f: 15, sb: 3, n: 3, prio: 'nice', d: 'email and tidy-up' },
+    box: { name: 'Timebox', min: 20, prio: 'must', d: 'one countdown, no breaks' },
+    meet: { name: 'Meeting', min: 30, prio: 'must', d: 'quiet block, Lumi waits' },
+    zoom: { name: 'Zoomies', min: 10, prio: 'nice', d: 'a break at the park' },
+    sofa: { name: 'Sofa time', min: 30, prio: 'nice', d: 'lunch or a long break' },
+    up: { name: 'Stopwatch', min: 60, prio: 'must', d: 'stretch reminder each hour' },
+  };
+  const KIND_PHASE = { box: 'box', meet: 'meet', zoom: 'short', sofa: 'long', up: 'up' };
+  const clampN = (v, lo, hi, d) => (Number.isFinite(+v) && v !== null && v !== '' ? Math.min(hi, Math.max(lo, Math.round(+v))) : d);
+  function cleanBlock(x, id) {
+    if (!x || typeof x !== 'object' || !KINDS[x.k]) return null;
+    const K = KINDS[x.k];
+    return { id, k: x.k, label: typeof x.label === 'string' ? x.label.slice(0, 30) : '', n: K.ph ? clampN(x.n, 1, 8, K.n) : 1, f: K.f || 0, sb: K.sb || 0,
+      min: K.ph ? 0 : clampN(x.min, 5, 480, K.min), pin: clampN(x.pin, 0, 1439, null), prio: x.prio === 'nice' ? 'nice' : 'must',
+      st: ['todo', 'run', 'done', 'skip', 'drop'].includes(x.st) ? x.st : 'todo', si: clampN(x.si, 0, 20, 0), d: clampN(x.d, 0, 8, 0), sk: clampN(x.sk, 0, 8, 0) };
+  }
+  function cleanPlan(p) {
+    if (!p || typeof p !== 'object' || p.day !== today() || !Array.isArray(p.blocks)) return null;
+    const seen = new Set(), blocks = [];
+    for (const x of p.blocks.slice(0, 40)) {
+      const id = clampN(x && x.id, 1, 1000000, 0);
+      if (!id || seen.has(id)) continue;
+      const b = cleanBlock(x, id);
+      if (b) { seen.add(id); blocks.push(b); }
+    }
+    return { day: p.day, start: clampN(p.start, 0, 1439, 540), fin: clampN(p.fin, 1, 1439, null), blocks, run: !!p.run, ack: Math.max(0, +p.ack || 0), warned: 0 };
+  }
+  let plan = cleanPlan(stored.plan);
+  let tpl = [];                         // "my usual day": the blocks, kept from day to day
+  if (Array.isArray(stored.tpl)) tpl = stored.tpl.slice(0, 40).map((x, i) => cleanBlock(Object.assign({}, x, { st: 'todo', si: 0, d: 0, sk: 0 }), i + 1)).filter(Boolean);
+  let nid = plan ? plan.blocks.reduce((m, b) => Math.max(m, b.id), 0) + 1 : 1;
+  function blockById(id) { return plan ? plan.blocks.find((b) => b.id === id) || null : null; }
+  if (sess && sess.pl && (!plan || !blockById(sess.pl.b))) sess = null;
+  if (plan) plan.run = !!(sess && sess.pl);
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ settings: set, sess, jar, plan, tpl })); } catch (e) {} };
+  // a new day: Lumi has eaten whatever was left in the jar overnight, and yesterday's day shape is cleared
   function rollDay() {
     if (jar.day === today()) return false;
-    jar = freshJar(jar.items.length); save(); return true;
+    jar = freshJar(jar.items.length);
+    plan = null;
+    if (sess && sess.pl) { sess = null; cancelSched(); unwake(); showScreen(); }
+    save(); return true;
   }
 
   /* ---------- Lumi's lines (built-in + lumi-messages.js) ---------- */
@@ -434,6 +648,14 @@ body.paused .tLumi .lumi{animation-play-state:paused}
     focusLastMin: ['Nearly there. I can smell the break.', 'Last minute! Tail is wagging.'],
     short: ['ZOOMIES!', 'Stretch, sip something, back in {mins}.', 'Legs out! Shake it off.', 'Look out of a window. Squirrels?', 'Wheee! Okay. Okay. Wheee!'],
     long: ['{of} done. Now this is proper loafing.', 'Sofa secured. Sunbeam secured. Bliss.', 'Do not disturb. Professional napping.', 'Big break. Get a snack. Share it.', 'Zzz… five more minutes…'],
+    box: ['Timebox on. This and nothing else.', 'Clock is running. Off you go.', 'One thing. {mins}. Go.', 'Boxed in. In a good way.'],
+    boxWarn: ['Five minutes left. Start wrapping up.', 'Nearly time! Finish the thought.'],
+    boxMore: ['Five more minutes. Granted.', 'Extra time. I will allow it.'],
+    boxDone: ['Timebox done. Nice work!', 'Boxed, ticked, done.'],
+    waitBox: ["Time's up! Put the pen down.", 'And... stop. Well done.', "That's your box. Tap when you're ready."],
+    up: ['Stopwatch on. Take as long as you need.', 'No clock to beat. Just flow.', 'In the zone. I will guard the door.'],
+    upStretch: ['{hrs} in! Stand up, stretch, sip some water.', 'Hydration check! Back in a minute.', "{hrs} of flow. Roll your shoulders, I'll wait."],
+    upDone: ['Lumi clocked {time}. Well loafed.', '{time} of flow. Biscuit-worthy.'],
     waitFocus: ['Ahem. The sofa will still be there later.', "Break's over! Ready when you are.", 'Pomodoro {n}? Pomodoro {n}!'],
     waitBreak: ['Pomodoro done! Break time. Tap it!', 'You earned this. Go on, tap.', 'Done! Now we loaf. Officially.'],
     nudge: ['Ahem.', 'AHEM.', "I'm doing the eyes. You know the eyes.", "Fine. I'll just stand here. Looking at you.", "Last nudge. I'm going back to bed."],
@@ -447,6 +669,12 @@ body.paused .tLumi .lumi{animation-play-state:paused}
     fedBone: ['A BONE. I will treasure it. For four seconds.'],
     jarEmpty: ['The jar is empty. Suspicious.', "No treats left. Do a pomodoro and I'll owe you."],
     morning: ["Lumi ate the {ate} left in the jar overnight. Delicious. Do more."],
+    banked: ['Banked {bank} min of focus. {left} more for the next biscuit.', 'Not a biscuit yet. {left} more minutes of focus.'],
+    dayStart: ['Day shape on. I will keep the clock honest.', "Right, today's plan. One block at a time."],
+    dayDone: ['The whole day shape, done. Proper loafing now.', 'Every block ticked. I am so proud I could nap.'],
+    pinWarn: ['{what} is coming up. Start wrapping up.', 'Heads up: {what} soon.'],
+    trimmed: ['Trimmed. Same day, fewer squeezes.', 'Nice and snug. Everything important still fits.'],
+    pushed: ['Pushing on. Brave.', 'Everything slides. Shoulders back.'],
     welcomeBack: ["You're back! Let's carry on.", 'Oh hello again. Where were we?'],
   };
   const USER = (window.LOAF_MESSAGES && typeof window.LOAF_MESSAGES === 'object') ? window.LOAF_MESSAGES : {};
@@ -456,7 +684,8 @@ body.paused .tLumi .lumi{animation-play-state:paused}
     return (BUILT[k] || []).concat(mine);
   }
   const fill = (s) => s.replace(/\{(\w+)\}/g, (m, k) => {
-    const v = { n: sess ? sess.n : 1, of: set.every, mins: sess ? set[sess.phase] + ' min' : '', count: jar.earned, goal: set.goal,
+    const v = { n: sess ? sess.n : 1, of: set.every, mins: sess && set[sess.phase] ? set[sess.phase] + ' min' : '', count: jar.earned, goal: goalNow(), bank: Math.round(jar.bank / 60000), left: Math.max(1, Math.ceil((TREAT_MS - jar.bank) / 60000)),
+      hrs: sess && sess.phase === 'up' ? plural(Math.max(1, sess.marks), 'hour') : '',
       ate: plural(jar.ate, 'treat') }[k];
     return v === undefined ? m : String(v);
   });
@@ -718,9 +947,14 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     if (sess.wait) {
       if (set.nudge) for (let k = sess.wait.nudges + 1; k <= NUDGE_MAX; k++) SOUNDS.nudge((sess.wait.since + k * NUDGE_GAP - t) / 1000, true);
       nudgesFor = sess.wait.since;
+    } else if (!sess.paused && sess.phase === 'up') {
+      const next = sess.startAt + (sess.marks + 1) * 3600000;     // the next hourly stretch reminder
+      if (next > t) { SOUNDS.toBreak((next - t) / 1000, true); chimeFor = next; }
     } else if (!sess.paused && sess.endAt > t) {
-      SOUNDS[sess.phase === 'focus' ? 'toBreak' : 'toFocus']((sess.endAt - t) / 1000, true);
+      SOUNDS[sess.phase === 'focus' || sess.phase === 'box' ? 'toBreak' : 'toFocus']((sess.endAt - t) / 1000, true);
       chimeFor = sess.endAt;
+      const w = sess.phase === 'box' ? boxWarnMs(sess.dur) : 0;
+      if (w && sess.endAt - w > t) SOUNDS.nudge((sess.endAt - w - t) / 1000, true);
     }
   }
 
@@ -753,22 +987,32 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   const durOf = (p) => set[p] * 60000;
   const nextOf = (s) => (s.phase === 'focus' ? (s.n >= set.every ? 'long' : 'short') : 'focus');
   const nextN = (s) => (s.phase === 'long' ? 1 : s.phase === 'short' ? s.n + 1 : s.n);
-  let chatAt = 0, saidLastMin = false, pending = '';
-  // a finished (not skipped) focus earns a treat; a full set with no skips earns a bone too
-  function earn(done) {
+  let chatAt = 0, saidLastMin = false, pending = '', homeNote = '';
+  // timeboxes warn you 5 minutes before the end (1 minute for short ones)
+  const boxWarnMs = (dur) => (dur >= 15 * 60000 ? 5 * 60000 : dur >= 2 * 60000 ? 60000 : 0);
+  // Treats come from focused time: 1 for every 25 min of finished focus, with the left-over minutes banked for the next one.
+  // A full set with no skips earns a bone as well. Breaks and meetings earn nothing, and nothing is ever taken away.
+  function earnTime(ms, bone) {
     rollDay();
-    jar.earned++;
-    jar.items.push(jar.earned === 1 ? 'g' : 'b');
-    let line = pick(jar.earned === 1 ? 'golden' : 'earned');
-    if (done.n >= set.every && !done.skips.length) { jar.items.push('o'); line = pick('bone'); }
-    if (!jar.goalDone && jar.earned >= set.goal) { jar.goalDone = true; line = pick('goal'); party = true; }
-    return line;
+    jar.bank += ms;
+    let got = 0, line = '';
+    while (jar.bank >= TREAT_MS) {
+      jar.bank -= TREAT_MS; jar.earned++; got++;
+      jar.items.push(jar.earned === 1 ? 'g' : 'b');
+      line = pick(jar.earned === 1 ? 'golden' : 'earned');
+    }
+    if (bone) { jar.items.push('o'); line = pick('bone'); }
+    if (!got && !bone) line = ms >= 60000 ? pick('banked') : '';
+    if (!jar.goalDone && jar.earned >= goalNow()) { jar.goalDone = true; line = pick('goal'); party = true; }
+    return { got, line };
   }
+  const earn = (done) => earnTime(done.dur, done.n >= set.every && !done.skips.length).line;
   let party = false;
 
-  function startPhase(phase, n, startAt, skips) {
+  function startPhase(phase, n, startAt, skips, dur, pl) {
     const t0 = startAt || now();
-    sess = { phase, n, dur: durOf(phase), endAt: t0 + durOf(phase), paused: false, left: 0, wait: null, skips: skips || [] };
+    if (phase === 'up') sess = { phase, n: 1, dur: 3600000, endAt: 0, startAt: t0, marks: 0, paused: false, left: 0, wait: null, skips: [], pl: pl || null };
+    else { const d = dur || durOf(phase); sess = { phase, n, dur: d, endAt: t0 + d, startAt: 0, marks: 0, paused: false, left: 0, wait: null, skips: skips || [], pl: pl || null }; }
     save(); scheduleSounds(); showScreen(); wake();
     saidLastMin = false; chatAt = now() + 60000 + Math.random() * 30000;
     say(pending || pick(phase === 'focus' ? 'focusStart' : phase), pending ? 9000 : 7000);
@@ -778,6 +1022,16 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   // The current bit has ended (time ran out, or skipped). quiet = skipped, so no sound or notice.
   function finishPhase(quiet) {
     const done = sess, endedAt = quiet ? now() : done.endAt;
+    if (done.pl) { planFinish(done, quiet, endedAt); return; }
+    if (done.phase === 'box') {          // a timebox has no next bit: it just waits for you
+      if (!quiet) pending = earnTime(done.dur).line;
+      sess = { phase: 'box', n: 1, dur: done.dur, endAt: 0, startAt: 0, marks: 0, paused: false, left: 0, wait: { since: endedAt, nudges: 0 }, skips: [], pl: null };
+      if (set.chime && chimeFor !== endedAt && now() - endedAt < 5000) SOUNDS.toBreak(0, false);
+      notify("Time's up!", 'Your timebox is done.');
+      save(); scheduleSounds(); showScreen(); wake();
+      if (party) celebrate();
+      return;
+    }
     const phase = nextOf(done), n = nextN(done);
     // a skipped focus moves the set along but isn't counted as done; a new set starts with a clean slate
     const skips = done.phase === 'long' ? [] : done.phase === 'focus' && quiet ? done.skips.concat(done.n) : done.skips;
@@ -788,7 +1042,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
       if (!quiet) notify(phase === 'focus' ? `Pomodoro ${n} has started` : (phase === 'long' ? 'Sofa time!' : 'Zoomies time!'), phase === 'focus' ? 'Lumi says: off you trot.' : `Your ${set[phase]} min ${phase === 'long' ? 'long ' : ''}break has started.`);
       startPhase(phase, n, endedAt, skips);
     } else {
-      sess = { phase, n, dur: durOf(phase), endAt: 0, paused: false, left: 0, wait: { since: endedAt, nudges: 0 }, skips };
+      sess = { phase, n, dur: durOf(phase), endAt: 0, paused: false, left: 0, wait: { since: endedAt, nudges: 0 }, skips, pl: null };
       if (!quiet) notify(phase === 'focus' ? "Break's over" : (phase === 'long' ? 'Set done! Sofa time' : 'Focus done! Zoomies time'), phase === 'focus' ? `Pomodoro ${n} of ${set.every} is ready when you are.` : `Tap to start your ${set[phase]} min ${phase === 'long' ? 'long ' : ''}break.`);
       save(); scheduleSounds(); showScreen(); wake();
       if (party) celebrate();
@@ -806,36 +1060,65 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   }
   function pause() {
     if (!sess || sess.wait) return;
-    if (sess.paused) { sess.endAt = now() + sess.left; sess.paused = false; say(''); }
-    else { sess.left = Math.max(0, sess.endAt - now()); sess.paused = true; say(pick('paused'), 0); }
+    if (sess.paused) { if (sess.phase === 'up') sess.startAt = now() - sess.left; else sess.endAt = now() + sess.left; sess.paused = false; say(''); }
+    else { sess.left = sess.phase === 'up' ? Math.max(0, now() - sess.startAt) : Math.max(0, sess.endAt - now()); sess.paused = true; say(pick('paused'), 0); }
+    save(); scheduleSounds(); renderRun();
+  }
+  function extendBox() {                 // +5 min on a timebox
+    const add = 5 * 60000;
+    sess.dur += add;
+    if (sess.paused) sess.left += add; else sess.endAt += add;
+    const left = sess.paused ? sess.left : sess.endAt - now();
+    saidLastMin = !!boxWarnMs(sess.dur) && left <= boxWarnMs(sess.dur);
+    say(pick('boxMore'));
+    $('of').textContent = 'of ' + fmt(sess.dur);
     save(); scheduleSounds(); renderRun();
   }
   function stop() {
+    if (sess && sess.phase === 'up' && !sess.pl) {
+      const el = sess.paused ? sess.left : now() - sess.startAt;
+      if (el >= 60000) { const r = earnTime(el); homeNote = pick('upDone').replace('{time}', hm(el / 60000)) + (r.line ? ' ' + r.line : ''); }
+    }
+    if (plan) plan.run = false;
     sess = null; save(); cancelSched(); unwake(); showScreen();
+    if (party) celebrate();
   }
   function tick() {
     if (rollDay()) { renderJars(); if (!sess) renderHome(); }
     if (!sess) return;
     // catch up if the page was asleep (with auto-start this can roll through more than one bit)
     let guard = 0;
-    while (sess && !sess.wait && !sess.paused && now() >= sess.endAt && guard++ < 50) finishPhase(false);
+    while (sess && sess.phase !== 'up' && !sess.wait && !sess.paused && now() >= sess.endAt && guard++ < 50) finishPhase(false);
+    if (!sess) return;
+    if (sess.pl && plan) { planTick(); if (!sess) return; }
     if (sess.wait) {
-      if (set.nudge && !set.auto) {
+      if (canNudge()) {
         const k = Math.min(NUDGE_MAX, Math.floor((now() - sess.wait.since) / NUDGE_GAP));
         if (k > sess.wait.nudges) {
           const late = now() - (sess.wait.since + k * NUDGE_GAP);
           sess.wait.nudges = k; save();
           if (set.chime && nudgesFor !== sess.wait.since && late < 5000) SOUNDS.nudge(0, false);
-          notify('Lumi is still waiting', nudgeLine(k) + (sess.phase === 'focus' ? ' Focus is ready to start.' : ' Your break is ready.'));
+          notify('Lumi is still waiting', nudgeLine(k) + (sess.pl && sess.pl.bound ? ' Your next block is ready.' : sess.phase === 'box' ? ' Your timebox is up.' : sess.phase === 'focus' ? ' Focus is ready to start.' : ' Your break is ready.'));
           $('waitBubble').textContent = nudgeLine(k);
           renderWaitLumi();
         }
       }
       renderWait();
     } else {
-      if (!sess.paused) {
+      if (!sess.paused && sess.phase === 'up') {
+        const hrs = Math.floor((now() - sess.startAt) / 3600000);
+        if (hrs > sess.marks) {          // every hour: stand up, stretch, sip some water
+          const markAt = sess.startAt + hrs * 3600000;
+          if (set.chime && chimeFor !== markAt && now() - markAt < 5000) SOUNDS.toBreak(0, false);
+          sess.marks = hrs; save(); scheduleSounds();
+          const line = pick('upStretch');
+          say(line, 12000); chatAt = now() + 120000;
+          notify('Stretch time?', line);
+        } else if (now() >= chatAt) { chatAt = now() + 60000 + Math.random() * 40000; if (!$('bubble').classList.contains('show')) say(pick('up')); }
+      } else if (!sess.paused) {
         const left = sess.endAt - now();
-        if (sess.phase === 'focus' && left <= 60000 && !saidLastMin && sess.dur > 120000) { saidLastMin = true; say(pick('focusLastMin')); chatAt = now() + 60000; }
+        if (sess.phase === 'box' && !saidLastMin && boxWarnMs(sess.dur) && left <= boxWarnMs(sess.dur)) { saidLastMin = true; const line = pick('boxWarn'); say(line, 9000); chatAt = now() + 60000; notify('Nearly time', line); }
+        else if (sess.phase === 'focus' && left <= 60000 && !saidLastMin && sess.dur > 120000) { saidLastMin = true; say(pick('focusLastMin')); chatAt = now() + 60000; }
         else if (now() >= chatAt) { chatAt = now() + 60000 + Math.random() * 40000; if (!$('bubble').classList.contains('show')) say(pick(sess.phase === 'focus' ? 'focus' : sess.phase)); }
       }
       renderRun();
@@ -854,7 +1137,11 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
 
   /* ---------- drawing the screens ---------- */
   const C = 2 * Math.PI * 135;
-  const fmt = (ms) => { const s = Math.max(0, Math.ceil(ms / 1000)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+  const fmt = (ms, up) => {            // m:ss, or h:mm:ss from an hour up; a stopwatch counts up (rounds down)
+    const s = Math.max(0, up ? Math.floor(ms / 1000) : Math.ceil(ms / 1000)), h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), pad = (x) => String(x).padStart(2, '0');
+    return h ? h + ':' + pad(m) + ':' + pad(s % 60) : m + ':' + pad(s % 60);
+  };
+  const clock = (ts) => new Date(ts).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
   const plural = (n, w) => n + ' ' + w + (n === 1 ? '' : 's');
   const hm = (min) => { min = Math.max(1, Math.round(min)); const h = Math.floor(min / 60), m = min % 60; return (h ? h + ' h ' : '') + (m ? m + ' min' : '').trim(); };
   // the set as segments: focus, short, focus, short ... focus, long
@@ -893,11 +1180,12 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     for (let i = ci + 1; i < plan.length; i++) rest += set[plan[i].phase];
     $('setLeft').textContent = sess.phase === 'long' ? 'Sofa time' : `About ${hm(rest + frac * sess.dur / 60000)} left in this set`;
   }
-  let shown = '';
+  let shown = '', planOpen = false;
   function showScreen() {
-    const which = !sess ? 'home' : sess.wait ? 'wait' : 'run';
-    $('home').hidden = which !== 'home'; $('run').hidden = which !== 'run'; $('wait').hidden = which !== 'wait';
-    document.body.dataset.theme = sess ? sess.phase : 'home';
+    const which = planOpen ? 'plan' : !sess ? 'home' : sess.wait ? 'wait' : 'run';
+    $('home').hidden = which !== 'home'; $('run').hidden = which !== 'run'; $('wait').hidden = which !== 'wait'; $('plan').hidden = which !== 'plan';
+    document.body.dataset.theme = which === 'plan' || !sess ? 'home' : sess.phase;
+    if (which === 'plan') { renderPlan(); document.title = 'Day shape · LOAF'; }
     if (which === 'home') { renderHome(); document.title = 'LOAF'; }
     if (which === 'run') setupRun();
     if (which === 'wait') setupWait();
@@ -906,17 +1194,30 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   }
   function setupRun() {
     const p = sess.phase, n = sess.n;
-    $('runTitle').textContent = p === 'focus' ? 'FOCUS' : p === 'short' ? 'ZOOMIES' : 'SOFA TIME';
+    $('runTitle').textContent = p === 'focus' ? 'FOCUS' : p === 'short' ? 'ZOOMIES' : p === 'meet' ? 'MEETING' : 'SOFA TIME';
     $('runSub').textContent = p === 'focus' ? `Pomodoro ${n} of ${set.every}` : p === 'short' ? `After pomodoro ${n} of ${set.every}` : `Set of ${set.every} done`;
     $('of').textContent = 'of ' + fmt(sess.dur);
     $('next').textContent = p === 'focus'
       ? (n >= set.every ? `Then ${set.long} min of sofa time` : `Then ${set.short} min of zoomies`)
       : p === 'short' ? `Then focus: pomodoro ${n + 1} of ${set.every}` : `Then a fresh set of ${set.every}`;
-    buildTrack();
+    const plain = p === 'box' || p === 'up';       // timebox and stopwatch have no set track
+    const day = !!sess.pl;                          // inside a day shape the track shows the whole day instead
+    $('setTrack').classList.toggle('plain', plain && !day);
+    $('cameUp').hidden = !day;
+    $('sofa').style.visibility = '';
+    if (day) { planRunText(); buildDayTrack(); }
+    else if (plain) {
+      $('runTitle').textContent = p === 'box' ? 'TIMEBOX' : 'STOPWATCH';
+      $('runSub').textContent = p === 'box' ? 'One thing. No breaks.' : 'No end in sight';
+      $('of').textContent = p === 'box' ? 'of ' + fmt(sess.dur) : 'counting up';
+      $('next').textContent = p === 'box' ? 'No breaks. Just this.' : 'Stretch reminder every hour';
+    } else buildTrack();
+    $('skipBtn').textContent = p === 'box' ? '+5 min' : day && p === 'up' ? 'Finish' : day && p === 'meet' ? 'Ended early' : 'Skip';
+    $('skipBtn').hidden = p === 'up' && !day;
     const corner = $('corner');
-    corner.classList.toggle('lively', p !== 'focus');
-    setScene(p === 'focus' ? 'room' : p === 'short' ? 'park' : 'sofa');
-    $('sign').innerHTML = p === 'focus' ? 'DO NOT DISTURB<small>(loafing)</small>' : 'DO NOT DISTURB<small>(sofa in use)</small>';
+    corner.classList.toggle('lively', p === 'short' || p === 'long');
+    setScene(p === 'short' ? 'park' : p === 'long' ? 'sofa' : 'room');
+    $('sign').innerHTML = 'DO NOT DISTURB<small>' + { focus: '(loafing)', box: '(boxed in)', up: '(in the flow)', short: '(zoomies)', long: '(sofa in use)', meet: '(in a meeting)' }[p] + '</small>';
     setPal();
     renderJars();
     renderRun();
@@ -938,25 +1239,34 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   let lastTitle = '';
   function renderRun() {
     if (!sess || sess.wait) return;
-    const left = sess.paused ? sess.left : Math.max(0, sess.endAt - now());
-    const frac = Math.min(1, left / sess.dur);
-    $('time').textContent = fmt(left);
+    const up = sess.phase === 'up', plain = up || sess.phase === 'box';
+    const el = up ? (sess.paused ? sess.left : Math.max(0, now() - sess.startAt)) : 0;
+    const left = up ? 0 : sess.paused ? sess.left : Math.max(0, sess.endAt - now());
+    const frac = up ? (el % sess.dur) / sess.dur : Math.min(1, left / sess.dur);     // the stopwatch ring fills once an hour
+    const shownT = up ? fmt(el, true) : fmt(left);
+    $('time').textContent = shownT; $('time').classList.toggle('long', shownT.length > 5);
     $('prog').setAttribute('stroke-dasharray', `${(C * frac).toFixed(1)} ${C.toFixed(1)}`);
-    placeTrack(frac);
+    if (sess.pl) placeDayTrack();
+    else if (!plain) placeTrack(frac);
+    else $('setLeft').textContent = sess.paused ? 'Paused' : up ? `Next stretch in ${hm((sess.dur - el % sess.dur) / 60000)}` : 'Ends at ' + clock(sess.endAt);
     document.body.classList.toggle('paused', sess.paused);
     $('pauseBtn').textContent = sess.paused ? 'RESUME' : 'PAUSE';
-    const t = `${sess.paused ? 'Paused · ' : ''}${fmt(left)} ${sess.phase === 'focus' ? 'Focus' : sess.phase === 'short' ? 'Zoomies' : 'Sofa time'} · LOAF`;
+    const t = `${sess.paused ? 'Paused · ' : ''}${shownT} ${{ focus: 'Focus', short: 'Zoomies', long: 'Sofa time', box: 'Timebox', up: 'Stopwatch', meet: 'Meeting' }[sess.phase]} · LOAF`;
     if (t !== lastTitle) { document.title = t; lastTitle = t; }
     soundHints();
   }
   function setupWait() {
+    if (sess.pl) { setupPlanWait(); return; }
+    $('stopBtn2').dataset.alt = ''; $('cameUp2').hidden = true;
     const p = sess.phase, n = sess.n;
     $('waitTitle').textContent = p === 'focus' ? "BREAK'S OVER" : p === 'short' ? 'FOCUS DONE!' : 'SET DONE!';
     $('waitSub').textContent = p === 'focus' ? `Pomodoro ${n} of ${set.every} is ready when you are`
       : p === 'short' ? `Time for ${set.short} min of zoomies` : `${plural(set.every, 'pomodoro')}! Time for ${set.long} min of sofa time`;
     $('goBtn').textContent = p === 'focus' ? 'START FOCUS' : p === 'short' ? 'START ZOOMIES' : 'START SOFA TIME';
-    $('waitBubble').textContent = sess.wait.nudges ? nudgeLine(sess.wait.nudges) : pending || pick(p === 'focus' ? 'waitFocus' : 'waitBreak');
+    $('waitBubble').textContent = sess.wait.nudges ? nudgeLine(sess.wait.nudges) : pending || pick(p === 'focus' ? 'waitFocus' : p === 'box' ? 'waitBox' : 'waitBreak');
     pending = '';
+    $('stopBtn2').textContent = p === 'box' ? '5 more minutes' : 'Stop for now';
+    if (p === 'box') { $('waitTitle').textContent = "TIME'S UP!"; $('waitSub').textContent = `Your ${hm(sess.dur / 60000)} timebox is done`; $('goBtn').textContent = 'DONE'; }
     renderJars();
     renderWaitLumi();
     document.title = "Time's up! · LOAF";
@@ -974,7 +1284,8 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   function renderWait() {
     if (!sess || !sess.wait) return;
     const pill = $('pill');
-    pill.hidden = !set.nudge || set.auto;
+    if (sess.pl && sess.pl.gap) planGapText();
+    pill.hidden = !canNudge();
     if (!pill.hidden) {
       const k = sess.wait.nudges;
       if (k >= NUDGE_MAX) $('pillText').textContent = "That was the last nudge. Lumi's gone back to bed.";
@@ -985,7 +1296,11 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     }
     soundHints();
   }
+  // The "tap to wake the chime" hint goes away on the first touch. Hiding it mid-tap would shift the buttons up under the finger
+  // and the tap would land on nothing, so it waits until the finger is off the screen.
+  let pressing = false;
   function soundHints() {
+    if (pressing) return;
     const need = !!sess && set.chime && !audioOk();
     $('soundHint').hidden = !need; $('soundHint2').hidden = !need;
   }
@@ -999,14 +1314,14 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
       if (it === 'o') t += `<g transform="rotate(${rot} ${x + 10} ${y + 5})" fill="#fff" stroke="#c4cad3" stroke-width="2"><rect x="${x + 2}" y="${y + 1}" width="18" height="8" rx="4"/><circle cx="${x + 2}" cy="${y + 1}" r="4"/><circle cx="${x + 2}" cy="${y + 9}" r="4"/><circle cx="${x + 20}" cy="${y + 1}" r="4"/><circle cx="${x + 20}" cy="${y + 9}" r="4"/></g>`;
       else t += `<rect x="${x}" y="${y}" width="22" height="12" rx="6" transform="rotate(${rot} ${x + 11} ${y + 6})" fill="${it === 'g' ? '#facc15' : '#e7c39c'}" stroke="${it === 'g' ? '#a16207' : '#a8743f'}" stroke-width="2"/>`;
     });
-    const gy = Math.max(30, 139 - Math.ceil(Math.min(set.goal, 21) / 3) * 15);
+    const gy = Math.max(30, 139 - Math.ceil(Math.min(goalNow(), 21) / 3) * 15);
     return `<svg viewBox="0 0 120 150" aria-hidden="true"><rect x="34" y="6" width="52" height="14" rx="5" fill="#ff9a7d"/>
 <path d="M28 24 Q28 18 34 18 L86 18 Q92 18 92 24 L98 134 Q98 144 88 144 L32 144 Q22 144 22 134 Z" fill="rgba(255,255,255,.12)" stroke="#f3c9bd" stroke-width="3"/>
 ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-dasharray="5 4"/></svg>`;
   }
   function renderJars() {
     rollDay();
-    const art = jarArt(), label = `${jar.earned} of ${set.goal} today`;
+    const art = jarArt(), label = `${jar.earned} of ${goalNow()} today`;
     const aria = `Treat jar: ${plural(jar.items.length, 'treat')} in it, ${label}. Tap to feed Lumi.`;
     for (const id of ['jarRun', 'jarWait', 'jarHome']) {
       const b = $(id);
@@ -1037,7 +1352,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
 
   /* ---------- home / settings ---------- */
   function renderHome() {
-    for (const k of ['focus', 'short', 'long', 'every', 'goal']) {
+    for (const k of ['focus', 'short', 'long', 'every', 'goal', 'box']) {
       $('v-' + k).textContent = set[k];
       document.querySelectorAll(`[data-k="${k}"][data-d]`).forEach((b) => {
         b.disabled = +b.dataset.d < 0 ? set[k] <= LIMITS[k][0] : set[k] >= LIMITS[k][1];
@@ -1046,8 +1361,11 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const total = set.every * set.focus + (set.every - 1) * set.short + set.long;
     const h = Math.floor(total / 60), m = total % 60;
     $('sum').innerHTML = `${set.every} × ${set.focus} min focus<br>${h ? h + ' h ' : ''}${m ? m + ' min' : ''} a set`;
-    renderJars();
+    renderJars(); renderDayCard();
     if (jar.ate) { $('homeTag').textContent = pick('morning'); jar.ate = 0; save(); }
+    if (homeNote) { $('homeTag').textContent = homeNote; homeNote = ''; }
+    document.querySelectorAll('#styles .sty').forEach((b) => { const st = STYLES.find((x) => x.id === b.dataset.style); b.setAttribute('aria-pressed', String(STYLE_KEYS.every((k) => set[k] === st[k]))); });
+    document.querySelectorAll('#boxChips button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.v === set.box)));
     $('lockNote').hidden = !(window.matchMedia && matchMedia('(pointer: coarse)').matches);
     for (const k of ['chime', 'notify', 'auto', 'nudge', 'humans']) $('t-' + k).setAttribute('aria-checked', set[k] ? 'true' : 'false');
     // notices: say plainly when they can't work here
@@ -1080,11 +1398,680 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (k === 'notify' && set.notify) askNotify();
   }));
 
+  /* ---------- the day shape: clock maths ---------- */
+  const dayMs = (m) => { const d = new Date(now()); d.setHours(0, 0, 0, 0); return d.getTime() + m * 60000; };
+  const minDay = (ts) => { const d = new Date(ts); return d.getHours() * 60 + d.getMinutes(); };
+  const tm = (m) => clock(dayMs(m));
+  const esc = (x) => String(x).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const bmin = (b) => (KINDS[b.k].ph ? b.n * b.f + (b.n - 1) * b.sb : b.min);
+  const bname = (b) => b.label || KINDS[b.k].name;
+  const live = (b) => b.st === 'todo' || b.st === 'run';
+  function steps(b) {
+    if (!KINDS[b.k].ph) return [{ ph: KIND_PHASE[b.k], m: b.min }];
+    const out = [];
+    for (let i = 1; i <= b.n; i++) { out.push({ ph: 'focus', m: b.f }); if (i < b.n) out.push({ ph: 'short', m: b.sb }); }
+    return out;
+  }
+  // the fewest pomodoros a block can be trimmed to once it has started: never the one on screen, never a break that is waiting
+  const minN = (b) => (b.st === 'run' ? Math.floor((b.si + 1) / 2) + 1 : 1);
+  // how much of this block is still to come, in ms (a running step counts what is actually left on its clock)
+  function remMs(b) {
+    const st = steps(b);
+    let ms = 0;
+    for (let i = b.st === 'run' ? b.si : 0; i < st.length; i++) ms += st[i].m * 60000;
+    if (b.st === 'run' && sess && sess.pl && sess.pl.b === b.id && !sess.pl.gap && !sess.wait && st[b.si]) {
+      const up = sess.phase === 'up', nom = up ? st[b.si].m * 60000 : sess.dur;
+      const left = up ? Math.max(0, nom - (sess.paused ? sess.left : now() - sess.startAt)) : sess.paused ? sess.left : Math.max(0, sess.endAt - now());
+      ms += left - nom;
+    }
+    return Math.max(0, ms);
+  }
+  // Lay the day out from a cursor. A pinned block (a meeting) holds its clock time: if you arrive late it still ends on time,
+  // so lateness never carries past it.
+  function project(pl, cursor) {
+    const rows = [];
+    let cur = cursor;
+    for (const b of pl.blocks) {
+      if (!live(b)) continue;
+      let s = cur, e, late = 0;
+      if (b.st === 'todo' && b.pin != null) {
+        const p = dayMs(b.pin);
+        if (p >= cur) s = p; else late = cur - p;
+        e = Math.max(s, p + bmin(b) * 60000);
+      } else e = s + remMs(b);
+      rows.push({ b, s, e, late });
+      cur = e;
+    }
+    return rows;
+  }
+  function problems(pl, cursor) {
+    const rows = project(pl, cursor), end = rows.length ? rows[rows.length - 1].e : cursor;
+    return { rows, end, pins: rows.filter((r) => r.late > 30000), over: pl.fin != null ? Math.max(0, end - dayMs(pl.fin)) : 0 };
+  }
+  // Trim to fit: nice blocks shrink first (latest first), then drop. Must blocks and pinned meetings are never touched.
+  const shrinkFloor = (b) => (b.k === 'zoom' || b.k === 'sofa' ? 5 : 10);
+  const canShrink = (b) => (KINDS[b.k].ph ? b.n > minN(b) : b.min > shrinkFloor(b));
+  function trimPlan(pl, cursor) {
+    const before = {};
+    pl.blocks.forEach((b) => { before[b.id] = { n: b.n, min: b.min, st: b.st }; });
+    for (let guard = 0; guard < 150; guard++) {
+      const pr = problems(pl, cursor);
+      let from = 0, to = -1;
+      if (pr.pins.length) to = pr.rows.indexOf(pr.pins[0]) - 1;
+      else if (pr.over > 30000) { to = pr.rows.length - 1; pr.rows.forEach((r, i) => { if (r.b.pin != null && r.b.st === 'todo') from = i + 1; }); }
+      else break;
+      const cand = pr.rows.slice(from, to + 1).map((r) => r.b).filter((b) => b.prio === 'nice' && b.k !== 'meet').reverse();
+      const sh = cand.find(canShrink), dr = cand.find((b) => b.st === 'todo');
+      if (sh) { if (KINDS[sh.k].ph) sh.n--; else sh.min = Math.max(shrinkFloor(sh), sh.min - 5); }
+      else if (dr) dr.st = 'drop';
+      else break;
+    }
+    const notes = [];
+    pl.blocks.forEach((b) => {
+      const o = before[b.id];
+      if (!o) return;
+      if (b.st === 'drop' && o.st !== 'drop') notes.push(`${bname(b)} moves to "If there's time"`);
+      else if (KINDS[b.k].ph && b.n !== o.n) notes.push(`${bname(b)}: ${o.n} → ${b.n} × ${b.f} min`);
+      else if (!KINDS[b.k].ph && b.min !== o.min) notes.push(`${bname(b)}: ${o.min} → ${b.min} min`);
+    });
+    return notes;
+  }
+  const clonePlan = () => JSON.parse(JSON.stringify(plan));
+  function lateness() {                  // how far behind the plan is right now, or null
+    if (!plan || !plan.run) return null;
+    const pr = problems(plan, now());
+    const behind = pr.pins.length ? Math.round(pr.pins[0].late / 60000) : 0, over = Math.round(pr.over / 60000);
+    const amount = Math.max(behind, over);
+    return amount >= 2 ? { pr, behind, over, amount } : { pr, behind: 0, over: 0, amount: 0 };
+  }
+  // the daily goal follows the plan: 1 treat for every 25 min of planned focus
+  function goalNow() {
+    if (!plan) return set.goal;
+    let m = 0;
+    for (const b of plan.blocks) {
+      if (b.st === 'drop') continue;
+      if (KINDS[b.k].ph) m += b.n * b.f; else if (b.k === 'box' || b.k === 'up') m += b.min;
+    }
+    return m ? Math.min(40, Math.max(1, Math.floor(m / 25))) : set.goal;
+  }
+
+  /* ---------- the day shape: running it ---------- */
+  function stepMs(b, si) {
+    const st = steps(b)[si];
+    if (b.k === 'meet' && b.pin != null && b.st !== 'run') return Math.max(5 * 60000, dayMs(b.pin) + b.min * 60000 - now());   // it still ends on time
+    return st.m * 60000;
+  }
+  function startPlanStep(b, si, startAt) {
+    const st = steps(b)[si];
+    b.st = 'run'; b.si = si;
+    plan.run = true;
+    startPhase(st.ph, st.ph === 'focus' ? b.d + 1 : 1, startAt || 0, [], stepMs(b, si), { b: b.id, s: si, gap: false, bound: false, prev: '' });
+  }
+  function waitSess(phase, n, dur, since, pl) {
+    sess = { phase, n, dur, endAt: 0, startAt: 0, marks: 0, paused: false, left: 0, wait: { since, nudges: 0 }, skips: [], pl };
+    save(); scheduleSounds(); showScreen(); wake();
+    if (party) celebrate();
+  }
+  function planFinish(done, quiet, endedAt) {
+    const pl = done.pl, b = blockById(pl.b);
+    const chime = (!quiet || done.phase === 'up') && set.chime && chimeFor !== endedAt && now() - endedAt < 5000;
+    let focusMs = 0;
+    if (!quiet && (done.phase === 'focus' || done.phase === 'box')) focusMs = done.dur;
+    if (done.phase === 'up') focusMs = Math.max(0, done.paused ? done.left : (quiet ? now() : endedAt) - done.startAt);
+    if (chime) SOUNDS[done.phase === 'focus' || done.phase === 'box' || done.phase === 'up' ? 'toBreak' : 'toFocus'](0, false);
+    if (pl.gap || !b) {                              // a spare-time timebox or zoomies: no block of its own
+      if (focusMs) pending = earnTime(focusMs).line;
+      goNextBlock(endedAt, false, done.phase);
+      return;
+    }
+    if (done.phase === 'focus') { b.d++; if (quiet) b.sk++; }
+    b.si = pl.s + 1;
+    const all = steps(b);
+    if (b.si >= all.length) {                        // that was the last bit of the block
+      b.st = quiet && (b.k === 'box' || (KINDS[b.k].ph && b.sk >= b.n)) ? 'skip' : 'done';
+      const bone = KINDS[b.k].ph && b.st === 'done' && b.n >= 3 && !b.sk;
+      const r = focusMs || bone ? earnTime(focusMs, bone) : { line: '' };
+      if (r.line) pending = r.line;
+      goNextBlock(endedAt, false, done.phase);
+      return;
+    }
+    if (focusMs) pending = earnTime(focusMs).line || pending;
+    const nx = all[b.si];
+    if (set.auto) { notify(nx.ph === 'focus' ? `Pomodoro ${b.d + 1} has started` : 'Zoomies time!', 'Lumi says: ' + (nx.ph === 'focus' ? 'off you trot.' : 'legs out!')); startPlanStep(b, b.si, endedAt); }
+    else {
+      if (!quiet) notify(nx.ph === 'focus' ? "Break's over" : 'Focus done! Zoomies time', nx.ph === 'focus' ? `${bname(b)} is ready when you are.` : `Tap to start your ${nx.m} min break.`);
+      waitSess(nx.ph, nx.ph === 'focus' ? b.d + 1 : 1, nx.m * 60000, endedAt, { b: b.id, s: b.si, gap: false, bound: false, prev: done.phase });
+    }
+    checkpoint();
+  }
+  // the next block in the day: start it, offer spare time before a pinned one, or finish the day
+  function goNextBlock(endedAt, immediate, prev) {
+    const nb = plan.blocks.find((b) => b.st === 'todo');
+    if (!nb) { planComplete(); return; }
+    const gap = nb.pin != null ? dayMs(nb.pin) - now() : 0;
+    if (gap >= 10 * 60000) {
+      waitSess('box', 1, gap, endedAt, { b: nb.id, s: 0, gap: true, bound: true, prev: prev || '' });
+      if (prev) notify('Spare time', `${hm(gap / 60000)} before ${bname(nb)}.`);
+      checkpoint();
+      return;
+    }
+    const sp = steps(nb)[0];
+    if (immediate || set.auto) { startPlanStep(nb, 0, immediate ? 0 : endedAt); checkpoint(); return; }
+    waitSess(sp.ph, 1, sp.m * 60000, endedAt, { b: nb.id, s: 0, gap: false, bound: true, prev: prev || '' });
+    if (prev) notify(prev === 'box' ? "Time's up!" : 'Next up', `${bname(nb)} is ready when you are.`);
+    checkpoint();
+  }
+  function planComplete() {
+    plan.run = false; sess = null; cancelSched(); unwake();
+    homeNote = pending || pick('dayDone'); pending = '';
+    save(); showScreen();
+    if (party) celebrate();
+  }
+  function planStart() {
+    if (!plan || !plan.blocks.some((b) => b.st === 'todo' || b.st === 'run')) return;
+    ensureAudio().then(scheduleSounds); askNotify();
+    plan.run = true; plan.ack = 0; planOpen = false; sheetClose();
+    pending = pick('dayStart');
+    const run = plan.blocks.find((b) => b.st === 'run');
+    if (run) startPlanStep(run, run.si); else goNextBlock(now(), true);
+  }
+  function planGo() {
+    const pl = sess.pl, b = blockById(pl.b);
+    if (!b) { planComplete(); return; }
+    ensureAudio();
+    if (pl.gap) {                                    // spare time: a timebox until the pinned block
+      const dur = Math.max(5 * 60000, dayMs(b.pin) - now());
+      startPhase('box', 1, 0, [], dur, { b: b.id, s: 0, gap: true, bound: false, prev: '' });
+      return;
+    }
+    startPlanStep(b, pl.s);
+  }
+  function planAlt(kind) {                           // the second button on a waiting screen
+    const pl = sess.pl, b = blockById(pl.b);
+    ensureAudio();
+    if (kind === 'zoom' && b) { startPhase('short', 1, 0, [], Math.max(5 * 60000, dayMs(b.pin) - now()), { b: b.id, s: 0, gap: true, bound: false, prev: '' }); return; }
+    if (kind === 'more') {                           // five more minutes on the timebox that just finished
+      const last = plan.blocks.slice().reverse().find((x) => x.k === 'box' && (x.st === 'done'));
+      if (last) { last.st = 'run'; last.si = 0; pending = pick('boxMore'); startPhase('box', 1, 0, [], 5 * 60000, { b: last.id, s: 0, gap: false, bound: false, prev: '' }); }
+    }
+  }
+  function setupPlanWait() {
+    const pl = sess.pl, b = blockById(pl.b), p = sess.phase;
+    $('cameUp2').hidden = false;
+    let title, sub, go, alt = 'Stop for now', key = 'waitBreak', act = '';
+    if (pl.gap) {
+      title = 'SPARE TIME'; sub = ''; go = 'TIMEBOX'; alt = 'Zoomies until then'; act = 'zoom';
+    } else if (pl.bound) {
+      title = pl.prev === 'box' ? "TIME'S UP!" : 'NEXT UP';
+      sub = `${bname(b)} · ${hm(bmin(b))}${b.pin != null ? ' · at ' + tm(b.pin) : ''}`;
+      go = 'START ' + (b.k === 'meet' ? 'MEETING' : KINDS[b.k].name.toUpperCase());
+      if (pl.prev === 'box') { alt = '5 more minutes'; act = 'more'; key = 'waitBox'; }
+    } else if (p === 'focus') { title = "BREAK'S OVER"; sub = `Pomodoro ${sess.n} of ${b.n} is ready when you are`; go = 'START FOCUS'; key = 'waitFocus'; }
+    else { title = 'FOCUS DONE!'; sub = `Time for ${hm(sess.dur / 60000)} of zoomies`; go = 'START ZOOMIES'; }
+    $('waitTitle').textContent = title; $('waitSub').textContent = sub; $('goBtn').textContent = go;
+    $('stopBtn2').textContent = alt; $('stopBtn2').dataset.alt = act;
+    $('waitBubble').textContent = sess.wait.nudges ? nudgeLine(sess.wait.nudges) : pending || pick(key);
+    pending = '';
+    if (pl.gap) planGapText();
+    renderJars(); renderWaitLumi();
+    document.title = (pl.bound ? 'Next up' : "Time's up!") + ' · LOAF';
+    renderWait();
+  }
+  function planGapText() {
+    const b = blockById(sess.pl.b);
+    if (!b) return;
+    const mins = Math.max(1, Math.round((dayMs(b.pin) - now()) / 60000));
+    $('waitSub').textContent = `${hm(mins)} before ${bname(b)} at ${tm(b.pin)}`;
+    $('goBtn').textContent = `TIMEBOX ${mins} MIN`;
+  }
+  function planTick() {
+    if (!plan.run) return;
+    if (sess.wait && sess.pl.gap) {                  // the pinned block got close: no point offering a timebox any more
+      const b = blockById(sess.pl.b);
+      if (!b || dayMs(b.pin) - now() < 10 * 60000) goNextBlock(sess.wait.since, false, sess.pl.prev);
+      return;
+    }
+    if (sess.wait || sess.paused) return;
+    const nb = plan.blocks.find((b) => b.st === 'todo' && b.pin != null);
+    if (nb) {                                        // a pinned block is five minutes away: wrap up
+      const left = dayMs(nb.pin) - now();
+      if (left > 0 && left <= 5 * 60000 && plan.warned !== nb.id) {
+        plan.warned = nb.id;
+        const line = pick('pinWarn').replace('{what}', bname(nb) + ' at ' + tm(nb.pin));
+        say(line, 9000); notify('Coming up', line);
+      }
+    }
+  }
+  function planRunText() {
+    const pl = sess.pl, b = blockById(pl.b), p = sess.phase, list = plan.blocks.filter((x) => x.st !== 'drop');
+    if (!b) return;
+    const rows = project(plan, now());
+    if (pl.gap) {
+      $('runTitle').textContent = p === 'box' ? 'TIMEBOX' : 'ZOOMIES';
+      $('runSub').textContent = 'Spare time before ' + bname(b);
+      $('next').textContent = `Then ${bname(b)} at ${tm(b.pin)}`;
+    } else {
+      const all = steps(b), ph = KINDS[b.k].ph;
+      $('runTitle').textContent = { focus: 'FOCUS', short: 'ZOOMIES', long: 'SOFA TIME', box: 'TIMEBOX', up: 'STOPWATCH', meet: 'MEETING' }[p];
+      $('runSub').textContent = `${bname(b)} · block ${list.indexOf(b) + 1} of ${list.length}` + (ph && p === 'focus' ? ` · pomodoro ${sess.n} of ${b.n}` : '');
+      if (ph && b.si < all.length - 1) $('next').textContent = all[b.si + 1].ph === 'short' ? `Then ${all[b.si + 1].m} min of zoomies` : `Then pomodoro ${b.d + 2} of ${b.n}`;
+      else if (rows[1]) $('next').textContent = `Next: ${bname(rows[1].b)} at ${clock(rows[1].s)}`;
+      else $('next').textContent = 'Last block of the day';
+    }
+    $('of').textContent = p === 'up' ? 'counting up' : 'of ' + fmt(sess.dur);
+  }
+  const DAYC = { deep: ['#ff9a7d', 'rgba(255,154,125,.28)'], lfoc: ['#ff7a55', 'rgba(255,122,85,.28)'], admin: ['#fdba74', 'rgba(253,186,116,.28)'], box: ['#5eead4', 'rgba(94,234,212,.25)'],
+    meet: ['#94a3b8', 'rgba(148,163,184,.3)'], zoom: ['#4ade80', 'rgba(74,222,128,.25)'], sofa: ['#b9a2ff', 'rgba(185,162,255,.3)'], up: ['#7dd3fc', 'rgba(125,211,252,.25)'] };
+  function buildDayTrack() {
+    const list = plan.blocks.filter((b) => b.st !== 'drop'), cur = sess.pl.gap ? null : blockById(sess.pl.b);
+    $('segs').innerHTML = list.map((b) => {
+      const st = b === cur ? 'now' : b.st === 'done' ? 'done' : b.st === 'skip' ? 'skip' : 'todo', c = DAYC[b.k];
+      return `<div class="seg day ${st}" style="flex-grow:${Math.max(5, bmin(b))};--c:${c[0]};--cs:${c[1]}">${st === 'now' ? '<div class="fill"></div>' : ''}</div>`;
+    }).join('');
+    const done = list.filter((b) => b.st === 'done').length;
+    $('setTrack').setAttribute('aria-label', `Your day: ${done} of ${list.length} blocks done.`);
+    $('tLumiArt').innerHTML = sess.phase === 'long' ? lumiLoaf(true) : lumiRun();
+  }
+  function placeDayTrack() {
+    const list = plan.blocks.filter((b) => b.st !== 'drop'), segs = $('segs').children, pl = sess.pl;
+    if (segs.length !== list.length) { buildDayTrack(); return; }
+    let at = list.findIndex((b) => b.st === 'todo' || b.st === 'run'), prog = 0;
+    if (pl.gap) { const i = list.findIndex((b) => b.id === pl.b); at = i < 0 ? at : i; }
+    else {
+      const i = list.findIndex((b) => b.id === pl.b);
+      if (i >= 0) { at = i; prog = Math.min(1, Math.max(0, 1 - remMs(list[i]) / (bmin(list[i]) * 60000))); const f = segs[i].firstElementChild; if (f) f.style.width = (prog * 100).toFixed(1) + '%'; }
+    }
+    if (at < 0) at = list.length - 1;
+    const seg = segs[at], base = $('segs').offsetLeft, last = segs[segs.length - 1];
+    $('tLumi').style.left = (base + seg.offsetLeft + seg.offsetWidth * prog) + 'px';
+    $('tLumi').style.bottom = '';
+    const endsOnSofa = list[list.length - 1].k === 'sofa';
+    $('sofa').style.visibility = endsOnSofa ? '' : 'hidden';
+    $('sofa').style.left = (base + last.offsetLeft + last.offsetWidth / 2) + 'px';
+    const L = lateness();
+    $('setLeft').textContent = sess.paused ? 'Paused' : L && L.amount ? `${L.amount} min behind` : 'On time · ends about ' + clock(L ? L.pr.end : now());
+  }
+
+  /* ---------- the late checkpoint ---------- */
+  function checkpoint() {
+    if (!plan || !plan.run || !$('sheet').hidden) return;
+    const L = lateness();
+    if (L && L.amount >= Math.max(5, plan.ack + 5)) openSheet({ t: 'late' });
+  }
+
+  /* ---------- sheets (late checkpoint, something came up, how long have you got) ---------- */
+  let sh = null;
+  const nextQuarter = (plus) => Math.min(1425, Math.ceil((minDay(now()) + plus) / 15) * 15);
+  function openSheet(o) { sh = o; renderSheet(); $('sheet').hidden = false; const f = $('shPanel').querySelector('button,input'); if (f) f.focus(); }
+  function sheetClose() { sh = null; $('sheet').hidden = true; }
+  const opt = (act, title, sub, cls) => `<button type="button" class="opt ${cls || ''}" data-sa="${act}"><b>${title}</b>${sub ? `<small>${sub}</small>` : ''}</button>`;
+  const stepper = (what, text) => `<div class="shStep"><button type="button" data-sa="${what}-" aria-label="Less">−</button><output>${text}</output><button type="button" data-sa="${what}+" aria-label="More">+</button></div>`;
+  function renderSheet() {
+    let h = '';
+    if (sh.t === 'late') {
+      const L = lateness();
+      if (!L || !L.amount) { sheetClose(); return; }
+      const pin = L.pr.pins[0];
+      const why = pin ? `At this pace you'd join <b>${esc(bname(pin.b))}</b> ${L.behind} min late.` : `At this pace the day ends at <b>${clock(L.pr.end)}</b>, ${L.over} min past your finish line.`;
+      if (sh.pick) {
+        h = `<h2 id="shTitle">Skip which block?</h2><p>Skipped blocks are shown hatched. They never count as failed.</p>` +
+          plan.blocks.filter((b) => b.st === 'todo').map((b) => opt('skip:' + b.id, esc(bname(b)), hm(bmin(b)))).join('') + opt('back', 'Back', '', 'quiet');
+      } else {
+        const t = clonePlan(), notes = trimPlan(t, now()), still = problems(t, now()), fits = !still.pins.length && still.over <= 30000;
+        h = `<h2 id="shTitle">Running a bit behind</h2><p>${why}</p>` +
+          opt('trim', 'Trim to fit', notes.length ? esc(notes.join('. ')) + (fits ? '' : '. Still a little over') : 'Nothing nice-to-have left to trim', 'main') +
+          opt('pick', 'Skip a block', 'Pick one to leave out today') +
+          opt('push', 'Push everything', pin ? `${esc(bname(pin.b))} still holds ${tm(pin.b.pin)}, so you'd join it ${L.behind} min late` : `The day ends at ${clock(L.pr.end)} instead of ${tm(plan.fin)}`) +
+          opt('later', 'Not now', '', 'quiet');
+      }
+    } else if (sh.t === 'done') {
+      h = `<h2 id="shTitle">${esc(sh.title)}</h2>${sh.list.length ? '<ul>' + sh.list.map((x) => `<li>${esc(x)}</li>`).join('') + '</ul>' : '<p>Nothing needed changing.</p>'}` + opt('close', 'OK', '', 'main');
+    } else if (sh.t === 'up') {
+      h = `<h2 id="shTitle">Something came up</h2><p>No problem. Finished blocks stay as they are.</p>` +
+        opt('c-pin', 'Pin a new meeting', 'It holds its clock time and the rest flows around it') +
+        opt('c-int', 'Add a 15 min interruption', 'Goes in right after what you are doing') +
+        opt('c-late', 'Run late, trim it', 'Nice-to-have blocks shrink or drop first') +
+        opt('c-skip', 'Skip this block', 'Shown hatched, never as failed') +
+        opt('c-drop', 'Drop the rest of the day', 'Everything left moves to "If there\'s time"') +
+        opt('c-reshape', 'Reshape by hand', 'Open the day shape with finished blocks locked') + opt('close', 'Never mind', '', 'quiet');
+    } else if (sh.t === 'pin') {
+      h = `<h2 id="shTitle">Pin a new meeting</h2><label class="fld">Name<input type="text" id="shLabel" maxlength="30" value="${esc(sh.label)}"></label>` +
+        `<div class="shRow"><span>Starts at</span>${stepper('p-at', tm(sh.at))}</div><div class="shRow"><span>Length</span>${stepper('p-len', hm(sh.len))}</div>` +
+        opt('p-add', 'Add it', '', 'main') + opt('up', 'Back', '', 'quiet');
+    } else if (sh.t === 'how') {
+      const avail = sh.mode === 'until' ? Math.max(0, sh.until - minDay(now())) : sh.len;
+      const pr = proposal(avail, sh.kind), tot = pr.blocks.reduce((m, b) => m + bmin(b), 0);
+      h = `<h2 id="shTitle">How long have you got?</h2><div class="chips" role="group" aria-label="Length">` +
+        [30, 60, 90, 120, 180].map((m) => `<button type="button" data-sa="h-len:${m}" aria-pressed="${sh.mode === 'len' && sh.len === m}">${m < 60 ? m + ' min' : m / 60 + ' h'}</button>`).join('') + `</div>` +
+        `<div class="shRow"><span>Or until</span>${stepper('h-until', tm(sh.until))}<button type="button" class="mini ${sh.mode === 'until' ? 'on' : ''}" data-sa="h-mode:until">Use</button></div>` +
+        `<div class="chips" role="group" aria-label="Style">` + [['deep', 'Deep work'], ['lfoc', 'Long focus'], ['admin', 'Admin'], ['box', 'Timebox']].map((k) => `<button type="button" data-sa="h-kind:${k[0]}" aria-pressed="${sh.kind === k[0]}">${k[1]}</button>`).join('') + `</div>` +
+        `<p class="prop">${pr.blocks.length ? `Lumi suggests <b>${esc(pr.text)}</b>` + (avail - tot >= 3 ? `, with ${hm(avail - tot)} spare` : '') : 'That is not long enough for a block. Try a longer slot.'}</p>` +
+        (pr.blocks.length ? opt('h-go', 'Start now', '', 'main') + opt('h-tweak', 'Tweak it first', 'Open it in the day shape', '') : '') + opt('close', 'Never mind', '', 'quiet');
+    }
+    $('shPanel').innerHTML = h;
+  }
+  // fill a slot with the chosen rhythm: pomodoros in sets, sofa time between sets when there is room
+  function proposal(avail, kind) {
+    const blocks = [];
+    let text = '';
+    if (avail < 5) return { blocks, text };
+    if (kind === 'box') { const b = newBlock('box', { min: Math.min(480, avail) }); blocks.push(b); return { blocks, text: `one ${hm(b.min)} timebox` }; }
+    const K = KINDS[kind], chunk = kind === 'lfoc' ? 3 : 4;
+    let rem = avail, total = 0;
+    while (rem >= K.f) {
+      const m = Math.min(chunk, Math.floor((rem + K.sb) / (K.f + K.sb)));
+      if (m < 1) break;
+      blocks.push(newBlock(kind, { n: m })); total += m; rem -= m * K.f + (m - 1) * K.sb;
+      if (rem >= K.f + 15 + K.sb) { blocks.push(newBlock('sofa', { min: 15 })); rem -= 15; } else break;
+    }
+    text = `${total} × ${K.f} min of ${K.name.toLowerCase()}`;
+    return { blocks, text };
+  }
+  function newBlock(k, o) {
+    const K = KINDS[k];
+    return Object.assign({ id: nid++, k, label: '', n: K.ph ? K.n : 1, f: K.f || 0, sb: K.sb || 0, min: K.ph ? 0 : K.min, pin: null, prio: K.prio, st: 'todo', si: 0, d: 0, sk: 0 }, o || {});
+  }
+  function freshPlan(startMin) { return { day: today(), start: startMin == null ? nextQuarter(0) : startMin, fin: null, blocks: [], run: false, ack: 0, warned: 0 }; }
+  // put a block where its time says it belongs: after everything that finishes before it, never ahead of the block on screen
+  function insertAt(b) {
+    let at = plan.blocks.length;
+    const runI = plan.blocks.findIndex((x) => x.st === 'run'), lo = runI >= 0 ? runI + 1 : plan.blocks.findIndex((x) => x.st === 'todo');
+    if (b.pin != null) {
+      const rows = project(plan, plan.run ? now() : dayMs(plan.start)), p = dayMs(b.pin);
+      at = lo < 0 ? plan.blocks.length : lo;
+      rows.forEach((r) => { if (r.b.st === 'todo' && r.e <= p + 60000) at = Math.max(at, plan.blocks.indexOf(r.b) + 1); });
+    } else at = lo < 0 ? plan.blocks.length : lo;
+    plan.blocks.splice(Math.max(0, at), 0, b);
+  }
+  function resync() {                                 // the plan changed under a waiting screen
+    if (!plan.run || !sess || !sess.pl) return;
+    if (sess.wait && (sess.pl.bound || sess.pl.gap)) goNextBlock(sess.wait.since, false, sess.pl.prev);
+    else if (sess.wait) {                              // between steps of a block: the block may have been skipped
+      const b = blockById(sess.pl.b);
+      if (!b || !live(b)) goNextBlock(sess.wait.since, false, sess.pl.prev);
+    }
+  }
+  function skipBlock(id) {
+    const b = blockById(id);
+    if (!b) return;
+    const here = sess && sess.pl && !sess.pl.gap && sess.pl.b === id;
+    if (here && !sess.wait) cancelSched();
+    b.st = 'skip';
+    if (here || (sess && sess.wait && sess.pl && sess.pl.gap)) goNextBlock(now(), false, '');
+    else resync();
+    save();
+  }
+  function sheetAct(a) {
+    const val = a.includes(':') ? a.split(':')[1] : '';
+    if (a === 'close') { sheetClose(); return; }
+    if (a === 'up') { sh = { t: 'up' }; renderSheet(); return; }
+    if (sh.t === 'late') {
+      if (a === 'trim') {
+        const notes = trimPlan(plan, now());
+        plan.ack = 0; save(); sheetClose(); resync();
+        say(pick('trimmed'), 8000); showScreen();
+        if (notes.length) openSheet({ t: 'done', title: 'Trimmed to fit', list: notes });
+      } else if (a === 'pick') { sh.pick = true; renderSheet(); }
+      else if (a === 'back') { sh.pick = false; renderSheet(); }
+      else if (a.startsWith('skip:')) { sheetClose(); skipBlock(+val); plan.ack = 0; save(); checkpoint(); }
+      else if (a === 'push') { const L = lateness(); plan.ack = L ? L.amount : 0; save(); sheetClose(); say(pick('pushed'), 7000); }
+      else if (a === 'later') { const L = lateness(); plan.ack = L ? L.amount : 0; save(); sheetClose(); }
+    } else if (sh.t === 'up') {
+      if (a === 'c-pin') { sh = { t: 'pin', label: 'Meeting', at: nextQuarter(15), len: 30 }; renderSheet(); }
+      else if (a === 'c-int') {
+        const b = newBlock('meet', { label: 'Interruption', min: 15 });
+        insertAt(b); plan.ack = 0; save(); sheetClose(); resync(); showScreen(); checkpoint();
+      }
+      else if (a === 'c-late') { sh = { t: 'late' }; renderSheet(); }
+      else if (a === 'c-skip') {
+        const b = (sess && sess.pl && !sess.pl.gap && blockById(sess.pl.b)) || plan.blocks.find((x) => x.st === 'todo');
+        sheetClose(); if (b) skipBlock(b.id); showScreen();
+      }
+      else if (a === 'c-drop') {
+        plan.blocks.forEach((b) => { if (live(b)) b.st = 'drop'; });
+        sheetClose(); cancelSched(); plan.run = false; sess = null; unwake(); homeNote = 'Rest of the day set aside. Lumi will keep your place on the sofa.'; save(); showScreen();
+      }
+      else if (a === 'c-reshape') { sheetClose(); planOpen = true; showScreen(); }
+    } else if (sh.t === 'pin') {
+      if (a === 'p-at-') sh.at = Math.max(0, sh.at - 15); else if (a === 'p-at+') sh.at = Math.min(1425, sh.at + 15);
+      else if (a === 'p-len-') sh.len = Math.max(15, sh.len - 15); else if (a === 'p-len+') sh.len = Math.min(240, sh.len + 15);
+      else if (a === 'p-add') {
+        const label = ($('shLabel').value || '').trim().slice(0, 30) || 'Meeting';
+        const b = newBlock('meet', { label, min: sh.len, pin: sh.at });
+        insertAt(b); plan.ack = 0; save(); sheetClose(); resync(); showScreen(); checkpoint();
+        return;
+      }
+      if (a !== 'p-add') { sh.label = ($('shLabel') ? $('shLabel').value : sh.label); renderSheet(); }
+    } else if (sh.t === 'how') {
+      if (a.startsWith('h-len:')) { sh.mode = 'len'; sh.len = +val; }
+      else if (a.startsWith('h-kind:')) sh.kind = val;
+      else if (a.startsWith('h-mode:')) sh.mode = val;
+      else if (a === 'h-until-') { sh.until = Math.max(minDay(now()) + 15, sh.until - 15); sh.mode = 'until'; }
+      else if (a === 'h-until+') { sh.until = Math.min(1439, sh.until + 15); sh.mode = 'until'; }
+      else if (a === 'h-go' || a === 'h-tweak') {
+        const avail = sh.mode === 'until' ? Math.max(0, sh.until - minDay(now())) : sh.len;
+        const pr = proposal(avail, sh.kind);
+        if (!pr.blocks.length) return;
+        const keep = plan && plan.blocks.some((b) => b.st !== 'todo') ? plan.blocks.filter((b) => b.st !== 'todo') : [];
+        plan = freshPlan(nextQuarter(0)); plan.blocks = keep.concat(pr.blocks);
+        plan.fin = sh.mode === 'until' ? sh.until : Math.min(1439, minDay(now()) + avail);
+        sheetClose(); save();
+        if (a === 'h-go') planStart(); else { planOpen = true; showScreen(); }
+        return;
+      }
+      renderSheet();
+    }
+  }
+  $('shPanel').addEventListener('click', (e) => { const t = e.target.closest('[data-sa]'); if (t && sh) sheetAct(t.dataset.sa); });
+  $('shBack').addEventListener('click', () => { if (sh && sh.t === 'late') sheetAct('later'); else sheetClose(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && sh) { if (sh.t === 'late') sheetAct('later'); else sheetClose(); } });
+  $('cameUp').addEventListener('click', () => openSheet({ t: 'up' }));
+  $('cameUp2').addEventListener('click', () => openSheet({ t: 'up' }));
+
+  /* ---------- the home card ---------- */
+  function renderDayCard() {
+    const c = $('dayCard');
+    const left = plan ? plan.blocks.filter(live) : [];
+    let h = '';
+    if (!plan || !plan.blocks.length) {
+      const pm = minDay(now()) >= 11 * 60;
+      h = `<p class="dh">Line up the blocks for today and Lumi will walk you through them.</p><div class="drow"><button type="button" class="dbtn main" data-da="plan">${pm ? 'Plan the rest of my day' : 'Plan my day'}</button><button type="button" class="dbtn" data-da="how">How long have you got?</button></div>` +
+        (tpl.length ? '<div class="drow"><button type="button" class="dbtn" data-da="usual">Use my usual day</button></div>' : '');
+    } else {
+      const rows = project(plan, plan.run ? now() : Math.max(now(), dayMs(plan.start))), end = rows.length ? rows[rows.length - 1].e : now();
+      const doneN = plan.blocks.filter((b) => b.st === 'done').length;
+      if (!left.length) {
+        const spare = plan.fin != null ? Math.floor((dayMs(plan.fin) - now()) / 300000) * 5 : 0;
+        h = `<p class="dh"><b>Day shape done.</b> ${doneN} block${doneN === 1 ? '' : 's'} finished${plan.blocks.some((b) => b.st === 'skip') ? ', some skipped' : ''}. Lumi is very proud.</p><div class="drow">` +
+          (spare >= 10 ? `<button type="button" class="dbtn main" data-da="spare:${Math.min(spare, 180)}">Use ${hm(Math.min(spare, 180))} spare as a timebox</button>` : '') + `<button type="button" class="dbtn" data-da="clear">Clear the day</button></div>`;
+      } else {
+        h = `<p class="dh"><b>${left.length} block${left.length === 1 ? '' : 's'} to go</b> · ${doneN} done · ends about ${clock(end)}${plan.fin != null ? ' (finish by ' + tm(plan.fin) + ')' : ''}</p>` +
+          `<div class="drow"><button type="button" class="dbtn main" data-da="start">${plan.blocks.some((b) => b.st === 'run' || b.st === 'done') ? 'CONTINUE DAY' : 'START DAY'}</button><button type="button" class="dbtn" data-da="plan">Edit</button><button type="button" class="dbtn" data-da="clear">Clear</button></div>`;
+      }
+    }
+    if (c.dataset.h !== h) { c.innerHTML = h; c.dataset.h = h; }
+  }
+  $('dayCard').addEventListener('click', (e) => {
+    const t = e.target.closest('[data-da]');
+    if (!t) return;
+    const a = t.dataset.da;
+    if (a === 'plan') openPlan();
+    else if (a === 'how') openSheet({ t: 'how', mode: 'len', len: 60, until: Math.min(1425, nextQuarter(60)), kind: 'deep' });
+    else if (a === 'usual') { plan = freshPlan(); plan.blocks = tpl.map((b) => Object.assign({}, b, { id: nid++ })); save(); openPlan(); }
+    else if (a === 'start') planStart();
+    else if (a === 'clear') {
+      if (plan && plan.blocks.some((b) => b.st === 'todo' || b.st === 'run') && !t.dataset.armed) {      // a second tap, so a stray thumb doesn't wipe the day
+        t.dataset.armed = '1'; t.textContent = 'Sure?';
+        setTimeout(() => { if (t.isConnected) { delete t.dataset.armed; t.textContent = 'Clear'; } }, 3000);
+        return;
+      }
+      plan = null; save(); renderHome();
+    }
+    else if (a.startsWith('spare:')) {
+      const m = +a.split(':')[1], b = newBlock('box', { min: Math.max(5, m) });
+      plan.blocks.push(b); plan.fin = null; save(); planStart();
+    }
+  });
+
+  /* ---------- the planner ---------- */
+  let editId = 0, dragId = 0;
+  function openPlan() {
+    if (!plan) plan = freshPlan();
+    editId = 0; planOpen = true; showScreen();
+  }
+  function closePlan() {
+    if (plan && !plan.blocks.length && !plan.run) plan = null;
+    planOpen = false; save(); showScreen();
+  }
+  function detail(b) { return KINDS[b.k].ph ? `${b.n} × ${b.f} min focus` + (b.n > 1 ? ', zoomies between' : '') : KINDS[b.k].d; }
+  function renderPlan() {
+    if (!plan) return;
+    const run = plan.run, cursor = run ? now() : dayMs(plan.start), rows = project(plan, cursor), by = {};
+    rows.forEach((r) => { by[r.b.id] = r; });
+    const fin = plan.fin != null ? dayMs(plan.fin) : 0;
+    $('planSub').textContent = run ? 'Finished blocks are locked. Change anything still to come.' : 'Build your day, then let Lumi walk you through it';
+    $('planStart').hidden = run;
+    $('planStartV').textContent = tm(plan.start);
+    $('planFinV').textContent = plan.fin != null ? tm(plan.fin) : 'No finish line';
+    $('planFinOff').hidden = plan.fin == null;
+    let h = '', prevEnd = cursor;
+    const shown = plan.blocks.filter((b) => b.st !== 'drop');
+    shown.forEach((b) => {
+      const r = by[b.id], lock = !live(b), K = KINDS[b.k];
+      if (r && r.s - prevEnd >= 10 * 60000 && b.pin != null) h += `<div class="gapRow">${hm((r.s - prevEnd) / 60000)} spare before ${esc(bname(b))}. Lumi will offer a timebox.</div>`;
+      if (r) prevEnd = r.e;
+      const over = r && fin && r.e > fin + 30000, late = r && r.late > 30000;
+      const chips = (b.pin != null ? `<span class="chip pin">pinned ${tm(b.pin)}</span>` : '') + `<span class="chip ${b.prio}">${b.prio === 'must' ? 'must' : 'nice'}</span>` +
+        (late ? `<span class="chip warn">starts ${Math.round(r.late / 60000)} min late</span>` : '') + (over ? '<span class="chip warn">past the finish line</span>' : '');
+      const when = lock ? (b.st === 'skip' ? 'skipped' : b.st === 'run' ? 'now' : 'done') : r ? clock(r.s) : '';
+      h += `<div class="blk k-${b.k} ${b.st}" data-id="${b.id}"><button type="button" class="grab" data-pa="grab" aria-label="Drag ${esc(bname(b))} to reorder"${lock ? ' disabled' : ''}>⠿</button>` +
+        `<button type="button" class="bmain" data-pa="edit" aria-expanded="${editId === b.id}"><span class="bt">${when}</span><span class="bi"><b>${esc(bname(b))}</b><small>${detail(b)}</small><span class="chips2">${lock ? '' : chips}</span></span><span class="bd">${hm(bmin(b))}</span></button></div>`;
+      if (editId === b.id && !lock) {
+        const ph = !!K.ph;
+        h += `<div class="bedit" data-id="${b.id}"><label class="fld">Name<input type="text" data-pf="label" maxlength="30" placeholder="${esc(K.name)}" value="${esc(b.label)}"></label>` +
+          `<div class="shRow"><span>${ph ? 'Pomodoros' : 'Length'}</span>${stepper2('len', ph ? `${b.n} × ${b.f} min` : hm(b.min))}</div>` +
+          `<div class="shRow"><span>Priority</span><div class="seg2"><button type="button" data-pa="prio:must" aria-pressed="${b.prio === 'must'}">Must</button><button type="button" data-pa="prio:nice" aria-pressed="${b.prio === 'nice'}">Nice to have</button></div></div>` +
+          `<div class="shRow"><span>Clock time</span><div class="seg2"><button type="button" data-pa="pin:off" aria-pressed="${b.pin == null}">Flexible</button><button type="button" data-pa="pin:on" aria-pressed="${b.pin != null}">Pinned</button></div></div>` +
+          (b.pin != null ? `<div class="shRow"><span>Pinned at</span>${stepper2('pin', tm(b.pin))}</div>` : '') +
+          `<div class="shRow acts"><button type="button" data-pa="up">▲ Up</button><button type="button" data-pa="down">▼ Down</button><button type="button" data-pa="del" class="danger">Remove</button></div></div>`;
+      }
+    });
+    if (!shown.length) h = '<p class="empty">Nothing here yet. Tap a block below to add it, or let Lumi suggest a day with "How long have you got?".</p>';
+    $('blocks').innerHTML = h;
+    const dropped = plan.blocks.filter((b) => b.st === 'drop');
+    $('ifTime').innerHTML = dropped.length ? `<h2>If there's time</h2>` + dropped.map((b) => `<div class="ifrow"><span><b>${esc(bname(b))}</b> · ${hm(bmin(b))}</span><button type="button" data-pa="back:${b.id}">Add back</button></div>`).join('') : '';
+    const pr = problems(plan, cursor), total = shown.filter(live).reduce((m, b) => m + bmin(b), 0);
+    let note = '';
+    if (pr.pins.length) note = `Blocks before ${esc(bname(pr.pins[0].b))} run ${Math.round(pr.pins[0].late / 60000)} min into its start.`;
+    else if (pr.over > 30000) note = `The day runs ${Math.round(pr.over / 60000)} min past your finish line.`;
+    $('planNote').innerHTML = note ? `${note} <button type="button" class="linkbtn" data-pa="trim">Trim to fit</button>` : '';
+    $('planSum').textContent = rows.length ? `${rows.length} block${rows.length === 1 ? '' : 's'} · ${hm(total)} · ${clock(rows[0].s)} → ${clock(pr.end)}` : 'No blocks yet';
+    $('planGo').textContent = run ? 'DONE' : 'START DAY';
+    $('planGo').disabled = !run && !rows.length;
+    $('palette').innerHTML = Object.keys(KINDS).map((k) => `<button type="button" class="pal2 k-${k}" data-pa="add:${k}"><b>${KINDS[k].name}</b><small>${KINDS[k].ph ? `${KINDS[k].n} × ${KINDS[k].f} min` : hm(KINDS[k].min)}</small></button>`).join('');
+    $('tplBtn').textContent = tpl.length ? 'Update my usual day' : 'Save as my usual day';
+  }
+  const stepper2 = (what, text) => `<div class="shStep"><button type="button" data-pa="${what}-" aria-label="Less">−</button><output>${text}</output><button type="button" data-pa="${what}+" aria-label="More">+</button></div>`;
+  function planAct(a, id, el) {
+    const b = plan.blocks.find((x) => x.id === id), val = a.includes(':') ? a.split(':')[1] : '';
+    if (a.startsWith('add:')) { const nb = newBlock(val); plan.blocks.push(nb); editId = nb.id; }
+    else if (a.startsWith('back:')) { const x = plan.blocks.find((y) => y.id === +val); if (x) x.st = 'todo'; }
+    else if (a === 'trim') { const notes = trimPlan(plan, plan.run ? now() : dayMs(plan.start)); save(); renderPlan(); if (notes.length) say(pick('trimmed'), 6000); return; }
+    else if (a === 'edit') editId = editId === id ? 0 : id;
+    else if (b) {
+      const K = KINDS[b.k];
+      if (a === 'len-' || a === 'len+') {
+        const d = a === 'len+' ? 1 : -1;
+        if (K.ph) b.n = Math.min(8, Math.max(minN(b), b.n + d)); else b.min = Math.min(480, Math.max(5, b.min + d * 5));
+      }
+      else if (a === 'pin-' || a === 'pin+') b.pin = Math.min(1425, Math.max(0, b.pin + (a === 'pin+' ? 15 : -15)));
+      else if (a === 'pin:on') b.pin = b.pin == null ? nextQuarter(60) : b.pin;
+      else if (a === 'pin:off') b.pin = null;
+      else if (a.startsWith('prio:')) b.prio = val;
+      else if (a === 'up' || a === 'down') {
+        const i = plan.blocks.indexOf(b), dir = a === 'up' ? -1 : 1;
+        let j = i + dir;
+        while (plan.blocks[j] && plan.blocks[j].st === 'drop') j += dir;      // dropped blocks aren't on screen
+        if (plan.blocks[j] && live(plan.blocks[j])) { plan.blocks[i] = plan.blocks[j]; plan.blocks[j] = b; }
+      }
+      else if (a === 'del') { plan.blocks.splice(plan.blocks.indexOf(b), 1); editId = 0; }
+    }
+    if (plan.run) { plan.ack = 0; resync(); }
+    save(); renderPlan();
+    if (a.startsWith('add:')) { const e = $('blocks').querySelector(`.bedit[data-id="${editId}"]`); if (e) e.scrollIntoView({ block: 'nearest' }); }
+  }
+  $('plan').addEventListener('click', (e) => {
+    const t = e.target.closest('[data-pa]');
+    if (!t || !plan) return;
+    if (t.dataset.pa === 'grab') return;
+    const row = t.closest('[data-id]');
+    planAct(t.dataset.pa, row ? +row.dataset.id : 0, t);
+  });
+  $('plan').addEventListener('input', (e) => {
+    const t = e.target.closest('[data-pf]');
+    if (!t || !plan) return;
+    const b = plan.blocks.find((x) => x.id === +t.closest('[data-id]').dataset.id);
+    if (b) { b.label = t.value.slice(0, 30); save(); }
+  });
+  $('planBack').addEventListener('click', closePlan);
+  $('planGo').addEventListener('click', () => { if (plan && plan.run) closePlan(); else planStart(); });
+  $('planStartDn').addEventListener('click', () => { plan.start = Math.max(0, plan.start - 15); save(); renderPlan(); });
+  $('planStartUp').addEventListener('click', () => { plan.start = Math.min(1425, plan.start + 15); save(); renderPlan(); });
+  $('planFinDn').addEventListener('click', () => { plan.fin = Math.max(15, (plan.fin == null ? nextQuarter(240) : plan.fin) - 15); save(); renderPlan(); });
+  $('planFinUp').addEventListener('click', () => { plan.fin = Math.min(1439, (plan.fin == null ? nextQuarter(240) : plan.fin) + 15); save(); renderPlan(); });
+  $('planFinOff').addEventListener('click', () => { plan.fin = null; save(); renderPlan(); });
+  $('tplBtn').addEventListener('click', () => { tpl = plan.blocks.filter((b) => b.st !== 'drop').map((b) => cleanBlock(Object.assign({}, b, { st: 'todo', si: 0, d: 0, sk: 0 }), b.id)).filter(Boolean); save(); renderPlan(); $('tplBtn').textContent = 'Saved'; });
+  $('clearBtn').addEventListener('click', () => { if (plan.run) return; plan = null; save(); closePlan(); });
+  // drag a block by its handle (the Up and Down buttons do the same job for keyboards)
+  document.addEventListener('pointerdown', (e) => {
+    const g = e.target.closest && e.target.closest('.grab');
+    if (!g || g.disabled || !plan || $('plan').hidden) return;
+    const row = g.closest('.blk'), box = $('blocks');
+    e.preventDefault();
+    dragId = +row.dataset.id; row.classList.add('drag');
+    const move = (ev) => {
+      const rows = [...box.querySelectorAll('.blk')];
+      for (const r of rows) {
+        if (r === row || r.classList.contains('done') || r.classList.contains('skip')) continue;
+        const bb = r.getBoundingClientRect();
+        if (ev.clientY > bb.top && ev.clientY < bb.bottom) { if (ev.clientY < bb.top + bb.height / 2) r.before(row); else r.after(row); break; }
+      }
+    };
+    const end = () => {
+      document.removeEventListener('pointermove', move); document.removeEventListener('pointerup', end); document.removeEventListener('pointercancel', end);
+      const order = [...box.querySelectorAll('.blk')].map((r) => +r.dataset.id), hidden = plan.blocks.filter((b) => b.st === 'drop');
+      const sorted = order.map((id) => plan.blocks.find((b) => b.id === id)).filter(Boolean);
+      plan.blocks = sorted.filter((b) => !live(b)).concat(sorted.filter(live), hidden);
+      dragId = 0; if (plan.run) { plan.ack = 0; resync(); }
+      save(); renderPlan();
+    };
+    document.addEventListener('pointermove', move); document.addEventListener('pointerup', end); document.addEventListener('pointercancel', end);
+  });
+
   /* ---------- buttons ---------- */
   $('startBtn').addEventListener('click', () => { ensureAudio().then(scheduleSounds); askNotify(); startPhase('focus', 1); });
-  $('goBtn').addEventListener('click', () => { if (sess && sess.wait) { ensureAudio(); startPhase(sess.phase, sess.n, 0, sess.skips); } });
+  $('goBtn').addEventListener('click', () => {
+    if (!sess || !sess.wait) return;
+    if (sess.pl) { planGo(); return; }
+    if (sess.phase === 'box') { homeNote = pick('boxDone'); stop(); return; }
+    ensureAudio(); startPhase(sess.phase, sess.n, 0, sess.skips);
+  });
+  $('stopBtn2').addEventListener('click', (e) => {        // on a finished timebox this button is "5 more minutes"
+    if (sess && sess.wait && sess.pl && $('stopBtn2').dataset.alt) { e.stopImmediatePropagation(); planAlt($('stopBtn2').dataset.alt); return; }
+    if (sess && sess.wait && sess.phase === 'box' && !sess.pl) { e.stopImmediatePropagation(); pending = pick('boxMore'); ensureAudio(); startPhase('box', 1, 0, [], 5 * 60000); }
+  });
+  $('styles').innerHTML = STYLES.map((x) => `<button type="button" class="sty" data-style="${x.id}" aria-pressed="false"><span class="n">${x.name}</span><span class="d">${x.focus} / ${x.short} min · goal ${x.goal}</span></button>`).join('');
+  $('styles').addEventListener('click', (e) => { const b = e.target.closest('.sty'); if (!b) return; const st = STYLES.find((x) => x.id === b.dataset.style); STYLE_KEYS.forEach((k) => { set[k] = st[k]; }); save(); renderHome(); });
+  $('boxChips').innerHTML = [10, 20, 30, 45, 60].map((m) => `<button type="button" data-v="${m}" aria-pressed="false">${m}</button>`).join('');
+  $('boxChips').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; set.box = +b.dataset.v; save(); renderHome(); });
+  $('boxBtn').addEventListener('click', () => { ensureAudio().then(scheduleSounds); askNotify(); startPhase('box', 1); });
+  $('upBtn').addEventListener('click', () => { ensureAudio().then(scheduleSounds); askNotify(); startPhase('up', 1); });
   $('pauseBtn').addEventListener('click', pause);
-  $('skipBtn').addEventListener('click', () => { if (sess && !sess.wait) { cancelSched(); finishPhase(true); } });
+  $('skipBtn').addEventListener('click', () => {
+    if (!sess || sess.wait) return;
+    if (sess.phase === 'box') extendBox();
+    else if (sess.phase !== 'up' || sess.pl) { cancelSched(); finishPhase(true); }
+  });
   // Stop needs a second tap, so a stray thumb doesn't end the session
   function twoTap(btn, label) {
     let armed = null;
@@ -1097,6 +2084,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   twoTap($('stopBtn'), 'Stop');
   twoTap($('stopBtn2'), 'Stop for now');
   // any tap wakes the sound up again (browsers need one after a refresh)
+  document.addEventListener('pointerdown', () => { pressing = true; });
+  ['pointerup', 'pointercancel'].forEach((t) => document.addEventListener(t, () => setTimeout(() => { pressing = false; soundHints(); }, 80), true));
   document.addEventListener('pointerdown', () => { if (!audioOk()) ensureAudio().then((ok) => { if (ok) { scheduleSounds(); soundHints(); } }); });
   document.addEventListener('keydown', (e) => {
     if (!audioOk()) ensureAudio().then((ok) => { if (ok) scheduleSounds(); });
@@ -1115,7 +2104,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   }
   setInterval(tick, 250);
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
-  window.__loaf = { get sess() { return sess; }, get jar() { return jar; }, set, tick };   // for the tests
+  window.__loaf = { get sess() { return sess; }, get jar() { return jar; }, get plan() { return plan; }, set, tick };   // for the tests
 })();
 </script>
 </body>
