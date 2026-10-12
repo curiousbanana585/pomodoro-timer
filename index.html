@@ -255,6 +255,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 .civ{position:absolute;left:60px;right:0;border:2px dashed #3b4656;border-radius:10px;box-sizing:border-box;display:flex;align-items:center;justify-content:flex-end;gap:6px;padding:0 6px}
 .civ.past{opacity:.35}.civ.open{border-style:dotted}
 .civl{margin-right:auto;font-size:13px;color:var(--dim);font-weight:600;padding-left:6px}
+.civ{flex-wrap:wrap}
 .civ .gp{height:26px;min-width:44px;padding:0 10px;border-radius:999px;background:var(--btn);font-size:13px;font-weight:700}
 .civ .gp[aria-pressed=true]{background:#fff;color:#0e1116}
 .cb{position:absolute;left:60px;right:0;border-radius:10px;background:var(--bc);color:#0e1116;padding:0 12px;display:flex;align-items:center;gap:8px;overflow:hidden;box-sizing:border-box;font-size:15px;font-weight:800;text-align:left;cursor:pointer}
@@ -531,7 +532,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
       <span class="sum" id="sum"></span>
       <button type="button" class="go" id="startBtn">START</button>
     </div>
-    <div class="credit">A Bouncy Production · Made for Haz</div>
+    <div class="credit">A Bouncy Production · Made for Haz · v11.1</div>
   </div>
 </main>
 
@@ -573,7 +574,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
     <button type="button" class="main" id="pauseBtn">PAUSE</button>
     <button type="button" id="skipBtn">Skip</button>
   </div>
-  <div class="credit">A Bouncy Production · Made for Haz</div>
+  <div class="credit">A Bouncy Production · Made for Haz · v11.1</div>
 </main>
 
 <!-- ================= TIME'S UP, WAITING FOR A TAP ================= -->
@@ -593,7 +594,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
   <button type="button" class="big" id="goBtn">START FOCUS</button>
   <button type="button" class="quiet" id="stopBtn2">Stop for now</button>
   <button type="button" class="cameUp" id="cameUp2" hidden>Something came up</button>
-  <div class="credit">A Bouncy Production · Made for Haz</div>
+  <div class="credit">A Bouncy Production · Made for Haz · v11.1</div>
 </main>
 
 <!-- ================= DAY SHAPE PLANNER ================= -->
@@ -623,7 +624,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
       <div id="ownCard"></div>
       <div class="pcard2" id="palCard"><div class="ph">Drag into your day</div>
         <div class="pals"><button type="button" class="palc" data-k="deep"><i style="background:#ff9a7d"></i>Focus</button><button type="button" class="palc" data-k="admin"><i style="background:#fdba74"></i>Admin</button><button type="button" class="palc" data-k="box"><i style="background:#5eead4"></i>Timebox</button><button type="button" class="palc" data-k="sofa"><i style="background:#b9a2ff"></i>Break</button><button type="button" class="palc" data-k="meet"><i style="background:#94a3b8"></i>Meeting</button><button type="button" class="palc own" data-k="own">+ Own</button></div>
-        <p class="hint2">Drop a block where you want it. It snaps to 15 minutes and keeps that time.</p><button type="button" class="pgo sm" id="fillAllBtn" data-pa="fillall" hidden>Fill the empty gaps</button></div>
+        <p class="hint2">Drop a block where you want it. It snaps to 15 minutes and keeps that time.</p></div>
       <div class="pcard" id="planCard"></div>
       <div class="note" id="planNote"></div>
       <div id="ifTime"></div>
@@ -631,7 +632,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
       <div class="mini2"><button type="button" id="tplBtn">Save as my usual day</button><button type="button" id="clearBtn">Clear this day</button></div>
     </aside>
   </div>
-  <div class="credit">A Bouncy Production · Made for Haz</div>
+  <div class="credit">A Bouncy Production · Made for Haz · v11.1</div>
 </main>
 
 <div class="sheet" id="sheet" hidden>
@@ -1230,7 +1231,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     mini.hidden = !(on && planOpen);
     if (!mini.hidden) {
       const w = sess.wait, up = sess.phase === 'up';
-      $('pmT').textContent = w ? '--:--' : fmt(sess.paused ? sess.left : up ? now() - sess.startAt : Math.max(0, sess.endAt - now()), up);
+      $('pmT').textContent = w ? '--:--' : sess.phase === 'meet' ? clock(now()) : fmt(sess.paused ? sess.left : up ? now() - sess.startAt : Math.max(0, sess.endAt - now()), up);
       $('pmL').textContent = w ? $('waitTitle').textContent : $('runTitle').textContent;
       $('pmS').textContent = w ? $('waitSub').textContent : $('runSub').textContent;
       $('pmBtn').textContent = w ? 'GO' : sess.paused ? 'RESUME' : 'PAUSE';
@@ -1414,7 +1415,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     const el = up ? (sess.paused ? sess.left : Math.max(0, now() - sess.startAt)) : 0;
     const left = up ? 0 : sess.paused ? sess.left : Math.max(0, sess.endAt - now());
     const frac = up ? (el % sess.dur) / sess.dur : Math.min(1, left / sess.dur);     // the stopwatch ring fills once an hour
-    const shownT = up ? fmt(el, true) : fmt(left);
+    const shownT = up ? fmt(el, true) : sess.phase === 'meet' && sess.pl ? clock(now()) : fmt(left);     // in a meeting the clock is the time that matters
     $('time').textContent = shownT; $('time').classList.toggle('long', shownT.length > 5);
     $('prog').setAttribute('stroke-dasharray', `${(C * frac).toFixed(1)} ${C.toFixed(1)}`);
     if (sess.pl) placeDayTrack();
@@ -1699,12 +1700,41 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (b.k === 'meet' && b.pin != null && b.st !== 'run') return Math.max(5 * 60000, dayMs(b.pin) + b.min * 60000 - now());   // it still ends on time
     return st.m * 60000;
   }
+  // The next meeting after a block. Nothing counts down past it: a block is cut 5 minutes before the meeting starts.
+  const GETTHERE = 5 * 60000;
+  function meetAhead(b, at) {
+    const i = plan.blocks.indexOf(b);
+    return plan.blocks.find((x, j) => j > i && x.st === 'todo' && x.k === 'meet' && x.pin != null && dayMs(x.pin) + bmin(x) * 60000 > at);
+  }
+  // Too close to the meeting to start anything: the meeting moves up the list and we wait for it
+  function squeeze(b, at) {
+    if (b.k === 'meet' || b.pin != null) return false;
+    const mt = meetAhead(b, at);
+    if (!mt || dayMs(mt.pin) - GETTHERE - at >= 3 * 60000) return false;
+    plan.blocks.splice(plan.blocks.indexOf(mt), 1);
+    plan.blocks.splice(plan.blocks.indexOf(b), 0, mt);
+    return true;
+  }
   function startPlanStep(b, si, startAt) {
-    const st = steps(b)[si];
+    const st = steps(b)[si], at = startAt || now();
+    if (b.as == null && squeeze(b, at)) { goNextBlock(now(), false, '', true); return; }
+    let dur = stepMs(b, si), cut = 0;
+    const mt = b.k === 'meet' ? null : meetAhead(b, at);
+    if (mt) {
+      const room = dayMs(mt.pin) - GETTHERE - at;
+      if (room < dur) { dur = Math.max(60000, room); cut = mt.id; }
+    }
     b.st = 'run'; b.si = si;
-    if (b.as == null) b.as = startAt || now();
+    if (b.as == null) b.as = at;
     plan.run = true;
-    startPhase(st.ph, st.ph === 'focus' ? b.d + 1 : 1, startAt || 0, [], stepMs(b, si), { b: b.id, s: si, gap: false, bound: false, prev: '' });
+    startPhase(st.ph, st.ph === 'focus' ? b.d + 1 : 1, startAt || 0, [], dur, { b: b.id, s: si, gap: false, bound: false, prev: '', cut });
+  }
+  // spare time before a meeting becomes a real block, so the day shows it
+  function spareBlock(kind, b) {
+    const room = Math.max(5, Math.floor((dayMs(b.pin) - GETTHERE - now()) / 60000));
+    const nb = newBlock(kind, { min: room });
+    plan.blocks.splice(plan.blocks.indexOf(b), 0, nb);
+    startPlanStep(nb, 0);
   }
   function waitSess(phase, n, dur, since, pl) {
     sess = { phase, n, dur, endAt: 0, startAt: 0, marks: 0, paused: false, left: 0, wait: { since, nudges: 0 }, skips: [], pl };
@@ -1726,10 +1756,11 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (done.phase === 'focus') { b.d++; if (quiet) b.sk++; }
     b.si = pl.s + 1;
     const all = steps(b);
-    if (b.si >= all.length) {                        // that was the last bit of the block
-      b.st = quiet && (b.k === 'box' || (KINDS[b.k].ph && b.sk >= b.n)) ? 'skip' : 'done';
+    const wrap = b.si < all.length && b.k !== 'meet' && !!meetAhead(b, now()) && dayMs(meetAhead(b, now()).pin) - GETTHERE - now() < 3 * 60000;
+    if (b.si >= all.length || wrap) {                // that was the last bit of the block (or the meeting is too close for another)
+      b.st = quiet && b.si >= all.length && (b.k === 'box' || (KINDS[b.k].ph && b.sk >= b.n)) ? 'skip' : 'done';
       b.ae = endedAt;
-      const bone = KINDS[b.k].ph && b.st === 'done' && b.n >= 3 && !b.sk;
+      const bone = KINDS[b.k].ph && b.st === 'done' && b.n >= 3 && !b.sk && b.si >= all.length;
       const r = focusMs || bone ? earnTime(focusMs, bone) : { line: '' };
       if (r.line) pending = r.line;
       goNextBlock(endedAt, false, done.phase);
@@ -1745,9 +1776,10 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     checkpoint();
   }
   // the next block in the day: start it, offer spare time before a pinned one, or finish the day
-  function goNextBlock(endedAt, immediate, prev) {
-    const nb = plan.blocks.find((b) => b.st === 'todo');
+  function goNextBlock(endedAt, immediate, prev, hold) {
+    let nb = plan.blocks.find((b) => b.st === 'todo');
     if (!nb) { planComplete(); return; }
+    if (squeeze(nb, now())) { nb = plan.blocks.find((b) => b.st === 'todo'); hold = true; }
     const gap = nb.pin != null ? dayMs(nb.pin) - now() : 0;
     if (gap >= 10 * 60000) {
       waitSess('box', 1, gap, endedAt, { b: nb.id, s: 0, gap: true, bound: true, prev: prev || '' });
@@ -1756,7 +1788,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       return;
     }
     const sp = steps(nb)[0];
-    if (immediate || set.auto) { startPlanStep(nb, 0, immediate ? 0 : endedAt); checkpoint(); return; }
+    if ((immediate || set.auto) && !hold) { startPlanStep(nb, 0, immediate ? 0 : endedAt); checkpoint(); return; }
     waitSess(sp.ph, 1, sp.m * 60000, endedAt, { b: nb.id, s: 0, gap: false, bound: true, prev: prev || '' });
     if (prev) notify(prev === 'box' ? "Time's up!" : 'Next up', `${bname(nb)} is ready when you are.`);
     checkpoint();
@@ -1790,17 +1822,13 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const pl = sess.pl, b = blockById(pl.b);
     if (!b) { planComplete(); return; }
     ensureAudio();
-    if (pl.gap) {                                    // spare time: a timebox until the pinned block
-      const dur = Math.max(5 * 60000, dayMs(b.pin) - now());
-      startPhase('box', 1, 0, [], dur, { b: b.id, s: 0, gap: true, bound: false, prev: '' });
-      return;
-    }
+    if (pl.gap) { spareBlock('box', b); return; }    // spare time: a timebox until the meeting
     startPlanStep(b, pl.s);
   }
   function planAlt(kind) {                           // the second button on a waiting screen
     const pl = sess.pl, b = blockById(pl.b);
     ensureAudio();
-    if (kind === 'zoom' && b) { startPhase('short', 1, 0, [], Math.max(5 * 60000, dayMs(b.pin) - now()), { b: b.id, s: 0, gap: true, bound: false, prev: '' }); return; }
+    if (kind === 'zoom' && b) { spareBlock('zoom', b); return; }
     if (kind === 'over') {                           // the meeting is still going: ten more minutes, and the rest of the day moves
       const last = plan.blocks.slice().reverse().find((x) => x.k === 'meet' && x.st === 'done');
       if (last) { last.st = 'run'; last.si = 0; startPhase('meet', 1, 0, [], 10 * 60000, { b: last.id, s: 0, gap: false, bound: false, prev: '' }); }
@@ -1838,9 +1866,9 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   function planGapText() {
     const b = blockById(sess.pl.b);
     if (!b) return;
-    const mins = Math.max(1, Math.round((dayMs(b.pin) - now()) / 60000));
+    const mins = Math.max(1, Math.round((dayMs(b.pin) - now()) / 60000)), room = Math.max(5, Math.floor((dayMs(b.pin) - GETTHERE - now()) / 60000));
     $('waitSub').textContent = `${hm(mins)} before ${bname(b)} at ${tm(b.pin)}`;
-    $('goBtn').textContent = `TIMEBOX ${mins} MIN`;
+    $('goBtn').textContent = `TIMEBOX ${room} MIN`;
   }
   function planTick() {
     if (!plan.run) return;
@@ -1848,6 +1876,10 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       const b = blockById(sess.pl.b);
       if (!b || dayMs(b.pin) - now() < 10 * 60000) goNextBlock(sess.wait.since, false, sess.pl.prev);
       return;
+    }
+    if (sess.wait && sess.pl.bound && !sess.pl.gap) {  // a meeting starts when the clock says so
+      const mb = blockById(sess.pl.b);
+      if (mb && mb.k === 'meet' && mb.pin != null && now() >= dayMs(mb.pin)) { planGo(); return; }
     }
     if (sess.wait || sess.paused) return;
     const nb = plan.blocks.find((b) => b.st === 'todo' && b.pin != null);
@@ -1872,12 +1904,14 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       const all = steps(b), ph = KINDS[b.k].ph;
       $('runTitle').textContent = { focus: 'FOCUS', short: 'ZOOMIES', long: 'SOFA TIME', box: 'TIMEBOX', up: 'STOPWATCH', meet: 'MEETING' }[p];
       const wr = rows.find((r) => r.b === b);
-      $('runSub').textContent = `${bname(b)} · block ${list.indexOf(b) + 1} of ${list.length}` + (ph && p === 'focus' ? ` · pomodoro ${sess.n} of ${b.n}` : '') + (wr ? ` · ${clock(b.as != null ? b.as : wr.s)}–${clock(wr.e)}` : '');
+      $('runSub').textContent = `${bname(b)}` + (ph && p === 'focus' ? ` · pomodoro ${sess.n} of ${b.n}` : '') + (wr ? ` · ${clock(b.as != null ? b.as : wr.s)}–${clock(wr.e)}` : '');
       if (ph && b.si < all.length - 1) $('next').textContent = all[b.si + 1].ph === 'short' ? `Then ${all[b.si + 1].m} min of zoomies` : `Then pomodoro ${b.d + 2} of ${b.n}`;
       else if (rows[1]) $('next').textContent = `Next: ${bname(rows[1].b)} at ${clock(rows[1].s)}`;
       else $('next').textContent = 'Last block of the day';
+      const cm = pl.cut ? blockById(pl.cut) : null;
+      if (cm) $('next').textContent = `Ends ${clock(sess.endAt)} so you can get to ${bname(cm)} at ${tm(cm.pin)}`;
     }
-    $('of').textContent = p === 'up' ? 'counting up' : 'of ' + fmt(sess.dur);
+    $('of').textContent = p === 'up' ? 'counting up' : p === 'meet' ? 'until ' + clock(sess.endAt) : 'of ' + fmt(sess.dur);
   }
   const DAYC = { deep: ['#ff9a7d', 'rgba(255,154,125,.28)'], lfoc: ['#ff7a55', 'rgba(255,122,85,.28)'], admin: ['#fdba74', 'rgba(253,186,116,.28)'], box: ['#5eead4', 'rgba(94,234,212,.25)'],
     meet: ['#94a3b8', 'rgba(148,163,184,.3)'], zoom: ['#4ade80', 'rgba(74,222,128,.25)'], sofa: ['#b9a2ff', 'rgba(185,162,255,.3)'], up: ['#7dd3fc', 'rgba(125,211,252,.25)'] };
@@ -2333,29 +2367,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   }
   const breakNeed = () => (daySpan() > 720 ? 2 : daySpan() > 420 ? 1 : 0);
   // a day over 7 hours gets a 30 min break around the middle of the shift, over 12 hours two, at the thirds
-  function ensureBreaks() {
-    lunchMsg = false;
-    if (!plan || plan.run || handDay()) return;
-    plan.blocks = plan.blocks.filter((b) => !(isBreak(b) && b.st === 'todo' && (b.pin + b.min <= plan.start || (plan.fin != null && b.pin >= plan.fin))));   // a break left outside a moved day goes
-    const need = breakNeed(), span = daySpan(), have = plan.blocks.filter(isBreak);
-    if (!need || have.length >= need) return;
-    const fin = plan.fin != null ? plan.fin : plan.start + span;
-    const targets = (need === 1 ? [0.5] : [1 / 3, 2 / 3]).map((f) => Math.round((plan.start + span * f - 15) / 15) * 15);
-    for (const t of targets) {
-      if (have.some((b) => Math.abs(b.pin - t) <= 90)) continue;
-      let best = -1;
-      for (let c = Math.max(0, plan.start); c + 30 <= fin; c += 15) if (!pinClash(null, c, 30) && (best < 0 || Math.abs(c - t) < Math.abs(best - t))) best = c;
-      if (best < 0) { lunchMsg = true; return; }
-      const b = newBlock('sofa', { label: 'Break', min: 30, pin: best });
-      place(b); have.push(b);
-    }
-  }
-  // gaps fill themselves with your default, unless you cleared them
-  const emptyGaps = () => (plan && !plan.run ? segments().segs.filter((sg) => sg.e != null && !sg.run.length && segRoom(sg).avail >= 15) : []);
-  function fillAll() {                                  // only when you ask: every empty gap gets your default
-    const kind = set.fill === 'admin' ? 'admin' : 'deep';
-    emptyGaps().forEach((sg) => fillSeg(sg, kind));
-  }
+  function ensureBreaks() { lunchMsg = false; }          // breaks are yours to add: nothing appears by itself
   function afterEdit() {
     ensureBreaks();
     if (plan.run) { plan.ack = 0; resync(); }
@@ -2411,7 +2423,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const lo = 0, hi = 1440, y = (m) => Math.round((m - lo) * PXM);
     let h = '';
     for (let m = lo; m <= hi; m += 15) {
-      if (m % 60 === 0) h += `<div class="hl" style="top:${y(m)}px"></div><span class="ht" style="top:${y(m) - 9}px">${m === 1440 ? '24:00' : tm(m)}</span>`;
+      if (m % 60 === 0) h += `<div class="hl" style="top:${y(m)}px"></div>` + (today0 && Math.abs(y(m) - y(nowM)) < 12 ? '' : `<span class="ht" style="top:${y(m) - 9}px">${m === 1440 ? '24:00' : tm(m)}</span>`);
       else if (m < hi) h += `<div class="ql${m % 30 ? '' : ' hf'}" style="top:${y(m)}px"></div>`;
     }
     h += `<div class="outz" style="top:0;height:${y(plan.start)}px"></div>`;
@@ -2471,12 +2483,10 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (pend) notes.push(`Did you mean ${tm(pend.pm.f)}?<span class="amb"><button type="button" data-pa="amb:pm">${ptxt(pend.pm)}</button><button type="button" data-pa="amb:am">${ptxt(pend.am)}</button></span>`);
     $('planNote').innerHTML = notes.join('<br>') + (bad ? ' <button type="button" class="linkbtn" data-pa="trim">Trim to fit</button>' : '');
     $('tplBtn').textContent = tpl.length ? 'Update my usual day' : 'Save as my usual day';
-    $('fillAllBtn').hidden = run || !emptyGaps().length;
     $('selCard').innerHTML = selHtml(items);
     $('ownCard').innerHTML = ownHtml();
-    $('defCard').innerHTML = `<div class="ph">Filling gaps</div><div class="dl">"Fill the empty gaps" uses</div><div class="seg3">${[['deep', 'Focus'], ['admin', 'Admin']].map((o) => `<button type="button" data-pa="fill:${o[0]}" aria-pressed="${(set.fill === 'admin' ? 'admin' : 'deep') === o[0]}">${o[1]}</button>`).join('')}</div>` +
-      `<div class="dl">Focus style</div><div class="seg3">${[['deep', '25 + 5'], ['lfoc', '50 + 10']].map((o) => `<button type="button" data-pa="fst:${o[0]}" aria-pressed="${set.fstyle === o[0]}">${o[1]}</button>`).join('')}</div>` +
-      `<p class="hint2">How blocks behave: meetings, breaks and anything you drag or drop stay exactly where you put them. Blocks from Fill follow the block before them. Nothing ever shrinks by itself; if it doesn't fit, LOAF says so. Breaks: a 30 min break around the middle of a day over 7 h, two over 12 h.</p>`;
+    $('defCard').innerHTML = `<div class="ph">Gap buttons</div><div class="dl">Focus style</div><div class="seg3">${[['deep', '25 + 5'], ['lfoc', '50 + 10']].map((o) => `<button type="button" data-pa="fst:${o[0]}" aria-pressed="${set.fstyle === o[0]}">${o[1]}</button>`).join('')}</div>` +
+      `<p class="hint2">How blocks behave: meetings, breaks and anything you drag or drop stay exactly where you put them. Blocks you add from a gap follow the block before them. Nothing shrinks by itself. During the day, a block that would run into a meeting is cut 5 minutes before it, and LOAF tells you.</p>`;
   }
   const stepper2 = (what, text) => `<div class="shStep"><button type="button" data-pa="${what}-" aria-label="Less">−</button><output>${text}</output><button type="button" data-pa="${what}+" aria-label="More">+</button></div>`;
   // the short breaks inside a focus block show as darker bands across it
@@ -2518,10 +2528,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     planMsg = ''; pend = null;
     if (a === 'sel') { editId = editId === id ? 0 : id; renderPlan(); return; }
     if (a === 'close') { editId = 0; renderPlan(); return; }
-    if (a === 'fillall') { fillAll(); afterEdit(); return; }
     if (a === 'go') { if (plan.run) closePlan(); else planStart(); return; }
     if (a.startsWith('day:')) { setView(+val); return; }
-    if (a.startsWith('fill:')) { set.fill = val; save(); renderPlan(); return; }
     if (a.startsWith('fst:')) { set.fstyle = val; save(); renderPlan(); return; }
     if (a.startsWith('amb:')) {
       const x = JSON.parse(JSON.stringify(a === 'amb:pm' ? pendLast.pm : pendLast.am));
