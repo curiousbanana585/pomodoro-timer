@@ -266,6 +266,21 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 .cb.ed{cursor:grab}
 @media (pointer:fine){.cb.ed{touch-action:none}}
 .cb>span{position:relative;z-index:1}
+
+.dtop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.dtop .clk{font-size:30px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.dtop .clk small{font-size:13px;font-weight:700;color:var(--soft);margin-left:8px}
+.dseg{display:inline-flex;background:rgba(255,255,255,.1);border-radius:999px;padding:3px;gap:2px}
+.dseg button{min-height:34px;padding:0 16px;border-radius:999px;background:transparent;color:inherit;font-size:14px;font-weight:800}
+.dseg button[aria-pressed=true]{background:#fff;color:#0e1116}
+.mban{display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap;background:#3a2f12;color:#fbbf24;border-radius:12px;padding:8px 12px;font-weight:800;font-size:14px;margin:2px 0 6px;font-variant-numeric:tabular-nums;text-align:left}
+.mban.red{background:#5b1a12;color:#fca5a5}
+@media (max-width:899px),(max-height:559px){body.hasbar{--ring:min(56vw,24vh,440px)}.dtop{margin-bottom:2px}.dtop .clk{font-size:22px}.dtop .clk small{font-size:12px}.dseg button{min-height:30px;padding:0 12px;font-size:13px}.mban{font-size:12.5px;padding:5px 10px;margin:0 0 2px}}
+.pmini{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:14px;padding:10px 12px;margin-bottom:8px}
+.pmini .pt{font-size:28px;font-weight:900;font-variant-numeric:tabular-nums}
+.pmini .pl{display:flex;flex-direction:column;min-width:0}.pmini .pl b{font-size:14px}.pmini .pl small{font-size:12px;color:var(--soft)}
+.pmini .pgo{margin-left:auto;min-height:44px}
+.ghostslot{position:absolute;left:60px;right:0;border:2px dashed rgba(255,255,255,.28);border-radius:10px;box-sizing:border-box;pointer-events:none}
 .stp{position:absolute;left:0;right:0;background:rgba(14,17,22,.2);pointer-events:none}
 .selh{width:100%;font-size:13px;color:var(--soft)}
 .dropln{position:absolute;left:60px;right:0;border:2px solid #4ade80;border-radius:10px;background:rgba(74,222,128,.15);pointer-events:none;z-index:4;box-sizing:border-box;font-size:12px;font-weight:800;color:#4ade80;padding:2px 8px}
@@ -297,10 +312,10 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 .mrow{display:flex;align-items:center;gap:8px}.mrow span{color:var(--dim)}.mrow input{width:76px}.mrow .pgo{margin-left:auto}
 .amb{display:flex;gap:8px;margin-top:6px}.amb button{min-height:40px;padding:0 12px;border-radius:10px;background:var(--btn);font-weight:700;font-size:14px;color:#fff}.amb button:first-child{background:#fff;color:#0e1116}
 .pals{display:flex;flex-wrap:wrap;gap:8px}
-.pal{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:12px;background:var(--btn);color:#fff;font-size:15px;font-weight:700;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
-.pal i{width:10px;height:10px;border-radius:50%}
-.pal.own{border:2px dashed #5b6575;background:transparent}
-.pal.ghost{position:fixed;z-index:80;pointer-events:none;transform:translate(-50%,-50%) rotate(-3deg);box-shadow:0 14px 28px rgba(0,0,0,.55);background:#3a4352}
+.palc{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:12px;background:var(--btn);color:#fff;font-size:15px;font-weight:700;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.palc i{width:10px;height:10px;border-radius:50%}
+.palc.own{border:2px dashed #5b6575;background:transparent}
+.palc.ghost{position:fixed;z-index:80;pointer-events:none;transform:translate(-50%,-50%) rotate(-3deg);box-shadow:0 14px 28px rgba(0,0,0,.55);background:#3a4352}
 .seg3{display:flex;gap:6px}.seg3 button{flex:1;padding:9px 4px;border-radius:10px;background:var(--btn);font-size:14px;font-weight:700;color:#fff}
 .seg3 button[aria-pressed=true]{background:#fff;color:#0e1116}
 .dl{font-size:13px;color:var(--soft)}
@@ -523,6 +538,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 <!-- ================= RUNNING ================= -->
 <main id="run" class="screen" hidden>
   <div class="runHead">
+    <div class="dtop" hidden><span class="clk"></span><span class="dseg" role="group" aria-label="View"><button type="button" data-v="timer">Timer</button><button type="button" data-v="day">Day</button></span></div><div class="mban" hidden></div>
     <h1 class="phTitle" id="runTitle">FOCUS</h1>
     <div class="phSub" id="runSub"></div>
   </div>
@@ -563,6 +579,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 <!-- ================= TIME'S UP, WAITING FOR A TAP ================= -->
 <main id="wait" class="screen" hidden>
   <div>
+    <div class="dtop" hidden><span class="clk"></span><span class="dseg" role="group" aria-label="View"><button type="button" data-v="timer">Timer</button><button type="button" data-v="day">Day</button></span></div><div class="mban" hidden></div>
     <h1 class="phTitle" id="waitTitle">BREAK'S OVER</h1>
     <div class="phSub" id="waitSub"></div>
   </div>
@@ -581,6 +598,8 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 
 <!-- ================= DAY SHAPE PLANNER ================= -->
 <main id="plan" class="screen" hidden>
+  <div class="dtop" id="planTop" hidden><span class="clk"></span><span class="dseg" role="group" aria-label="View"><button type="button" data-v="timer">Timer</button><button type="button" data-v="day">Day</button></span></div>
+  <div class="pmini" id="planMini" hidden><span class="pt" id="pmT"></span><span class="pl"><b id="pmL"></b><small id="pmS"></small></span><button type="button" class="pgo sm" id="pmBtn">PAUSE</button></div>
   <div class="phd">
     <button type="button" class="back" id="planBack">‹ Back</button>
     <div><h1>Plan your day</h1><div class="sub" id="planSub">Meetings in, then drag blocks in or fill the gaps</div></div>
@@ -603,7 +622,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
       <div id="selCard"></div>
       <div id="ownCard"></div>
       <div class="pcard2" id="palCard"><div class="ph">Drag into your day</div>
-        <div class="pals"><button type="button" class="pal" data-k="deep"><i style="background:#ff9a7d"></i>Focus</button><button type="button" class="pal" data-k="admin"><i style="background:#fdba74"></i>Admin</button><button type="button" class="pal" data-k="box"><i style="background:#5eead4"></i>Timebox</button><button type="button" class="pal" data-k="sofa"><i style="background:#b9a2ff"></i>Break</button><button type="button" class="pal" data-k="meet"><i style="background:#94a3b8"></i>Meeting</button><button type="button" class="pal own" data-k="own">+ Own</button></div>
+        <div class="pals"><button type="button" class="palc" data-k="deep"><i style="background:#ff9a7d"></i>Focus</button><button type="button" class="palc" data-k="admin"><i style="background:#fdba74"></i>Admin</button><button type="button" class="palc" data-k="box"><i style="background:#5eead4"></i>Timebox</button><button type="button" class="palc" data-k="sofa"><i style="background:#b9a2ff"></i>Break</button><button type="button" class="palc" data-k="meet"><i style="background:#94a3b8"></i>Meeting</button><button type="button" class="palc own" data-k="own">+ Own</button></div>
         <p class="hint2">Drop a block where you want it. It snaps to 15 minutes and keeps that time.</p><button type="button" class="pgo sm" id="fillAllBtn" data-pa="fillall" hidden>Fill the empty gaps</button></div>
       <div class="pcard" id="planCard"></div>
       <div class="note" id="planNote"></div>
@@ -692,7 +711,8 @@ body.paused .tLumi .lumi{animation-play-state:paused}
     const K = KINDS[x.k];
     return { id, k: x.k, label: typeof x.label === 'string' ? x.label.slice(0, 30) : '', n: K.ph ? clampN(x.n, 1, 8, K.n) : 1, f: K.f || 0, sb: K.sb || 0,
       min: K.ph ? 0 : clampN(x.min, 5, 480, K.min), pin: clampN(x.pin, 0, 1439, null), prio: x.prio === 'nice' ? 'nice' : 'must',
-      st: ['todo', 'run', 'done', 'skip', 'drop'].includes(x.st) ? x.st : 'todo', si: clampN(x.si, 0, 20, 0), d: clampN(x.d, 0, 8, 0), sk: clampN(x.sk, 0, 8, 0), g: !!x.g, o: !!x.o };
+      st: ['todo', 'run', 'done', 'skip', 'drop'].includes(x.st) ? x.st : 'todo', si: clampN(x.si, 0, 20, 0), d: clampN(x.d, 0, 8, 0), sk: clampN(x.sk, 0, 8, 0), g: !!x.g, o: !!x.o,
+      as: +x.as > 0 ? +x.as : null, ae: +x.ae > 0 ? +x.ae : null, ps: clampN(x.ps, 0, 1439, null) };
   }
   function cleanPlan(p, day) {
     if (!p || typeof p !== 'object' || p.day !== (day || today()) || !Array.isArray(p.blocks)) return null;
@@ -1185,7 +1205,47 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     sess = null; save(); cancelSched(); unwake(); showScreen();
     if (party) celebrate();
   }
+  let bitsKey = '';
+  function updateBits() {
+    const on = !!(plan && plan.run && sess && sess.pl), d = new Date(now());
+    const clk = clock(now()) + '<small>' + d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }) + '</small>';
+    let ban = '', red = false;
+    if (on) {
+      const nb = plan.blocks.find((b) => b.st === 'todo' && b.k === 'meet' && b.pin != null), left = nb ? dayMs(nb.pin) - now() : 0;
+      if (nb && left > 0 && left <= 30 * 60000) { const m = Math.ceil(left / 60000); ban = `<b>${esc(bname(nb))} at ${tm(nb.pin)}</b><span>in ${m} min · wrap up by ${tm(Math.max(0, nb.pin - 5))}</span>`; red = left <= 5 * 60000; }
+    }
+    document.body.classList.toggle('hasbar', on);
+    if (planOpen && document.body.dataset.theme !== 'home') document.body.dataset.theme = 'home';
+    const key = on + '|' + clk + '|' + ban + red + '|' + planOpen;
+    if (key !== bitsKey) {
+      bitsKey = key;
+      document.querySelectorAll('.dtop').forEach((el) => {
+        el.hidden = !on;
+        el.querySelector('.clk').innerHTML = clk;
+        el.querySelectorAll('.dseg button').forEach((bt) => bt.setAttribute('aria-pressed', String((bt.dataset.v === 'day') === planOpen)));
+      });
+      document.querySelectorAll('.mban').forEach((el) => { el.hidden = !ban; el.className = 'mban' + (red ? ' red' : ''); el.innerHTML = ban; });
+    }
+    const mini = $('planMini');
+    mini.hidden = !(on && planOpen);
+    if (!mini.hidden) {
+      const w = sess.wait, up = sess.phase === 'up';
+      $('pmT').textContent = w ? '--:--' : fmt(sess.paused ? sess.left : up ? now() - sess.startAt : Math.max(0, sess.endAt - now()), up);
+      $('pmL').textContent = w ? $('waitTitle').textContent : $('runTitle').textContent;
+      $('pmS').textContent = w ? $('waitSub').textContent : $('runSub').textContent;
+      $('pmBtn').textContent = w ? 'GO' : sess.paused ? 'RESUME' : 'PAUSE';
+    }
+  }
+  document.addEventListener('click', (e) => {
+    const bt = e.target.closest && e.target.closest('.dseg button[data-v]');
+    if (!bt) return;
+    if (bt.dataset.v === 'day') { if (!planOpen) openPlan(); }
+    else if (planOpen) { planOpen = false; viewOff = 0; save(); showScreen(); }
+    bitsKey = ''; updateBits();
+  });
+  $('pmBtn').addEventListener('click', () => { if (!sess) return; if (sess.wait) $('goBtn').click(); else pause(); bitsKey = ''; updateBits(); });
   function tick() {
+    updateBits();
     if (rollDay()) { renderJars(); if (!sess) renderHome(); }
     if (!sess && plan && plan.hold) {
       if (now() >= dayMs(plan.start)) { plan.hold = false; planStart(undefined, true); }
@@ -1642,6 +1702,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   function startPlanStep(b, si, startAt) {
     const st = steps(b)[si];
     b.st = 'run'; b.si = si;
+    if (b.as == null) b.as = startAt || now();
     plan.run = true;
     startPhase(st.ph, st.ph === 'focus' ? b.d + 1 : 1, startAt || 0, [], stepMs(b, si), { b: b.id, s: si, gap: false, bound: false, prev: '' });
   }
@@ -1667,6 +1728,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const all = steps(b);
     if (b.si >= all.length) {                        // that was the last bit of the block
       b.st = quiet && (b.k === 'box' || (KINDS[b.k].ph && b.sk >= b.n)) ? 'skip' : 'done';
+      b.ae = endedAt;
       const bone = KINDS[b.k].ph && b.st === 'done' && b.n >= 3 && !b.sk;
       const r = focusMs || bone ? earnTime(focusMs, bone) : { line: '' };
       if (r.line) pending = r.line;
@@ -1717,6 +1779,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       const pr = problems(plan, now()), amount = Math.round(Math.max(pr.pins.length ? pr.pins[0].late : 0, pr.over) / 60000);
       if (amount >= 5 && !plan.blocks.some((b) => b.st === 'run')) { openSheet({ t: 'pre', amount }); return; }
     }
+    if (!plan.run && !plan.blocks.some((b) => b.ps != null)) layout().forEach((it) => { it.b.ps = Math.round(it.s); });   // where the plan had each block
     ensureAudio().then(scheduleSounds); askNotify();
     plan.run = true; plan.ack = ack || 0; planOpen = false; sheetClose();
     pending = pick('dayStart');
@@ -1756,7 +1819,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       title = 'SPARE TIME'; sub = ''; go = 'TIMEBOX'; alt = 'Zoomies until then'; act = 'zoom';
     } else if (pl.bound) {
       title = pl.prev === 'box' ? "TIME'S UP!" : 'NEXT UP';
-      sub = `${bname(b)} · ${hm(bmin(b))}${b.pin != null ? ' · at ' + tm(b.pin) : ''}`;
+      const nr = project(plan, now()).find((r) => r.b === b);
+      sub = `${bname(b)} · ${hm(bmin(b))}${b.pin != null ? ' · at ' + tm(b.pin) : nr ? ' · ' + clock(nr.s) + '–' + clock(nr.e) : ''}`;
       go = 'START ' + (b.k === 'meet' ? 'MEETING' : KINDS[b.k].name.toUpperCase());
       if (pl.prev === 'box' && canExtend(now())) { alt = '5 more minutes'; act = 'more'; key = 'waitBox'; }
       else if (pl.prev === 'meet') { alt = 'Still in it: +10 min'; act = 'over'; }
@@ -1807,7 +1871,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     } else {
       const all = steps(b), ph = KINDS[b.k].ph;
       $('runTitle').textContent = { focus: 'FOCUS', short: 'ZOOMIES', long: 'SOFA TIME', box: 'TIMEBOX', up: 'STOPWATCH', meet: 'MEETING' }[p];
-      $('runSub').textContent = `${bname(b)} · block ${list.indexOf(b) + 1} of ${list.length}` + (ph && p === 'focus' ? ` · pomodoro ${sess.n} of ${b.n}` : '');
+      const wr = rows.find((r) => r.b === b);
+      $('runSub').textContent = `${bname(b)} · block ${list.indexOf(b) + 1} of ${list.length}` + (ph && p === 'focus' ? ` · pomodoro ${sess.n} of ${b.n}` : '') + (wr ? ` · ${clock(b.as != null ? b.as : wr.s)}–${clock(wr.e)}` : '');
       if (ph && b.si < all.length - 1) $('next').textContent = all[b.si + 1].ph === 'short' ? `Then ${all[b.si + 1].m} min of zoomies` : `Then pomodoro ${b.d + 2} of ${b.n}`;
       else if (rows[1]) $('next').textContent = `Next: ${bname(rows[1].b)} at ${clock(rows[1].s)}`;
       else $('next').textContent = 'Last block of the day';
@@ -2156,7 +2221,27 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   }
   const guessPm = (v, t) => t != null && t >= 60 && t < 420 && !/am|pm/i.test(v) && !/^\s*0/.test(v);      // a bare 1 to 6 is probably the afternoon
   // where every block sits on the day's clock: pinned ones at their time, the rest stacked from the end of the one before
+  // while the day runs the grid shows what is really happening: real times for what is done, the projection for what is left
+  const toMin = (ts) => Math.round((ts - dayMs(0)) / 60000);
+  function liveLayout() {
+    const rows = project(plan, now()), by = new Map(rows.map((r) => [r.b, r])), items = [];
+    let cur = plan.start;
+    for (const b of plan.blocks) {
+      if (b.st === 'drop') continue;
+      const r = by.get(b);
+      let st, e;
+      if (b.st === 'done') { st = b.as != null ? toMin(b.as) : cur; e = b.ae != null ? toMin(b.ae) : st + bmin(b); }
+      else if (b.st === 'run') { st = b.as != null ? toMin(b.as) : r ? toMin(r.s) : cur; e = r ? Math.max(st + 1, toMin(r.e)) : st + bmin(b); }
+      else if (b.st === 'skip') { st = b.ps != null ? b.ps : cur; e = st + bmin(b); items.push({ b, s: st, e }); continue; }
+      else if (isPin(b)) { st = b.pin; e = b.pin + bmin(b); }                       // a fixed block stays on its time, even when you are late for it
+      else if (r) { st = toMin(r.s); e = Math.max(st + 1, toMin(r.e)); }
+      else { st = cur; e = cur + bmin(b); }
+      items.push({ b, s: st, e }); cur = Math.max(cur, e);
+    }
+    return items;
+  }
   function layout() {
+    if (plan.run) return liveLayout();
     const items = [];
     let cur = plan.start;
     for (const b of plan.blocks) {
@@ -2307,7 +2392,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const run = plan.run, today0 = viewOff === 0, cursor = run ? now() : dayMs(plan.start), nowM = minDay(now());
     const { items, segs } = segments();
     $('planSub').textContent = run ? 'Finished blocks are locked. Change anything still to come.' : today0 ? 'Meetings in, then drag blocks in or fill the gaps' : 'Planning ahead. It saves as you go.';
-    $('planStart').hidden = run;
+    $('planStart').hidden = run; $('planBack').hidden = run;
     const sv = $('planStartV'), fv = $('planFinV');
     if (document.activeElement !== sv) sv.value = tm(plan.start);
     if (document.activeElement !== fv) fv.value = plan.fin != null ? tm(plan.fin) : '';
@@ -2341,6 +2426,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
         `<button type="button" class="gp" data-pa="gap:${aid}:own" aria-label="Add your own block">+</button>` : '';
       h += `<div class="civ${past ? ' past' : ''}" data-aid="${aid}" style="top:${y(sg.s)}px;height:${Math.max(22, y(sg.e) - y(sg.s) - 3)}px">${td.length ? '' : `<span class="civl">${hm(sg.e - sg.s)} free</span>`}${chips}</div>`;
     });
+    if (run) items.forEach((it) => { if (it.b.ps != null && it.b.st !== 'skip' && Math.abs(it.b.ps - it.s) >= 5) h += `<div class="ghostslot" style="top:${y(it.b.ps)}px;height:${Math.max(18, y(it.b.ps + (it.e - it.s)) - y(it.b.ps) - 3)}px" aria-hidden="true"></div>`; });
     items.forEach((it) => {
       const b = it.b, pin = isPin(b), ed = b.st === 'todo', ht = Math.max(18, y(it.e) - y(it.s) - 3);
       const cls = ['cb', 'k-' + b.k, pin ? 'pin' : 'fill', b.st !== 'todo' ? b.st : '', ed ? 'ed' : '', ht < 26 ? 'small' : '', editId === b.id ? 'sel' : '', over.has(b.id) ? 'over' : ''].filter(Boolean).join(' ');
@@ -2511,7 +2597,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   $('planStartV').addEventListener('change', (e) => { const t = parseT(e.target.value); if (t == null) { renderPlan(); return; } setStart(0, t); });
   $('planFinV').addEventListener('change', (e) => { const t = parseT(e.target.value); if (t == null) { inView(() => { if (e.target.value.trim() === '') plan.fin = null; afterEdit(); }); return; } setFin(0, t); });
   ['planStartV', 'planFinV'].forEach((id) => $(id).addEventListener('keydown', (e) => { if (e.key === 'Enter') e.target.blur(); }));
-  $('tplBtn').addEventListener('click', () => inView(() => { tpl = plan.blocks.filter((b) => b.st !== 'drop').map((b) => cleanBlock(Object.assign({}, b, { st: 'todo', si: 0, d: 0, sk: 0 }), b.id)).filter(Boolean); save(); renderPlan(); $('tplBtn').textContent = 'Saved'; }));
+  $('tplBtn').addEventListener('click', () => inView(() => { tpl = plan.blocks.filter((b) => b.st !== 'drop').map((b) => cleanBlock(Object.assign({}, b, { st: 'todo', si: 0, d: 0, sk: 0, as: null, ae: null, ps: null }), b.id)).filter(Boolean); save(); renderPlan(); $('tplBtn').textContent = 'Saved'; }));
   $('clearBtn').addEventListener('click', () => {
     if (viewOff) { delete future[keyFor(viewOff)]; save(); renderPlan(); return; }
     if (!plan || plan.run) return;
@@ -2582,14 +2668,14 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     return null;
   }
   document.addEventListener('pointerdown', (e) => {
-    const pc = e.target.closest && e.target.closest('.pal');
+    const pc = e.target.closest && e.target.closest('.palc');
     if (!pc || e.button > 0 || $('plan').hidden) return;
     const kind = pc.dataset.k, x0 = e.clientX, y0 = e.clientY;
     let ghost = null, mark = null;
     const overCal = (ev) => { const el = document.elementFromPoint(ev.clientX, ev.clientY); return !!(el && el.closest && el.closest('#cal')); };
     const move = (ev) => {
       if (!ghost && Math.hypot(ev.clientX - x0, ev.clientY - y0) > 6) {
-        ghost = pc.cloneNode(true); ghost.className = 'pal ghost'; document.body.appendChild(ghost);
+        ghost = pc.cloneNode(true); ghost.className = 'palc ghost'; document.body.appendChild(ghost);
       }
       if (!ghost) return;
       ghost.style.left = ev.clientX + 'px'; ghost.style.top = ev.clientY + 'px';
