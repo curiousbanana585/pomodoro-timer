@@ -2182,7 +2182,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     let s0 = sg.s;
     sg.run.forEach((it) => { if (it.b.st !== 'todo') s0 += bmin(it.b); });
     if (plan.run) s0 = Math.max(s0, Math.ceil(minDay(now()) / 5) * 5);
-    const e = sg.e == null ? null : sg.e - (sg.after ? 5 : 0);
+    const e = sg.e == null ? null : sg.e - (sg.after && sg.after.k === 'meet' ? 5 : 0);
     return { s0, e, avail: e == null ? 0 : e - s0 };
   }
   const presetKind = (k) => (k === 'deep' ? set.fstyle : k);
@@ -2209,6 +2209,18 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   // meetings and breaks never overlap: any clash is for you to settle
   function pinClash(b, pin, min) {
     return layout().find((it) => it.b !== b && isPin(it.b) && pin < it.e && pin + min > it.s) || null;
+  }
+  // a block dropped or dragged within 8 min of a neighbour's edge snaps to it, so 14:55 is reachable on a 15 min grid
+  function snapEdge(p, len, self) {
+    let best = p, bd = 8;
+    for (const it of layout()) {
+      if (it.b === self) continue;
+      for (const e of [it.s, it.e]) {
+        if (Math.abs(p - e) < bd) { bd = Math.abs(p - e); best = e; }
+        if (Math.abs(p + len - e) < bd) { bd = Math.abs(p + len - e); best = e - len; }
+      }
+    }
+    return best;
   }
   const clashText = (it) => `That overlaps ${bname(it.b)} ${tm(it.s)}–${tm(it.e)}. Change one of them first.`;
   // a stretch that got shorter (a meeting moved in) shrinks its preset to fit
@@ -2260,7 +2272,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     emptyGaps().forEach((sg) => fillSeg(sg, kind));
   }
   function afterEdit() {
-    ensureBreaks(); refit();
+    ensureBreaks();
     if (plan.run) { plan.ack = 0; resync(); }
     save(); renderPlan();
   }
@@ -2378,7 +2390,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     $('ownCard').innerHTML = ownHtml();
     $('defCard').innerHTML = `<div class="ph">Filling gaps</div><div class="dl">"Fill the empty gaps" uses</div><div class="seg3">${[['deep', 'Focus'], ['admin', 'Admin']].map((o) => `<button type="button" data-pa="fill:${o[0]}" aria-pressed="${(set.fill === 'admin' ? 'admin' : 'deep') === o[0]}">${o[1]}</button>`).join('')}</div>` +
       `<div class="dl">Focus style</div><div class="seg3">${[['deep', '25 + 5'], ['lfoc', '50 + 10']].map((o) => `<button type="button" data-pa="fst:${o[0]}" aria-pressed="${set.fstyle === o[0]}">${o[1]}</button>`).join('')}</div>` +
-      `<p class="hint2">Nothing fills by itself. Breaks: a 30 min break around the middle of a day over 7 h, two over 12 h.</p>`;
+      `<p class="hint2">How blocks behave: meetings, breaks and anything you drag or drop stay exactly where you put them. Blocks from Fill follow the block before them. Nothing ever shrinks by itself; if it doesn't fit, LOAF says so. Breaks: a 30 min break around the middle of a day over 7 h, two over 12 h.</p>`;
   }
   const stepper2 = (what, text) => `<div class="shStep"><button type="button" data-pa="${what}-" aria-label="Less">−</button><output>${text}</output><button type="button" data-pa="${what}+" aria-label="More">+</button></div>`;
   // the short breaks inside a focus block show as darker bands across it
@@ -2477,6 +2489,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const t = e.target.closest('[data-pa]');
     if (!t) return;
     if (suppress && t.dataset.pa === 'sel') return;
+    if (t.dataset.pa.startsWith('day:')) { setView(+t.dataset.pa.split(':')[1]); return; }   // switching day must not run inside the day being left
     if (!plan && viewOff === 0) return;
     const row = t.closest('[data-id]');
     inView(() => { if (pend) pendLast = pend; planAct(t.dataset.pa, row ? +row.dataset.id : 0); });
@@ -2533,6 +2546,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
         cb.style.height = Math.max(18, Math.round(min * PXM) - 3) + 'px';
       } else {
         pin = Math.max(0, Math.min(1440 - o.min, o.pin + dm));
+        if (dm !== 0) { const sn = inView(() => snapEdge(pin, o.min, plan.blocks.find((x) => x.id === bid))); if (free(sn, o.min)) pin = sn; }
         while (dm !== 0 && !free(pin, o.min)) { dm += step; pin = Math.max(0, Math.min(1440 - o.min, o.pin + dm)); }
         cb.style.top = Math.round((pin - lo) * PXM) + 'px';
       }
@@ -2560,7 +2574,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   function dropSpot(kind, cy) {                         // where a dragged block would land: { pin, len } or null when there is no room
     const r = $('cal').getBoundingClientRect(), tmp = palBlock(kind), len = bmin(tmp);
     nid--;                                              // the sample block never joins the day
-    const want = Math.round(((cy - r.top) / PXM - len / 2) / 15) * 15;
+    const want = snapEdge(Math.round(((cy - r.top) / PXM - len / 2) / 15) * 15, len, null);
     for (let d = 0; d <= 240; d += 15) for (const sgn of d ? [1, -1] : [1]) {
       const p = want + sgn * d;
       if (p >= 0 && p + len <= 1440 && !pinClash(null, p, len)) return { pin: p, len };
