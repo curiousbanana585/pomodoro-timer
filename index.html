@@ -263,7 +263,20 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 .cb .cbs{font-size:12.5px;font-weight:700;opacity:.75;white-space:nowrap}
 .cb .cbt{margin-left:auto;font-size:13px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;opacity:.85}
 .cb .lk{flex:none;opacity:.8}
-.cb.pin.ed{cursor:grab;touch-action:none}
+.cb.ed{cursor:grab}
+@media (pointer:fine){.cb.ed{touch-action:none}}
+.cb>span{position:relative;z-index:1}
+.stp{position:absolute;left:0;right:0;background:rgba(14,17,22,.2);pointer-events:none}
+.selh{width:100%;font-size:13px;color:var(--soft)}
+.dropln{position:absolute;left:60px;right:0;border:2px solid #4ade80;border-radius:10px;background:rgba(74,222,128,.15);pointer-events:none;z-index:4;box-sizing:border-box;font-size:12px;font-weight:800;color:#4ade80;padding:2px 8px}
+.dropln.bad{border-color:#f87171;background:rgba(248,113,113,.15);color:#fca5a5}
+.toastS{position:sticky;top:0;height:0;z-index:6}
+.toast2{position:absolute;left:8px;right:8px;top:8px;background:#7f1d1d;color:#fff;border-radius:12px;padding:10px 14px;font-size:14px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.sched{display:flex;flex-direction:column;gap:4px;margin:6px 0}
+.sr{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:8px;font-size:14px;padding:6px 10px;border-radius:8px;background:var(--btn);font-variant-numeric:tabular-nums}
+.sr.bad{background:#7f1d1d}
+.sr span:last-child{font-size:12px;opacity:.85}
+.more{margin-top:4px}.more summary{cursor:pointer;color:var(--soft);font-size:14px;padding:6px 0}
 .cb.drag{cursor:grabbing;box-shadow:0 0 0 3px #ff9a7d,0 12px 28px rgba(0,0,0,.5);z-index:3}
 .cb.sel{box-shadow:0 0 0 3px #ff9a7d}
 .cb.over{box-shadow:0 0 0 3px #f87171}
@@ -570,7 +583,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 <main id="plan" class="screen" hidden>
   <div class="phd">
     <button type="button" class="back" id="planBack">‹ Back</button>
-    <div><h1>Plan your day</h1><div class="sub" id="planSub">Meetings in, gaps filled, off you go</div></div>
+    <div><h1>Plan your day</h1><div class="sub" id="planSub">Meetings in, then drag blocks in or fill the gaps</div></div>
   </div>
   <div class="pgrid">
     <section class="pcal">
@@ -580,7 +593,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
         <button type="button" class="linkbtn" id="planFinOff">No finish line</button>
       </div>
       <div class="dtabs" id="dtabs"></div>
-      <div class="calWrap" id="calWrap"><div class="cal" id="cal"></div></div>
+      <div class="calWrap" id="calWrap"><div class="toastS"><div class="toast2" id="calToast" role="status" hidden></div></div><div class="cal" id="cal"></div></div>
     </section>
     <aside class="pside">
       <form class="pcard2 mForm" id="mForm" autocomplete="off">
@@ -591,7 +604,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
       <div id="ownCard"></div>
       <div class="pcard2" id="palCard"><div class="ph">Drag into your day</div>
         <div class="pals"><button type="button" class="pal" data-k="deep"><i style="background:#ff9a7d"></i>Focus</button><button type="button" class="pal" data-k="admin"><i style="background:#fdba74"></i>Admin</button><button type="button" class="pal" data-k="box"><i style="background:#5eead4"></i>Timebox</button><button type="button" class="pal" data-k="sofa"><i style="background:#b9a2ff"></i>Break</button><button type="button" class="pal" data-k="meet"><i style="background:#94a3b8"></i>Meeting</button><button type="button" class="pal own" data-k="own">+ Own</button></div>
-        <p class="hint2">Drop on a gap to fill it, or on the grid to place a meeting or a break.</p></div>
+        <p class="hint2">Drop a block where you want it. It snaps to 15 minutes and keeps that time.</p><button type="button" class="pgo sm" id="fillAllBtn" data-pa="fillall" hidden>Fill the empty gaps</button></div>
       <div class="pcard" id="planCard"></div>
       <div class="note" id="planNote"></div>
       <div id="ifTime"></div>
@@ -690,7 +703,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
       const b = cleanBlock(x, id);
       if (b) { seen.add(id); blocks.push(b); }
     }
-    return { day: p.day, start: clampN(p.start, 0, 1439, 540), fin: clampN(p.fin, 1, 1439, null), blocks, run: !!p.run, ack: Math.max(0, +p.ack || 0), warned: 0, skip: Array.isArray(p.skip) ? p.skip.filter((x) => Number.isInteger(x)).slice(0, 40) : [] };
+    return { day: p.day, start: clampN(p.start, 0, 1439, 540), fin: clampN(p.fin, 1, 1439, null), blocks, run: !!p.run, ack: Math.max(0, +p.ack || 0), warned: 0, hold: !!p.hold, skip: Array.isArray(p.skip) ? p.skip.filter((x) => Number.isInteger(x)).slice(0, 40) : [] };
   }
   let plan = cleanPlan(stored.plan);
   // days planned ahead, by date
@@ -1141,7 +1154,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   }
   function pause() {
     if (!sess || sess.wait) return;
-    if (sess.paused) { if (sess.phase === 'up') sess.startAt = now() - sess.left; else sess.endAt = now() + sess.left; sess.paused = false; say(''); }
+    if (sess.paused) { if (sess.phase === 'up') sess.startAt = now() - sess.left; else sess.endAt = now() + sess.left; sess.paused = false; say(''); if (sess.pl && plan) setTimeout(checkpoint, 0); }
     else { sess.left = sess.phase === 'up' ? Math.max(0, now() - sess.startAt) : Math.max(0, sess.endAt - now()); sess.paused = true; say(pick('paused'), 0); }
     save(); scheduleSounds(); renderRun();
   }
@@ -1174,6 +1187,10 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   }
   function tick() {
     if (rollDay()) { renderJars(); if (!sess) renderHome(); }
+    if (!sess && plan && plan.hold) {
+      if (now() >= dayMs(plan.start)) { plan.hold = false; planStart(undefined, true); }
+      else if (!$('wait').hidden) $('waitSub').textContent = holdLeft();
+    }
     if (!sess) return;
     // catch up if the page was asleep (with auto-start this can roll through more than one bit)
     let guard = 0;
@@ -1271,13 +1288,14 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   }
   let shown = '', planOpen = false;
   function showScreen() {
-    const which = planOpen ? 'plan' : !sess ? 'home' : sess.wait ? 'wait' : 'run';
-    $('home').hidden = which !== 'home'; $('run').hidden = which !== 'run'; $('wait').hidden = which !== 'wait'; $('plan').hidden = which !== 'plan';
+    const which = planOpen ? 'plan' : !sess ? (plan && plan.hold ? 'hold' : 'home') : sess.wait ? 'wait' : 'run';
+    $('home').hidden = which !== 'home'; $('run').hidden = which !== 'run'; $('wait').hidden = which !== 'wait' && which !== 'hold'; $('plan').hidden = which !== 'plan';
     document.body.dataset.theme = which === 'plan' || !sess ? 'home' : sess.phase;
     if (which === 'plan') { renderPlan(); document.title = 'Plan your day · LOAF'; }
     if (which === 'home') { renderHome(); document.title = 'LOAF'; }
     if (which === 'run') setupRun();
     if (which === 'wait') setupWait();
+    if (which === 'hold') setupHold();
     if (which !== shown) window.scrollTo(0, 0);
     shown = which;
   }
@@ -1349,6 +1367,18 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     const t = `${sess.paused ? 'Paused · ' : ''}${shownT} ${{ focus: 'Focus', short: 'Zoomies', long: 'Sofa time', box: 'Timebox', up: 'Stopwatch', meet: 'Meeting' }[sess.phase]} · LOAF`;
     if (t !== lastTitle) { document.title = t; lastTitle = t; }
     soundHints();
+  }
+  const holdLeft = () => { const m = Math.max(0, Math.ceil((dayMs(plan.start) - now()) / 60000)); return m >= 60 ? `${Math.floor(m / 60)} h ${m % 60} min to go` : `${m} min to go`; };
+  function setupHold() {                                // the day is planned but it is not time yet
+    $('stopBtn2').dataset.alt = ''; $('cameUp2').hidden = true; $('pill').hidden = true;
+    $('waitTitle').textContent = 'DAY STARTS AT ' + tm(plan.start);
+    $('waitSub').textContent = holdLeft();
+    $('goBtn').textContent = 'START EARLY';
+    $('stopBtn2').textContent = 'Back to the plan';
+    $('waitBubble').textContent = "Lumi's warming up. We begin the moment the clock says so.";
+    renderJars();
+    waitPose = 'hold'; $('waitLumi').className = 'lumi'; $('waitLumi').innerHTML = lumiLoaf(false);
+    document.title = 'Day starts ' + tm(plan.start) + ' · LOAF';
   }
   function setupWait() {
     if (sess.pl) { setupPlanWait(); return; }
@@ -1676,8 +1706,12 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (party) celebrate();
   }
   // ack: undefined = check the day fits first; a number = start anyway and treat that many minutes of lateness as already agreed
-  function planStart(ack) {
+  function planStart(ack, early) {
     if (!plan || !plan.blocks.some((b) => b.st === 'todo' || b.st === 'run')) return;
+    if (!early && !plan.run && dayMs(plan.start) - now() > 60000 && !plan.blocks.some((b) => b.st === 'run' || b.st === 'done')) {   // not time yet: wait for the day to start
+      plan.hold = true; planOpen = false; sheetClose(); save(); showScreen(); return;
+    }
+    plan.hold = false;
     if (!plan.blocks.some((b) => b.st === 'run' || b.st === 'done')) plan.blocks.forEach((b) => { if (b.st === 'todo' && b.k === 'meet' && isPin(b) && dayMs(b.pin) + bmin(b) * 60000 <= now()) b.st = 'done'; });   // already over
     if (ack === undefined && !hasClash()) {
       const pr = problems(plan, now()), amount = Math.round(Math.max(pr.pins.length ? pr.pins[0].late : 0, pr.over) / 60000);
@@ -1863,9 +1897,11 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
           plan.blocks.filter((b) => b.st === 'todo').map((b) => opt('skip:' + b.id, esc(bname(b)), hm(bmin(b)))).join('') + opt('back', 'Back', '', 'quiet');
       } else {
         const t = clonePlan(), notes = trimPlan(t, now()), still = problems(t, now()), fits = !still.pins.length && still.over <= 30000;
-        h = `<h2 id="shTitle">Running a bit behind</h2><p>${why}</p>` +
+        const sched = '<div class="sched" aria-label="Your day from here">' + L.pr.rows.slice(0, 6).map((r) => `<div class="sr${r.late > 30000 ? ' bad' : ''}"><span>${clock(r.s)}</span><span>${esc(bname(r.b))}</span><span>${r.late > 30000 ? 'joins ' + Math.round(r.late / 60000) + ' min late' : r.b.pin != null ? 'holds ' + tm(r.b.pin) : ''}</span></div>`).join('') + '</div>';
+        h = `<h2 id="shTitle">Running a bit behind</h2><p>${why}</p>${sched}` +
           opt('trim', 'Trim to fit', notes.length ? esc(notes.join('. ')) + (fits ? '' : '. Still a little over') : 'Nothing nice-to-have left to trim', 'main') +
           opt('pick', 'Skip a block', 'Pick one to leave out today') +
+          (!pin && plan.fin != null ? opt('finmove', 'Move the finish line', `Today only: ${tm(plan.fin)} to ${tm(Math.min(1439, Math.ceil(minDay(L.pr.end) / 5) * 5))}`) : '') +
           opt('push', 'Push everything', pin ? `${esc(bname(pin.b))} still holds ${tm(pin.b.pin)}, so you'd join it ${L.behind} min late` : `The day ends at ${clock(L.pr.end)} instead of ${tm(plan.fin)}`) +
           opt('later', 'Not now', '', 'quiet');
       }
@@ -1926,7 +1962,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     meet: ['A meeting-heavy day', () => [newBlock('admin', { n: 2 }), newBlock('meet', { min: 60, pin: 600 }), newBlock('deep'), newBlock('sofa', { min: 30, label: 'Lunch' }), newBlock('meet', { min: 30, pin: 840 }), newBlock('admin')]],
     admin: ['An admin catch-up', () => [newBlock('admin', { n: 4 }), newBlock('zoom'), newBlock('admin', { n: 4 }), newBlock('sofa', { min: 30, label: 'Lunch' }), newBlock('admin')]],
   };
-  function freshPlan(startMin) { const st = startMin == null ? nextQuarter(0) : startMin; return { day: today(), start: st, fin: Math.min(1439, Math.max(1020, st + 240)), blocks: [], run: false, ack: 0, warned: 0, skip: [] }; }
+  function freshPlan(startMin) { const st = startMin == null ? Math.max(510, nextQuarter(0)) : startMin; return { day: today(), start: st, fin: Math.min(1439, Math.max(1020, st + 240)), blocks: [], run: false, ack: 0, warned: 0, skip: [], hold: false }; }
   // put a block where its time says it belongs: after everything that finishes before it, never ahead of the block on screen
   function insertAt(b) {
     let at = plan.blocks.length;
@@ -1974,6 +2010,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       else if (a === 'back') { sh.pick = false; renderSheet(); }
       else if (a.startsWith('skip:')) { sheetClose(); skipBlock(+val); plan.ack = 0; save(); checkpoint(); }
       else if (a === 'push') { const L = lateness(); plan.ack = L ? L.amount : 0; save(); sheetClose(); say(pick('pushed'), 7000); }
+      else if (a === 'finmove') { const L = lateness(); if (L) plan.fin = Math.min(1439, Math.ceil(minDay(L.pr.end) / 5) * 5); plan.ack = 0; save(); sheetClose(); say(pick('pushed'), 7000); }
       else if (a === 'later') { const L = lateness(); plan.ack = L ? L.amount : 0; save(); sheetClose(); }
     } else if (sh.t === 'up') {
       if (a === 'c-pin') { sh = { t: 'pin', label: 'Meeting', at: nextQuarter(15), len: 30 }; renderSheet(); }
@@ -2034,9 +2071,10 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     let h = '';
     if (!plan || !plan.blocks.length) {
       const pm = minDay(now()) >= 11 * 60;
-      h = `<p class="dh">Line up the blocks for today and Lumi will walk you through them.</p><div class="drow"><button type="button" class="dbtn main" data-da="plan">${pm ? 'Plan the rest of my day' : 'Plan my day'}</button><button type="button" class="dbtn" data-da="how">How long have you got?</button></div>` +
+      h = `<p class="dh">Planning a whole day? Open the planner.</p><div class="drow"><button type="button" class="dbtn main" data-da="plan">${pm ? 'Plan the rest of my day' : 'Plan my day'}</button></div>` +
+        '<details class="more" id="moreDay"><summary>More ways to start a day</summary><div class="drow"><button type="button" class="dbtn" data-da="how">How long have you got?</button></div>' +
         (tpl.length ? '<div class="drow"><button type="button" class="dbtn" data-da="usual">Use my usual day</button></div>' : '') +
-        '<p class="dh">Or start from a ready-made day:</p><div class="drow">' + Object.keys(DAYS).map((k) => `<button type="button" class="dbtn" data-da="day:${k}">${DAYS[k][0]}</button>`).join('') + '</div>';
+        '<p class="dh">Or a ready-made day:</p><div class="drow">' + Object.keys(DAYS).map((k) => `<button type="button" class="dbtn" data-da="day:${k}">${DAYS[k][0]}</button>`).join('') + '</div></details>';
     } else {
       const rows = project(plan, plan.run ? now() : Math.max(now(), dayMs(plan.start))), end = rows.length ? rows[rows.length - 1].e : now();
       const doneN = plan.blocks.filter((b) => b.st === 'done').length;
@@ -2077,11 +2115,11 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   /* ---------- the planner: a calendar-style day ---------- */
   const PXM = 64 / 60;                                 // pixels per minute on the grid (the whole 24 hours scrolls)
   const LOCKSVG = '<svg class="lk" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="currentColor"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>';
-  let editId = 0, planMsg = '', lunchMsg = false, suppress = false, viewOff = 0, own = null, pend = null, scrollNext = true, inV = false;
+  let editId = 0, planMsg = '', lunchMsg = false, suppress = false, viewOff = 0, own = null, pend = null, scrollNext = true, inV = false, lastToast = '', toastT = 0;
   const isPin = (b) => b.pin != null;
   const isBreak = (b) => b.st !== 'drop' && isPin(b) && (b.label === 'Break' || b.label === 'Lunch');
   const keyFor = (off) => { const d = new Date(now()); d.setDate(d.getDate() + off); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); };
-  const freshFuture = (key) => ({ day: key, start: 540, fin: 1020, blocks: [], run: false, ack: 0, warned: 0, skip: [] });
+  const freshFuture = (key) => ({ day: key, start: 510, fin: 1020, blocks: [], run: false, ack: 0, warned: 0, skip: [] });
   // the planner works on today's day, or on a day ahead: swap that plan in for the length of one action
   function inView(fn) {
     if (inV || viewOff === 0) return fn();
@@ -2104,7 +2142,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   function setView(off) {
     viewOff = off; editId = 0; own = null; pend = null; planMsg = ''; scrollNext = true;
     if (off === 0 && !plan) plan = freshPlan();
-    inView(() => { if (!plan.run) { ensureBreaks(); autoFill(); } save(); renderPlan(); });
+    inView(() => { if (!plan.run) ensureBreaks(); save(); renderPlan(); });
   }
   // "9", "930", "09:30", "15:15", "3pm" all work
   function parseT(v) {
@@ -2216,15 +2254,13 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     }
   }
   // gaps fill themselves with your default, unless you cleared them
-  function autoFill() {
-    if (!plan || plan.run || handDay() || set.fill === 'off' || !plan.blocks.some((b) => b.st !== 'drop' && b.k === 'meet')) return;
-    for (const sg of segments().segs) {
-      if (sg.e == null || (plan.skip || []).includes(segKey(sg)) || sg.run.length || segRoom(sg).avail < 15) continue;
-      fillSeg(sg, set.fill);
-    }
+  const emptyGaps = () => (plan && !plan.run ? segments().segs.filter((sg) => sg.e != null && !sg.run.length && segRoom(sg).avail >= 15) : []);
+  function fillAll() {                                  // only when you ask: every empty gap gets your default
+    const kind = set.fill === 'admin' ? 'admin' : 'deep';
+    emptyGaps().forEach((sg) => fillSeg(sg, kind));
   }
   function afterEdit() {
-    ensureBreaks(); refit(); autoFill();
+    ensureBreaks(); refit();
     if (plan.run) { plan.ack = 0; resync(); }
     save(); renderPlan();
   }
@@ -2258,7 +2294,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (!plan) return;
     const run = plan.run, today0 = viewOff === 0, cursor = run ? now() : dayMs(plan.start), nowM = minDay(now());
     const { items, segs } = segments();
-    $('planSub').textContent = run ? 'Finished blocks are locked. Change anything still to come.' : today0 ? 'Meetings in, gaps filled, off you go' : 'Planning ahead. It saves as you go.';
+    $('planSub').textContent = run ? 'Finished blocks are locked. Change anything still to come.' : today0 ? 'Meetings in, then drag blocks in or fill the gaps' : 'Planning ahead. It saves as you go.';
     $('planStart').hidden = run;
     const sv = $('planStartV'), fv = $('planFinV');
     if (document.activeElement !== sv) sv.value = tm(plan.start);
@@ -2289,15 +2325,15 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       if (sg.e - sg.s < 5) return;
       const past = run && sg.e <= nowM && today0, can = !past && sg.e - sg.s >= 15, aid = segKey(sg);
       const td = sg.run.filter((it) => it.b.st === 'todo'), kind = td.length ? (td[0].b.k === 'lfoc' ? 'deep' : td[0].b.k) : '';
-      const chips = can ? [['deep', 'Focus'], ['admin', 'Admin'], ['box', 'Timebox']].map((c) => `<button type="button" class="gp" data-pa="gap:${aid}:${c[0]}" aria-pressed="${kind === c[0]}">${c[1]}</button>`).join('') +
-        `<button type="button" class="gp" data-pa="gap:${aid}:own" aria-label="Add your own block">+</button>` + (td.length ? `<button type="button" class="gp" data-pa="gap:${aid}:clear" aria-label="Clear this gap">✕</button>` : '') : '';
+      const chips = can && !td.length ? [['deep', 'Focus'], ['admin', 'Admin'], ['box', 'Timebox']].map((c) => `<button type="button" class="gp" data-pa="gap:${aid}:${c[0]}" aria-pressed="${kind === c[0]}">${c[1]}</button>`).join('') +
+        `<button type="button" class="gp" data-pa="gap:${aid}:own" aria-label="Add your own block">+</button>` : '';
       h += `<div class="civ${past ? ' past' : ''}" data-aid="${aid}" style="top:${y(sg.s)}px;height:${Math.max(22, y(sg.e) - y(sg.s) - 3)}px">${td.length ? '' : `<span class="civl">${hm(sg.e - sg.s)} free</span>`}${chips}</div>`;
     });
     items.forEach((it) => {
       const b = it.b, pin = isPin(b), ed = b.st === 'todo', ht = Math.max(18, y(it.e) - y(it.s) - 3);
-      const cls = ['cb', 'k-' + b.k, pin ? 'pin' : 'fill', b.st !== 'todo' ? b.st : '', ed && pin ? 'ed' : '', ht < 26 ? 'small' : '', editId === b.id ? 'sel' : '', over.has(b.id) ? 'over' : ''].filter(Boolean).join(' ');
+      const cls = ['cb', 'k-' + b.k, pin ? 'pin' : 'fill', b.st !== 'todo' ? b.st : '', ed ? 'ed' : '', ht < 26 ? 'small' : '', editId === b.id ? 'sel' : '', over.has(b.id) ? 'over' : ''].filter(Boolean).join(' ');
       h += `<div class="${cls}" data-id="${b.id}" data-pa="sel" role="button" tabindex="0" style="top:${y(it.s)}px;height:${ht}px" aria-label="${esc(bname(b))}, ${tm(it.s)} to ${tm(it.e)}">` +
-        `<span class="cbn">${esc(bname(b))}</span>${KINDS[b.k].ph ? `<span class="cbs">${b.n} × ${b.f}</span>` : ''}${b.k === 'meet' ? LOCKSVG : ''}<span class="cbt">${tm(it.s)}–${tm(it.e)}</span>${pin && ed ? '<i class="rsz" aria-hidden="true"></i>' : ''}</div>`;
+        `${stripes(b)}<span class="cbn">${esc(bname(b))}</span>${KINDS[b.k].ph ? `<span class="cbs">${b.n} × ${b.f}</span>` : ''}${b.k === 'meet' ? LOCKSVG : ''}<span class="cbt">${tm(it.s)}–${tm(it.e)}</span>${ed ? '<i class="rsz" aria-hidden="true"></i>' : ''}</div>`;
     });
     const tail = items.reduce((m, it) => Math.max(m, it.e), 0), ov = plan.fin != null && tail > plan.fin;
     if (plan.fin != null) h += `<div class="edge fn${ov ? ' over' : ''}" style="top:${y(plan.fin) - 1}px"></div><div class="edl fn${ov ? ' over' : ''}" style="top:${y(plan.fin) + 4}px">🏁 Finish ${tm(plan.fin)}${ov ? ' · ' + hm(tail - plan.fin) + ' over' : ''}</div>`;
@@ -2333,16 +2369,25 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     else if (ovr >= 1) notes.push(`The day runs ${hm(ovr)} past your finish line.`);
     if (lunchMsg) notes.push('There is no room for a 30 min break. Free some time up.');
     if (planMsg) notes.push(esc(planMsg));
+    if (planMsg && planMsg !== lastToast) { lastToast = planMsg; const tt = $('calToast'); tt.textContent = planMsg; tt.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => { tt.hidden = true; }, 4000); } else if (!planMsg) lastToast = '';
     if (pend) notes.push(`Did you mean ${tm(pend.pm.f)}?<span class="amb"><button type="button" data-pa="amb:pm">${ptxt(pend.pm)}</button><button type="button" data-pa="amb:am">${ptxt(pend.am)}</button></span>`);
     $('planNote').innerHTML = notes.join('<br>') + (bad ? ' <button type="button" class="linkbtn" data-pa="trim">Trim to fit</button>' : '');
     $('tplBtn').textContent = tpl.length ? 'Update my usual day' : 'Save as my usual day';
+    $('fillAllBtn').hidden = run || !emptyGaps().length;
     $('selCard').innerHTML = selHtml(items);
     $('ownCard').innerHTML = ownHtml();
-    $('defCard').innerHTML = `<div class="ph">When I add to a gap</div><div class="dl">Fill new gaps with</div><div class="seg3">${[['deep', 'Focus'], ['admin', 'Admin'], ['off', 'Nothing']].map((o) => `<button type="button" data-pa="fill:${o[0]}" aria-pressed="${set.fill === o[0]}">${o[1]}</button>`).join('')}</div>` +
+    $('defCard').innerHTML = `<div class="ph">Filling gaps</div><div class="dl">"Fill the empty gaps" uses</div><div class="seg3">${[['deep', 'Focus'], ['admin', 'Admin']].map((o) => `<button type="button" data-pa="fill:${o[0]}" aria-pressed="${(set.fill === 'admin' ? 'admin' : 'deep') === o[0]}">${o[1]}</button>`).join('')}</div>` +
       `<div class="dl">Focus style</div><div class="seg3">${[['deep', '25 + 5'], ['lfoc', '50 + 10']].map((o) => `<button type="button" data-pa="fst:${o[0]}" aria-pressed="${set.fstyle === o[0]}">${o[1]}</button>`).join('')}</div>` +
-      `<p class="hint2">Breaks: a 30 min break around the middle of a day over 7 h, two over 12 h.</p>`;
+      `<p class="hint2">Nothing fills by itself. Breaks: a 30 min break around the middle of a day over 7 h, two over 12 h.</p>`;
   }
   const stepper2 = (what, text) => `<div class="shStep"><button type="button" data-pa="${what}-" aria-label="Less">−</button><output>${text}</output><button type="button" data-pa="${what}+" aria-label="More">+</button></div>`;
+  // the short breaks inside a focus block show as darker bands across it
+  function stripes(b) {
+    if (!KINDS[b.k].ph || b.n < 2) return '';
+    let h = '';
+    for (let k = 0; k < b.n - 1; k++) h += `<i class="stp" style="top:${Math.round((b.f + k * (b.f + b.sb)) * PXM)}px;height:${Math.max(2, Math.round(b.sb * PXM))}px"></i>`;
+    return h;
+  }
   function selHtml(items) {                             // the card for the block you tapped
     const it = editId && items.find((x) => x.b.id === editId);
     if (!it) { editId = 0; return ''; }
@@ -2351,6 +2396,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     let rows = '', del = '';
     if (isPin(b)) rows = `<div class="shRow"><span>Starts</span>${stepper2('st', tm(b.pin))}</div><div class="shRow"><span>Length</span>${stepper2('len', hm(b.min))}</div>`;
     else rows = `<div class="shRow"><span>${K.ph ? 'Pomodoros' : 'Length'}</span>${stepper2('len', K.ph ? `${b.n} × ${b.f} min` : hm(b.min))}</div>`;
+    if (K.ph && b.n > 1) rows += `<div class="selh">${b.n - 1} short break${b.n > 2 ? 's' : ''} of ${b.sb} min sit inside it (the darker bands)</div>`;
     if (isPin(b)) del = isBreak(b) && plan.blocks.filter(isBreak).length <= breakNeed() ? '' : '<button type="button" class="danger" data-pa="del">Remove</button>';
     else {
       del = '<button type="button" data-pa="clrgap">Clear this gap</button>';
@@ -2374,6 +2420,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     planMsg = ''; pend = null;
     if (a === 'sel') { editId = editId === id ? 0 : id; renderPlan(); return; }
     if (a === 'close') { editId = 0; renderPlan(); return; }
+    if (a === 'fillall') { fillAll(); afterEdit(); return; }
     if (a === 'go') { if (plan.run) closePlan(); else planStart(); return; }
     if (a.startsWith('day:')) { setView(+val); return; }
     if (a.startsWith('fill:')) { set.fill = val; save(); renderPlan(); return; }
@@ -2457,24 +2504,34 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (!plan || plan.run) return;
     plan = null; save(); closePlan();
   });
-  // drag a meeting to move it, or its bottom edge to change its length, in 15 min steps; it stops at the next meeting
+  // drag any block to move it (it then keeps that time), or its bottom edge to change its length, in 15 min steps; it stops at the next fixed block
   $('cal').addEventListener('pointerdown', (e) => {
-    const cb = e.target.closest && e.target.closest('.cb.pin.ed');
+    const cb = e.target.closest && e.target.closest('.cb.ed');
     if (!cb || e.button > 0) return;
     const bid = +cb.dataset.id;
-    const info = inView(() => { const b = plan.blocks.find((x) => x.id === bid); return b ? { pin: b.pin, min: b.min } : null; });
+    const info = inView(() => {
+      const b = plan.blocks.find((x) => x.id === bid), it = b && layout().find((x) => x.b === b);
+      return b && it ? { pin: it.s, min: it.e - it.s, ph: !!KINDS[b.k].ph, f: b.f, sb: b.sb } : null;
+    });
     if (!info) return;
     const size = !!e.target.closest('.rsz'), y0 = e.clientY, o = info, lo = +$('cal').dataset.lo, tag = cb.querySelector('.cbt');
-    let moved = false, pin = o.pin, min = o.min;
+    let moved = false, pin = o.pin, min = o.min, nn = 0;
     const free = (p, m) => inView(() => { const b = plan.blocks.find((x) => x.id === bid); return !pinClash(b, p, m); });
+    const lenOf = (n) => n * o.f + (n - 1) * o.sb;
     const move = (ev) => {
       const d = ev.clientY - y0;
       if (Math.abs(d) > 4) moved = true;
       if (!moved) return;
       let dm = Math.round(d / PXM / 15) * 15;
       const step = dm > 0 ? -15 : 15;
-      if (size) { min = Math.max(15, Math.min(480, o.min + dm)); while (min > 15 && !free(o.pin, min)) min -= 15; if (!free(o.pin, min)) min = o.min; cb.style.height = Math.max(18, Math.round(min * PXM) - 3) + 'px'; }
-      else {
+      if (size) {
+        if (o.ph) {
+          nn = Math.max(1, Math.min(8, Math.round((o.min + dm + o.sb) / (o.f + o.sb))));
+          while (nn > 1 && !free(o.pin, lenOf(nn))) nn--;
+          min = lenOf(nn);
+        } else { min = Math.max(15, Math.min(480, o.min + dm)); while (min > 15 && !free(o.pin, min)) min -= 15; if (!free(o.pin, min)) min = o.min; }
+        cb.style.height = Math.max(18, Math.round(min * PXM) - 3) + 'px';
+      } else {
         pin = Math.max(0, Math.min(1440 - o.min, o.pin + dm));
         while (dm !== 0 && !free(pin, o.min)) { dm += step; pin = Math.max(0, Math.min(1440 - o.min, o.pin + dm)); }
         cb.style.top = Math.round((pin - lo) * PXM) + 'px';
@@ -2489,48 +2546,68 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       inView(() => {
         const b = plan.blocks.find((x) => x.id === bid);
         if (!b) return;
-        if (pin === o.pin && min === o.min) { renderPlan(); return; }
-        b.pin = pin; b.min = min;
-        if (!size) place(b);
-        stretchDay(pin, pin + min);
+        if (size ? min === o.min : pin === o.pin) { renderPlan(); return; }
+        if (size) { if (o.ph) b.n = nn; else b.min = min; if (isPin(b)) { place(b); stretchDay(b.pin, b.pin + min); } }
+        else { b.pin = pin; b.g = false; place(b); stretchDay(pin, pin + min); }
         afterEdit();
       });
     };
     document.addEventListener('pointermove', move); document.addEventListener('pointerup', end); document.addEventListener('pointercancel', end);
   });
-  // drag a block from "Drag into your day" onto a gap (focus, admin, timebox, your own) or onto the grid (a meeting or a break)
+  // drag a block from "Drag into your day" onto the grid: one block, at the time where you let go (it slides to the nearest free spot)
+  const palBlock = (kind) => (kind === 'meet' ? newBlock('meet', { min: 30 }) : kind === 'sofa' ? newBlock('sofa', { min: 30, label: 'Time out' })
+    : kind === 'deep' ? newBlock(set.fstyle === 'lfoc' ? 'lfoc' : 'deep', { n: 1 }) : kind === 'admin' ? newBlock('admin', { n: 1 }) : newBlock('box', { min: 30 }));
+  function dropSpot(kind, cy) {                         // where a dragged block would land: { pin, len } or null when there is no room
+    const r = $('cal').getBoundingClientRect(), tmp = palBlock(kind), len = bmin(tmp);
+    nid--;                                              // the sample block never joins the day
+    const want = Math.round(((cy - r.top) / PXM - len / 2) / 15) * 15;
+    for (let d = 0; d <= 240; d += 15) for (const sgn of d ? [1, -1] : [1]) {
+      const p = want + sgn * d;
+      if (p >= 0 && p + len <= 1440 && !pinClash(null, p, len)) return { pin: p, len };
+    }
+    return null;
+  }
   document.addEventListener('pointerdown', (e) => {
     const pc = e.target.closest && e.target.closest('.pal');
     if (!pc || e.button > 0 || $('plan').hidden) return;
     const kind = pc.dataset.k, x0 = e.clientX, y0 = e.clientY;
-    let ghost = null;
+    let ghost = null, mark = null;
+    const overCal = (ev) => { const el = document.elementFromPoint(ev.clientX, ev.clientY); return !!(el && el.closest && el.closest('#cal')); };
     const move = (ev) => {
       if (!ghost && Math.hypot(ev.clientX - x0, ev.clientY - y0) > 6) {
         ghost = pc.cloneNode(true); ghost.className = 'pal ghost'; document.body.appendChild(ghost);
       }
-      if (ghost) { ghost.style.left = ev.clientX + 'px'; ghost.style.top = ev.clientY + 'px'; }
+      if (!ghost) return;
+      ghost.style.left = ev.clientX + 'px'; ghost.style.top = ev.clientY + 'px';
+      if (kind === 'own') return;
+      if (!overCal(ev)) { if (mark) { mark.remove(); mark = null; } return; }
+      const sp = inView(() => dropSpot(kind, ev.clientY));
+      if (!mark) { mark = document.createElement('div'); mark.className = 'dropln'; $('cal').appendChild(mark); }
+      mark.classList.toggle('bad', !sp);
+      const len = sp ? sp.len : 30, top = sp ? sp.pin : Math.round(((ev.clientY - $('cal').getBoundingClientRect().top) / PXM - 15) / 15) * 15;
+      mark.style.top = Math.round(top * PXM) + 'px'; mark.style.height = Math.max(18, Math.round(len * PXM) - 3) + 'px';
+      mark.textContent = sp ? `${tm(sp.pin)}–${tm(sp.pin + sp.len)}` : 'No room here';
     };
     const end = (ev) => {
       document.removeEventListener('pointermove', move); document.removeEventListener('pointerup', end); document.removeEventListener('pointercancel', end);
+      if (mark) mark.remove();
       if (!ghost) { inView(() => { planMsg = 'Drag it onto your day.'; renderPlan(); }); return; }
       ghost.remove();
-      const el = document.elementFromPoint(ev.clientX, ev.clientY), gap = el && el.closest && el.closest('.civ[data-aid]'), calEl = el && el.closest && el.closest('#cal');
       suppress = true; setTimeout(() => { suppress = false; }, 0);
       inView(() => {
         planMsg = ''; pend = null;
-        if (kind === 'deep' || kind === 'admin' || kind === 'box' || kind === 'own') {
-          if (!gap) { planMsg = 'Drop it on a gap.'; renderPlan(); return; }
-          const sg = segments().segs.find((s) => segKey(s) === +gap.dataset.aid);
-          if (kind === 'own') { own = { aid: +gap.dataset.aid, name: '', kind: 'box', len: 30 }; renderPlan(); return; }
-          if (!sg || !fillSeg(sg, kind)) { planMsg = 'That gap is too short for that.'; renderPlan(); return; }
-          afterEdit(); return;
+        if (!overCal(ev)) { planMsg = 'Drop it on your day.'; renderPlan(); return; }
+        const r = $('cal').getBoundingClientRect();
+        if (kind === 'own') {
+          const m = (ev.clientY - r.top) / PXM, sg = segments().segs.find((x) => x.e != null && m >= x.s && m < x.e);
+          if (!sg) { planMsg = 'Drop it on a gap.'; renderPlan(); return; }
+          own = { aid: segKey(sg), name: '', kind: 'box', len: 30 }; renderPlan(); return;
         }
-        if (!calEl) { planMsg = 'Drop it on your day.'; renderPlan(); return; }
-        const r = $('cal').getBoundingClientRect(), len = kind === 'meet' ? 30 : 30;
-        const pin = Math.max(0, Math.min(1440 - len, Math.round(((ev.clientY - r.top) / PXM - len / 2) / 15) * 15)), c = pinClash(null, pin, len);
-        if (c) { planMsg = clashText(c); renderPlan(); return; }
-        place(newBlock(kind === 'meet' ? 'meet' : 'sofa', kind === 'meet' ? { min: len, pin } : { min: len, pin, label: 'Time out' }));
-        stretchDay(pin, pin + len); afterEdit();
+        const sp = dropSpot(kind, ev.clientY);
+        if (!sp) { planMsg = 'No room for that there. Free some time up first.'; renderPlan(); return; }
+        const nb = palBlock(kind);
+        nb.pin = sp.pin; nb.o = true;
+        place(nb); stretchDay(sp.pin, sp.pin + sp.len); afterEdit();
       });
     };
     document.addEventListener('pointermove', move); document.addEventListener('pointerup', end); document.addEventListener('pointercancel', end);
@@ -2539,12 +2616,14 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   /* ---------- buttons ---------- */
   $('startBtn').addEventListener('click', () => { ensureAudio().then(scheduleSounds); askNotify(); startPhase('focus', 1); });
   $('goBtn').addEventListener('click', () => {
+    if (!sess && plan && plan.hold) { plan.hold = false; planStart(undefined, true); return; }
     if (!sess || !sess.wait) return;
     if (sess.pl) { planGo(); return; }
     if (sess.phase === 'box') { homeNote = pick('boxDone'); stop(); return; }
     ensureAudio(); startPhase(sess.phase, sess.n, 0, sess.skips);
   });
   $('stopBtn2').addEventListener('click', (e) => {        // on a finished timebox this button is "5 more minutes"
+    if (!sess && plan && plan.hold) { e.stopImmediatePropagation(); plan.hold = false; save(); openPlan(); return; }
     if (sess && sess.wait && sess.pl && $('stopBtn2').dataset.alt) { e.stopImmediatePropagation(); planAlt($('stopBtn2').dataset.alt); return; }
     if (sess && sess.wait && sess.phase === 'box' && !sess.pl) { e.stopImmediatePropagation(); pending = pick('boxMore'); ensureAudio(); startPhase('box', 1, 0, [], 5 * 60000); }
   });
