@@ -701,7 +701,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
       <div class="note" id="planNote"></div>
       <div id="ifTime"></div>
       <div class="pcard2" id="defCard"></div>
-      <div class="mini2"><button type="button" id="tplBtn">Save as my usual day</button><button type="button" id="clearBtn">Clear this day</button></div>
+      <div class="mini2"><button type="button" id="tplBtn">Save as my usual day</button><button type="button" id="clearBtn">Start over</button></div>
     </aside>
   </div>
   <div id="sbx"></div><div class="credit">A Bouncy Production · Made for Haz · Basic v2 · <a href="index.html" style="color:inherit">Full version</a></div>
@@ -814,7 +814,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
       const b = cleanBlock(x, id);
       if (b) { seen.add(id); blocks.push(b); }
     }
-    return { day: p.day, start: clampN(p.start, 0, 1439, 540), fin: clampN(p.fin, 1, 1439, null), blocks, run: !!p.run, ack: Math.max(0, +p.ack || 0), warned: 0, hold: !!p.hold, skip: Array.isArray(p.skip) ? p.skip.filter((x) => Number.isInteger(x)).slice(0, 40) : [] };
+    return { day: p.day, start: clampN(p.start, 0, 1439, 540), fin: clampN(p.fin, 1, 1439, null), blocks, run: !!p.run, ack: Math.max(0, +p.ack || 0), seen: Math.max(0, +p.seen || 0), warned: 0, hold: !!p.hold, skip: Array.isArray(p.skip) ? p.skip.filter((x) => Number.isInteger(x)).slice(0, 40) : [] };
   }
   let plan = cleanPlan(stored.plan);
   // days planned ahead, by date
@@ -1348,6 +1348,24 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     if (plan) plan.run = false;
     sess = null; save(); cancelSched(); unwake(); showScreen();
     if (party) celebrate();
+  }
+  function startOver() {                              // today's blocks are cleared and the planner is fresh; the treat jar stays
+    cancelSched(); unwake(); sheetClose();
+    sess = null; plan = null; viewOff = 0; editId = 0; own = null; pend = null; planOpen = false; tyForm = null; tyAsk = '';
+    save(); showScreen();
+  }
+  function idleSince() {                             // when the running day last had something going on, or 0 if it is not waiting
+    if (!sess || !plan || !plan.run) return 0;
+    let t = 0;
+    if (sess.wait) t = sess.wait.since;
+    else if (sess.paused) { const pb = sess.pl ? blockById(sess.pl.b) : null, a = pb && pb.aw && pb.aw.length ? pb.aw[pb.aw.length - 1] : null; t = a && a[1] == null ? a[0] : 0; }
+    else if (sess.phase !== 'up' && sess.endAt && sess.endAt < now()) t = sess.endAt;
+    return t ? Math.max(t, plan.seen || 0) : 0;
+  }
+  function checkStale() {                            // a day left waiting for over an hour: carry on, or start fresh
+    if (!plan || !plan.run || viewOff || !$('sheet').hidden) return;
+    const t = idleSince();
+    if (t && now() - t >= 3600000) openSheet({ t: 'stale', since: t });
   }
   let bitsKey = '';
   function updateBits() {
@@ -2174,7 +2192,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
 
   /* ---------- Today: the running screen ---------- */
   let showEarlier = false;
-  let editing = false, tyAsk = '', tyAskKey = '', tySpan = null, tyForce = false, tyForm = null, tyDrop = 0;
+  let editing = false, tyAsk = '', tyAskKey = '', tySpan = null, tyForce = false, tyForm = null, tyDrop = 0, tyOver = 0;
   function tyPreview(f) {                              // what adding this meeting would change, worked out on a copy of the day
     const c = pinClash(null, f.at, f.len, 5);
     if (c) return { bad: true, line: clashText(c) };
@@ -2292,6 +2310,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     }
     btns += `<button type="button" class="quiet" data-ty="stop">${esc($('pmStop').textContent)}</button>`;
     btns += `<button type="button" class="quiet" data-ty="drop">${tyDrop && Date.now() - tyDrop < 3000 ? 'Sure? Set the rest of the day aside' : 'Drop the rest of the day'}</button>`;
+    btns += `<button type="button" class="quiet" data-ty="over">${tyOver && Date.now() - tyOver < 3000 ? 'Sure? Clear the day and start over' : 'Start over'}</button>`;
     const hold = pressing && !tyForce;
     if (!hold) setH($('tyBtns'), btns);
     const st = tyStrip();
@@ -2344,6 +2363,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
         tyForm = null; showScreen(); checkpoint();
       }
     }
+    else if (a === 'over') { if (tyOver && Date.now() - tyOver < 3000) { tyOver = 0; startOver(); } else tyOver = Date.now(); }
     else if (a === 'drop') { if (tyDrop && Date.now() - tyDrop < 3000) { tyDrop = 0; tyDropDay(); } else tyDrop = Date.now(); }
     else if (a === 'pause') $('pmBtn').click();
     else if (a === 'plus') plusFive();
@@ -2393,6 +2413,10 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
           opt('later', 'Not now', '', 'quiet');
       }
       if (L.fc && L.fc.lost >= 2) h = h.replace(/<button[^>]*data-sa="push">.*?<\/button>/, '');
+    } else if (sh.t === 'stale') {
+      const n = plan.blocks.filter(live).length;
+      h = `<h2 id="shTitle">Your day from earlier is still open</h2><p>Nothing has run since ${clock(sh.since)}. ${n} block${n === 1 ? ' is' : 's are'} still to do.</p>` +
+        opt('stale-on', 'Carry on', 'Pick the day back up where it is', 'main') + opt('stale-new', 'Start fresh', "Clears today's blocks. Your treats stay.");
     } else if (sh.t === 'pre') {
       const t = clonePlan(), notes = trimPlan(t, now()), pr = problems(plan, now()), pin = pr.pins[0];
       h = `<h2 id="shTitle">This day won't quite fit</h2><p>${pin ? (sh.join >= 1 ? `Starting now, you'd join <b>${esc(bname(pin.b))}</b> ${sh.join} min late.` : `Starting now, you'd run into the ${prepOf(pin.b)} min prep for <b>${esc(bname(pin.b))}</b>.`) : `It runs ${sh.amount} min past your finish line.`} Better to sort it now than halfway through.</p>` +
@@ -2484,6 +2508,11 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const val = a.includes(':') ? a.split(':')[1] : '';
     if (a === 'close') { sheetClose(); return; }
     if (a === 'up') { sh = { t: 'up' }; renderSheet(); return; }
+    if (sh.t === 'stale') {
+      if (a === 'stale-on') { plan.seen = now(); save(); sheetClose(); }
+      else if (a === 'stale-new') startOver();
+      return;
+    }
     if (sh.t === 'pre') {
       if (a === 'pre-trim') { trimPlan(plan, now()); save(); planStart(0); }
       else if (a === 'pre-go') planStart(sh.amount);
@@ -2664,7 +2693,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     }
     return items;
   }
-  const startedDay = () => !!plan && plan.blocks.some((b) => b.st === 'done' || b.st === 'skip' || b.st === 'run');   // today has begun, even if it is stopped for now
+  const startedDay = () => !!plan && (plan.blocks.some((b) => b.st === 'done' || b.st === 'skip' || b.st === 'run') || (plan.day === today() && !plan.hold && dayMs(plan.start) < now()));   // today has begun, even if it is stopped for now
   function layout() {
     if (plan.run || startedDay()) return liveLayout();
     const items = [];
@@ -3063,10 +3092,12 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   $('planFinV').addEventListener('change', (e) => { const t = parseT(e.target.value); if (t == null) { inView(() => { if (e.target.value.trim() === '') plan.fin = null; afterEdit(); }); return; } setFin(0, t); });
   ['planStartV', 'planFinV'].forEach((id) => $(id).addEventListener('keydown', (e) => { if (e.key === 'Enter') e.target.blur(); }));
   $('tplBtn').addEventListener('click', () => inView(() => { tpl = plan.blocks.filter((b) => b.st !== 'drop').map((b) => cleanBlock(Object.assign({}, b, { st: 'todo', si: 0, d: 0, sk: 0, as: null, ae: null, ps: null }), b.id)).filter(Boolean); save(); renderPlan(); $('tplBtn').textContent = 'Saved'; }));
+  let overAt = 0;
   $('clearBtn').addEventListener('click', () => {
     if (viewOff) { delete future[keyFor(viewOff)]; save(); renderPlan(); return; }
-    if (!plan || (plan.run && sess)) return;
-    plan = null; save(); closePlan();
+    if (Date.now() - overAt < 3000) { overAt = 0; startOver(); return; }
+    overAt = Date.now(); $('clearBtn').textContent = 'Sure? Start over';
+    setTimeout(() => { $('clearBtn').textContent = 'Start over'; }, 3000);
   });
   // drag any block to move it (it then keeps that time), or its bottom edge to change its length, in 15 min steps; it stops at the next fixed block
   $('cal').addEventListener('pointerdown', (e) => {
@@ -3246,7 +3277,9 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     wake();
   }
   setInterval(tick, 250);
-  setInterval(() => { if (sess && planOpen && !pressing && !own && !/INPUT|TEXTAREA/.test((document.activeElement || {}).tagName || '')) renderPlan(); }, SPEED > 1 ? 1000 : 10000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) checkStale(); });
+  setTimeout(checkStale, 700);
+  setInterval(() => { if (!$('plan').hidden && !pressing && !own && !/INPUT|TEXTAREA/.test((document.activeElement || {}).tagName || '')) renderPlan(); }, SPEED > 1 ? 1000 : 10000);
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
   { // late-alert banner and notice line, under the running bar
     const mk = (id, css) => { const e = document.createElement('button'); e.type = 'button'; e.id = id; e.hidden = true; e.style.cssText = css; return e; };
