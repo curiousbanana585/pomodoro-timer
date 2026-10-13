@@ -490,6 +490,8 @@ body.paused .tLumi .lumi{animation-play-state:paused}
   .tyE time{font:700 12px ui-monospace,Menlo,monospace;color:var(--dim);flex:none}
   .tyNone{border:1px dashed #3a4358;border-radius:10px;padding:10px 12px;font-size:13px;color:var(--dim)}
   #tyBack{margin-bottom:6px}
+  .earlier{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--card);border-radius:12px;padding:10px 12px;margin-bottom:8px;font-size:13px;color:var(--soft)}
+  .earlier b{color:#fff}.earlier button{background:none;border:0;color:#fff;text-decoration:underline;font:700 13px system-ui;cursor:pointer;padding:6px}
   .tyRight{display:flex;flex-direction:column;gap:8px;min-width:0}
   .tyRow.add{border:1px dashed var(--soft);background:none;color:#fff;font:700 14px system-ui;text-align:left;cursor:pointer;width:100%;justify-content:flex-start}
   .tyFormC{background:#fff;color:#14181f;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}
@@ -681,6 +683,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
         <span class="tr"><span>Finish by</span><button type="button" id="planFinDn" aria-label="Earlier finish">−</button><input type="text" id="planFinV" inputmode="numeric" maxlength="5" aria-label="Day finishes at" autocomplete="off"><button type="button" id="planFinUp" aria-label="Later finish">+</button></span>
         <button type="button" class="linkbtn" id="planFinOff">No finish line</button>
       </div>
+      <div class="earlier" id="earlier" hidden></div>
       <div class="dtabs" id="dtabs"></div>
       <div class="calWrap" id="calWrap"><div class="toastS"><div class="toast2" id="calToast" role="status" hidden></div></div><div class="cal" id="cal"></div></div>
     </section>
@@ -1260,6 +1263,12 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     clearTimeout(partyT);
     partyT = setTimeout(() => { delete $('pal').dataset.party; setPal(); }, 7000);
   }
+  function saveCut(b, ms, after) {                    // work time cut off by a meeting is kept as a Timebox: under If there's time, or (paused through a meeting) first thing after it
+    if (!b || ms < 5 * 60000 || (sess.phase !== 'focus' && sess.phase !== 'box')) return false;
+    const lb = newBlock('box', { min: Math.round(ms / 60000), label: b.label || (KINDS[b.k].ph ? 'Rest of focus' : '') });
+    if (after) { lb.st = 'todo'; plan.blocks.splice(plan.blocks.indexOf(after) + 1, 0, lb); } else { lb.st = 'drop'; plan.blocks.push(lb); }
+    return true;
+  }
   let noticeT = 0;
   function notice(text) {                              // a line on the Day view that stays until tapped or about a minute
     const el = $('planNotice');
@@ -1293,8 +1302,8 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     if (sess.endAt <= cap) return;
     const over = sess.endAt - cap;
     sess.endAt = cap; sess.dur = Math.max(1000, sess.dur - over); sess.pl.cut = mt.id;
-    if (!KINDS[b.k].ph && over >= 5 * 60000) { const lb = newBlock(b.k, { min: Math.round(over / 60000), label: b.label }); lb.st = 'drop'; plan.blocks.push(lb); }
-    notice(`Cut to ${clock(cap)} so ${prepOf(mt) ? 'you can get ready for ' : ''}${bname(mt)}${prepOf(mt) ? '' : ' can start on time'}.`);
+    const kept = saveCut(b, over);
+    notice(`Cut to ${clock(cap)} so ${prepOf(mt) ? 'you can get ready for ' : ''}${bname(mt)}${prepOf(mt) ? '' : ' can start on time'}.${kept ? ' The ' + Math.round(over / 60000) + ' min left is saved under If there\'s time.' : ''}`);
     save(); scheduleSounds();
   }
   function pause() {
@@ -2070,7 +2079,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     }
     if (sess.paused && !sess.pl.gap) {                // paused through the start of a meeting: it takes over; before that, say how tight it is
       const pb = blockById(sess.pl.b), mt = pb && pb.k !== 'meet' ? meetAhead(pb, now()) : null;
-      if (mt && now() >= dayMs(mt.pin)) { finishPhase(true); return; }
+      if (mt && now() >= dayMs(mt.pin)) { const mins = Math.round(sess.left / 60000), kept = saveCut(pb, sess.left, mt); finishPhase(true); if (kept) notice(`${bname(mt)} started while you were paused. The ${mins} min you had left is next, after it.`); return; }
       checkpoint();
     }
     if (sess.wait || sess.paused) return;
@@ -2164,6 +2173,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   }
 
   /* ---------- Today: the running screen ---------- */
+  let showEarlier = false;
   let editing = false, tyAsk = '', tyAskKey = '', tySpan = null, tyForce = false, tyForm = null, tyDrop = 0;
   function tyPreview(f) {                              // what adding this meeting would change, worked out on a copy of the day
     const c = pinClash(null, f.at, f.len, 5);
@@ -2646,7 +2656,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       let st, e;
       if (b.st === 'done') { st = b.as != null ? toMin(b.as) : cur; e = b.ae != null ? toMin(b.ae) : st + bmin(b); }
       else if (b.st === 'run') { st = b.as != null ? toMin(b.as) : r ? toMin(r.s) : cur; e = r ? Math.max(st + 1, toMin(r.e)) : st + bmin(b); }
-      else if (b.st === 'skip') { st = b.ps != null ? b.ps : cur; e = st + bmin(b); items.push({ b, s: st, e }); continue; }
+      else if (b.st === 'skip') { st = b.as != null ? toMin(b.as) : cur; e = b.as != null ? Math.max(st + 1, toMin(b.ae != null ? b.ae : b.as)) : st + 5; items.push({ b, s: st, e }); continue; }   // a skipped block takes the time it really did, not its plan
       else if (isPin(b)) { st = b.pin; e = b.pin + bmin(b); }                       // a fixed block stays on its time, even when you are late for it
       else if (r) { st = toMin(r.s); e = Math.max(st + 1, toMin(r.e)); }
       else { st = cur; e = cur + bmin(b); }
@@ -2654,8 +2664,9 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     }
     return items;
   }
+  const startedDay = () => !!plan && plan.blocks.some((b) => b.st === 'done' || b.st === 'skip' || b.st === 'run');   // today has begun, even if it is stopped for now
   function layout() {
-    if (plan.run) return liveLayout();
+    if (plan.run || startedDay()) return liveLayout();
     const items = [];
     let cur = plan.start;
     for (const b of plan.blocks) {
@@ -2679,8 +2690,9 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   const segKey = (sg) => (sg.after ? sg.after.id : 0);
   function segRoom(sg) {                               // how much of a stretch is still free to fill; 5 min is kept clear before a meeting
     let s0 = sg.s;
-    sg.run.forEach((it) => { if (it.b.st !== 'todo') s0 += bmin(it.b); });
-    if (plan.run) s0 = Math.max(s0, Math.ceil(minDay(now()) / 5) * 5);
+    const began = plan.run || startedDay();
+    sg.run.forEach((it) => { if (began) { if (it.b.st === 'done' || it.b.st === 'run') s0 = Math.max(s0, it.e); } else if (it.b.st !== 'todo') s0 += bmin(it.b); });   // finished blocks count for the time they took
+    if (began) s0 = Math.max(s0, Math.ceil(minDay(now()) / 5) * 5);
     const e = sg.e == null ? null : sg.e - (sg.after ? prepOf(sg.after) : 0);
     return { s0, e, avail: e == null ? 0 : e - s0 };
   }
@@ -2795,7 +2807,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   function renderPlan() { inView(draw); }
   function draw() {
     if (!plan) return;
-    const run = plan.run, today0 = viewOff === 0, cursor = run ? now() : dayMs(plan.start), nowM = minDay(now());
+    const run = plan.run, today0 = viewOff === 0, began = today0 && startedDay(), cursor = run || began ? now() : dayMs(plan.start), nowM = minDay(now());
     const { items, segs } = segments();
     if (!sess || !plan.run) editing = false;
     renderToday(); document.querySelector('#plan .phd').hidden = todayOn(); document.querySelector('#plan .pgrid').hidden = todayOn(); $('tyBack').hidden = !run || todayOn();
@@ -2815,6 +2827,12 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       tabs += `<button type="button" class="dtab" data-pa="day:${o}" aria-pressed="${o === viewOff}"><b>${o === 0 ? 'Today' : o === 1 ? 'Tomorrow' : wd.split(' ')[0]}</b><small>${o < 2 ? wd : wd.split(' ')[1]}</small></button>`;
     }
     $('dtabs').innerHTML = tabs;
+    const fin = items.filter((it) => it.b.st === 'done' || it.b.st === 'skip'), fold = began && fin.length > 4 && !showEarlier;
+    $('earlier').hidden = !(began && fin.length > 4);
+    if (!$('earlier').hidden) {
+      const nd = fin.filter((it) => it.b.st === 'done').length, ns = fin.length - nd, used = Math.round(fin.filter((it) => it.b.st === 'done').reduce((m, it) => m + Math.max(0, it.e - it.s), 0));
+      $('earlier').innerHTML = `<span><b>Earlier:</b> ${nd} done${ns ? `, ${ns} skipped` : ''} · ${hm(used)} used</span><button type="button" data-pa="earlier">${showEarlier ? 'Hide' : 'Show'}</button>`;
+    }
     const pins = items.filter((it) => isPin(it.b)), over = new Set();
     items.forEach((it, i) => { if (isPin(it.b)) return; const nx = items.slice(i + 1).find((x) => isPin(x.b)); if (nx && it.e > nx.s - prepOf(nx.b)) over.add(it.b.id); });
     const lo = 0, hi = 1440, y = (m) => Math.round((m - lo) * PXM);
@@ -2829,7 +2847,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     segs.forEach((sg) => {
       if (sg.e == null) { if (sg.s < hi) h += `<div class="civ open" style="top:${y(sg.s)}px;height:30px"><span class="civl">Set a finish line to plan after your last meeting</span></div>`; return; }
       if (sg.e - sg.s < 5) return;
-      const past = run && sg.e <= nowM && today0, can = !past && sg.e - sg.s >= 15, aid = segKey(sg);
+      const past = (run || began) && sg.e <= nowM && today0, can = !past && sg.e - sg.s >= 15, aid = segKey(sg);
       const td = sg.run.filter((it) => it.b.st === 'todo'), kind = td.length ? (td[0].b.k === 'lfoc' ? 'deep' : td[0].b.k) : '';
       const chips = can && !td.length ? [['deep', 'Focus'], ['admin', 'Admin'], ['box', 'Timebox']].map((c) => `<button type="button" class="gp" data-pa="gap:${aid}:${c[0]}" aria-pressed="${kind === c[0]}">${c[1]}</button>`).join('') +
         `<button type="button" class="gp" data-pa="gap:${aid}:own" aria-label="Add your own block">+</button>` : '';
@@ -2837,6 +2855,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     });
     if (run) items.forEach((it) => { if (it.b.ps != null && it.b.st !== 'skip' && Math.abs(it.b.ps - it.s) >= 5) h += `<div class="ghostslot" style="top:${y(it.b.ps)}px;height:${Math.max(18, y(it.b.ps + (it.e - it.s)) - y(it.b.ps) - 3)}px" aria-hidden="true"></div>`; });
     items.forEach((it) => {
+      if (fold && (it.b.st === 'done' || it.b.st === 'skip')) return;
       const b = it.b, pin = isPin(b), ed = b.st === 'todo', ht = Math.max(18, y(it.e) - y(it.s) - 3);
       const cls = ['cb', 'k-' + b.k, pin ? 'pin' : 'fill', b.st !== 'todo' ? b.st : '', ed ? 'ed' : '', ht < 26 ? 'small' : '', editId === b.id ? 'sel' : '', over.has(b.id) ? 'over' : ''].filter(Boolean).join(' ');
       h += `<div class="${cls}" data-id="${b.id}" data-pa="sel" role="button" tabindex="0" style="top:${y(it.s)}px;height:${ht}px" aria-label="${esc(bname(b))}, ${tm(it.s)} to ${tm(it.e)}">` +
@@ -2939,6 +2958,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const b = plan.blocks.find((x) => x.id === id), val = a.includes(':') ? a.split(':')[1] : '';
     planMsg = ''; pend = null;
     if (a === 'newday') { plan = null; viewOff = 0; editId = 0; save(); showScreen(); return; }
+    if (a === 'earlier') { showEarlier = !showEarlier; renderPlan(); return; }
     if (a === 'sel') { editId = editId === id ? 0 : id; renderPlan(); return; }
     if (a === 'close') { editId = 0; renderPlan(); return; }
     if (a === 'go') { if (plan.run) { if (sess) closePlan(); else if (plan.blocks.some(live)) planStart(); else { plan = null; viewOff = 0; save(); showScreen(); } } else planStart(); return; }
