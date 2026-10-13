@@ -490,6 +490,18 @@ body.paused .tLumi .lumi{animation-play-state:paused}
   .tyE time{font:700 12px ui-monospace,Menlo,monospace;color:var(--dim);flex:none}
   .tyNone{border:1px dashed #3a4358;border-radius:10px;padding:10px 12px;font-size:13px;color:var(--dim)}
   #tyBack{margin-bottom:6px}
+  .tyRight{display:flex;flex-direction:column;gap:8px;min-width:0}
+  .tyRow.add{border:1px dashed var(--soft);background:none;color:#fff;font:700 14px system-ui;text-align:left;cursor:pointer;width:100%;justify-content:flex-start}
+  .tyFormC{background:#fff;color:#14181f;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}
+  .tyFormC b{font-size:15px}
+  .tyFormC input{font:700 14px system-ui;border:1px solid #c9ced8;border-radius:8px;padding:9px 10px;color:#14181f;min-width:0}
+  .tyStep{display:flex;justify-content:space-between;align-items:center;font-weight:700;gap:8px}
+  .tyStep span:last-child{display:flex;align-items:center;gap:6px}
+  .tyStep button{width:40px;height:40px;border-radius:8px;background:#e8ebf1;color:#14181f;font:900 18px system-ui;border:0;cursor:pointer}
+  .tyStep output{font:700 14px ui-monospace,Menlo,monospace;min-width:64px;text-align:center}
+  .tyRes{background:#f3f5f9;border-radius:8px;padding:8px 10px;font-size:13px}.tyRes.bad{color:#b91c1c;font-weight:700}
+  .tyFormC .tyGo{min-height:44px;border:0;border-radius:10px;background:var(--go);color:#fff;font:800 14px system-ui;cursor:pointer}.tyFormC .tyGo:disabled{opacity:.4;cursor:not-allowed}
+  .tyFormC .tyQ{background:none;border:0;color:#5a6372;text-decoration:underline;font:700 13px system-ui;cursor:pointer;padding:6px}
 </style>
 </head>
 <body data-theme="home">
@@ -655,7 +667,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
     <div class="tyRibWrap"><div class="tyRib" id="tyBar" role="img" aria-label="Your day"></div><i class="tyHere" id="tyHere"></i></div>
     <div class="tyTicks" id="tyTicks" aria-hidden="true"></div>
     <div class="tyKey" aria-hidden="true"><span><i style="background:#ff9a7d"></i>Pomodoro</span><span><i style="background:#4ade80"></i>Break</span><span><i style="background:#5eead4"></i>Timebox</span><span><i style="background:#94a3b8"></i>Meeting</span><span><i class="kp"></i>Prep</span><span><i class="kf"></i>Free, nothing planned</span></div>
-    <div class="tyCols"><div class="tyCard" id="tyNow"><div class="tyLbl" id="tyLbl"></div><div class="tyBig" id="tyTime"></div><div class="tyWhat" id="tyWhat"></div><div class="tySub" id="tySub"></div><div class="tyBtns" id="tyBtns"></div></div><div class="tyNext" id="tyNext"></div></div>
+    <div class="tyCols"><div class="tyCard" id="tyNow"><div class="tyLbl" id="tyLbl"></div><div class="tyBig" id="tyTime"></div><div class="tyWhat" id="tyWhat"></div><div class="tySub" id="tySub"></div><div class="tyBtns" id="tyBtns"></div></div><div class="tyRight"><div class="tyNext" id="tyNext"></div><div id="tyForm"></div></div></div>
     <div id="tyLog"></div>
   </section>
   <div class="phd">
@@ -1289,7 +1301,11 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     if (!sess || sess.wait) return;
     const pb = sess.pl && plan ? blockById(sess.pl.b) : null;
     if (sess.paused) {
-      if (pb && pb.aw && pb.aw.length && pb.aw[pb.aw.length - 1][1] == null) pb.aw[pb.aw.length - 1][1] = now();
+      if (pb && pb.aw && pb.aw.length && pb.aw[pb.aw.length - 1][1] == null) {
+        const t0 = pb.aw[pb.aw.length - 1][0], away = Math.round((now() - t0) / 60000);
+        if (away >= 2) logAdd(`Away ${away} min (${clock(t0)}–${clock(now())}). Everything after it moved ${away} min later.`);
+        pb.aw[pb.aw.length - 1][1] = now();
+      }
       if (sess.phase === 'up') sess.startAt = now() - sess.left; else { sess.endAt = now() + sess.left; capToMeeting(); } sess.paused = false; say(''); if (sess.pl && plan) setTimeout(checkpoint, 0);
     } else {
       sess.left = sess.phase === 'up' ? Math.max(0, now() - sess.startAt) : Math.max(0, sess.endAt - now()); sess.paused = true; say(pick('paused'), 0);
@@ -2148,7 +2164,31 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   }
 
   /* ---------- Today: the running screen ---------- */
-  let editing = false, tyAsk = '', tyAskKey = '', tySpan = null, tyForce = false;
+  let editing = false, tyAsk = '', tyAskKey = '', tySpan = null, tyForce = false, tyForm = null, tyDrop = 0;
+  function tyPreview(f) {                              // what adding this meeting would change, worked out on a copy of the day
+    const c = pinClash(null, f.at, f.len, 5);
+    if (c) return { bad: true, line: clashText(c) };
+    const saved = plan; let fc = null;
+    plan = clonePlan();
+    try { insertAt(newBlock('meet', { label: 'x', min: f.len, pin: f.at })); fc = forecast(); } finally { plan = saved; }
+    return { bad: false, line: fc && fc.line ? fc.line : 'Nothing else changes.' };
+  }
+  function tyFormHtml() {
+    if (!tyForm) return '';
+    const pv = tyPreview(tyForm), late = tyForm.at < minDay(now());
+    const st = (k, v) => `<span class="tyStep"><span>${k === 'at' ? 'Starts' : 'Lasts'}</span><span><button type="button" data-ty="m-${k}-" aria-label="Less">−</button><output>${v}</output><button type="button" data-ty="m-${k}+" aria-label="More">+</button></span></span>`;
+    return `<div class="tyFormC"><b>Add a meeting or call</b><input id="tyName" type="text" maxlength="30" value="${esc(tyForm.label)}" aria-label="Name">${st('at', tm(tyForm.at))}${st('len', hm(tyForm.len))}<div class="tyRes${pv.bad ? ' bad' : ''}">${esc(pv.line)}</div><button type="button" class="tyGo" data-ty="madd" ${pv.bad || late ? 'disabled' : ''}>Add it</button><button type="button" class="tyQ" data-ty="mcancel">Cancel</button></div>`;
+  }
+  function tyDropDay() {                               // meetings stay; everything else is set aside, not deleted
+    const gone = plan.blocks.filter((b) => live(b) && b.k !== 'meet'), cur = sess && sess.pl && !sess.pl.gap ? blockById(sess.pl.b) : null, hit = cur && gone.includes(cur);
+    if (!gone.length) return;
+    const n = gone.length, pomo = gone.reduce((m, b) => m + (KINDS[b.k].ph ? b.n : 0), 0);
+    gone.forEach((b) => { b.st = 'drop'; });
+    logAdd(`Rest of the day set aside: ${n} block${n === 1 ? '' : 's'}${pomo ? ` (${pomo} pomodoro${pomo === 1 ? '' : 's'})` : ''} saved under If there's time. Meetings kept.`);
+    plan.ack = 0; save();
+    if (hit) { cancelSched(); goNextBlock(now(), false, ''); } else resync();
+    showScreen();
+  }
   const todayOn = () => !!(sess && plan && plan.run && planOpen && !editing && viewOff === 0 && !inV);
   function logAdd(txt) {                               // everything that changes your plan is written down once
     if (!plan || !txt) return;
@@ -2209,6 +2249,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const dropped = plan.blocks.filter((b) => b.st === 'drop');
     if (dropped.length) h += dropped.slice(0, 3).map((b) => `<div class="tyRow"><span><b>If there's time</b> · ${esc(bname(b))} · ${hm(bmin(b))}</span><button type="button" data-ty="back:${b.id}">Add back</button></div>`).join('');
     if (!shown.length) h = `<div class="tyRow"><span><b>Last block of the day</b></span></div>` + h;
+    if (!tyForm) h += `<button type="button" class="tyRow add" data-ty="mform">+ Add a meeting or call</button>`;
     return h;
   }
   function renderToday() {
@@ -2240,12 +2281,15 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       if (p === 'focus' && !sk.hidden) btns += `<button type="button" data-ty="skip">Skip</button>`;
     }
     btns += `<button type="button" class="quiet" data-ty="stop">${esc($('pmStop').textContent)}</button>`;
+    btns += `<button type="button" class="quiet" data-ty="drop">${tyDrop && Date.now() - tyDrop < 3000 ? 'Sure? Set the rest of the day aside' : 'Drop the rest of the day'}</button>`;
     const hold = pressing && !tyForce;
     if (!hold) setH($('tyBtns'), btns);
     const st = tyStrip();
     if (st && !hold) { setH($('tyBar'), st.h); setH($('tyTicks'), st.ticks); }
     if (tySpan) $('tyHere').style.left = Math.max(0, Math.min(100, ((now() - dayMs(0)) / 60000 - tySpan.W0) / tySpan.SP * 100)).toFixed(2) + '%';
     if (!hold) setH($('tyNext'), tyNextRows());
+    if (tyForm && $('tyName')) tyForm.label = $('tyName').value;
+    if (!hold) setH($('tyForm'), tyFormHtml());
     const lg = (plan.log || []).slice(-6).reverse();
     setH($('tyLog'), `<div class="tyLogH">Changes from your plan${plan.log && plan.log.length ? ' · ' + plan.log.length : ''}</div>` + (lg.length ? lg.map((x) => `<div class="tyE"><time>${clock(x.t)}</time><span>${esc(x.txt)}</span></div>`).join('') : '<div class="tyNone">None yet. The day is going as planned.</div>'));
   }
@@ -2273,8 +2317,24 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   $('today').addEventListener('click', (e) => {
     const t = e.target.closest('[data-ty]');
     if (!t || t.disabled) return;
-    const a = t.dataset.ty;
+    const a = t.dataset.ty, nm = $('tyName');
+    if (tyForm && nm) tyForm.label = nm.value;
+    if (a !== 'drop') tyDrop = 0;
     if (a === 'edit') { editing = true; }
+    else if (a === 'mform') tyForm = { label: 'Meeting', at: nextQuarter(15), len: 30 };
+    else if (a === 'mcancel') tyForm = null;
+    else if (a === 'm-at-' || a === 'm-at+') tyForm.at = Math.max(nextQuarter(0) - 15, Math.min(1425, tyForm.at + (a === 'm-at+' ? 5 : -5)));
+    else if (a === 'm-len-' || a === 'm-len+') tyForm.len = Math.max(15, Math.min(240, tyForm.len + (a === 'm-len+' ? 15 : -15)));
+    else if (a === 'madd') {
+      const pv = tyPreview(tyForm);
+      if (!pv.bad && tyForm.at >= minDay(now())) {
+        const label = (tyForm.label || '').trim().slice(0, 30) || 'Meeting', b = newBlock('meet', { label, min: tyForm.len, pin: tyForm.at });
+        insertAt(b); plan.ack = 0; save(); resync();
+        logAdd(`Added ${label}, ${tm(tyForm.at)}–${tm(tyForm.at + tyForm.len)}.${pv.line === 'Nothing else changes.' ? '' : ' ' + pv.line}`);
+        tyForm = null; showScreen(); checkpoint();
+      }
+    }
+    else if (a === 'drop') { if (tyDrop && Date.now() - tyDrop < 3000) { tyDrop = 0; tyDropDay(); } else tyDrop = Date.now(); }
     else if (a === 'pause') $('pmBtn').click();
     else if (a === 'plus') plusFive();
     else if (a === 'early') tyAsk = 'early';
@@ -2283,7 +2343,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     else if (a === 'skip') $('skipBtn').click();
     else if (a === 'stop') { $('pmStop').click(); }
     else if (a.startsWith('back:')) { const x = plan.blocks.find((y) => y.id === +a.slice(5)); if (x) { x.st = 'todo'; logAdd(`${bname(x)} added back to the day.`); afterEdit(); } }
-    for (const k of ['tyBtns', 'tyNext', 'tyBar']) $(k)._h = null;
+    for (const k of ['tyBtns', 'tyNext', 'tyBar', 'tyForm']) $(k)._h = null;
     bitsKey = ''; tyForce = true; try { renderPlan(); updateBits(); } finally { tyForce = false; }
   });
   $('tyBack').addEventListener('click', () => { editing = false; renderPlan(); bitsKey = ''; updateBits(); });
