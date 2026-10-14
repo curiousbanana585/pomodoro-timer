@@ -310,6 +310,72 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 .cb.over{box-shadow:0 0 0 3px #f87171}
 .cb.done,.cb.skip{opacity:.5}
 .cb.skip{background:repeating-linear-gradient(135deg,var(--bc) 0 8px,#3a4250 8px 16px)}
+.agSw{display:flex;align-items:center;gap:10px}.agSw .seg{display:inline-flex;background:var(--card);border-radius:10px;padding:3px}
+.agSw .seg button{background:transparent;min-height:32px;padding:0 14px;border-radius:8px;font-weight:800;font-size:13px;color:var(--dim)}.agSw .seg button[aria-pressed=true]{background:var(--btn);color:#fff}
+.agSw small{color:var(--dim);font-size:12.5px}
+.calWrap:has(.cal.rib),.calWrap:has(.cal.list){max-height:none;overflow:visible}
+/* the ribbon: fixed things in the top lane, work in the lane below, the whole day across the screen */
+.cal.rib{height:178px;background:#141922;border-radius:12px;margin:0;overflow:hidden}
+.rib .ax{position:absolute;top:0;height:100%;border-left:1px solid #222a35}.rib .axt{position:absolute;top:4px;font-size:11.5px;color:var(--dim);font-variant-numeric:tabular-nums;transform:translateX(3px)}
+.rib .lnl{position:absolute;left:6px;font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#5b6576}
+.rib .cb,.rib .civ{right:auto;padding:0 6px}
+.rib .cb.pin{top:30px;height:50px;flex-direction:column;align-items:flex-start;justify-content:center;gap:0}
+.rib .cb.fill,.rib .cb.done:not(.pin),.rib .cb.run:not(.pin),.rib .cb.skip:not(.pin){top:96px;height:64px;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;padding:3px 0 0;background:transparent;overflow:visible}
+.rib .cb .cbn{font-size:12.5px;line-height:16px}.rib .cb .cbt{margin:0;font-size:11px;line-height:14px;opacity:.8}.rib .cb .cbs{display:none}
+.rib .cb.fill .cbn,.rib .cb.fill .cbt{color:var(--fg,#f1f3f6);padding:0 2px}.rib .cb.fill .cbt{display:none}
+.rib .cb.pin .lk{position:absolute;right:5px;top:5px}
+.rib .cb .tls{position:relative;height:38px;margin-top:3px}
+.rib .tl{font-style:normal;position:absolute;top:0;bottom:0;border-radius:6px;background:var(--bc);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#2a1208;cursor:grab;touch-action:none}
+.rib .tl.dn{opacity:.45}.rib .tl.now{box-shadow:0 0 0 2px #fff inset}.rib .tl.bx{color:#06302a}
+.rib .tl.sb{background:#4ade80;border-radius:2px;cursor:default;width:auto}.rib .tl.lb{background:#22c55e;color:#06230f;font-size:9px}
+.rib .cb.auto{top:132px;height:28px;border-radius:2px;padding:0}.rib .cb.auto span{display:none}
+.rib .civ{top:96px;height:64px;justify-content:center;align-content:center;gap:4px}.rib .civl{margin:0;padding:0;font-size:11.5px;width:100%;text-align:center}
+.rib .civ .gp{height:24px;min-width:0;padding:0 8px;font-size:11.5px}
+.rib .civ.nar{padding:0 2px}.rib .civ.nar .gp{padding:0 5px;font-size:10.5px;height:22px}
+.rib .civ.nar .civl{display:none}
+.rib .outz{position:absolute;top:0;bottom:0;background:rgba(0,0,0,.35);pointer-events:none}
+.rib .edge.fn{position:absolute;top:0;bottom:0;width:0;border-left:2px solid #fff;z-index:4}.rib .edge.fn.over{border-left-color:#fbbf24}
+.rib .edl.fn{position:absolute;top:2px;font-size:11px;font-weight:800;background:#141922;padding:0 4px;transform:translateX(-100%);z-index:4;white-space:nowrap}.rib .edl.fn.over{color:#fbbf24}
+.rib .nowl{position:absolute;top:0;bottom:0;width:0;border-left:2px solid #f87171;z-index:5}.rib .nowt{position:absolute;top:2px;font-size:11px;font-weight:900;color:#f87171;transform:translateX(4px);z-index:5}
+.rib .prepz{position:absolute;top:30px;height:50px;background:repeating-linear-gradient(135deg,#3a4358 0 3px,transparent 3px 6px);border-radius:6px 0 0 6px}
+.rib .awm{position:absolute;top:92px;height:72px;background:rgba(251,191,36,.18);border:1px solid #fbbf24;border-radius:6px;pointer-events:none;z-index:2}
+.rib .awt{position:absolute;top:165px;font-size:10.5px;color:#fbbf24;font-weight:800;white-space:nowrap}
+.rib .dropln{position:absolute;top:96px;height:64px;border:2px dashed #fff;border-radius:8px;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;z-index:6;pointer-events:none;box-sizing:border-box}
+.rib .dropln.top{top:30px;height:50px}.rib .dropln.bad{border-color:#f87171;color:#f87171}
+.rib .cb.drag{z-index:6}
+.rib .rsz{position:absolute;right:0;top:0;bottom:0;width:8px;cursor:ew-resize}
+.rib .ghostslot{display:none}
+/* the list: fixed things are anchors, the gaps between them say their room */
+.cal.list{display:flex;flex-direction:column;gap:8px;height:auto!important}
+.list .cb,.list .civ{position:relative;left:auto;right:auto;top:auto!important;height:auto!important}
+.list .cb.pin{display:grid;grid-template-columns:52px 1fr auto;align-items:center;min-height:40px;padding:0 12px}
+.list .cb.pin .cbt{order:-1;margin:0;font-size:13px}.list .cb.pin .cbs{display:none}
+.list .anc0{display:grid;grid-template-columns:52px 1fr;align-items:center;min-height:38px;padding:0 12px;border:1px solid var(--rule);border-radius:10px;font-weight:800;color:var(--soft,#c4cad3)}
+.list .anc0 span:first-child{font-size:13px;font-variant-numeric:tabular-nums}
+.list .bay{margin-left:22px;border-left:3px solid #3a4352;padding:4px 0 4px 14px;display:flex;flex-direction:column;gap:6px}
+.list .bay.now{border-left-color:#d9442b}.list .bay.empty{border-left-style:dashed}
+.list .bh{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.list .bh b{font-size:14px}.list .bh span{font-size:12.5px;color:var(--dim);font-variant-numeric:tabular-nums;white-space:nowrap}
+.list .bh span.ov{color:#fbbf24;font-weight:800}
+.list .bfill{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+.list .bfill .cb.auto{display:inline-flex;position:relative;background:transparent;padding:0;height:auto}
+.list .bfill .cb{display:inline-flex;padding:0;background:transparent;gap:3px;overflow:visible;align-items:center}
+.list .bfill .cb .cbn,.list .bfill .cb .cbt,.list .bfill .cb .cbs,.list .bfill .cb .rsz{display:none}
+.list .tk{font-style:normal;display:inline-flex;min-width:28px;height:28px;border-radius:7px;background:var(--bc);align-items:center;justify-content:center;font-size:11.5px;font-weight:900;color:#2a1208;padding:0 4px;box-sizing:border-box}
+.list .tk.dn{opacity:.45}.list .tk.now{box-shadow:0 0 0 2px #fff}.list .tk.bx{padding:0 9px;color:#06302a}
+.list .tk.sb{min-width:4px;width:4px;padding:0;background:#4ade80;border-radius:2px}.list .tk.lb{min-width:0;background:#22c55e;color:#06230f;font-size:10px;padding:0 5px}
+.list .bfill .cb.sel .tk{box-shadow:0 0 0 2px #ff9a7d}
+.list .bfill .cb.drag{opacity:.6}
+.list .civ{border:0;padding:0;justify-content:flex-start;background:none}.list .civ .civl{display:none}
+.list .bay.hot{background:rgba(255,255,255,.06);border-radius:0 10px 10px 0}
+.list .prepz,.list .awm,.list .awt,.list .ghostslot{display:none}
+.list .bnote{font-size:12px;color:#fbbf24;font-weight:700}
+.agDone{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--card);border-radius:12px;padding:7px 12px;font-size:12.5px;font-weight:800;color:var(--soft,#c4cad3)}
+.agDone .lb0{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--dim)}
+.agDone i{font-style:normal;display:inline-flex;width:18px;height:18px;border-radius:5px;background:#8a5a4c;color:#e8cfc7;align-items:center;justify-content:center;font-size:11px;margin-right:2px}.agDone i.m{background:#4b5563;color:#d1d5db}
+.agFin{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 14px;border-radius:12px;border:2px solid #f1f3f6;font-weight:800;font-size:14px}
+.agFin span:last-child{font-size:13px;color:var(--soft,#c4cad3);font-variant-numeric:tabular-nums}
+.agFin.over{border-color:#fbbf24;color:#fbbf24}.agFin.over span:last-child{color:#fbbf24}
+#ifTime .pen.hot{box-shadow:0 0 0 2px #fbbf24}
 .rsz{position:absolute;left:0;right:0;bottom:0;height:11px;cursor:ns-resize;touch-action:none}
 .rsz::after{content:"";position:absolute;left:50%;bottom:3px;width:28px;height:4px;margin-left:-14px;border-radius:2px;background:rgba(0,0,0,.35)}
 .pcard,.pcard2{background:var(--card);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
@@ -712,6 +778,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
         <span class="tr"><span>Finish by</span><button type="button" id="planFinDn" aria-label="Earlier finish">−</button><input type="text" id="planFinV" inputmode="numeric" maxlength="5" aria-label="Day finishes at" autocomplete="off"><button type="button" id="planFinUp" aria-label="Later finish">+</button></span>
         <button type="button" class="linkbtn" id="planFinOff">No finish line</button>
       </div>
+      <div class="agSw" id="agSw"><span class="seg" role="group" aria-label="Agenda view"><button type="button" data-pa="agv:list">List</button><button type="button" data-pa="agv:rib">Ribbon</button></span><small id="agHint"></small></div>
       <div class="earlier" id="earlier" hidden></div>
       <div class="dtabs" id="dtabs"></div>
       <div class="calWrap" id="calWrap"><div class="toastS"><div class="toast2" id="calToast" role="status" hidden></div></div><div class="cal" id="cal"></div></div>
@@ -767,7 +834,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
   const KEY = SIM ? 'loafBasicSandbox1' : 'loafBasic1';                     // bump the number when the saved shape changes
   const NUDGE_GAP = 2 * 60000, NUDGE_MAX = 5, TREAT_MS = 25 * 60000;     // one treat for every 25 min of finished focus
   const LIMITS = { focus: [5, 90, 5], short: [1, 30, 1], long: [5, 60, 5], every: [2, 8, 1], goal: [1, 20, 1], box: [5, 180, 5] };   // min, max, step
-  const DEF = { focus: 25, short: 5, long: 15, every: 4, goal: 8, box: 20, chime: true, notify: true, auto: false, nudge: true, humans: true, fill: 'deep', fstyle: 'deep' };
+  const DEF = { focus: 25, short: 5, long: 15, every: 4, goal: 8, box: 20, chime: true, notify: true, auto: false, nudge: true, humans: true, fill: 'deep', fstyle: 'deep', agv: 'rib' };
   const PHASES = ['focus', 'short', 'long', 'box', 'up', 'meet'];     // box = one-off timebox, up = stopwatch, meet = a meeting in the day shape
   // work styles: one tap sets the whole rhythm. Whichever one matches the settings is highlighted.
   const STYLES = [
@@ -786,6 +853,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
       if (typeof DEF[k] === 'boolean' && typeof v === 'boolean') set[k] = v;
       if (k === 'fill' && ['deep', 'admin', 'off'].includes(v)) set[k] = v;
       if (k === 'fstyle' && ['deep', 'lfoc'].includes(v)) set[k] = v;
+      if (k === 'agv' && ['rib', 'list'].includes(v)) set[k] = v;
       if (typeof DEF[k] === 'number' && Number.isFinite(v)) set[k] = Math.min(LIMITS[k][1], Math.max(LIMITS[k][0], Math.round(v)));
     }
   }
@@ -829,7 +897,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
     const K = KINDS[x.k];
     return { id, k: x.k, label: typeof x.label === 'string' ? x.label.slice(0, 30) : '', n: K.ph ? clampN(x.n, 1, 8, K.n) : 1, f: K.f || 0, sb: K.sb || 0,
       min: K.ph ? 0 : clampN(x.min, 5, 480, K.min), pin: clampN(x.pin, 0, 1439, null), prio: x.prio === 'nice' ? 'nice' : 'must',
-      st: ['todo', 'run', 'done', 'skip', 'drop'].includes(x.st) ? x.st : 'todo', si: clampN(x.si, 0, 60, 0), d: clampN(x.d, 0, 8, 0), sk: clampN(x.sk, 0, 8, 0), g: !!x.g, o: !!x.o, a: !!x.a, lk: Array.isArray(x.lk) ? x.lk.filter((v) => Number.isInteger(v)).slice(0, 8) : [],
+      st: ['todo', 'run', 'done', 'skip', 'drop'].includes(x.st) ? x.st : 'todo', si: clampN(x.si, 0, 60, 0), d: clampN(x.d, 0, 8, 0), sk: clampN(x.sk, 0, 8, 0), g: !!x.g, o: !!x.o, a: !!x.a, sp: !!x.sp, lk: Array.isArray(x.lk) ? x.lk.filter((v) => Number.isInteger(v)).slice(0, 8) : [],
       as: +x.as > 0 ? +x.as : null, ae: +x.ae > 0 ? +x.ae : null, ps: clampN(x.ps, 0, 1439, null),
       prep: x.k === 'meet' ? clampN(x.prep, 0, 60, 5) : 0, stopAt: +x.stopAt > 0 ? +x.stopAt : 0, leftMs: +x.leftMs > 0 ? +x.leftMs : 0,
       aw: Array.isArray(x.aw) ? x.aw.slice(0, 20).map((w) => (Array.isArray(w) ? [+w[0], w[1] == null ? null : +w[1]] : null)).filter((w) => w && w[0] > 0) : [] };
@@ -1295,7 +1363,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   function saveCut(b, ms, after) {                    // work time cut off by a meeting is kept as a Timebox: under If there's time, or (paused through a meeting) first thing after it
     if (!b || ms < 5 * 60000 || (sess.phase !== 'focus' && sess.phase !== 'box')) return false;
     const lb = newBlock('box', { min: Math.round(ms / 60000), label: b.label || (KINDS[b.k].ph ? 'Rest of focus' : '') });
-    if (after) { lb.st = 'todo'; plan.blocks.splice(plan.blocks.indexOf(after) + 1, 0, lb); } else { lb.st = 'drop'; plan.blocks.push(lb); }
+    lb.st = 'drop'; plan.blocks.push(lb);
     return true;
   }
   let noticeT = 0;
@@ -1309,6 +1377,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   function lateBanner() {                              // the running-late alert is a banner you tap, not a pop-up
     const el = $('lateBanner');
     if (!el) return;
+    el.hidden = true; return;
     const L = plan && plan.run && sess ? lateness() : null, show = !!(L && L.amount >= 2 && (!plan.ack || L.amount >= plan.ack + 5)) && $('sheet').hidden;
     el.hidden = !show;
     if (show) el.textContent = (L.fc && L.fc.lost >= 2 ? 'Heads up: ' + L.fc.line : `Running ${L.amount} min behind.`) + ' Tap for options.';
@@ -1327,13 +1396,14 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     if (!sess || !sess.pl || !plan || sess.pl.gap) return;
     const b = blockById(sess.pl.b), mt = b && b.k !== 'meet' ? meetAhead(b, now()) : null;
     if (!mt) return;
-    const pn = prepNeed(mt), cap = Math.max(now(), dayMs(mt.pin) - pn * 60000);
+    let pn = prepNeed(mt), cap = Math.max(now(), dayMs(mt.pin) - pn * 60000);
     if (sess.endAt <= cap) return;
+    pn = prepBase(mt); cap = Math.max(now(), dayMs(mt.pin) - pn * 60000);
     if (sess.endAt - cap < 60000) { sess.dur -= sess.endAt - cap; sess.endAt = cap; save(); scheduleSounds(); return; }
     const over = sess.endAt - cap;
     sess.endAt = cap; sess.dur = Math.max(1000, sess.dur - over); sess.pl.cut = mt.id;
     const kept = saveCut(b, over, mt);
-    notice(`Cut to ${clock(cap)} so ${pn ? 'you can get ready for ' : ''}${bname(mt)}${pn ? '' : ' can start on time'}.${kept ? ' The ' + Math.round(over / 60000) + ' min left is next, after it.' : ''}`);
+    notice(`Cut to ${clock(cap)} so ${pn ? 'you can get ready for ' : ''}${bname(mt)}${pn ? '' : ' can start on time'}.${kept ? ' The ' + Math.round(over / 60000) + ' min left is in the holding pen.' : ''}`);
     save(); scheduleSounds();
   }
   function pause() {
@@ -1356,7 +1426,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   function canExtend(endTs) {
     if (!sess || !sess.pl || !plan) return true;
     const nb = plan.blocks.find((b) => b.st === 'todo' && b.pin != null);
-    return !nb || endTs + (nb.k === 'meet' ? 0 : 5) * 60000 <= dayMs(nb.pin);
+    return !nb || endTs + (nb.k === 'meet' ? prepNeed(nb) : 5) * 60000 <= dayMs(nb.pin);
   }
   const boxEnd = () => (sess.paused ? now() + sess.left : sess.endAt);
   function extendBox() {                 // +5 min on a timebox
@@ -1908,6 +1978,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
         if (p >= cur) { s = p; late = 0; } else { late = afterPin ? 0 : cur - p; join = afterPin ? 0 : cur - p; }      // double-booked meetings just run back to back: trimming can't fix them
         e = Math.max(s, p + bmin(b) * 60000);
       } else e = s + remMs(b);
+      if (b.st === 'run') { const nx = pl.blocks.slice(pl.blocks.indexOf(b) + 1).find((x) => live(x) && x.st === 'todo' && x.pin != null); if (nx && dayMs(nx.pin) >= s && dayMs(nx.pin) < e) e = dayMs(nx.pin); }
       rows.push({ b, s, e, late, join });
       cur = e;
       afterPin = b.pin != null;
@@ -1976,7 +2047,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
           const need = (ph ? (all[i].ph !== 'focus' && all[i + 1] ? all[i].m + all[i + 1].m : all[i].m) : 3) * 60000, room = limit - t;
           if (room < need - 120000) {
             const k = Math.floor((all[i].ph !== 'focus' ? i + 1 : i) / 2) + 1, what = ph ? `Pomodoro ${k} of ${bname(b)}` : bname(b), mins = Math.floor(Math.max(0, room) / 60000);
-            line = mins >= 10 ? `${what} becomes a ${mins} min Timebox.` : `${what} is left out, so you have time to get ready.`;
+            line = mins >= 10 ? `${what} becomes a ${mins} min Timebox.` : prepNeed(mt) > 0 ? `${what} is left out, so you have time to get ready.` : `${what} is left out, so it ends before ${bname(mt)}.`;
           }
         }
         total += m; t += m;
@@ -2011,10 +2082,14 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   }
   // The next meeting after a block. Nothing counts down past its prep time (5 min by default, set per meeting).
   const prepOf = (b) => (b.k === 'meet' ? (b.prep != null ? b.prep : 5) : 0);
+  function prepBase(mt) {                             // the prep a meeting asks for, before free time is counted
+    const L = plan.blocks.filter((x) => x.st !== 'drop' && x.st !== 'skip'), p = L[L.indexOf(mt) - 1];
+    return p && p.k === 'meet' && p.pin != null && p.pin + bmin(p) >= mt.pin - prepOf(mt) ? 0 : prepOf(mt);
+  }
   function prepNeed(mt) {
     const L = plan.blocks.filter((x) => x.st !== 'drop' && x.st !== 'skip'), p = L[L.indexOf(mt) - 1];
     const base = p && p.k === 'meet' && p.pin != null && p.pin + bmin(p) >= mt.pin - prepOf(mt) ? 0 : prepOf(mt);
-    if (!base || mt.pin == null) return base;
+    if (!base || mt.pin == null || (p && p.sp)) return base;
     const began = plan.run || startedDay(), cur = began ? now() : dayMs(plan.start), r = p ? project(plan, cur).find((x) => x.b === p) : null;
     const pe = r ? r.e : cur;
     return Math.max(0, Math.min(base, Math.floor((dayMs(mt.pin) - pe) / 60000)));
@@ -2047,18 +2122,21 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     let dur = stepMs(b, si), cut = 0;
     const mt = b.k === 'meet' ? null : meetAhead(b, at);
     if (mt) {
-      const room = dayMs(mt.pin) - prepNeed(mt) * 60000 - at, dur0 = dur;
+      let room = dayMs(mt.pin) - prepNeed(mt) * 60000 - at;
+      const dur0 = dur;
+      if (room < dur) room = dayMs(mt.pin) - prepBase(mt) * 60000 - at;
       if (room < dur) { dur = Math.max(60000, room); if (dur0 - room > 60000) cut = mt.id; }
     }
     b.st = 'run'; b.si = si;
     if (b.as == null) b.as = at;
     plan.run = true;
+    if (st.ph === 'focus') overflowToPen();             // a late start can push later pomodoros past the finish line
     startPhase(st.ph, st.ph === 'focus' ? b.d + 1 : 1, startAt || 0, [], dur, { b: b.id, s: si, gap: false, bound: false, prev: '', cut });
   }
   // spare time before a meeting becomes a real block, so the day shows it
   function spareBlock(kind, b) {
-    const room = Math.max(5, b.pin - prepNeed(b) - Math.floor(minDay(now())));
-    const nb = newBlock(kind, { min: room });
+    const room = Math.max(5, Math.ceil((dayMs(b.pin) - prepNeed(b) * 60000 - now()) / 60000));
+    const nb = newBlock(kind, { min: room, sp: true });
     plan.blocks.splice(plan.blocks.indexOf(b), 0, nb);
     startPlanStep(nb, 0);
   }
@@ -2108,11 +2186,38 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   function passMeetings() {
     if (!plan || plan.day !== today()) return false;
     let ch = false;
-    plan.blocks.forEach((b) => { if (b.st === 'todo' && b.k === 'meet' && b.pin != null && dayMs(b.pin) + bmin(b) * 60000 <= now()) { b.st = 'done'; b.as = dayMs(b.pin); b.ae = dayMs(b.pin) + bmin(b) * 60000; ch = true; } });
+    plan.blocks.slice().forEach((b) => {
+      if (b.st === 'todo' && (b.k === 'meet' || (b.k === 'sofa' && !b.a)) && b.pin != null && dayMs(b.pin) + bmin(b) * 60000 <= now()) {
+        b.st = 'done'; b.as = dayMs(b.pin); b.ae = dayMs(b.pin) + bmin(b) * 60000; ch = true;
+        const i = plan.blocks.indexOf(b), j = plan.blocks.findIndex((x) => x.st === 'todo');
+        if (j >= 0 && j < i) { plan.blocks.splice(i, 1); plan.blocks.splice(j, 0, b); }
+      }
+    });
+    if (ch) syncRhythm();
     return ch;
   }
+  function overflowToPen(quiet) {                     // work pushed past the finish line waits in the holding pen, latest first
+    if (!plan || plan.fin == null) return [];
+    const moved = [];
+    for (let g = 0; g < 60; g++) {
+      syncRhythm();
+      const pr = problems(plan, plan.run ? now() : Math.max(now(), dayMs(plan.start)));
+      if (pr.over <= 60000) break;
+      const last = pr.rows.map((r) => r.b).reverse().find((b) => b.pin == null && !b.a && b.k !== 'meet' && (b.st === 'todo' || (b.st === 'run' && KINDS[b.k].ph && b.n > b.d + 1)));
+      if (!last) break;
+      if (KINDS[last.k].ph && last.n > 1) {
+        last.n--;
+        const pen = plan.blocks.find((x) => x.st === 'drop' && x.k === last.k && (x.label || '') === (last.label || '') && x.ov);
+        if (pen) pen.n++; else { const nb = newBlock(last.k, { n: 1, label: last.label, ov: true }); nb.st = 'drop'; plan.blocks.push(nb); }
+      } else last.st = 'drop';
+      if (!moved.includes(bname(last))) moved.push(bname(last));
+    }
+    plan.blocks.forEach((x) => { delete x.ov; });
+    if (moved.length && !quiet) logAdd(`${moved.join(', ')} won't fit before ${tm(plan.fin)}. In the holding pen.`);
+    return moved;
+  }
   function goNextBlock(endedAt, immediate, prev, hold) {
-    passMeetings(); syncRhythm();
+    passMeetings(); syncRhythm(); overflowToPen();
     let nb = plan.blocks.find((b) => b.st === 'todo');
     if (!nb) { planComplete(); return; }
     if (squeeze(nb, now())) { nb = plan.blocks.find((b) => b.st === 'todo'); hold = true; }
@@ -2139,14 +2244,11 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   function planStart(ack, early) {
     if (!plan || !plan.blocks.some((b) => b.st === 'todo' || b.st === 'run')) return;
     if (!early && !plan.run && dayMs(plan.start) - now() > 60000 && !plan.blocks.some((b) => b.st === 'run' || b.st === 'done')) {   // not time yet: wait for the day to start
-      plan.hold = true; planOpen = false; sheetClose(); save(); showScreen(); return;
+      overflowToPen(); plan.hold = true; planOpen = false; sheetClose(); save(); showScreen(); return;
     }
     plan.hold = false;
     if (!plan.blocks.some((b) => b.st === 'run' || b.st === 'done')) plan.blocks.forEach((b) => { if (b.st === 'todo' && b.k === 'meet' && isPin(b) && dayMs(b.pin) + bmin(b) * 60000 <= now()) b.st = 'done'; });   // already over
-    if (ack === undefined && !hasClash()) {
-      const pr = problems(plan, now()), amount = Math.round(Math.max(pr.pins.length ? pr.pins[0].late : 0, pr.over) / 60000);
-      if (amount >= 5 && !plan.blocks.some((b) => b.st === 'run')) { openSheet({ t: 'pre', amount, join: pr.pins.length ? Math.round(pr.pins[0].join / 60000) : 0 }); return; }
-    }
+    if (!plan.blocks.some((b) => b.st === 'run')) overflowToPen();
     if (!plan.run && !plan.blocks.some((b) => b.ps != null)) layout().forEach((it) => { it.b.ps = Math.round(it.s); });   // where the plan had each block
     ensureAudio().then(scheduleSounds); askNotify();
     plan.run = true; plan.ack = ack || 0; planOpen = false; sheetClose();
@@ -2258,7 +2360,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
           pb.ae = t0;
           if (worked >= 60000) { const r = earnTime(worked); if (r.line) pending = r.line; }
         }
-        if (kept) notice(`${bname(mt)} started while you were paused. The ${mins} min you had left is next, after it.`);
+        if (kept) notice(`${bname(mt)} started while you were paused. The ${mins} min you had left is in the holding pen.`);
         return;
       }
       checkpoint();
@@ -2422,6 +2524,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     save();
   }
   const setH = (el, html) => { if (el._h !== html) { el.innerHTML = html; el._h = html; } };
+  const finKey = () => 'fin:' + plan.blocks.filter((b) => b.st === 'drop').map((b) => b.id).join(',') + ':' + plan.blocks.filter((b) => b.pin != null && b.st === 'todo').length + ':' + plan.fin;
   function penHtml(where) {
     const dropped = plan.blocks.filter((b) => b.st === 'drop');
     if (!dropped.length) return '';
@@ -2432,11 +2535,15 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       const room = nb ? Math.floor((dayMs(nb.pin) - prepNeed(nb) * 60000 - now()) / 60000) : 0, key = nb ? nb.id + ':' + nb.pin : '';
       if (nb && plan.penLeave !== key) fit = dropped.find((b) => bmin(b) <= room) || null;
     }
+    else if (where === 'ty' && plan.run && plan.fin != null && sess) {
+      const end = problems(plan, now()).end, room = Math.floor((dayMs(plan.fin) - end) / 60000), key = finKey();
+      if (plan.penLeave !== key) fit = dropped.find((b) => bmin(b) <= room) || null;
+    }
     const chip = (b) => `<button type="button" ${A}="back:${b.id}"${b === fit ? ' class="glow"' : ''} title="Add it back to the day"><i style="background:${DAYC[b.k] ? DAYC[b.k][0] : '#94a3b8'}"></i>${esc(bname(b))} · ${KINDS[b.k].ph && b.n > 1 ? b.n + ' × ' + b.f : hm(bmin(b))}</button>`;
     const why = fit && sess.pl.prev === 'meet' ? 'The meeting ended early. ' : '';
     return `<div class="pen" id="${where}PenBox"><div class="penH"><b>Holding pen · ${dropped.length} · ${hm(tot)}</b><span>Tap a piece to add it back${where === 'ty' ? ', or fit one that lights up' : ''}</span></div>` +
       `<div class="penC">${dropped.map(chip).join('')}</div>` +
-      (fit ? `<div class="penFit"><span>${why}<b>${esc(bname(fit))} · ${hm(bmin(fit))}</b> fits before ${esc(bname(nb))}.</span><span><button type="button" data-ty="fit:${fit.id}">Fit it in</button><button type="button" class="quiet" data-ty="penleave">Leave it</button></span></div>` : '') + '</div>';
+      (fit ? `<div class="penFit"><span>${why}<b>${esc(bname(fit))} · ${hm(bmin(fit))}</b> fits before ${nb ? esc(bname(nb)) : 'the finish line'}.</span><span><button type="button" data-ty="fit:${fit.id}">Fit it in</button><button type="button" class="quiet" data-ty="penleave">Leave it</button></span></div>` : '') + '</div>';
   }
   function tyStrip() {
     const items = liveLayout().slice().sort((a, b) => a.s - b.s);
@@ -2488,7 +2595,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     let h = shown.map((x) => `<div class="tyRow ${x.cls || ''}"><span>${x.a}</span><span class="t">${x.t}</span></div>`).join('');
     if (more > 0) h += `<div class="tyMore">and ${more} more after that</div>`;
     if (!shown.length) h = `<div class="tyRow"><span><b>Last block of the day</b></span></div>` + h;
-    if (!tyForm) h += `<button type="button" class="tyRow add" data-ty="mform">+ Add a meeting or call</button>`;
+
     return h;
   }
   function renderToday() {
@@ -2506,7 +2613,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (meet) { time = 'ends ' + clock(sess.endAt); big = true; lbl = sess.pl.over ? 'In a meeting · ran over' : 'In a meeting'; const tot = Math.max(1, sess.dur), pc = Math.min(100, Math.max(0, (1 - (sess.endAt - now()) / tot) * 100)); sub = `<div class="tyRing"><i style="width:${pc.toFixed(1)}%"></i></div>${esc(sub)}`; }
     else if (prep) { const pre = prepNeed(b) > 0 ? prepOf(b) : 0; time = fmt(Math.max(0, dayMs(b.pin) - now())); lbl = 'Getting ready'; what = `${bname(b)} starts at ${tm(b.pin)}`; sub = pre ? `Prep from ${tm(b.pin - pre)} · grab a drink, open your notes` : ''; }
     else if (w && gap && blockById(sess.pl.b)) { const nb = blockById(sess.pl.b), room = Math.max(0, Math.floor((dayMs(nb.pin) - prepNeed(nb) * 60000 - now()) / 60000)); time = hm(room); big = true; lbl = 'Free until ' + tm(nb.pin - prepNeed(nb)); what = `Then ${bname(nb)} at ${tm(nb.pin)}`; sub = plan.blocks.some((x) => x.st === 'drop') ? 'Nothing planned. Take it, or fit something in from the holding pen.' : 'Nothing planned. Take it, or start a Timebox.'; }
-    else if (paused) { const pb = b, aw = pb && pb.aw && pb.aw.length ? pb.aw[pb.aw.length - 1] : null, since = aw && aw[1] == null ? aw[0] : now(), mins = Math.round((now() - since) / 60000); lbl = `<span class="tyPill">⏸ Paused since ${clock(since)} · ${mins} min</span>`; sub = "Everything after moves later while you're away. Meetings stay put."; }
+    else if (paused) { const pb = b, aw = pb && pb.aw && pb.aw.length ? pb.aw[pb.aw.length - 1] : null, since = aw && aw[1] == null ? aw[0] : now(), mins = Math.round((now() - since) / 60000); lbl = `<span class="tyPill">⏸ Paused since ${clock(since)} · ${mins} min</span>`; sub = "Everything after moves later while you're away. Anything fixed to a time stays put."; }
     $('tyTime').textContent = time;
     $('tyTime').classList.toggle('dim', w && !prep && !(w && gap));
     $('tyTime').classList.toggle('sm', big);
@@ -2574,7 +2681,10 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const a = t.dataset.ty, nm = $('tyName');
     if (tyForm && nm) tyForm.label = nm.value;
     if (a !== 'drop') tyDrop = 0;
-    if (a === 'edit') { editing = true; }
+    if (a === 'edit') {
+      editing = true;
+      setTimeout(() => { const m = Math.floor(minDay(now()) / 5) * 5, f = $('mFrom'), t = $('mTo'); if (f && t) { f.value = tm(m); t.value = tm(Math.min(1439, m + 30)); if ($('mForm').scrollIntoView) $('mForm').scrollIntoView({ block: 'nearest' }); } }, 60);
+    }
     else if (a === 'mform') { tyForm = { label: 'Meeting', at: Math.floor(minDay(now()) / 5) * 5, len: 30 }; setTimeout(() => { const f = document.querySelector('.tyFormC'); if (f && f.scrollIntoView) f.scrollIntoView({ block: 'nearest' }); }, 60); }
     else if (a === 'mcancel') tyForm = null;
     else if (a === 'm-at-' || a === 'm-at+') tyForm.at = Math.max(Math.floor(minDay(now()) / 5) * 5 - 60, Math.min(1425, tyForm.at + (a === 'm-at+' ? 5 : -5)));
@@ -2606,8 +2716,9 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     else if (a.startsWith('fit:')) {
       const x = plan.blocks.find((y) => y.id === +a.slice(4)), nb = sess && sess.pl && sess.pl.gap ? blockById(sess.pl.b) : null;
       if (x && nb) { plan.blocks.splice(plan.blocks.indexOf(x), 1); x.st = 'todo'; plan.blocks.splice(plan.blocks.indexOf(nb), 0, x); logAdd(`${bname(x)} fitted in before ${bname(nb)}.`); afterEdit(); }
+      else if (x) { plan.blocks.splice(plan.blocks.indexOf(x), 1); x.st = 'todo'; const L = plan.blocks.filter((y) => y.st !== 'drop'); plan.blocks.splice(L.length ? plan.blocks.indexOf(L[L.length - 1]) + 1 : 0, 0, x); logAdd(`${bname(x)} fitted in before the finish line.`); afterEdit(); }
     }
-    else if (a === 'penleave') { const nb = sess && sess.pl && sess.pl.gap ? blockById(sess.pl.b) : null; if (nb) { plan.penLeave = nb.id + ':' + nb.pin; save(); } }
+    else if (a === 'penleave') { const nb = sess && sess.pl && sess.pl.gap ? blockById(sess.pl.b) : null; if (nb) { plan.penLeave = nb.id + ':' + nb.pin; save(); } else if (plan.fin != null) { plan.penLeave = finKey(); save(); } }
     else if (a === 'skipw') {                            // skip a pomodoro you haven't started
       const wb = sess && sess.wait && sess.pl && !sess.pl.gap ? blockById(sess.pl.b) : null;
       if (wb && sess.phase === 'focus') { planGo(); if (sess && !sess.wait && sess.phase === 'focus') { logAdd(`Pomodoro ${wb.d + 1} of ${bname(wb)} skipped.`); cancelSched(); finishPhase(true); } }
@@ -2995,12 +3106,32 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const rb = plan.blocks.find((x) => x.st === 'run' && KINDS[x.k].ph);
     if (!rb || plan.blocks.indexOf(rb) > plan.blocks.indexOf(b)) return;
     const o = rb.n, edge = dayMs(b.pin);
-    for (let g = 0; g < 8 && rb.n > minN(rb); g++) { const r = project(plan, now()).find((x) => x.b === rb); if (!r || r.e <= edge) break; rb.n--; }
+    for (let g = 0; g < 8 && rb.n > minN(rb); g++) { if (now() + remMs(rb) <= edge) break; rb.n--; }
     const rest = o - rb.n;
     if (rest > 0) {
       plan.blocks.splice(plan.blocks.indexOf(b) + 1, 0, newBlock(rb.k, { n: rest, label: rb.label }));
       logAdd(`${rest === 1 ? 'The last pomodoro' : 'The last ' + rest + ' pomodoros'} of ${bname(rb)} moved to after ${bname(b)}.`);
     }
+  }
+  function splitAt(fb, b, edge) {                     // keep the pomodoros of fb that end by edge, the rest go straight after b
+    if (!KINDS[fb.k].ph || fb.n < 2 || fb.pin != null) return false;
+    const o = fb.n, endOf = () => { syncRhythm(); const it = layout().find((x) => x.b === fb); return it ? it.e : Infinity; };
+    while (fb.n > 1 && endOf() > edge) fb.n--;
+    if (endOf() > edge) { fb.n = o; return false; }
+    const rest = newBlock(fb.k, { n: o - fb.n, label: fb.label, prio: fb.prio, g: fb.g });
+    plan.blocks.splice(plan.blocks.indexOf(b) + 1, 0, rest);
+    return true;
+  }
+  // a Focus block dropped onto the end (or start) of a matching one joins it into one block
+  function joinFocus(b) {
+    if (!KINDS[b.k].ph || b.pin != null || b.st !== 'todo') return;
+    const L = plan.blocks.filter((x) => live(x) && !x.a), i = L.indexOf(b);
+    const ok = (x) => x && x !== b && x.k === b.k && x.pin == null && (x.label || '') === (b.label || '') && x.n + b.n <= 8;
+    const pv = L[i - 1], nx = L[i + 1];
+    let keep = b, joined = false;
+    if (ok(pv) && (pv.st === 'todo' || pv.st === 'run')) { pv.n += b.n; plan.blocks = plan.blocks.filter((x) => x !== b); keep = pv; joined = true; }
+    if (nx && nx.k === keep.k && nx.pin == null && nx.st === 'todo' && (nx.label || '') === (keep.label || '') && keep.n + nx.n <= 8) { keep.n += nx.n; plan.blocks = plan.blocks.filter((x) => x !== nx); joined = true; }
+    if (joined) logAdd(`${bname(keep)} is now ${keep.n} pomodoros.`);
   }
   function place(b) {
     plan.blocks = plan.blocks.filter((x) => x !== b);
@@ -3011,11 +3142,13 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (at < 0) at = plan.blocks.length;
     plan.blocks.splice(at, 0, b);
     for (let guard = 0; guard < 40; guard++) {          // a flowing block placed ahead of it that runs into its prep goes back after it
+      syncRhythm();
       const items = layout(), me = items.find((it) => it.b === b), i = plan.blocks.indexOf(b);
       if (!me) break;
       const edge = b.pin;
       const bad = items.find((it) => it.b !== b && !isPin(it.b) && it.b.st === 'todo' && plan.blocks.indexOf(it.b) < i && it.e > edge);
       if (!bad) break;
+      if (splitAt(bad.b, b, edge)) continue;
       plan.blocks.splice(i, 1); plan.blocks.splice(plan.blocks.indexOf(bad.b), 0, b);
     }
     splitForMeeting(b);
@@ -3102,8 +3235,11 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (viewOff === 0 && f + min <= minDay(now())) { planMsg = `${tm(f)}–${tm(f + min)} is already over, so it was not added.`; renderPlan(); return; }
     if (viewOff === 0 && f <= minDay(now()) && plan.run && sess) meetNow(newBlock('meet', { min, pin: f })); else place(newBlock('meet', { min, pin: f }));
     editId = 0; stretchDay(f, f + min);
-    $('mFrom').value = ''; $('mTo').value = ''; $('mFrom').focus();
+    $('mFrom').value = ''; $('mTo').value = '';
+    const back = viewOff === 0 && plan.run && sess && editing;
+    if (!back) $('mFrom').focus();
     afterEdit();
+    if (back) { editing = false; showScreen(); }
   }
   function tryAddMeeting() {
     pend = null; planMsg = '';
@@ -3150,56 +3286,22 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     }
     const pins = items.filter((it) => isPin(it.b)), over = new Set();
     items.forEach((it, i) => { if (isPin(it.b)) return; const nx = items.slice(i + 1).find((x) => isPin(x.b)); if (nx && it.e > nx.s) over.add(it.b.id); });
-    const lo = 0, hi = 1440, y = (m) => Math.round((m - lo) * PXM);
-    let h = '';
-    for (let m = lo; m <= hi; m += 15) {
-      if (m % 60 === 0) h += `<div class="hl" style="top:${y(m)}px"></div>` + (today0 && Math.abs(y(m) - y(nowM)) < 12 ? '' : `<span class="ht" style="top:${y(m) - 9}px">${m === 1440 ? '24:00' : tm(m)}</span>`);
-      else if (m < hi) h += `<div class="ql${m % 30 ? '' : ' hf'}" style="top:${y(m)}px"></div>`;
-    }
-    h += `<div class="outz" style="top:0;height:${y(plan.start)}px"></div>`;
-    if (plan.fin != null) h += `<div class="outz" style="top:${y(plan.fin)}px;height:${y(hi) - y(plan.fin)}px"></div>`;
-    h += `<div class="edge st" style="top:${y(plan.start) - 1}px"></div>${today0 && Math.abs(y(plan.start) - y(nowM)) < 30 ? '' : `<div class="edl st" style="top:${y(plan.start) + 4}px">Day starts ${tm(plan.start)}</div>`}`;
-    segs.forEach((sg) => {
-      if (sg.e == null) { if (sg.s < hi) h += `<div class="civ open" style="top:${y(sg.s)}px;height:30px"><span class="civl">Set a finish line to plan after your last meeting</span></div>`; return; }
-      if (sg.e - sg.s < 5) return;
-      const past = (run || began) && sg.e <= nowM && today0, can = !past && sg.e - sg.s >= 15, aid = segKey(sg);
-      const td = sg.run.filter((it) => it.b.st === 'todo'), kind = td.length ? (td[0].b.k === 'lfoc' ? 'deep' : td[0].b.k) : '';
-      const chips = can && !td.length ? [['deep', 'Focus'], ['admin', 'Admin'], ['box', 'Timebox']].map((c) => `<button type="button" class="gp" data-pa="gap:${aid}:${c[0]}" aria-pressed="${kind === c[0]}">${c[1]}</button>`).join('') +
-        `<button type="button" class="gp" data-pa="gap:${aid}:own" aria-label="Add your own block">+</button>` : '';
-      h += `<div class="civ${past ? ' past' : ''}" data-aid="${aid}" style="top:${y(sg.s)}px;height:${Math.max(22, y(sg.e) - y(sg.s) - 3)}px">${td.length ? '' : `<span class="civl">${hm(Math.max(0, sg.e - sg.s - (sg.after ? prepOf(sg.after) : 0)))} free</span>`}${chips}</div>`;
-    });
-    if (run) items.forEach((it) => { if (it.b.ps != null && it.b.st !== 'skip' && Math.abs(it.b.ps - it.s) >= 5) h += `<div class="ghostslot" style="top:${y(it.b.ps)}px;height:${Math.max(18, y(it.b.ps + (it.e - it.s)) - y(it.b.ps) - 3)}px" aria-hidden="true"></div>`; });
-    items.forEach((it) => {
-      if (fold && (it.b.st === 'done' || it.b.st === 'skip')) return;
-      const b = it.b, pin = isPin(b), ed = b.st === 'todo', ht = Math.max(18, y(it.e) - y(it.s) - 3);
-      if (b.a) { h += `<div class="cb auto k-${b.k}${b.st !== 'todo' ? ' ' + b.st : ''}" style="top:${y(it.s)}px;height:${Math.max(3, y(it.e) - y(it.s) - 1)}px" aria-label="${esc(bname(b))}, ${tm(it.s)} to ${tm(it.e)}">${b.k === 'sofa' && y(it.e) - y(it.s) >= 12 ? `<span>${esc(bname(b))} · ${b.min} min</span>` : ''}</div>`; return; }
-      const cls = ['cb', 'k-' + b.k, pin ? 'pin' : 'fill', b.st !== 'todo' ? b.st : '', ed ? 'ed' : '', ht < 26 ? 'small' : '', editId === b.id ? 'sel' : '', over.has(b.id) ? 'over' : ''].filter(Boolean).join(' ');
-      h += `<div class="${cls}" data-id="${b.id}" data-pa="sel" role="button" tabindex="0" style="top:${y(it.s)}px;height:${ht}px" aria-label="${esc(bname(b))}, ${tm(it.s)} to ${tm(it.e)}">` +
-        `${stripes(b)}<span class="cbn">${esc(bname(b))}</span>${KINDS[b.k].ph ? `<span class="cbs">${b.n} × ${b.f}</span>` : ''}${pin ? LOCKSVG : ''}<span class="cbt">${tm(it.s)}–${tm(it.e)}</span>${ed ? '<i class="rsz" aria-hidden="true"></i>' : ''}</div>`;
-    });
-    items.forEach((it) => {
-      const pre = it.b.st === 'todo' && it.b.k === 'meet' ? prepNeed(it.b) : 0;
-      if (pre) h += `<div class="prepz" style="top:${y(it.s - pre)}px;height:${Math.max(4, y(it.s) - y(it.s - pre))}px" title="Prep for ${esc(bname(it.b))}: ${pre} min" aria-hidden="true"></div>`;
-      if (run) (it.b.aw || []).forEach((w) => {
-        const z = w[1] != null ? w[1] : sess && sess.paused ? now() : w[0], mins = (z - w[0]) / 60000;
-        if (mins < 0.5) return;
-        const t0 = (w[0] - dayMs(0)) / 60000, t1 = (z - dayMs(0)) / 60000;
-        h += `<div class="awm" style="top:${y(t0)}px;height:${Math.max(3, y(t1) - y(t0))}px" aria-hidden="true"></div><span class="awt" style="top:${y(t0) - 1}px">away ${Math.max(1, Math.round(mins))} min</span>`;
-      });
-    });
-    const tail = items.reduce((m, it) => Math.max(m, it.e), 0), ov = plan.fin != null && tail > plan.fin;
-    if (plan.fin != null) h += `<div class="edge fn${ov ? ' over' : ''}" style="top:${y(plan.fin) - 1}px"></div><div class="edl fn${ov ? ' over' : ''}" style="top:${y(plan.fin) + 4}px">🏁 Finish ${tm(plan.fin)}${ov ? ' · ' + hm(tail - plan.fin) + ' over' : ''}</div>`;
-    if (today0 && !run) h += `<div class="nowl" style="top:${y(nowM)}px"></div><span class="nowt" style="top:${y(nowM) - 8}px">now</span>`;
-    else if (today0) h += `<div class="nowl" style="top:${y(nowM)}px"></div><span class="nowt" style="top:${y(nowM) - 8}px">now</span>`;
-    const cal = $('cal');
-    cal.style.height = y(hi) + 'px'; cal.dataset.lo = lo;
-    cal.innerHTML = h;
-    if (scrollNext) { scrollNext = false; $('calWrap').scrollTop = Math.max(0, y(Math.max(0, (run || began ? nowM : plan.start) - 60))); }
+    const V = agView(), cal = $('cal');
+    cal.className = 'cal ' + V; cal.style.height = '';
+    $('agSw').hidden = phoneW();
+    document.querySelectorAll('#agSw [data-pa^="agv:"]').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.pa === 'agv:' + V)));
+    $('agHint').textContent = V === 'rib' ? 'Drag a single pomodoro to the holding pen or a gap. Drag the name to move the whole block.' : 'Drag a block to another gap, or to the holding pen.';
+    $('earlier').hidden = true;
+    const ctx = { items, segs, run, began, today0, nowM, over };
+    cal.innerHTML = V === 'list' ? listHtml(ctx) : ribHtml(ctx);
+    if (V === 'rib') { const R = ribRange(items); cal.dataset.lo = R.lo; cal.dataset.span = R.hi - R.lo; } else { cal.dataset.lo = 0; cal.dataset.span = 0; }
+    scrollNext = false;
     const dropped = plan.blocks.filter((b) => b.st === 'drop');
     $('ifTime').innerHTML = dropped.length ? penHtml('plan') : '';
     // the verdict, and the one button
     const pr = problems(plan, cursor), liveB = plan.blocks.filter((b) => b.st !== 'drop' && live(b));
-    const ovr = Math.round(pr.over / 60000), LL = run && sess ? lateness() : null, bad = LL ? LL.amount >= 2 : ovr >= 1 || pr.pins.length > 0;
+    const ovr = Math.round(pr.over / 60000), LL = null, bad = false;
+    const spill = ovr >= 1 && plan.fin != null ? (() => { const t = clonePlan(), keep = plan; plan = t; const m = overflowToPen(true); plan = keep; return m; })() : [];
     let head = 'Looks good', big, sub = 'Meetings hold their times, with prep time before each one.', warn = false;
     if (today0 && !liveB.length && plan.blocks.some((b) => b.st === 'done')) {
       const nd = plan.blocks.filter((b) => b.st === 'done' && b.k !== 'meet').length, nk = plan.blocks.filter((b) => b.st === 'drop').length;
@@ -3207,6 +3309,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       sub = nk ? 'Saved work is in the holding pen: tap a piece to keep going, or add a meeting or drag Focus in.' : 'Add a meeting or drag Focus in to keep going.';
     } else if (!liveB.some((b) => !isBreak(b))) { head = 'Start here'; big = 'Add your meetings'; sub = 'Type the times from your calendar. No names needed.'; }
     else if (bad) { head = 'Needs a trim'; warn = true; big = LL && LL.fc && LL.fc.lost >= 2 ? LL.fc.line : ovr >= 1 ? `${hm(ovr)} too long` : LL ? `${LL.amount} min behind` : 'Runs into a meeting'; sub = 'Trim to fit shrinks the nice-to-haves first. Meetings never move.'; }
+    else if (spill.length) { head = 'Too much for the day'; warn = true; big = `${hm(ovr)} past ${tm(plan.fin)}`; sub = 'What won\'t fit goes to the holding pen when you start.'; }
     else {
       big = 'Ends about ' + clock(pr.end);
       const spare = plan.fin != null ? Math.round((dayMs(plan.fin) - pr.end) / 60000) : 0;
@@ -3225,7 +3328,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const notes = [];
     if (LL && bad) notes.push(LL.fc && LL.fc.lost >= 2 ? esc(LL.fc.line) : `Running ${LL.amount} min behind.`);
     else if (!LL && pr.pins.length) notes.push(pr.pins[0].join > 30000 ? `Blocks before ${esc(bname(pr.pins[0].b))} run ${Math.round(pr.pins[0].join / 60000)} min into its start.` : `Blocks before ${esc(bname(pr.pins[0].b))} run into its ${prepOf(pr.pins[0].b)} min prep time.`);
-    else if (ovr >= 1) notes.push(`The day runs ${hm(ovr)} past your finish line.`);
+    else if (ovr >= 1) notes.push(spill.length ? `${esc(spill.join(', '))} won't fit before ${tm(plan.fin)}. When you tap Start day ${spill.length === 1 ? 'it goes' : 'they go'} to the holding pen, unless you move the finish line.` : `The day runs ${hm(ovr)} past your finish line.`);
     if (lunchMsg) notes.push('There is no room for a 30 min break. Free some time up.');
     if (today0 || true) { const W = rhythmWalk(plan), nb = items.find((it) => isPin(it.b) && isWork(it.b) && it.b.st === 'todo' && W.get(it.b.id) && W.get(it.b.id).cin >= 4); if (nb) notes.push(`No long break before ${esc(bname(nb.b))} at ${tm(nb.b.pin)}. Move something to make room, or leave it.`); }
     if (planMsg) notes.push(esc(planMsg));
@@ -3240,6 +3343,143 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   }
   const stepper2 = (what, text) => `<div class="shStep"><button type="button" data-pa="${what}-" aria-label="Less">−</button><output>${text}</output><button type="button" data-pa="${what}+" aria-label="More">+</button></div>`;
   // the short breaks inside a focus block show as darker bands across it
+  // ---------- the agenda views ----------
+  const phoneW = () => matchMedia('(max-width:899px)').matches;
+  const agView = () => (phoneW() || set.agv === 'list' ? 'list' : 'rib');
+  function tilesOf(b) {                                // a block's pieces in order: pomodoros (or the Timebox) and the breaks between them
+    const out = [];
+    let a = 0, n = 0;
+    for (const x of steps(b)) {
+      const w = x.ph === 'focus' || x.ph === 'box';
+      if (w) n++;
+      out.push({ w, ph: x.ph, a, m: x.m, i: n });
+      a += x.m;
+    }
+    return { out, tot: a || 1 };
+  }
+  function tileCls(b, i) {
+    if (b.st === 'done') return ' dn';
+    if (b.st !== 'run') return '';
+    const on = sess && sess.pl && sess.pl.b === b.id && !sess.pl.gap ? 1 : 0;
+    return i <= b.d ? ' dn' : i === b.d + 1 && on && sess.phase === 'focus' ? ' now' : '';
+  }
+  function ribRange(items) {
+    const nowM = minDay(now()), work = items.filter((it) => it.b.st !== 'drop');
+    let lo = plan.start, hi = plan.fin != null ? plan.fin : plan.start + 480;
+    work.forEach((it) => { lo = Math.min(lo, it.s); hi = Math.max(hi, it.e); });
+    if (viewOff === 0 && (plan.run || startedDay())) { lo = Math.min(lo, nowM); hi = Math.max(hi, nowM + 30); }
+    lo = Math.max(0, Math.floor(lo / 60) * 60); hi = Math.min(1440, Math.ceil((hi + 20) / 60) * 60);
+    if (hi - lo < 240) hi = Math.min(1440, lo + 240);
+    return { lo, hi };
+  }
+  function ribHtml(c) {
+    const { items, segs, run, began, today0, nowM, over } = c, { lo, hi } = ribRange(items), span = hi - lo;
+    const X = (m) => ((m - lo) / span * 100).toFixed(3) + '%', W = (a, b) => (Math.max(0, b - a) / span * 100).toFixed(3) + '%';
+    let h = '';
+    for (let m = lo; m < hi; m += 60) h += `<i class="ax" style="left:${X(m)}"></i><span class="axt" style="left:${X(m)}">${tm(m)}</span>`;
+    h += `<span class="lnl" style="top:18px">Fixed</span><span class="lnl" style="top:84px">Your work</span>`;
+    if (plan.start > lo) h += `<div class="outz" style="left:0;width:${W(lo, plan.start)}"></div>`;
+    if (plan.fin != null && plan.fin < hi) h += `<div class="outz" style="left:${X(plan.fin)};width:${W(plan.fin, hi)}"></div>`;
+    segs.forEach((sg) => {
+      if (sg.e == null || sg.e - sg.s < 5) return;
+      const past = (run || began) && sg.e <= nowM && today0, aid = segKey(sg);
+      const td = sg.run.filter((it) => it.b.st === 'todo');
+      if (past || td.length) return;
+      const s0 = Math.max(sg.s, sg.run.length ? sg.run[sg.run.length - 1].e : sg.s, (run || began) && today0 ? nowM : 0);
+      if (sg.e - s0 < 15) return;
+      const nar = (sg.e - s0) / span < 0.1;
+      const chips = [['deep', 'Focus'], ['admin', 'Admin'], ['box', 'Timebox']].map((k) => `<button type="button" class="gp" data-pa="gap:${aid}:${k[0]}">${k[1]}</button>`).join('') +
+        `<button type="button" class="gp" data-pa="gap:${aid}:own" aria-label="Add your own block">+</button>`;
+      h += `<div class="civ${nar ? ' nar' : ''}" data-aid="${aid}" style="left:${X(s0)};width:${W(s0, sg.e)}"><span class="civl">${hm(Math.max(0, sg.e - s0 - (sg.after ? prepOf(sg.after) : 0)))} free</span>${chips}</div>`;
+    });
+    items.forEach((it) => {
+      const pre = it.b.st === 'todo' && it.b.k === 'meet' ? prepNeed(it.b) : 0;
+      if (pre) h += `<div class="prepz" style="left:${X(it.s - pre)};width:${W(it.s - pre, it.s)}" title="Prep for ${esc(bname(it.b))}: ${pre} min" aria-hidden="true"></div>`;
+    });
+    items.forEach((it) => {
+      const b = it.b, pin = isPin(b), ed = b.st === 'todo', lbl = `${esc(bname(b))}, ${tm(it.s)} to ${tm(it.e)}`;
+      if (b.a) { h += `<div class="cb auto k-${b.k}${b.st !== 'todo' ? ' ' + b.st : ''}" style="left:${X(it.s)};width:${W(it.s, it.e)}" aria-label="${lbl}"><span>${esc(bname(b))}</span></div>`; return; }
+      const cls = ['cb', 'k-' + b.k, pin ? 'pin' : 'fill', b.st !== 'todo' ? b.st : '', ed ? 'ed' : '', editId === b.id ? 'sel' : '', over.has(b.id) ? 'over' : ''].filter(Boolean).join(' ');
+      let inner = '';
+      if (!pin) {
+        const T = tilesOf(b), many = KINDS[b.k].ph && b.n > 1 && ed;
+        inner = '<div class="tls">' + T.out.map((t) => {
+          const st = `left:${(t.a / T.tot * 100).toFixed(2)}%;width:${(t.m / T.tot * 100).toFixed(2)}%`;
+          if (!t.w) return `<i class="tl sb${t.ph === 'long' ? ' lb' : ''}" style="${st}"></i>`;
+          return `<i class="tl${b.k === 'box' ? ' bx' : ''}${tileCls(b, t.i)}"${many ? ` data-tile="${t.i}"` : ''} style="${st}">${KINDS[b.k].ph ? t.i : t.m}</i>`;
+        }).join('') + '</div>';
+      }
+      h += `<div class="${cls}" data-id="${b.id}" data-pa="sel" role="button" tabindex="0" style="left:${X(it.s)};width:${W(it.s, it.e)}" aria-label="${lbl}" title="${lbl}">` +
+        `<span class="cbn">${esc(bname(b))}</span><span class="cbt">${tm(it.s)}–${tm(it.e)}</span>${KINDS[b.k].ph ? `<span class="cbs">${b.n} × ${b.f}</span>` : ''}${pin ? LOCKSVG : ''}${inner}${ed && pin ? '<i class="rsz" aria-hidden="true"></i>' : ''}</div>`;
+    });
+    if (run) items.forEach((it) => (it.b.aw || []).forEach((w) => {
+      const z = w[1] != null ? w[1] : sess && sess.paused ? now() : w[0], mins = (z - w[0]) / 60000;
+      if (mins < 0.5) return;
+      const t0 = (w[0] - dayMs(0)) / 60000, t1 = (z - dayMs(0)) / 60000;
+      h += `<div class="awm" style="left:${X(t0)};width:${W(t0, t1)}" aria-hidden="true"></div><span class="awt" style="left:${X(t0)}">away ${Math.max(1, Math.round(mins))} min</span>`;
+    }));
+    const tail = items.reduce((m, it) => Math.max(m, it.e), 0), ov = plan.fin != null && tail > plan.fin;
+    if (plan.fin != null) h += `<div class="edge fn${ov ? ' over' : ''}" style="left:${X(plan.fin)}"></div><div class="edl fn${ov ? ' over' : ''}" style="left:${X(plan.fin)}">🏁 Finish ${tm(plan.fin)}${ov ? ' · ' + hm(tail - plan.fin) + ' over' : ''}</div>`;
+    if (today0 && nowM >= lo && nowM <= hi) h += `<div class="nowl" style="left:${X(nowM)}"></div><span class="nowt" style="left:${X(nowM)}">now</span>`;
+    return h;
+  }
+  function doneStrip(items) {                          // what's finished folds into one row of ticks
+    const dn = items.filter((it) => it.b.st === 'done' && !it.b.a), runB = items.find((it) => it.b.st === 'run');
+    const parts = [];
+    dn.concat(runB && KINDS[runB.b.k].ph && runB.b.d ? [runB] : []).forEach((it) => {
+      const b = it.b, k = KINDS[b.k].ph ? (b.st === 'run' ? b.d : Math.max(1, b.d || b.n)) : 1;
+      parts.push(`<span>${('<i class="' + (b.k === 'meet' || isPin(b) ? 'm' : '') + '">✓</i>').repeat(Math.min(8, k))} ${esc(bname(b))}</span>`);
+    });
+    return parts.length ? `<div class="agDone" title="${dn.map((it) => esc(bname(it.b)) + ' ' + tm(it.s) + '–' + tm(it.e)).join(', ')}"><span class="lb0">Done</span>${parts.join('')}</div>` : '';
+  }
+  function listHtml(c) {
+    const { items, segs, run, began, today0, nowM, over } = c, live0 = (run || began) && today0;
+    let h = live0 ? doneStrip(items) : '';
+    const tokens = (b) => {
+      if (b.k === 'box' || !KINDS[b.k].ph) return `<i class="tk${b.k === 'box' ? ' bx' : ''}${b.st === 'done' ? ' dn' : ''}">${esc(bname(b))} ${b.min}</i>`;
+      return tilesOf(b).out.map((t) => t.w ? `<i class="tk${tileCls(b, t.i)}">${t.i}</i>` : `<i class="tk sb${t.ph === 'long' ? ' lb' : ''}">${t.ph === 'long' ? t.m : ''}</i>`).join('');
+    };
+    const anchor = (it) => {
+      const b = it.b, ed = b.st === 'todo', cls = ['cb', 'k-' + b.k, 'pin', b.st !== 'todo' ? b.st : '', ed ? 'ed' : '', editId === b.id ? 'sel' : ''].filter(Boolean).join(' ');
+      return `<div class="${cls}" data-id="${b.id}" data-pa="sel" role="button" tabindex="0" aria-label="${esc(bname(b))}, ${tm(it.s)} to ${tm(it.e)}"><span class="cbn">${esc(bname(b))} · ${hm(it.e - it.s)}</span><span class="cbt">${tm(it.s)}</span>${LOCKSVG}</div>`;
+    };
+    if (!live0) h += `<div class="anc0"><span>${tm(plan.start)}</span><span>Day starts</span></div>`;
+    segs.forEach((sg) => {
+      const work = sg.run.filter((it) => !(live0 && (it.b.st === 'done' || it.b.st === 'skip')));
+      const past = live0 && sg.e != null && sg.e <= nowM;
+      if (!past && (sg.e == null ? work.length : sg.e - sg.s >= 5)) {
+        const aid = segKey(sg), td = work.filter((it) => it.b.st === 'todo'), names = [];
+        work.filter((it) => !it.b.a).forEach((it) => { const n = bname(it.b); if (names[names.length - 1] !== n) names.push(n); });
+        const s0 = live0 ? Math.max(sg.s, nowM) : sg.s, end = work.length ? work[work.length - 1].e : s0;
+        const room = sg.e == null ? null : sg.e - (sg.after ? prepOf(sg.after) : 0), spare = room == null ? null : room - Math.max(end, s0);
+        const isNow = work.some((it) => it.b.st === 'run');
+        let tag = '';
+        if (room != null && work.length) tag = spare < 0 ? `<span class="ov">over by ${hm(-spare)}</span>` : spare < 5 ? `<span>${tm(work[0].s)}–${tm(end)} · full</span>` : `<span>${tm(work[0].s)}–${tm(end)} · ${hm(spare)} spare</span>`;
+        else if (work.length) tag = `<span>${tm(work[0].s)}–${tm(end)}</span>`;
+        else if (room != null) tag = `<span>${tm(s0)}–${tm(sg.e)}</span>`;
+        h += `<div class="bay${isNow ? ' now' : ''}${work.length ? '' : ' empty'}" data-seg="${aid}" data-s="${sg.s}" data-e="${sg.e == null ? 1440 : sg.e}"><div class="bh"><b>${work.length ? esc(names.join(', ')) : hm(Math.max(0, (room == null ? 0 : room) - s0)) + ' free'}</b>${tag}</div>`;
+        if (work.length) {
+          h += '<div class="bfill">' + work.map((it, i) => {
+            const b = it.b, lbl = `${esc(bname(b))}, ${tm(it.s)} to ${tm(it.e)}`;
+            if (b.a) return `<div class="cb auto k-${b.k}" aria-label="${lbl}"><i class="tk sb${it.e - it.s >= 15 ? ' lb' : ''}">${it.e - it.s >= 15 ? it.e - it.s : ''}</i></div>`;
+            const ed = b.st === 'todo', cls = ['cb', 'k-' + b.k, 'fill', b.st !== 'todo' ? b.st : '', ed ? 'ed' : '', editId === b.id ? 'sel' : '', over.has(b.id) ? 'over' : ''].filter(Boolean).join(' ');
+            const gap = i && !work[i - 1].b.a ? '<i class="tk sb"></i>' : '';
+            return `${gap}<div class="${cls}" data-id="${b.id}" data-pa="sel" role="button" tabindex="0" aria-label="${lbl}"><span class="cbn">${esc(bname(b))}</span>${tokens(b)}</div>`;
+          }).join('') + '</div>';
+        }
+        if (!td.length && room != null && room - s0 >= 15) h += `<div class="civ" data-aid="${aid}">${[['deep', 'Focus'], ['admin', 'Admin'], ['box', 'Timebox']].map((k) => `<button type="button" class="gp" data-pa="gap:${aid}:${k[0]}">${k[1]}</button>`).join('')}<button type="button" class="gp" data-pa="gap:${aid}:own" aria-label="Add your own block">+</button></div>`;
+        if (sg.e == null && !work.length) h += `<span class="bnote" style="color:var(--dim)">Set a finish line to plan after your last meeting</span>`;
+        h += '</div>';
+      }
+      if (sg.after) { const it = items.find((x) => x.b === sg.after); if (it && !(live0 && (it.b.st === 'done' || it.b.st === 'skip'))) h += anchor(it); }
+    });
+    const tail = items.reduce((m, it) => Math.max(m, it.e), 0);
+    if (plan.fin != null) {
+      const ov = tail > plan.fin, sp = plan.fin - tail;
+      h += `<div class="agFin${ov ? ' over' : ''}"><span>🏁 Finish ${tm(plan.fin)}</span><span>${tail ? `ends ${clock(dayMs(tail))} · ` : ''}${ov ? hm(-sp) + ' over' : sp >= 1 ? hm(sp) + ' spare' : 'on time'}</span></div>`;
+    }
+    return h;
+  }
   function stripes(b) {
     if (!KINDS[b.k].ph && b.k !== 'box') return '';
     let h = '', a = 0;
@@ -3308,7 +3548,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       }
       afterEdit(); return;
     }
-    if (a === 'unlock') { if (b && b.st === 'todo' && b.pin != null && b.k !== 'meet') { const at = b.pin; b.pin = null; b.g = false; slot(b, at); tidyBreaks(); } afterEdit(); return; }
+    if (a === 'unlock') { if (b && b.st === 'todo' && b.pin != null && b.k !== 'meet') { const at = b.pin; b.pin = null; b.g = false; slot(b, at); joinFocus(b); tidyBreaks(); } afterEdit(); return; }
     if (a.startsWith('bk:')) { if (b && (b.k === 'deep' || b.k === 'lfoc')) { b.k = val; b.f = KINDS[val].f; b.sb = KINDS[val].sb; } afterEdit(); return; }
     if (a.startsWith('fst:')) { set.fstyle = val; save(); renderPlan(); return; }
     if (a.startsWith('amb:')) {
@@ -3317,6 +3557,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     }
     if (a.startsWith('back:')) { const x = plan.blocks.find((y) => y.id === +val); if (x) x.st = 'todo'; afterEdit(); return; }
     if (a === 'trim') { const notes = trimPlan(plan, plan.run ? now() : dayMs(plan.start)); save(); renderPlan(); if (notes.length) say(pick('trimmed'), 6000); else { planMsg = 'There is nothing flexible to trim here. Move a meeting, or shorten a block yourself.'; renderPlan(); } return; }
+    if (a.startsWith('agv:')) { set.agv = a.slice(4); save(); renderPlan(); return; }
     if (a.startsWith('gap:')) {
       const [, aid, kind] = a.split(':');
       const sg = segments().segs.find((s) => segKey(s) === +aid);
@@ -3434,81 +3675,143 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     overAt = Date.now(); $('clearBtn').textContent = 'Sure? Start over';
     setTimeout(() => { $('clearBtn').textContent = 'Start over'; }, 3000);
   });
-  // drag any block to move it (it then keeps that time), or its bottom edge to change its length, in 15 min steps; it stops at the next fixed block
+  // ---------- dragging on the agenda ----------
+  const elAt = (ev) => { const el = document.elementFromPoint(ev.clientX, ev.clientY); return el && el.closest ? el : null; };
+  const calMinAt = (cx) => { const c = $('cal'), r = c.getBoundingClientRect(), sp = +c.dataset.span; return sp ? +c.dataset.lo + (cx - r.left) / r.width * sp : null; };
+  const overCalEl = (ev) => { const el = elAt(ev); return !!(el && el.closest('#cal')); };
+  const bayAt = (ev) => { const el = elAt(ev), bay = el && el.closest('.bay[data-seg]'); return bay ? +bay.dataset.seg : null; };
+  const overPen = (ev) => { const el = elAt(ev); return !!(el && el.closest('#ifTime')); };
+  function penZone(on) {                               // while you drag, the holding pen is a place to drop
+    const z = $('penDZ');
+    if (!on) { if (z) z.remove(); document.querySelectorAll('#ifTime .pen.hot,.bay.hot').forEach((x) => x.classList.remove('hot')); return; }
+    if (!z && !$('ifTime').querySelector('.pen')) $('ifTime').insertAdjacentHTML('beforeend', '<div class="pen" id="penDZ"><div class="penH"><b>Holding pen</b><span>Drop here to set it aside</span></div></div>');
+  }
+  function hotPen(ev) { const p = $('ifTime').querySelector('.pen'); if (p) p.classList.toggle('hot', overPen(ev)); }
+  function hotBay(ev) { const s0 = bayAt(ev); document.querySelectorAll('#cal .bay').forEach((x) => x.classList.toggle('hot', s0 != null && +x.dataset.seg === s0)); }
+  function toPen(b, one) {
+    if (one && KINDS[b.k].ph && b.n > 1) {
+      b.n--;
+      const nb = newBlock(b.k, { n: 1, label: b.label }); nb.st = 'drop'; plan.blocks.push(nb);
+      logAdd(`A pomodoro of ${bname(b)} is in the holding pen.`);
+    } else { b.st = 'drop'; plan.blocks = plan.blocks.filter((x) => x !== b).concat([b]); logAdd(`${bname(b)} is in the holding pen.`); }
+  }
+  function toSeg(b, aid) {                             // a flowing block moved to the end of another gap's work
+    const sg = segments().segs.find((x) => segKey(x) === aid);
+    if (!sg) return false;
+    plan.blocks = plan.blocks.filter((x) => x !== b);
+    b.st = 'todo'; b.g = false;
+    plan.blocks.splice(runEnd(sg), 0, b);
+    return true;
+  }
   $('cal').addEventListener('pointerdown', (e) => {
     const cb = e.target.closest && e.target.closest('.cb.ed');
     if (!cb || e.button > 0) return;
-    const bid = +cb.dataset.id;
+    const rib = $('cal').classList.contains('rib'), bid = +cb.dataset.id;
+    const tileEl = rib ? e.target.closest('.tl[data-tile]') : null;
     const info = inView(() => {
       const b = plan.blocks.find((x) => x.id === bid), it = b && layout().find((x) => x.b === b);
-      return b && it ? { pin: it.s, min: it.e - it.s, ph: !!KINDS[b.k].ph, f: b.f, sb: b.sb } : null;
+      return b && it ? { pin: it.s, min: it.e - it.s, isPin: isPin(b), ph: !!KINDS[b.k].ph } : null;
     });
-    if (!info) return;
-    const size = !!e.target.closest('.rsz'), y0 = e.clientY, o = info, lo = +$('cal').dataset.lo, tag = cb.querySelector('.cbt');
-    let moved = false, pin = o.pin, min = o.min, nn = 0;
+    if (!info || (!rib && info.isPin)) return;
+    const size = rib && !!e.target.closest('.rsz'), x0 = e.clientX, y0 = e.clientY, o = info, c = $('cal'), r = c.getBoundingClientRect();
+    const ppm = +c.dataset.span ? r.width / +c.dataset.span : 1, tag = cb.querySelector('.cbt');
+    let moved = false, pin = o.pin, min = o.min, ghost = null, mark = null;
     const free = (p, m) => inView(() => { const b = plan.blocks.find((x) => x.id === bid); return !pinClash(b, p, m); });
-    const lenOf = (n) => n * o.f + (n - 1) * o.sb;
     const move = (ev) => {
-      const d = ev.clientY - y0;
-      if (Math.abs(d) > 4) moved = true;
+      if (!moved && Math.hypot(ev.clientX - x0, ev.clientY - y0) > 5) { moved = true; penZone(true); }
       if (!moved) return;
-      let dm = Math.round(d / PXM / 15) * 15;
-      const step = dm > 0 ? -15 : 15;
-      if (size) {
-        if (o.ph) {
-          nn = Math.max(1, Math.min(8, Math.round((o.min + dm + o.sb) / (o.f + o.sb))));
-          while (nn > 1 && !free(o.pin, lenOf(nn))) nn--;
-          min = lenOf(nn);
-        } else { min = Math.max(15, Math.min(480, o.min + dm)); while (min > 15 && !free(o.pin, min)) min -= 15; if (!free(o.pin, min)) min = o.min; }
-        cb.style.height = Math.max(18, Math.round(min * PXM) - 3) + 'px';
-      } else {
-        pin = Math.max(0, Math.min(1440 - o.min, o.pin + dm));
-        if (dm !== 0) { const sn = inView(() => snapEdge(pin, o.min, plan.blocks.find((x) => x.id === bid))); if (free(sn, o.min)) pin = sn; }
-        while (dm !== 0 && !free(pin, o.min)) { dm += step; pin = Math.max(0, Math.min(1440 - o.min, o.pin + dm)); }
-        cb.style.top = Math.round((pin - lo) * PXM) + 'px';
+      if (rib && o.isPin && !overPen(ev)) {             // a fixed block slides along its lane, or its end is dragged
+        let dm = Math.round((ev.clientX - x0) / ppm / 5) * 5;
+        const step = dm > 0 ? -5 : 5;
+        if (size) { min = Math.max(15, Math.min(480, o.min + dm)); while (min > 15 && !free(o.pin, min)) min -= 5; if (!free(o.pin, min)) min = o.min; cb.style.width = (min * ppm) + 'px'; }
+        else {
+          pin = Math.max(0, Math.min(1440 - o.min, o.pin + dm));
+          while (dm !== 0 && !free(pin, o.min)) { dm += step; pin = Math.max(0, Math.min(1440 - o.min, o.pin + dm)); }
+          cb.style.left = ((pin - +c.dataset.lo) * ppm) + 'px';
+        }
+        cb.classList.add('drag');
+        if (tag) tag.textContent = `${tm(pin)}–${tm(pin + min)}`;
+        hotPen(ev); return;
       }
-      cb.classList.add('drag');
-      if (tag) tag.textContent = `${tm(pin)}–${tm(pin + min)}`;
+      if (!ghost) {
+        const src = tileEl || cb;
+        ghost = src.cloneNode(true); ghost.removeAttribute('data-pa');
+        const bb = src.getBoundingClientRect();
+        const cs = getComputedStyle(tileEl || cb.querySelector('.tl,.tk') || cb);
+        ghost.className = 'agGhost';
+        ghost.innerHTML = tileEl ? esc(tileEl.textContent) : esc(cb.getAttribute('aria-label').split(',')[0]);
+        ghost.style.cssText = `position:fixed;left:0;top:0;min-width:${tileEl ? Math.max(30, bb.width) : 60}px;height:32px;padding:0 10px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:${cs.backgroundColor};color:#1a0f0a;font:900 13px system-ui;pointer-events:none;z-index:80;opacity:.9;transform:translate(-50%,-50%);box-shadow:0 8px 20px rgba(0,0,0,.5)`;
+        document.body.appendChild(ghost); cb.classList.add('drag');
+      }
+      ghost.style.left = ev.clientX + 'px'; ghost.style.top = ev.clientY + 'px';
+      hotPen(ev);
+      if (rib) {
+        if (!mark) { mark = document.createElement('div'); mark.className = 'dropln'; c.appendChild(mark); }
+        const m = calMinAt(ev.clientX), on = overCalEl(ev) && m != null;
+        mark.hidden = !on;
+        if (on) { const at = Math.round(m / 5) * 5; mark.style.left = ((at - +c.dataset.lo) * ppm) + 'px'; mark.style.width = '3px'; mark.textContent = ''; mark.title = tm(at); }
+      } else hotBay(ev);
     };
-    const end = () => {
+    const end = (ev) => {
       document.removeEventListener('pointermove', move); document.removeEventListener('pointerup', end); document.removeEventListener('pointercancel', end);
+      const toP = moved && overPen(ev);
+      if (ghost) ghost.remove(); if (mark) mark.remove();
+      penZone(false);
       if (!moved) return;
       suppress = true; setTimeout(() => { suppress = false; }, 0);
       inView(() => {
         const b = plan.blocks.find((x) => x.id === bid);
         if (!b) return;
-        if (size ? min === o.min : pin === o.pin) { renderPlan(); return; }
-        if (size) { if (o.ph) b.n = nn; else b.min = min; if (isPin(b)) { place(b); stretchDay(b.pin, b.pin + min); } }
-        else if (isPin(b)) { b.pin = pin; b.g = false; place(b); tidyBreaks(); stretchDay(pin, pin + min); }
-        else {
-          b.g = false; slot(b, pin); tidyBreaks(); stretchDay(pin, pin + min);
-          const it2 = layout().find((x) => x.b === b);
-          if (it2 && Math.abs(it2.s - pin) >= 5) planMsg = `Focus blocks follow the one before them, so it sits at ${tm(it2.s)}. Meetings are the ones that hold a time.`;
+        if (toP) { toPen(b, !!tileEl); afterEdit(); return; }
+        if (rib && o.isPin) {
+          if (size ? min === o.min : pin === o.pin) { renderPlan(); return; }
+          if (size) { b.min = min; place(b); stretchDay(b.pin, b.pin + min); }
+          else { b.pin = pin; b.g = false; place(b); tidyBreaks(); stretchDay(pin, pin + min); }
+          afterEdit(); return;
         }
-        afterEdit();
+        if (rib) {
+          const m = overCalEl(ev) ? calMinAt(ev.clientX) : null;
+          if (m == null) { renderPlan(); return; }
+          const at = Math.round(m / 5) * 5;
+          if (tileEl && b.n > 1) {
+            b.n--;
+            const nb = newBlock(b.k, { n: 1, label: b.label, prio: b.prio });
+            plan.blocks.push(nb); slot(nb, at); joinFocus(nb);
+          } else { b.g = false; slot(b, at); joinFocus(b); }
+          tidyBreaks(); afterEdit(); return;
+        }
+        const aid = bayAt(ev);
+        if (aid == null || !toSeg(b, aid)) { renderPlan(); return; }
+        joinFocus(b); tidyBreaks(); afterEdit();
       });
     };
     document.addEventListener('pointermove', move); document.addEventListener('pointerup', end); document.addEventListener('pointercancel', end);
   });
-  // drag a block from "Drag into your day" onto the grid: one block, at the time where you let go (it slides to the nearest free spot)
+  // drag a block from "Drag into your day" onto the day: Ribbon at the time where you let go, List into the gap you drop it on
   const palBlock = (kind) => (kind === 'meet' ? newBlock('meet', { min: 30 }) : kind === 'sofa' ? newBlock('sofa', { min: 30, label: 'Break' })
     : kind === 'deep' ? newBlock(set.fstyle === 'lfoc' ? 'lfoc' : 'deep', { n: 1 }) : kind === 'admin' ? newBlock('admin', { n: 1 }) : newBlock('box', { min: 30 }));
-  function dropSpot(kind, cy) {                         // where a dragged block would land: { pin, len } or null when there is no room
-    const r = $('cal').getBoundingClientRect(), tmp = palBlock(kind), len = bmin(tmp);
+  function dropSpot(kind, m) {                          // where a dragged block would land: { pin, len } or null when there is no room
+    const tmp = palBlock(kind), len = bmin(tmp);
     nid--;                                              // the sample block never joins the day
-    const want = snapEdge(Math.round(((cy - r.top) / PXM - len / 2) / 15) * 15, len, null);
-    for (let d = 0; d <= 240; d += 15) for (const sgn of d ? [1, -1] : [1]) {
+    const want = snapEdge(Math.round((m - len / 2) / 5) * 5, len, null);
+    for (let d = 0; d <= 240; d += 5) for (const sgn of d ? [1, -1] : [1]) {
       const p = want + sgn * d;
       if (p >= 0 && p + len <= 1440 && !pinClash(null, p, len, kind === 'meet' ? 5 : undefined)) return { pin: p, len };
     }
     return null;
   }
+  function dropMin(ev) {                                // the time under the pointer: Ribbon by position, List by the gap
+    if ($('cal').classList.contains('rib')) return overCalEl(ev) ? calMinAt(ev.clientX) : null;
+    const aid = bayAt(ev), sg = aid == null ? null : segments().segs.find((x) => segKey(x) === aid);
+    if (!sg) return null;
+    const began = viewOff === 0 && (plan.run || startedDay());
+    return Math.max(sg.s, began ? minDay(now()) : 0) + 15;
+  }
   document.addEventListener('pointerdown', (e) => {
     const pc = e.target.closest && e.target.closest('.palc');
     if (!pc || e.button > 0 || $('plan').hidden) return;
-    const kind = pc.dataset.k, x0 = e.clientX, y0 = e.clientY;
+    const kind = pc.dataset.k, x0 = e.clientX, y0 = e.clientY, rib = $('cal').classList.contains('rib');
     let ghost = null, mark = null;
-    const overCal = (ev) => { const el = document.elementFromPoint(ev.clientX, ev.clientY); return !!(el && el.closest && el.closest('#cal')); };
     const move = (ev) => {
       if (!ghost && Math.hypot(ev.clientX - x0, ev.clientY - y0) > 6) {
         ghost = pc.cloneNode(true); ghost.className = 'palc ghost'; document.body.appendChild(ghost);
@@ -3516,34 +3819,38 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       if (!ghost) return;
       ghost.style.left = ev.clientX + 'px'; ghost.style.top = ev.clientY + 'px';
       if (kind === 'own') return;
-      if (!overCal(ev)) { if (mark) { mark.remove(); mark = null; } return; }
-      const sp = inView(() => dropSpot(kind, ev.clientY));
-      if (!mark) { mark = document.createElement('div'); mark.className = 'dropln'; $('cal').appendChild(mark); }
+      if (!rib) { hotBay(ev); return; }
+      const m = inView(() => dropMin(ev));
+      if (m == null) { if (mark) { mark.remove(); mark = null; } return; }
+      const sp = inView(() => dropSpot(kind, m)), c = $('cal'), ppm = c.getBoundingClientRect().width / +c.dataset.span;
+      if (!mark) { mark = document.createElement('div'); mark.className = 'dropln' + (kind === 'meet' || kind === 'sofa' ? ' top' : ''); c.appendChild(mark); }
       mark.classList.toggle('bad', !sp);
-      const len = sp ? sp.len : 30, top = sp ? sp.pin : Math.round(((ev.clientY - $('cal').getBoundingClientRect().top) / PXM - 15) / 15) * 15;
-      mark.style.top = Math.round(top * PXM) + 'px'; mark.style.height = Math.max(18, Math.round(len * PXM) - 3) + 'px';
-      mark.textContent = sp ? `${tm(sp.pin)}–${tm(sp.pin + sp.len)}` : 'No room here';
+      const len = sp ? sp.len : 30, at = sp ? sp.pin : Math.round(m / 5) * 5;
+      mark.style.left = ((at - +c.dataset.lo) * ppm) + 'px'; mark.style.width = (len * ppm) + 'px';
+      mark.textContent = sp ? tm(sp.pin) : 'No room';
     };
     const end = (ev) => {
       document.removeEventListener('pointermove', move); document.removeEventListener('pointerup', end); document.removeEventListener('pointercancel', end);
       if (mark) mark.remove();
+      document.querySelectorAll('.bay.hot').forEach((x) => x.classList.remove('hot'));
       if (!ghost) { inView(() => { planMsg = 'Drag it onto your day.'; renderPlan(); }); return; }
       ghost.remove();
       suppress = true; setTimeout(() => { suppress = false; }, 0);
       inView(() => {
         planMsg = ''; pend = null;
-        if (!overCal(ev)) { planMsg = 'Drop it on your day.'; renderPlan(); return; }
-        const r = $('cal').getBoundingClientRect();
+        const m = dropMin(ev);
+        if (m == null) { planMsg = rib ? 'Drop it on your day.' : 'Drop it on a gap in your day.'; renderPlan(); return; }
         if (kind === 'own') {
-          const m = (ev.clientY - r.top) / PXM, sg = segments().segs.find((x) => x.e != null && m >= x.s && m < x.e);
+          const sg = segments().segs.find((x) => x.e != null && m >= x.s && m < x.e);
           if (!sg) { planMsg = 'Drop it on a gap.'; renderPlan(); return; }
           own = { aid: segKey(sg), name: '', kind: 'box', len: 30 }; renderPlan(); return;
         }
-        const sp = dropSpot(kind, ev.clientY);
-        if (!sp) { planMsg = 'No room for that there. Free some time up first.'; renderPlan(); return; }
         const nb = palBlock(kind);
         nb.o = true;
-        if (nb.k === 'meet' || nb.k === 'sofa') { nb.pin = sp.pin; place(nb); } else slot(nb, sp.pin);
+        if (!rib && nb.k !== 'meet' && nb.k !== 'sofa') { plan.blocks.push(nb); toSeg(nb, bayAt(ev)); joinFocus(nb); afterEdit(); return; }
+        const sp = dropSpot(kind, m);
+        if (!sp) { nid--; planMsg = 'No room for that there. Free some time up first.'; renderPlan(); return; }
+        if (nb.k === 'meet' || nb.k === 'sofa') { nb.pin = sp.pin; place(nb); } else { slot(nb, sp.pin); joinFocus(nb); }
         stretchDay(sp.pin, sp.pin + sp.len); afterEdit();
       });
     };
