@@ -655,16 +655,38 @@ body[data-tk=wait],body[data-tk=gap]{--bg:#22272e}
 .tyEdit{background:rgba(255,255,255,.16);color:#fff;font:700 14px Inter,system-ui,sans-serif;border:0;border-radius:10px;padding:8px 14px;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
 .tyEdit:hover{background:rgba(255,255,255,.24)}.tyEdit:focus-visible{outline:2px solid #ff9a7d;outline-offset:2px}
 .tyWarn{background:none;border:0;color:#fcd34d;font-size:20px;line-height:1;padding:4px;cursor:pointer}
-.tyStage{display:grid;grid-template-columns:minmax(150px,250px) minmax(0,1fr) minmax(0,260px);align-items:center;gap:28px;min-height:min(50vh,420px);padding:8px 0}
+.tyStage{display:grid;grid-template-columns:minmax(150px,260px) minmax(0,1fr);grid-template-areas:"bub card" "lumi card";grid-template-rows:auto auto;align-content:center;align-items:center;gap:12px 36px;min-height:min(50vh,420px);padding:8px 0}
+.tyStage>.tyLumi{grid-area:lumi;align-self:start;margin-top:-22px}.tyStage>#tyNow{grid-area:card}.tyStage>.tyBub{grid-area:bub}
 .tyLumi>svg{display:block;width:100%;height:auto;max-height:230px}
+.tyLumi .lmBreathe{transform-box:fill-box;transform-origin:50% 100%;animation:lmBreathe 3.6s ease-in-out infinite}
+.tyLumi .eyes{transform-box:fill-box;transform-origin:center;animation:lmBlink 5.5s infinite}
+.tyLumi .zz{animation:lmDrift 3s ease-in-out infinite}
+.tyLumi .lmGlint{animation:lmGlint 2.4s ease-in-out infinite}
+.tyLumi .lmPaw{transform-box:fill-box;transform-origin:center;animation:lmTap .5s ease-in-out infinite}.tyLumi .lmPaw.p2{animation-delay:.25s}
+.tyLumi .lmSpeed{animation:lmGlint .4s steps(2) infinite}
+.tyLumi .lmLegs{transform-box:fill-box;transform-origin:50% 0;animation:lmScissor .3s ease-in-out infinite alternate}
+.tyLumi .lmRun{animation:lmTrot .3s ease-in-out infinite alternate}
+.tyLumi .lmBall{transform-box:fill-box;transform-origin:50% 100%;animation:lmBall 1.4s cubic-bezier(.3,0,.7,1) infinite}
+.tyLumi.lmHop .lmB{animation:lmHop .9s cubic-bezier(.3,.6,.4,1)}
+.tyLumi.lmStretch .lmB{transform-box:fill-box;transform-origin:50% 100%;animation:lmStretch 1.4s ease-in-out}
+@keyframes lmBreathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.035)}}
+@keyframes lmBlink{0%,94%,100%{transform:scaleY(1)}96.5%{transform:scaleY(.1)}}
+@keyframes lmDrift{0%{opacity:0;transform:translateY(4px)}30%{opacity:1}100%{opacity:0;transform:translateY(-12px)}}
+@keyframes lmGlint{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes lmTap{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
+@keyframes lmScissor{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+@keyframes lmTrot{from{transform:translateY(0)}to{transform:translateY(-4px)}}
+@keyframes lmBall{0%,100%{transform:translateY(0) scaleY(.9)}10%{transform:translateY(0) scaleY(1)}50%{transform:translateY(-16px)}}
+@keyframes lmHop{0%,100%{transform:translateY(0)}30%{transform:translateY(-18px)}55%{transform:translateY(0)}70%{transform:translateY(-6px)}}
+@keyframes lmStretch{0%,100%{transform:scale(1,1)}40%{transform:scale(1.08,.9)}70%{transform:scale(.97,1.04)}}
 .shNight{width:180px;max-width:60%;margin:0 auto 4px}.shNight>svg{display:block;width:100%;height:auto}
 #today .tyCard{background:none;padding:0;box-shadow:none;border:0}
 #today .tyCard.paused .tyBig{color:#e6dcb8}
 #today .tyLbl{color:var(--soft)}
 #today .tyBig{font-family:'Lilita One',Inter,system-ui,sans-serif;font-weight:400;font-size:clamp(64px,10vw,128px);letter-spacing:0;line-height:.95}
 #today .tyBig.sm{font-size:clamp(44px,6vw,72px)}#today .tyBig.dim{color:rgba(255,255,255,.45)}
-.tyBub{align-self:start;margin-top:20px;background:#fff;color:#1d222b;border-radius:16px;padding:10px 14px;font-weight:600;font-size:15px;line-height:1.35;position:relative}
-.tyBub::after{content:"";position:absolute;left:-7px;bottom:12px;border:7px solid transparent;border-right-color:#fff;border-left:0}
+.tyBub{align-self:end;justify-self:end;max-width:260px;margin:0;background:#fff;color:#1d222b;border-radius:16px;padding:10px 14px;font-weight:600;font-size:15px;line-height:1.35;position:relative}
+.tyBub::after{content:"";position:absolute;right:22%;bottom:-8px;border:8px solid transparent;border-top-color:#fff;border-bottom:0}
 .tyBub:empty{display:none}
 #today .tyBtns button:not(.go):not(.quiet){background:rgba(255,255,255,.14)}
 #today .tyBtns .quiet{color:var(--soft)}
@@ -681,11 +703,54 @@ body[data-tk=wait],body[data-tk=gap]{--bg:#22272e}
 .tyKey .k-fin{width:3px;height:14px;border-radius:2px;background:#fbbf24}
 .tyFin{position:absolute;top:-4px;bottom:-4px;width:3px;margin-left:-1px;background:#fbbf24;border-radius:2px;pointer-events:none}
 .tyPenN{background:#fbbf24;color:#2a1d00;border-radius:999px;font-size:11.5px;font-weight:900;padding:1px 8px;margin-left:2px}
-@media (max-width:560px){.tyUnder{flex-wrap:nowrap;align-items:flex-start}.tyKey{flex-direction:column;gap:3px}}
+#today{position:relative}
+.tyTools{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:-4px}
+.tyTop{display:flex;gap:8px;align-items:center}.tyTop button{white-space:nowrap}
+@media (max-width:440px){.tyEdW{display:none}.tyJar{gap:7px;padding-right:10px}}
+.tyKeyB{background:none;color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:7px 13px;font:700 14px Inter,system-ui,sans-serif;cursor:pointer}
+.tyKeyB[aria-expanded=true]{background:rgba(255,255,255,.16)}
+.tyKeyB:focus-visible,.tyJar:focus-visible{outline:2px solid #ff9a7d;outline-offset:2px}
+#tyKeyP[hidden]{display:none}
+.tyE1{font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;font-style:normal;font-weight:400}
+.tyJar{display:inline-flex;align-items:center;gap:10px;background:rgba(0,0,0,.2);color:#fff;border:0;border-radius:12px;padding:3px 12px 3px 4px;cursor:pointer;font:800 14px Inter,system-ui,sans-serif;font-variant-numeric:tabular-nums}
+.tyJar:hover{background:rgba(0,0,0,.32)}
+.tyJar svg{width:28px;height:35px;flex:none;display:block;transform-origin:50% 90%}
+.tyJar .c{display:inline-flex;gap:5px;align-items:center;white-space:nowrap}
+.tyJar.pop{animation:jarPop .7s ease-out}.tyJar.glow svg{animation:glow 1s ease-in-out 4}
+@keyframes jarPop{0%,100%{transform:scale(1)}35%{transform:scale(1.14)}}
+.tyJarM{position:absolute;z-index:30;width:300px;max-width:calc(100vw - 32px);background:#fff;color:#1d222b;border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.tyJarM[hidden],.tyScrim[hidden]{display:none}
+.tyJarM::after{content:"";position:absolute;left:28px;bottom:-8px;border:8px solid transparent;border-top-color:#fff;border-bottom:0}
+.tyJarM h4{margin:0;font-size:15px;font-weight:900}
+.tyJarM .jr{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;align-items:center}
+.tyJarM .jr>.tyE1{font-size:24px;line-height:1;text-align:center}
+.tyJarM .jr b{font-size:14px;display:block}.tyJarM .jr span{font-size:12.5px;color:#5b6472}
+.tyJarM .bar{height:8px;border-radius:4px;background:#e8ebf0;overflow:hidden;margin-top:5px}.tyJarM .bar i{display:block;height:100%;border-radius:4px}
+.tyJarM .tot{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#5b6472;border-top:1px solid #e8ebf0;padding-top:10px}
+.tyJarM .feed{background:var(--go);color:#fff;border:0;border-radius:12px;padding:11px;font:400 18px 'Lilita One',Inter,system-ui,sans-serif;letter-spacing:.04em;cursor:pointer}
+.tyJarM .feed:disabled{opacity:.45;cursor:default}.tyJarM .feed:focus-visible{outline:3px solid #ffd2c5}
+.tyScrim{position:fixed;inset:0;z-index:29;background:transparent}
+.tyFx{position:fixed;inset:0;pointer-events:none;z-index:40;overflow:hidden}
+.tyFx>*{position:absolute;left:0;top:0}
+.tyFx .tyE1{font-size:30px;line-height:1}
+.tyBub.pop{animation:bubPop .38s ease-out}
+@keyframes bubPop{0%{transform:scale(.6)}60%{transform:scale(1.1)}100%{transform:scale(1)}}
+.pcard .pearn{font-size:14px;color:var(--soft);display:flex;gap:14px;justify-content:center;font-weight:700}
+@media (max-width:560px){.tyKey{gap:4px 10px}}
 @media (max-width:700px){
-  .tyStage{grid-template-columns:1fr;justify-items:center;text-align:center;min-height:0;gap:10px}
-  .tyBub{order:1;margin:0}.tyBub::after{left:50%;bottom:-7px;margin-left:-7px;border:7px solid transparent;border-top-color:#fff;border-bottom:0}
-  .tyLumi{order:2;width:min(220px,70vw)}#tyNow{order:3;align-items:center}#today .tyBtns{justify-content:center}
+  .tyJarM{position:fixed;left:0;right:0;bottom:0;top:auto!important;width:auto;max-width:none;border-radius:20px 20px 0 0;padding:10px 16px calc(16px + env(safe-area-inset-bottom,0px))}
+  .tyJarM::after{display:none}.tyJarM::before{content:"";width:38px;height:4px;border-radius:2px;background:#d4d9e1;align-self:center}
+  .tyScrim{background:rgba(0,0,0,.45)}
+  .tyPomo{display:none}
+  #today .tyNext .tyRow~.tyRow,#today .tyNext .tyMore{display:none}
+  body[data-tk] .credit{display:none}
+}
+@media (max-width:700px){
+  .tyStage>.tyLumi{margin-top:0}
+  .tyStage{grid-template-columns:minmax(96px,32vw) minmax(0,1fr);grid-template-areas:"lumi bub" "card card";justify-items:stretch;text-align:center;min-height:0;gap:14px 10px}
+  .tyBub{margin:0 0 0 6px;justify-self:start;align-self:center;font-size:14px;padding:8px 12px;text-align:left}.tyBub::after{left:-7px;right:auto;top:50%;bottom:auto;margin-top:-7px;border:7px solid transparent;border-right-color:#fff;border-left:0}
+  .tyLumi{width:100%;align-self:center}#tyNow{align-items:center}#today .tyBtns{justify-content:center}
+  #today{gap:16px}
   #today .tyNext{flex-direction:column}#today .tyRow{flex:none}
 }
 .pcol{display:contents}
@@ -886,11 +951,14 @@ body:has(#sbxStrip) .brand .bclk{margin-top:14px}
   <section id="today" hidden>
     <div class="tyStage"><div class="tyLumi" id="tyLumi" aria-hidden="true"></div><div class="tyCard" id="tyNow"><div class="tyLbl" id="tyLbl"></div><div class="tyBig" id="tyTime"></div><div class="tyWhat" id="tyWhat"></div><div class="tySub" id="tySub"></div><div class="tyBtns" id="tyBtns"></div></div><div class="tyBub" id="tyBub" role="status"></div></div>
     <div id="tyPen"></div>
+    <div class="tyTools"><button type="button" class="tyJar" id="tyJar" data-ty="jar" aria-haspopup="dialog" aria-expanded="false" aria-controls="tyJarM"></button>
+    <div class="tyTop"><button type="button" class="tyWarn" data-ty="warn" id="tyWarn" hidden>⚠</button><button type="button" class="tyKeyB" id="tyKeyB" data-ty="key" aria-expanded="false" aria-controls="tyKeyP">Key</button><button type="button" class="tyEdit" data-ty="edit"><span aria-hidden="true">✎</span> Edit<span class="tyEdW">the day</span><span class="tyPenN" id="tyPenN" hidden></span></button></div></div>
     <div class="tyNext" id="tyNext"></div><div id="tyForm"></div>
     <div class="tyRibWrap"><div class="tyRib" id="tyBar" role="img" aria-label="Your day"></div><i class="tyFin" id="tyFin" hidden></i><i class="tyHere" id="tyHere"></i></div>
     <div class="tyTicks" id="tyTicks" aria-hidden="true"></div>
-    <div class="tyUnder"><div class="tyKey" aria-label="Colour key"><span><b class="k-f"></b>Focus</span><span><b class="k-b"></b>Breaks</span><span><b class="k-x"></b>Timebox</span><span><b class="k-m"></b>Meeting</span><span><b class="k-p"></b>Prep</span><span><b class="k-g"></b>Free</span><span id="tyKeyFin"><b class="k-fin"></b>Finish line</span></div>
-    <div class="tyTop"><button type="button" class="tyWarn" data-ty="warn" id="tyWarn" hidden>⚠</button><button type="button" class="tyEdit" data-ty="edit"><span aria-hidden="true">✎</span> Edit the day<span class="tyPenN" id="tyPenN" hidden></span></button></div></div>
+    <div class="tyKey" id="tyKeyP" aria-label="Colour key" hidden><span><b class="k-f"></b>Focus</span><span><b class="k-b"></b>Breaks</span><span><b class="k-x"></b>Timebox</span><span><b class="k-m"></b>Meeting</span><span><b class="k-p"></b>Prep</span><span><b class="k-g"></b>Free</span><span id="tyKeyFin"><b class="k-fin"></b>Finish line</span></div>
+    <div class="tyScrim" id="tyScrim" data-ty="jarclose" hidden></div><div class="tyJarM" id="tyJarM" role="dialog" aria-label="Lumi's jar" hidden></div>
+    <div class="tyFx" id="tyFx" aria-hidden="true"></div>
     <div id="tyChk" hidden></div>
     <div id="tyLog" hidden></div>
   </section>
@@ -1006,12 +1074,12 @@ body:has(#sbxStrip) .brand .bclk{margin-top:14px}
   const canNudge = () => set.nudge && !(sess && sess.wait && sess.phase === 'meet') && (!set.auto || (!!sess && ((sess.phase === 'box' && !sess.pl) || !!(sess.pl && sess.pl.bound))));   // a timebox or a gap has no next bit to start by itself, so it nudges even with auto-start on
   // the treat jar: one per day. items are what's in it, in the order they went in: g = golden biscuit, b = biscuit, o = bone
   const today = () => { const d = new Date(now()); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); };
-  const freshJar = (ate) => ({ day: today(), earned: 0, items: [], fed: 0, goalDone: false, ate: ate || 0, bank: 0 });
+  const freshJar = (ate) => ({ day: today(), earned: 0, bones: 0, items: [], fed: 0, goalDone: false, ate: ate || 0, bank: 0 });
   let jar = freshJar(0);
   const j0 = stored.jar;
   if (j0 && typeof j0.day === 'string' && Array.isArray(j0.items)) {
     jar = { day: j0.day, earned: Math.max(0, +j0.earned || 0), items: j0.items.filter((x) => x === 'g' || x === 'b' || x === 'o').slice(0, 200),
-      fed: Math.max(0, +j0.fed || 0), goalDone: !!j0.goalDone, ate: Math.max(0, +j0.ate || 0), bank: Math.max(0, Math.min(TREAT_MS - 1, +j0.bank || 0)) };
+      fed: Math.max(0, +j0.fed || 0), goalDone: !!j0.goalDone, ate: Math.max(0, +j0.ate || 0), bank: 0, bones: Math.max(0, +j0.bones || 0) };
   }
   /* ---------- the day shape: blocks in a sequence, for today only ---------- */
   const KINDS = {
@@ -1096,14 +1164,18 @@ body:has(#sbxStrip) .brand .bclk{margin-top:14px}
     waitBreak: ['Pomodoro done! Break time. Tap it!', 'You earned this. Go on, tap.', 'Done! Now we loaf. Officially.'],
     nudge: ['Ahem.', 'AHEM.', "I'm doing the eyes. You know the eyes.", "Fine. I'll just stand here. Looking at you.", "Last nudge. I'm going back to bed."],
     paused: ['Paused. Back in a sec?', "I'll wait. I'm very good at waiting.", 'Pause? Excellent. Loafing resumes.'],
-    earned: ['Biscuit in the jar! {count} of {goal} today.', 'Clink! {count} of {goal}.', 'Treat secured. {count} of {goal} today.'],
-    golden: ['A golden biscuit! First one of the day.', 'Golden biscuit! We are SO back.'],
-    bone: ['A whole set! That earns a bone. BEST. DAY.', 'Full set, no skipping. Have a bone. Well, I will.'],
+    earned: ['🍪 in the jar! {count} of {goal} today.', 'Clink! 🍪 {count} of {goal}.', 'Treat secured. {count} of {goal} today.'],
+    golden: ['🍪 in the jar! {count} of {goal} today.'],
+    bone: ['🦴 earned. Five more minutes of nothing.', 'A 🦴! Rest well spent.'],
+    early: ['Done early and still a treat. Nice.'],
+    tooQuick: ['Too quick for a treat this time.'],
+    longRest: ['Rest 10 min for a 🦴.', 'Long break. 10 minutes of nothing earns a 🦴.'],
     goal: ['GOAL! {goal} today! Celebration zoomies!', 'Daily goal smashed! I am vibrating.'],
-    fed: ['Crunch. Crunch. Delicious.', 'Mmm. Thank you, boss.', 'That one tasted like focus.', 'Nom. Back to work, you.'],
+    fed: ['Crunch! Worth every minute.', 'Mmm. You work, I munch.', 'That one tasted like focus.', 'Best. Pomodoro. Ever.'],
+    fedLast: ['Last one! Jar empty, tummy full.'],
     fedGolden: ['The GOLDEN one?! You absolute legend.'],
     fedBone: ['A BONE. I will treasure it. For four seconds.'],
-    jarEmpty: ['The jar is empty. Suspicious.', "No treats left. Do a pomodoro and I'll owe you."],
+    jarEmpty: ['Nothing in there yet. Back to work?', "No treats left. Do a pomodoro and I'll owe you."],
     morning: ["Lumi ate the {ate} left in the jar overnight. Delicious. Do more."],
     banked: ['Banked {bank} min of focus. {left} more for the next biscuit.', 'Not a biscuit yet. {left} more minutes of focus.'],
     dayStart: ['Day shape on. I will keep the clock honest.', "Right, today's plan. One block at a time."],
@@ -1428,21 +1500,33 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   const boxWarnMs = (dur) => (dur >= 15 * 60000 ? 5 * 60000 : dur >= 2 * 60000 ? 60000 : 0);
   // Treats come from focused time: 1 for every 25 min of finished focus, with the left-over minutes banked for the next one.
   // A full set with no skips earns a bone as well. Breaks and meetings earn nothing, and nothing is ever taken away.
-  function earnTime(ms, bone) {
+  // r36: kind 'pomo' = a pomodoro that ran to its bell (1 per 25 min, at least 1); 'early' = "I'm done" on a pomodoro
+  // (1 treat once 15 min are in); anything else (a Timebox, the stopwatch) earns 1 per full 25 min. Bones come from long breaks.
+  function earnTime(ms, kind) {
     rollDay();
-    jar.bank += ms;
-    let got = 0, line = '';
-    while (jar.bank >= TREAT_MS) {
-      jar.bank -= TREAT_MS; jar.earned++; got++;
-      jar.items.push(jar.earned === 1 ? 'g' : 'b');
-      line = pick(jar.earned === 1 ? 'golden' : 'earned');
-    }
-    if (bone) { jar.items.push('o'); line = pick('bone'); }
-    if (!got && !bone) line = ms >= 60000 ? pick('banked') : '';
-    if (!jar.goalDone && jar.earned >= goalNow()) { jar.goalDone = true; line = pick('goal'); party = true; }
+    const got = kind === 'pomo' ? Math.max(1, Math.round(ms / TREAT_MS)) : kind === 'early' ? (ms >= 15 * 60000 ? Math.max(1, Math.floor(ms / TREAT_MS)) : 0) : Math.floor(ms / TREAT_MS);
+    for (let i = 0; i < got; i++) { jar.earned++; jar.items.push('b'); }
+    let line = got ? pick(kind === 'early' ? 'early' : 'earned') : kind === 'early' && ms >= 60000 ? pick('tooQuick') : '';
+    if (got && !jar.goalDone && jar.earned >= goalNow()) { jar.goalDone = true; line = pick('goal'); party = true; }
+    if (got) jarFx(line); else if (line) tySay(line);
+    save();
     return { got, line };
   }
-  const earn = (done) => earnTime(done.dur, done.n >= set.every && !done.skips.length).line;
+  const boneable = (b) => !!b && (!!KINDS[b.k].ph || b.k === 'box' || (!!b.a && b.k === 'sofa'));
+  function earnBone() {
+    rollDay();
+    jar.bones = (jar.bones || 0) + 1; jar.items.push('o');
+    const line = pick('bone');
+    jarFx(line); save();
+    return line;
+  }
+  function boneTick() {                               // the bone drops 10 min into a long break; the break carries on to 15
+    if (!sess || sess.wait || sess.phase !== 'long' || !sess.pl || sess.pl.gap || sess.bone) return;
+    if (!boneable(blockById(sess.pl.b))) return;
+    const el = sess.dur - (sess.paused ? sess.left : Math.max(0, sess.endAt - now()));
+    if (el >= LONG_MIN * 60000) { sess.bone = 1; earnBone(); }
+  }
+  const earn = (done) => earnTime(done.dur, 'pomo').line;
   let party = false;
 
   function startPhase(phase, n, startAt, skips, dur, pl) {
@@ -1489,7 +1573,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   function celebrate() {
     party = false;
     if (set.chime) SOUNDS.goal();
-    document.querySelectorAll('.jar').forEach((j) => { j.classList.remove('glow'); void j.offsetWidth; j.classList.add('glow'); });
+    document.querySelectorAll('.jar,.tyJar').forEach((j) => { j.classList.remove('glow'); void j.offsetWidth; j.classList.add('glow'); });
     $('pal').dataset.party = '1'; setPal();
     clearTimeout(partyT);
     partyT = setTimeout(() => { delete $('pal').dataset.party; setPal(); }, 7000);
@@ -1692,7 +1776,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     let guard = 0;
     while (sess && sess.phase !== 'up' && !sess.wait && !sess.paused && now() >= sess.endAt && guard++ < 50) finishPhase(false);
     if (!sess) return;
-    if (sess.pl && plan) { planTick(); if (!sess) return; }
+    if (sess.pl && plan) { planTick(); if (!sess) return; boneTick(); }
     if (sess.wait) {
       if (canNudge()) {
         const k = Math.min(NUDGE_MAX, Math.floor((now() - sess.wait.since) / NUDGE_GAP));
@@ -2143,8 +2227,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       let s = cur, e, late = 0, join = 0;
       if (b.st === 'todo' && b.pin != null) {
         const p = dayMs(b.pin);
-        const pre = prepOf(b) * 60000;                                 // prep sits before the meeting: running into it counts as late
-        if (p >= cur) { s = p; late = 0; } else { late = afterPin ? 0 : cur - p; join = afterPin ? 0 : cur - p; }      // double-booked meetings just run back to back: trimming can't fix them
+        const pre = b.k === 'meet' && !afterPin ? prepNeed(b) * 60000 : 0;   // prep sits before the meeting: running into it counts as late
+        if (p >= cur) { s = p; late = afterPin || !rows.length ? 0 : Math.max(0, cur - (p - pre)); } else { late = afterPin ? 0 : cur - p + (rows.length ? pre : 0); join = afterPin ? 0 : cur - p; }      // double-booked meetings just run back to back: trimming can't fix them
         e = Math.max(s, p + bmin(b) * 60000);
       } else e = s + remMs(b);
       if (b.st === 'run') { const nx = pl.blocks.slice(pl.blocks.indexOf(b) + 1).find((x) => live(x) && x.st === 'todo' && x.pin != null); if (nx && dayMs(nx.pin) >= s && dayMs(nx.pin) < e) e = dayMs(nx.pin); }
@@ -2199,12 +2283,24 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   // the daily goal follows the plan: 1 treat for every 25 min of planned focus
   function goalNow() {
     if (!plan) return set.goal;
-    let m = 0;
+    let t = 0;
     for (const b of plan.blocks) {
       if (b.st === 'drop') continue;
-      if (KINDS[b.k].ph) m += b.n * b.f; else if (b.k === 'box' || b.k === 'up') m += b.min;
+      if (KINDS[b.k].ph) t += b.n * Math.max(1, Math.round(b.f / 25));
+      else if (b.k === 'box') t += steps(b).filter((x) => x.ph === 'box').reduce((a, x) => a + Math.floor(x.m / 25), 0);
+      else if (b.k === 'up') t += Math.floor(b.min / 25);
     }
-    return m ? Math.min(40, Math.max(1, Math.floor(m / 25))) : set.goal;
+    return t ? Math.min(40, t) : set.goal;
+  }
+  function bonesGoal() {
+    if (!plan) return 0;
+    let n = 0;
+    for (const b of plan.blocks) {
+      if (b.st === 'drop') continue;
+      if (KINDS[b.k].ph || b.k === 'box') n += steps(b).filter((x) => x.ph === 'long').length;
+      else if (b.a && b.k === 'sofa' && b.st !== 'skip') n++;
+    }
+    return Math.max(n, jar.bones || 0);
   }
 
   /* ---------- the day shape: running it ---------- */
@@ -2221,11 +2317,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   }
   function prepNeed(mt) {
     const L = plan.blocks.filter((x) => x.st !== 'drop' && x.st !== 'skip'), p = L[L.indexOf(mt) - 1];
-    const base = p && p.k === 'meet' && p.pin != null && p.pin + bmin(p) >= mt.pin - prepOf(mt) ? 0 : prepOf(mt);
-    if (!base || mt.pin == null || (p && p.sp)) return base;
-    const began = plan.run || startedDay(), cur = began ? now() : dayMs(plan.start), r = p ? project(plan, cur).find((x) => x.b === p) : null;
-    const pe = r ? r.e : cur;
-    return Math.max(0, Math.min(base, Math.floor((dayMs(mt.pin) - pe) / 60000)));
+    return p && p.k === 'meet' && p.pin != null && p.pin + bmin(p) >= mt.pin - prepOf(mt) ? 0 : prepOf(mt);   // back-to-back meetings need none
   }
   function meetAhead(b, at) {
     const i = plan.blocks.indexOf(b);
@@ -2294,6 +2386,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (done.phase === 'focus') { b.d++; if (quiet) b.sk++; }
     const longCut = done.phase === 'long' && quiet && done.dur - (done.paused ? done.left : Math.max(0, done.endAt - now())) < LONG_MIN * 60000;
     if (longCut && KINDS[b.k].ph) { b.lk = b.lk || []; if (!b.lk.includes(pl.s)) b.lk.push(pl.s); }
+    if (done.phase === 'long' && !longCut && !done.bone && boneable(b)) pending = earnBone();
+    const earnIt = (ms) => (done.phase === 'focus' && KINDS[b.k].ph ? earnTime(early ? ms : done.dur, early ? 'early' : 'pomo') : earnTime(ms));
     b.si = pl.s + 1;
     if (early && done.phase === 'box') b.si = steps(b).length;   // the rest of the Timebox, inner breaks too, is done with
     const all = steps(b);
@@ -2303,13 +2397,12 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       b.st = quiet && b.si >= all.length && (b.k === 'box' || (KINDS[b.k].ph && b.sk >= b.n)) ? 'skip' : 'done';
       if (longCut && b.a) b.st = 'skip';                // a long break between blocks, ended before 10 min
       b.ae = endedAt;
-      const bone = KINDS[b.k].ph && b.st === 'done' && b.n >= 3 && !b.sk && b.si >= all.length;
-      const r = focusMs || bone ? earnTime(focusMs, bone) : { line: '' };
+      const r = focusMs ? earnIt(focusMs) : { line: '' };
       if (r.line) pending = r.line;
       goNextBlock(endedAt, false, done.phase);
       return;
     }
-    if (focusMs) pending = earnTime(focusMs).line || pending;
+    if (focusMs) pending = earnIt(focusMs).line || pending;
     const nx = all[b.si];
     if (set.auto || (nx.ph !== 'focus' && nx.ph !== 'box')) { notify(nx.ph === 'focus' ? `Pomodoro ${b.d + 1} has started` : 'Zoomies time!', 'Lumi says: ' + (nx.ph === 'focus' ? 'off you trot.' : 'legs out!')); startPlanStep(b, b.si, endedAt); }
     else {
@@ -2496,7 +2589,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
           if (pb.st === 'skip') pb.st = 'done';
           if (pb.sk) pb.sk--;
           pb.ae = t0;
-          if (worked >= 60000) { const r = earnTime(worked); if (r.line) pending = r.line; }
+          if (worked >= 60000) { const r = earnTime(worked, KINDS[pb.k].ph && work ? 'early' : ''); if (r.line) pending = r.line; }
         }
         if (kept) notice(`${bname(mt)} started while you were paused. The ${mins} min you had left is in the holding pen.`);
         return;
@@ -2601,6 +2694,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     o = o || {}; moodSvg.m = m;
     if (m === 'focus') return moodSvg(nest(lumiLoaf(false).replace('viewBox="0 0 160 100"', 'viewBox="0 0 214 100"').replace('</svg>', LP.lap + '</svg>'), 4, 24, 200, 97));
     if (m === 'ready') return moodSvg(nest(lumiHead('focus'), 30, 6, 118, 118) + LP.watch);
+    if (m === 'fed') return moodSvg(nest(lumiHead('break'), 50, 6, 118, 118));
     if (m === 'box') return moodSvg(LP.box_back + nest(lumiLoaf(false), 22, 8, 156, 98) + LP.box_front.replace('@@MIN@@', o.min ? o.min + ' MIN' : ''));
     if (m === 'zoom') return moodSvg(nest(lumiRun(), 10, 10, 180, 112));
     if (m === 'sofa') return moodSvg(LP.sofa_back + nest(lumiLoaf(true), 24, 4, 152, 94) + LP.sofa_front);
@@ -2615,6 +2709,53 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   /* ---------- Today: the running screen ---------- */
   let showEarlier = false, logOpen = false;
   let tyLumiKey = '', tyLine = '', tyKd = '';
+  const lmStill = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const lmRot = (vals, cx, cy, dur, begin) => `<animateTransform attributeName="transform" type="rotate" values="${vals.map((v) => v + ' ' + cx + ' ' + cy).join(';')}" dur="${dur}s" begin="${begin}s" repeatCount="indefinite" calcMode="spline" keySplines="${vals.slice(1).map(() => '.45 0 .55 1').join(';')}"/>`;
+  function lumiMove(svg) {                             // the same drawing, with its tail, head, ears and paws set to move
+    const mm = /data-m="(\w+)"/.exec(svg), m = mm ? mm[1] : '';
+    if (!m || lmStill()) return svg;
+    let s = svg.replace(/<svg x=[\s\S]*?<\/svg>/, (x) => `<g class="lmB"><g class="${m === 'zoom' ? 'lmRun' : 'lmBreathe'}">${x}</g></g>`);
+    const wrap = (re, cls, extra = '') => { s = s.replace(re, (x) => `<g class="${cls}">${x}${extra}</g>`); };
+    if (m === 'zoom') {
+      wrap(/<path d="M2 40 L18 40[^>]*\/>/, 'lmSpeed');
+      wrap(/(<path d="M40 58 L10 70[^>]*\/>\s*){2}/, 'lmLegs');
+      wrap(/<path d="M34 48 Q16 36 8 44"[^>]*\/>\s*<path d="M34 48 Q16 36 8 44"[^>]*\/>/, 'lmTail', lmRot([0, -14, 10, 0], 34, 48, 0.5, 0));
+      return s;
+    }
+    wrap(/<path d="M26 84 Q6 88 8 72"[^>]*\/>\s*<path d="M26 84 Q6 88 8 72"[^>]*\/>/, 'lmTail', lmRot([0, 0, -16, 10, -12, 6, 0], 26, 84, 6, 1));
+    if (/M100 60 Q96 40/.test(s)) {
+      s = s.replace(/<path d="M116 30 Q104 20 96 28[^>]*\/>/, (x) => `<g>${x}${lmRot([0, 0, 0, -14, 4, 0], 112, 34, 5, 2.5)}</g>`);
+      const nod = m === 'meet' ? lmRot([0, 4, 0, 3, 0], 112, 62, 2.4, 0) : m === 'over' ? lmRot([0, -4, 0, 0, 0], 112, 62, 3.2, 0) : '';
+      if (m === 'meet') s = s.replace(LP.hp, '');
+      s = s.replace(/<path d="M100 60 Q96 40[\s\S]*?<path d="M139 50 Q144 53 149 50"[^>]*\/>/, (x) => `<g>${x}${m === 'meet' ? LP.hp : ''}${nod}<animateTransform class="lmLook" attributeName="transform" type="rotate" values="0 112 62;-9 112 62;-9 112 62;0 112 62" keyTimes="0;.25;.75;1" dur="1.6s" begin="indefinite" fill="remove" additive="sum"/></g>`);
+    }
+    if (m === 'ready' || m === 'prep') s = s.replace(/<path d="M50 40 Q42 18 24 26[^>]*\/>/, (x) => `<g>${x}${lmRot([0, 0, 0, 12, -4, 0], 46, 46, 4.5, 1)}</g>`);
+    if (m === 'focus') {
+      wrap(/<path d="M162 34 L157 28 M165 30 L164 22"[^>]*\/>/, 'lmGlint');
+      let k = 0;
+      s = s.replace(/<path d="M102 86 L144 86" stroke="#4b5563"[^>]*\/>\s*<path d="M102 86 L144 86"[^>]*\/>/g, (x) => `<g class="lmPaw${k++ % 2 ? ' p2' : ''}">${x}</g>`);
+    }
+    if (m === 'ready') s = s.replace(/<path d="M170 86 L170 72"[^>]*\/>/, (x) => `<g>${x}<animateTransform attributeName="transform" type="rotate" from="0 170 86" to="360 170 86" dur="6s" repeatCount="indefinite"/></g>`);
+    if (m === 'hold') s = s.replace(/<path d="M176 92 L176 82 M176 92 L184 96"[^>]*\/>/, (x) => `<g>${x}<animateTransform attributeName="transform" type="rotate" from="0 176 92" to="360 176 92" dur="20s" repeatCount="indefinite"/></g>`);
+    if (m === 'gap') s = s.replace(LP.ball, `<g class="lmBall">${LP.ball}</g>`);
+    return s;
+  }
+  let lmWas = '', lmBub = '';
+  function lumiShow(svg) {                             // put Lumi on the timer, with a one-off moment when what's on changes
+    const el = $('tyLumi'), mm = /data-m="(\w+)"/.exec(svg), m = mm ? mm[1] : '', was = lmWas;
+    setH(el, lumiMove(svg)); lmWas = m;
+    if (!was || was === m || lmStill()) return;
+    const play = (c, wait) => setTimeout(() => { el.classList.remove(c); void el.offsetWidth; el.classList.add(c); setTimeout(() => el.classList.remove(c), 1500); }, wait);
+    const work = (x) => x === 'focus' || x === 'box', rest = (x) => x === 'zoom' || x === 'sofa';
+    if (work(was) && m !== 'paused' && !work(m)) play('lmHop', 0);
+    if (rest(m) && !rest(was)) play('lmStretch', work(was) ? 950 : 0);
+  }
+  function lumiLook(line) {                            // Lumi tilts its head when it says something new
+    if (line === lmBub) return;
+    const first = !lmBub; lmBub = line;
+    if (first || lmStill()) return;
+    $('tyLumi').querySelectorAll('.lmLook').forEach((a) => { try { a.beginElement(); } catch (_) { /* no SMIL */ } });
+  }
   const TY_LINES = { meet: ['Shh. Listening in.', 'Headphones on. Nodding along.', 'Meeting on. Lumi is taking notes. In their head.'],
     over: ["I'm by the door. No rush. Well, a little rush.", 'Still by the door. Just saying.'],
     gap: ['Free time! Throw the ball, or fit something in.', 'Nothing planned. A rare and beautiful thing. Ball?'],
@@ -2631,7 +2772,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (kd === 'box') return [lumiMood('box', { min: sess.phase === 'up' ? 0 : min }), tyPick(sess.phase === 'up' ? 'up' : 'box')];
     return [lumiMood('focus'), tyPick('focus')];
   }
-  let editing = false, tyAsk = '', tyAskKey = '', tySpan = null, tyForce = false, tyForm = null, tyDrop = 0, tyOver = 0;
+  let editing = false, tyAsk = '', tyAskKey = '', tySpan = null, tyForce = false, tyForm = null, tyDrop = 0, tyOver = 0, tySaid = null, jarOpen = false, lmFed = 0, jarOpenT = 0;
   function tyPreview(f) {                              // what adding this meeting would change, worked out on a copy of the day
     const c = pinClash(null, f.at, f.len, 5);
     if (c) return { bad: true, line: clashText(c) };
@@ -2834,7 +2975,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     $('tyTime').classList.toggle('dim', w && !prep && !(w && gap));
     $('tyTime').classList.toggle('sm', big);
     if (paused) setH($('tyLbl'), lbl); else { $('tyLbl')._h = null; $('tyLbl').textContent = lbl; }
-    $('tyWhat').textContent = what;
+    { const wh = esc(what).replace(/ · (\d\d:\d\d)–(\d\d:\d\d)$/, ' · until $2').replace(' · pomodoro ', ' · <span class="tyPomo">pomodoro </span>'); if ($('tyWhat')._w !== wh) { $('tyWhat')._w = wh; $('tyWhat').innerHTML = wh; } }
     if (meet) setH($('tySub'), sub); else { $('tySub')._h = null; $('tySub').textContent = sub; }
     $('tyHere').classList.toggle('amb', paused);
     setH($('tyPen'), '');
@@ -2875,8 +3016,10 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (on && document.body.dataset.tk !== kd) document.body.dataset.tk = kd;
     const mOver = meet && now() >= (sess.pl.pe != null ? sess.pl.pe : sess.endAt);
     const lk = [kd, sess.pl.b, sess.pl.s, w ? 1 : 0, p, mOver ? 1 : 0].join('|');
-    if (lk !== tyLumiKey) { tyLumiKey = lk; const md = tyMood(kd, w, mOver, b && p === 'box' ? b.min : 0); setH($('tyLumi'), md[0]); tyLine = md[1]; }
-    setH($('tyBub'), esc(tyLine));
+    if (lk !== tyLumiKey) { tyLumiKey = lk; const md = tyMood(kd, w, mOver, b && p === 'box' ? b.min : 0); if (!lmFed) lumiShow(md[0]); tyLine = md[1]; if (!w && p === 'long' && boneable(b) && !sess.bone) { tyLine = pick('longRest'); if (tySaid && performance.now() < tySaid.until && !tySaid.line.includes('🦴')) tySaid.line += ' ' + tyLine; } }
+    const said = tySaid && performance.now() < tySaid.until ? tySaid.line : tyLine;
+    setH($('tyBub'), esc(said)); lumiLook(said);
+    renderTyJar();
   }
   function renderHoldToday() {                         // the day is planned but it is not time yet
     const st = dayMs(plan.start), m = Math.max(0, Math.ceil((st - now()) / 60000));
@@ -2885,7 +3028,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     $('tyTime').textContent = m >= 60 ? `${Math.floor(m / 60)} h ${m % 60} min` : `${m} min`;
     $('tyTime').classList.remove('dim'); $('tyTime').classList.add('sm');
     $('tyLbl')._h = null; $('tyLbl').textContent = 'Your day starts at ' + tm(plan.start);
-    $('tyWhat').textContent = 'It starts by itself when the clock gets there.';
+    $('tyWhat')._w = null; $('tyWhat').textContent = 'It starts by itself when the clock gets there.';
     $('tySub')._h = null; $('tySub').textContent = '';
     $('tyHere').classList.remove('amb');
     setH($('tyPen'), '');
@@ -2899,8 +3042,137 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     $('tyPenN').hidden = true;
     if (tySpan) $('tyHere').style.left = Math.max(0, Math.min(100, ((now() - dayMs(0)) / 60000 - tySpan.W0) / tySpan.SP * 100)).toFixed(2) + '%';
     $('tyWarn').hidden = true;
-    if (tyLumiKey !== 'hold') { tyLumiKey = 'hold'; setH($('tyLumi'), lumiMood('hold')); tyLine = `Day starts at ${tm(plan.start)}. Five more minutes.`; }
-    setH($('tyBub'), esc(tyLine));
+    if (tyLumiKey !== 'hold') { tyLumiKey = 'hold'; if (!lmFed) lumiShow(lumiMood('hold')); tyLine = `Day starts at ${tm(plan.start)}. Five more minutes.`; }
+    const said = tySaid && performance.now() < tySaid.until ? tySaid.line : tyLine;
+    setH($('tyBub'), esc(said)); lumiLook(said);
+    renderTyJar();
+  }
+  /* ---------- r36: the treat jar on the timer ---------- */
+  function E1(e) { return `<span class="tyE1">${e}</span>`; }
+  function tySay(line, ms) {                          // Lumi says something for a while, over the usual line
+    if (!line) return;
+    tySaid = { line, until: performance.now() + (ms || 9000) };
+    const bb = $('tyBub');
+    if (bb && todayOn()) { setH(bb, esc(line)); if (!lmStill()) { bb.classList.remove('pop'); void bb.offsetWidth; bb.classList.add('pop'); } }
+  }
+  function jarFx(line) {                              // a treat or bone lands: the jar pops and Lumi says so
+    renderTyJar();
+    const j = $('tyJar');
+    if (j && !lmStill()) { j.classList.remove('pop'); void j.offsetWidth; j.classList.add('pop'); }
+    tySay(line);
+  }
+  function jarArt2(n) {                               // the small jar: up to 9 treats inside, and the goal line
+    let t = '';
+    for (let k = 0; k < Math.min(n, 9); k++) { const r = Math.floor(k / 3), c = k % 3; t += `<text x="${36 + c * 24 + (r % 2 ? 6 : 0)}" y="${136 - r * 24}" font-size="24" text-anchor="middle" class="tyE1">🍪</text>`; }
+    const gy = Math.max(34, 142 - Math.ceil(Math.min(goalNow(), 9) / 3) * 24);
+    return `<svg viewBox="0 0 120 150" aria-hidden="true"><rect x="34" y="6" width="52" height="14" rx="5" fill="#ff9a7d"/><path d="M28 24 Q28 18 34 18 L86 18 Q92 18 92 24 L98 134 Q98 144 88 144 L32 144 Q22 144 22 134 Z" fill="rgba(255,255,255,.14)" stroke="#f3c9bd" stroke-width="5"/>${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="3" stroke-dasharray="6 5"/></svg>`;
+  }
+  function renderTyJar() {
+    const j = $('tyJar');
+    if (!j) return;
+    rollDay();
+    const g = goalNow(), bg = bonesGoal(), inJar = jar.items.length;
+    setH(j, jarArt2(jar.items.filter((x) => x !== 'o').length) + `<span class="c">${E1('🍪')} ${jar.earned}/${g}</span>` + (bg || jar.bones ? `<span class="c">${E1('🦴')} ${jar.bones || 0}/${bg}</span>` : ''));
+    const al = `Treat jar: ${jar.earned} of ${g} treats` + (bg ? `, ${jar.bones || 0} of ${bg} bones` : '') + `, ${inJar} in the jar. Show progress`;
+    if (j.getAttribute('aria-label') !== al) j.setAttribute('aria-label', al);
+    if (jarOpen) setH($('tyJarM'), jarMenuHtml());
+  }
+  function focusRun() {                               // minutes of focus since the last proper rest, for the bone bar
+    if (!plan || !sess || !sess.pl || sess.pl.gap) return null;
+    const b = blockById(sess.pl.b), r = b && rhythmWalk(plan).get(b.id);
+    if (!b || !r) return null;
+    let c = r.cin;
+    if (KINDS[b.k].ph || b.k === 'box') {
+      const all = steps(b);
+      for (let i = 0; i < sess.pl.s && i < all.length; i++) { if (all[i].ph === 'focus' || all[i].ph === 'box') c += all[i].m; else if (all[i].ph === 'long') c = 0; }
+      if (!sess.wait && (sess.phase === 'focus' || sess.phase === 'box')) c += Math.floor((sess.dur - (sess.paused ? sess.left : Math.max(0, sess.endAt - now()))) / 60000);
+    }
+    return c;
+  }
+  function jarMenuHtml() {
+    const w = sess && sess.wait, p = sess ? sess.phase : '', b = sess && sess.pl && !sess.pl.gap ? blockById(sess.pl.b) : null;
+    const el = sess && !w ? sess.dur - (sess.paused ? sess.left : Math.max(0, sess.endAt - now())) : 0;
+    let tH, tS, tP = 0;
+    if (sess && !w && p === 'focus' && b && KINDS[b.k].ph) {
+      const m = Math.max(1, Math.ceil((sess.dur - el) / 60000));
+      tH = `Next treat in ${m} min`; tS = sess.paused ? 'when this pomodoro ends (paused)' : `when this pomodoro ends at ${clock(sess.endAt)}`; tP = el / sess.dur;
+    } else if (sess && !w && (p === 'box' || p === 'up')) {
+      const ms = p === 'up' ? now() - sess.startAt : el, nxt = (Math.floor(ms / TREAT_MS) + 1) * TREAT_MS;
+      if (p === 'up' || nxt <= sess.dur) { const m = Math.max(1, Math.ceil((nxt - ms) / 60000)); tH = `Next treat in ${m} min`; tS = 'every full 25 min of a Timebox earns one'; tP = (ms % TREAT_MS) / TREAT_MS; }
+      else { tH = 'No more treats in this bit'; tS = 'Timeboxes earn one per full 25 min'; tP = 1; }
+    } else {
+      const nx = plan ? project(plan, now()).find((r) => r.b !== b && isWork(r.b) && r.b.st === 'todo') : null;
+      const same = b && (KINDS[b.k].ph || b.k === 'box') && steps(b)[(sess.pl.s || 0) + (w ? 0 : 1)];
+      tH = 'Next treat: after the next pomodoro';
+      tS = same && (same.ph === 'focus' || same.ph === 'box') ? `it starts at ${clock(w ? now() : sess.endAt)}` : nx ? `${esc(bname(nx.b))} starts at ${nx.b.pin != null ? tm(nx.b.pin) : clock(nx.s)}` : 'no more focus planned today';
+    }
+    let bH, bS, bP = 0;
+    const lb = sess && !w && p === 'long' && boneable(b);
+    if (lb && (sess.bone || el >= LONG_MIN * 60000)) { bH = 'Bone earned'; bS = `the break carries on until ${clock(sess.endAt)}`; bP = 1; }
+    else if (lb) { const m = Math.max(1, Math.ceil((LONG_MIN * 60000 - el) / 60000)); bH = `Rest ${m} more min`; bS = 'and the bone is yours'; bP = el / (LONG_MIN * 60000); }
+    else {
+      const c = focusRun();
+      if (c == null) { bH = 'Next bone: after a long break'; bS = 'about every 90 min of focus'; }
+      else if (c >= LONG_AT) { bH = 'Long break due'; bS = 'rest 10 min of it for a bone'; bP = 1; }
+      else {
+        bH = `Next bone: ${c} of ${LONG_AT} min`; bP = c / LONG_AT;
+        const rows = plan ? project(plan, now()) : [];
+        let at = null;
+        for (const r of rows) { const st = steps(r.b), i = st.findIndex((x) => x.ph === 'long'); if (r.b.a && r.b.k === 'sofa') { at = r.s; break; } if (i >= 0 && (KINDS[r.b.k].ph || r.b.k === 'box')) { at = r.s + st.slice(0, i).reduce((a, x) => a + x.m, 0) * 60000; if (at > now()) break; at = null; } }
+        bS = at ? `then rest 10 min of your long break at ${clock(at)}` : 'of focus, then a long break';
+      }
+    }
+    const left = jar.items.length;
+    return `<h4>Lumi's jar</h4>
+<div class="jr">${E1('🍪')}<div><b>${tH}</b><span>${tS}</span><div class="bar"><i style="width:${Math.round(Math.min(1, tP) * 100)}%;background:#d9a066"></i></div></div></div>
+<div class="jr">${E1('🦴')}<div><b>${bH}</b><span>${bS}</span><div class="bar"><i style="width:${Math.round(Math.min(1, bP) * 100)}%;background:#8b95a5"></i></div></div></div>
+<div class="tot"><span>Today: ${E1('🍪')} ${jar.earned} of ${goalNow()}${bonesGoal() ? ` · ${E1('🦴')} ${jar.bones || 0} of ${bonesGoal()}` : ''}</span><span>${left} in the jar</span></div>
+<button type="button" class="feed" data-ty="feed"${left ? '' : ' disabled'}>FEED LUMI</button>`;
+  }
+  function jarMenu(open) {
+    const m = $('tyJarM'), j = $('tyJar');
+    jarOpen = open; clearTimeout(jarOpenT);
+    j.setAttribute('aria-expanded', open ? 'true' : 'false');
+    $('tyScrim').hidden = !open;
+    if (!open) { m.hidden = true; return; }
+    m._h = null; setH(m, jarMenuHtml()); m.hidden = false;
+    if (!matchMedia('(max-width:700px)').matches) {   // above the jar on a laptop, as a popover
+      const t = $('today').getBoundingClientRect(), r = j.getBoundingClientRect();
+      m.style.left = Math.max(0, r.left - t.left) + 'px'; m.style.top = Math.max(0, r.top - t.top - m.offsetHeight - 12) + 'px';
+    } else m.style.left = m.style.top = '';
+    jarOpenT = setTimeout(() => jarMenu(false), 8000);
+  }
+  function feedLumi() {
+    rollDay();
+    jarMenu(false);
+    const i = jar.items.lastIndexOf('b'), it = i >= 0 ? 'b' : jar.items.length ? 'o' : '';
+    if (!it) { tySay(pick('jarEmpty')); return; }
+    jar.items.splice(i >= 0 ? i : jar.items.length - 1, 1); jar.fed++; save();
+    const line = it === 'o' ? pick('fedBone') : jar.items.some((x) => x === 'b') ? pick('fed') : pick('fedLast');
+    const lu = $('tyLumi'), jr = $('tyJar').querySelector('svg') || $('tyJar'), fx = $('tyFx');
+    const done = () => {
+      if (set.chime) ensureAudio().then(() => SOUNDS.crunch());
+      renderTyJar(); tySay(line, 9000);
+      lmFed = 1; setH(lu, lumiMove(lumiMood('fed')));
+      setTimeout(() => { lmFed = 0; lmWas = ''; tyLumiKey = ''; if (todayOn()) renderToday(); }, 8000);
+    };
+    if (lmStill() || !lu.getBoundingClientRect().width) { done(); return; }
+    const a = jr.getBoundingClientRect(), l = lu.getBoundingClientRect();
+    const sx = a.left + a.width / 2 - 15, sy = a.top - 6, ex = l.left + l.width * 0.62, ey = l.top + l.height * 0.4;
+    jr.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(-14deg)' }, { transform: 'rotate(12deg)' }, { transform: 'rotate(-6deg)' }, { transform: 'rotate(0)' }], { duration: 450 });
+    const t = document.createElement('div'); t.className = 'tyE1'; t.textContent = it === 'o' ? '🦴' : '🍪'; fx.appendChild(t);
+    const kf = [];
+    for (let k = 0; k <= 12; k++) { const q = k / 12; kf.push({ transform: `translate(${sx + (ex - sx) * q}px,${sy + (ey - sy) * q - Math.sin(Math.PI * q) * 170}px) rotate(${q * 540}deg) scale(${1 + Math.sin(Math.PI * q) * 0.5})`, offset: q }); }
+    const fly = t.animate(kf, { duration: 780, delay: 250, easing: 'cubic-bezier(.3,.1,.5,1)', fill: 'both' });
+    const hop = () => lu.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-24px)', offset: 0.45 }, { transform: 'translateY(0) scale(1.05,.95)', offset: 0.8 }, { transform: 'translateY(0)' }], { duration: 520, easing: 'ease-out' });
+    setTimeout(hop, 660); if (it === 'o') setTimeout(hop, 1250);
+    fly.onfinish = () => {
+      t.remove();
+      const n = it === 'o' ? 22 : 14;
+      for (let k = 0; k < n; k++) { const c = document.createElement('i'), s = 4 + (k % 3) * 2; c.style.cssText = `width:${s}px;height:${s}px;border-radius:2px;background:${k % 2 ? '#e7b67a' : '#8a5a2b'}`; fx.appendChild(c); const g = (k / n) * Math.PI * 2, d = 40 + (k % 4) * (it === 'o' ? 20 : 14); c.animate([{ transform: `translate(${ex}px,${ey}px)`, opacity: 1 }, { transform: `translate(${ex + Math.cos(g) * d}px,${ey + Math.sin(g) * d + 30}px) rotate(${k * 60}deg)`, opacity: 0 }], { duration: 650, easing: 'cubic-bezier(.2,.7,.4,1)' }).onfinish = () => c.remove(); }
+      for (let k = 0; k < 5; k++) { const h = document.createElement('div'); h.className = 'tyE1'; h.style.fontSize = '20px'; h.textContent = '❤️'; fx.appendChild(h); const hx = l.left + l.width * (0.25 + k * 0.14); h.animate([{ transform: `translate(${hx}px,${l.top + 70}px) scale(.4)`, opacity: 0 }, { transform: `translate(${hx + (k % 2 ? 10 : -10)}px,${l.top + 30}px) scale(1.1)`, opacity: 1, offset: 0.3 }, { transform: `translate(${hx}px,${l.top - 20}px) scale(.9)`, opacity: 0 }], { duration: 1300, delay: 200 + k * 110, easing: 'ease-out', fill: 'both' }).onfinish = () => h.remove(); }
+      done();
+    };
   }
   function plusFive() {
     if (!sess || sess.wait || !sess.pl || !canExtend(boxEnd() + 300000)) return;
@@ -2945,6 +3217,10 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   $('today').addEventListener('click', (e) => {
     const t = e.target.closest('[data-ty]');
     if (!t || t.disabled) return;
+    if (t.dataset.ty === 'jar') { jarMenu(!jarOpen); return; }
+    if (t.dataset.ty === 'jarclose') { jarMenu(false); return; }
+    if (t.dataset.ty === 'feed') { feedLumi(); return; }
+    if (t.dataset.ty === 'key') { const k = $('tyKeyP'), o = k.hidden; k.hidden = !o; t.setAttribute('aria-expanded', o ? 'true' : 'false'); return; }
     const a = t.dataset.ty === 'warn' ? 'edit' : t.dataset.ty, nm = $('tyName');   // the ⚠ by Edit the day opens the agenda too
     if (tyForm && nm) tyForm.label = nm.value;
     if (a !== 'drop') tyDrop = 0;
@@ -3597,7 +3873,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     else if (today0 && !liveB.length && plan.blocks.some((b) => b.st === 'done')) btn = plan.fin != null && nowM < plan.fin ? '' : '<button type="button" class="pgo" id="planGo" data-pa="newday">NEW DAY</button>';
     else if (today0) btn = `<button type="button" class="pgo" id="planGo" data-pa="go"${liveB.length ? '' : ' disabled'}>${plan.blocks.some((b) => b.st === 'done' || b.st === 'run') ? 'CONTINUE DAY' : 'START DAY'}</button>`;
     else { const d = new Date(now()); d.setDate(d.getDate() + viewOff); btn = `<div class="saved" id="planGo">✓ Saved for ${d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric' })}</div>`; if (viewOff) sub = `LOAF opens this plan when the day starts, and you press START DAY then. ` + sub; }
-    $('planCard').innerHTML = `<div class="ph">${head}</div><div class="pb${warn ? ' warn' : ''}">${big}</div><p>${sub}</p>` + (hasFocus ? `<div class="pgoal">Treat goal <b>${goal}</b></div>` : '') + btn;
+    $('planCard').innerHTML = `<div class="ph">${head}</div><div class="pb${warn ? ' warn' : ''}">${big}</div><p>${sub}</p>` + (hasFocus ? `<div class="pearn"><span><span class="tyE1">🍪</span> ${goal} to earn</span>${bonesGoal() ? `<span><span class="tyE1">🦴</span> ${bonesGoal()} to earn</span>` : ''}</div>` : '') + btn;
     $('planCard').classList.toggle('warn', warn);
     const notes = [], chk = [];
     if (pr.pins.length) chk.push({ lv: 'warn', h: pr.pins[0].join > 30000 ? `Runs into ${esc(bname(pr.pins[0].b))}` : `Runs into the prep for ${esc(bname(pr.pins[0].b))}`, s: pr.pins[0].join > 30000 ? `Blocks before ${esc(bname(pr.pins[0].b))} run ${Math.round(pr.pins[0].join / 60000)} min into its start.` : `Blocks before ${esc(bname(pr.pins[0].b))} run into its ${prepOf(pr.pins[0].b)} min prep time.` });
@@ -3644,14 +3920,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   // ---------- the agenda views ----------
   const phoneW = () => matchMedia('(max-width:899px)').matches;
   const agView = () => (phoneW() || set.agv === 'list' ? 'list' : 'rib');
-  function cdown(b) {                                  // the next meeting counts down on the agenda too, from an hour out
-    if (b.k !== 'meet' || b.st !== 'todo' || viewOff !== 0 || !(plan.run || startedDay())) return '';
-    const nx = plan.blocks.filter((x) => x.k === 'meet' && x.st === 'todo' && x.pin != null).sort((a, c) => a.pin - c.pin)[0];
-    const ms = dayMs(b.pin) - now();
-    if (nx !== b || ms <= 0 || ms > 3600000) return '';
-    const m = Math.floor(ms / 60000), sx = Math.floor(ms / 1000) % 60;
-    return `<span class="cd">in ${m}:${String(sx).padStart(2, '0')}</span>`;
-  }
+  const cdown = () => '';                              // r35: no meeting countdown on the agenda (Michael found it fussy); the timer counts down
   function tilesOf(b) {                                // a block's pieces in order: pomodoros (or the Timebox) and the breaks between them
     const out = [];
     let a = 0, n = 0;
