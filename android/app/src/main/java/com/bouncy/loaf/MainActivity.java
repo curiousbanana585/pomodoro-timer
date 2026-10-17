@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.view.WindowInsets;
+import android.widget.FrameLayout;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -23,6 +24,8 @@ import android.window.OnBackInvokedDispatcher;
 public class MainActivity extends Activity {
     static volatile boolean visible = false;          // LOAF is on screen: it plays its own chime, so the notices stay quiet
     private WebView web;
+    private FrameLayout root;
+    private int lastBg = 0;
     private final Handler handler = new Handler(Looper.getMainLooper());
     private String url;
 
@@ -37,18 +40,23 @@ public class MainActivity extends Activity {
         getWindow().setNavigationBarColor(0xFF0E1116);
         web = new WebView(this);
         web.setBackgroundColor(0xFF0E1116);
-        web.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {   // keep LOAF clear of the status and navigation bars
+        // The page sits inside a frame that keeps it clear of the status and navigation bars. (Padding the WebView itself
+        // doesn't move the page, it only makes it scroll.) The frame takes LOAF's background colour, so the bars blend in.
+        root = new FrameLayout(this);
+        root.setBackgroundColor(0xFF5B1A12);
+        root.addView(web, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        root.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
             @Override public WindowInsets onApplyWindowInsets(View v, WindowInsets wi) {
                 if (Build.VERSION.SDK_INT >= 30) {
                     Insets i = wi.getInsets(WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout() | WindowInsets.Type.ime());
                     v.setPadding(i.left, i.top, i.right, i.bottom);
-                } else {
-                    v.setPadding(wi.getSystemWindowInsetLeft(), wi.getSystemWindowInsetTop(), wi.getSystemWindowInsetRight(), wi.getSystemWindowInsetBottom());
+                    return WindowInsets.CONSUMED;               // the page needn't add its own room for the bars too
                 }
-                return wi;
+                v.setPadding(wi.getSystemWindowInsetLeft(), wi.getSystemWindowInsetTop(), wi.getSystemWindowInsetRight(), wi.getSystemWindowInsetBottom());
+                return wi.consumeSystemWindowInsets();
             }
         });
-        setContentView(web);
+        setContentView(root);
 
         WebSettings s = web.getSettings();
         s.setJavaScriptEnabled(true);
@@ -103,7 +111,30 @@ public class MainActivity extends Activity {
     public void onBackPressed() { back(); }
 
     @Override protected void onSaveInstanceState(Bundle out) { super.onSaveInstanceState(out); web.saveState(out); }
-    @Override protected void onResume() { super.onResume(); visible = true; web.onResume(); }
-    @Override protected void onPause() { visible = false; web.onPause(); super.onPause(); }
+    /** Colours the bars to match LOAF's background, which changes with each bit of the day. */
+    private final Runnable matchBg = new Runnable() {
+        public void run() {
+            web.evaluateJavascript("getComputedStyle(document.body).backgroundColor", new android.webkit.ValueCallback<String>() {
+                @Override public void onReceiveValue(String v) {
+                    int c = parseRgb(v);
+                    if (c != 0 && c != lastBg) {
+                        lastBg = c; root.setBackgroundColor(c);
+                        if (Build.VERSION.SDK_INT < 35) { getWindow().setStatusBarColor(c); getWindow().setNavigationBarColor(c); }   // older phones draw their own bars
+                    }
+                }
+            });
+            handler.postDelayed(this, 600);
+        }
+    };
+    static int parseRgb(String v) {
+        if (v == null) return 0;
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile("rgba?\\((\\d+),\\s*(\\d+),\\s*(\\d+)(?:,\\s*([\\d.]+))?").matcher(v);
+        if (!m.find()) return 0;
+        if (m.group(4) != null && Float.parseFloat(m.group(4)) < 0.5f) return 0;   // see-through: keep the last colour
+        return 0xFF000000 | (Integer.parseInt(m.group(1)) << 16) | (Integer.parseInt(m.group(2)) << 8) | Integer.parseInt(m.group(3));
+    }
+
+    @Override protected void onResume() { super.onResume(); visible = true; web.onResume(); handler.removeCallbacks(matchBg); handler.post(matchBg); }
+    @Override protected void onPause() { visible = false; handler.removeCallbacks(matchBg); web.onPause(); super.onPause(); }
     @Override protected void onDestroy() { visible = false; handler.removeCallbacksAndMessages(null); web.destroy(); super.onDestroy(); }
 }
