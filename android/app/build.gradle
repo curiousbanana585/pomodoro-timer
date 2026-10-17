@@ -1,0 +1,34 @@
+plugins { id 'com.android.application' }
+
+// The address LOAF lives at. The GitHub build fills it in from your Pages address; you never need to edit it.
+def loafUrl = (findProperty('loafUrl') ?: 'https://YOUR-NAME.github.io/YOUR-REPO/loaf/').toString()
+def ver = (findProperty('loafVersion') ?: '1').toString().toInteger()
+
+android {
+    namespace 'com.bouncy.loaf'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'com.bouncy.loaf'
+        minSdk 26             // Android 8 and newer
+        targetSdk 36
+        versionCode ver
+        versionName "1.${ver}"
+        resValue 'string', 'app_url', loafUrl
+    }
+    signingConfigs {
+        release {
+            // the one signing key, kept as a GitHub secret. The same key every time, so updates install over the top and keep Haz's day.
+            storeFile file(System.getenv('LOAF_KEYSTORE_FILE') ?: 'loaf.jks')
+            storePassword System.getenv('LOAF_KEY_PASSWORD')
+            keyAlias 'loaf'
+            keyPassword System.getenv('LOAF_KEY_PASSWORD')
+        }
+    }
+    buildTypes {
+        release { minifyEnabled false; signingConfig signingConfigs.release }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
