@@ -894,6 +894,75 @@ body[data-theme=splash] #sbx{display:none}
   .splPlan .splBand{height:180px}
   .spl .credit{padding:14px 0}
 }
+/* r39: timer round 2 */
+#today .tyNext,#today .tyRibWrap,#today .tyTicks,#today .tyKeyB,#today #tyKeyP,#today .tyWarn{display:none!important}
+#today .tyCard.plain .tyLbl{display:none}
+#today .tyCard.plain .tyWhat{order:-1;font-size:clamp(17px,1.6vw,21px)}
+.tyUntil,#today .tyPomo{display:none}
+#today .tyCard:not(.plain) .tyUntil{display:inline}
+.tyBtns button{display:inline-flex;align-items:center;gap:8px}
+.tyBtns button svg{width:17px;height:17px;flex:none}
+.tyEdit svg{flex:none}
+.tyFoot{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;border-top:1px solid rgba(255,255,255,.16);padding-top:14px;flex-wrap:wrap}
+.tyFoot .tyTools{margin:0;gap:14px}
+.tyLineB{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;font-size:16px;min-width:0}
+.tyLineB i{font-style:normal;color:var(--soft);opacity:.7}.tyLineB .o,.tyLineB .t{color:var(--soft)}
+.tyStat{font:700 15px Inter,system-ui,sans-serif;display:flex;align-items:center;gap:8px;min-width:0;order:-1}
+.tyStat .ok{color:#a7f0c2}
+.tyStat .warn{background:none;border:0;padding:6px 2px;color:#ffd27a;font:700 15px Inter,system-ui,sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:min(46vw,420px);min-height:44px}
+.tyStat .aw{color:#ffd27a}
+.tyStat .sb{min-height:40px;border:0;border-radius:10px;padding:0 12px;background:var(--go);color:#fff;font:700 14px Inter,system-ui,sans-serif;cursor:pointer}
+.tyStat .sb.q{background:rgba(255,255,255,.16)}
+.tyTools .tyTop{gap:12px}
+.tyStage{grid-template-columns:minmax(200px,420px) minmax(0,1fr)}
+.tyLumi>svg{max-height:300px}
+@media (max-width:700px){
+  .tyStage{grid-template-columns:minmax(0,1fr);grid-template-areas:"bub" "lumi" "card";justify-items:center;gap:10px}
+  .tyBub{margin:0;justify-self:center;align-self:end;text-align:center}.tyBub::after{left:50%;right:auto;top:auto;bottom:-8px;margin:0 0 0 -8px;border:8px solid transparent;border-top-color:#fff;border-bottom:0}
+  .tyLumi{width:min(330px,86vw)}.tyLumi>svg{max-height:min(150px,20vh);margin:0 auto}
+  .tyFoot{flex-direction:column;align-items:stretch;gap:12px}
+  .tyLineB{font-size:15px}
+  .tyFoot .tyTools{justify-content:space-between}
+  .tyStat{order:0;justify-content:center;flex:1 1 auto}
+  .tyFoot .tyTools{flex-wrap:wrap;row-gap:8px}
+  .tyStat:has(.warn),.tyStat:has(.sb){order:-1;flex:1 1 100%;min-width:0}
+  .tyStat .warn{max-width:100%}
+  #today .tyBtns{gap:8px}#today .tyBtns button{padding:0 12px}
+}
+@media (max-width:380px){.tyStat .aw{display:none}#today .tyBtns button svg{display:none}}
+/* r40: Pause note, 💭 thoughts */
+.tyNote:empty{display:none}
+.tyNote{margin:6px 0 2px;display:flex;flex-direction:column;gap:6px;max-width:460px}
+.tyNote label{font:700 15px Inter,system-ui,sans-serif}
+.tyNote input{box-sizing:border-box;width:100%;height:46px;border-radius:12px;border:2px solid #ffd27a;background:rgba(0,0,0,.18);color:#fff;padding:0 14px;font:16px Inter,system-ui,sans-serif}
+.tyNote input:focus{outline:2px solid #fff;outline-offset:2px}
+.tyNote small{font-size:13px;opacity:.85}
+.tyNoteC{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;max-width:100%;min-height:36px;background:rgba(255,255,255,.1);color:inherit;border:1px dashed rgba(255,255,255,.4);border-radius:10px;padding:0 12px;font:600 14px Inter,system-ui,sans-serif;cursor:pointer}
+.tyNoteC span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tyTh{background:rgba(255,255,255,.16);color:#fff;border:0;border-radius:10px;min-height:40px;padding:0 12px;font:700 14px Inter,system-ui,sans-serif;display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.tyTh>span[aria-hidden]{font-size:19px;line-height:1}
+.tyTh:hover{background:rgba(255,255,255,.24)}.tyTh:focus-visible{outline:2px solid #ff9a7d;outline-offset:2px}
+.thIn{box-sizing:border-box;width:100%;height:50px;border-radius:12px;border:2px solid var(--go);background:#fff;color:#1d222b;padding:0 14px;font:17px Inter,system-ui,sans-serif}
+.thBtns{display:flex;gap:10px}.thBtns .opt{flex:1;min-height:48px;justify-content:center;text-align:center}
+.thL{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.thH{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.thI{display:flex;align-items:center;gap:8px;background:rgba(127,127,127,.14);border-radius:12px;padding:6px 6px 6px 12px}
+.thI span{flex:1;min-width:0;overflow-wrap:anywhere}
+.thI button{min-height:40px;border:0;border-radius:10px;padding:0 10px;background:rgba(127,127,127,.28);color:inherit;font:700 13px Inter,system-ui,sans-serif;cursor:pointer}
+.thI .thOk{min-width:40px;font-size:16px}
+@media (max-width:700px){
+  .tyNote{align-self:stretch;max-width:none}
+  .tyNoteC{align-self:center}
+  .tyEdit{padding:8px 12px;position:relative}
+  .tyEdit .tyEdT,.tyEdit .tyPenN{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0;margin:0}
+  .tyEdit:has(.tyPenN:not([hidden]))::after{content:attr(data-n);position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;border-radius:9px;background:#fbbf24;color:#2a1d00;font:900 11px/18px Inter,system-ui,sans-serif;text-align:center}
+  #today .tyCard.paused:has(.tyNote.ask) .tySub{display:none}
+}
+@media (max-width:700px) and (max-height:740px){
+  .tyNote small{display:none}
+  .tyNote input{height:42px}
+  #today:has(.tyNote:not(:empty)) .tyLumi>svg{max-height:min(96px,14vh)}
+}
 </style>
 </head>
 <body data-theme="home">
@@ -986,7 +1055,7 @@ body[data-theme=splash] #sbx{display:none}
       <span class="sum" id="sum"></span>
       <button type="button" class="go" id="startBtn">START</button>
     </div>
-    <div class="credit">A Bouncy Production · Made for Haz · v38</div>
+    <div class="credit">A Bouncy Production · Made for Haz · v41</div>
   </div>
 </main>
 
@@ -1028,7 +1097,7 @@ body[data-theme=splash] #sbx{display:none}
     <button type="button" class="main" id="pauseBtn">PAUSE</button>
     <button type="button" id="skipBtn">Skip</button>
   </div>
-  <div class="credit">A Bouncy Production · Made for Haz · v38</div>
+  <div class="credit">A Bouncy Production · Made for Haz · v41</div>
 </main>
 
 <!-- ================= TIME'S UP, WAITING FOR A TAP ================= -->
@@ -1047,7 +1116,7 @@ body[data-theme=splash] #sbx{display:none}
   <div class="hint" id="soundHint2" hidden>Tap anywhere to wake the chime up</div>
   <button type="button" class="big" id="goBtn">START FOCUS</button>
   <button type="button" class="quiet" id="stopBtn2">Stop for now</button>
-  <div class="credit">A Bouncy Production · Made for Haz · v38</div>
+  <div class="credit">A Bouncy Production · Made for Haz · v41</div>
 </main>
 
 <!-- ================= DAY SHAPE PLANNER ================= -->
@@ -1076,7 +1145,7 @@ body[data-theme=splash] #sbx{display:none}
         </div>
       </section>
     </div>
-    <div class="credit">A Bouncy Production · Made for Haz · v38</div>
+    <div class="credit">A Bouncy Production · Made for Haz · v41</div>
   </div>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="splScene" viewBox="0 0 1280 800"><defs><linearGradient id="splSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3ff"/><stop offset="1" stop-color="#e6f7ff"/></linearGradient>
 <clipPath id="splL"><path d="M0 0 L700 0 L580 800 L0 800 Z"/></clipPath><clipPath id="splR"><path d="M700 0 L1280 0 L1280 800 L580 800 Z"/></clipPath></defs><g clip-path="url(#splL)"><rect width="1280" height="800" fill="#ffd2bd"/><rect x="0" y="470" width="1280" height="330" fill="#e9a27f"/><path d="M0 470 L1280 470" stroke="#c97f5c" stroke-width="6"/><g><rect x="90" y="70" width="280" height="210" rx="14" fill="#fff4ea" stroke="#9a5a3c" stroke-width="6"/><rect x="104" y="84" width="252" height="182" rx="8" fill="#9ad7ff"/><circle cx="300" cy="140" r="30" fill="#ffd166"/><g fill="#fff" opacity=".95"><ellipse cx="180" cy="200" rx="32.199999999999996" ry="14"/><ellipse cx="201" cy="191.6" rx="21" ry="15.399999999999999"/><ellipse cx="160.4" cy="195.8" rx="16.799999999999997" ry="11.2"/></g><path d="M230 84 L230 266 M104 175 L356 175" stroke="#fff4ea" stroke-width="8"/></g><g><rect x="430" y="150" width="120" height="40" rx="8" fill="#fff" stroke="#9a5a3c" stroke-width="4"/><text x="490" y="177" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="15" font-weight="900" fill="#ef6a52">FOCUS</text></g><g><rect x="40" y="380" width="54" height="90" rx="8" fill="#c2410c" stroke="#7c2d12" stroke-width="4"/><path d="M67 380 L67 300" stroke="#3f7d3a" stroke-width="5"/><ellipse cx="50" cy="330" rx="20" ry="9" fill="#4aa957"/><ellipse cx="86" cy="310" rx="20" ry="9" fill="#4aa957"/><ellipse cx="60" cy="296" rx="16" ry="8" fill="#56b866"/></g><rect x="120" y="455" width="460" height="22" rx="8" fill="#a1623e" stroke="#6b3b22" stroke-width="4"/><svg viewBox="0 0 160 100" x="160" y="340" width="220" height="138">
@@ -1330,10 +1399,12 @@ body[data-theme=splash] #sbx{display:none}
   <div class="dtop" id="planTop" hidden><span class="clk"></span><span class="dseg" role="group" aria-label="View"><button type="button" data-v="timer">Timer</button><button type="button" data-v="day">Day</button></span></div>
   <div class="pmini" id="planMini" hidden><button type="button" class="pmOpen" id="pmOpen" aria-label="Back to the timer"><span class="pmCh" aria-hidden="true">‹</span><span class="pt" id="pmT"></span><span class="pl"><b id="pmL"></b><small id="pmS"></small></span></button><button type="button" class="pgo sm" id="pmBtn">PAUSE</button><button type="button" class="pgo sm" id="pmSkip" style="margin-left:0;background:#2a313d" hidden>Skip</button><button type="button" class="pgo sm" id="pmStop" style="margin-left:0;background:#2a313d">Stop</button></div>
   <section id="today" hidden>
-    <div class="tyStage"><div class="tyLumi" id="tyLumi" aria-hidden="true"></div><div class="tyCard" id="tyNow"><div class="tyLbl" id="tyLbl"></div><div class="tyBig" id="tyTime"></div><div class="tyWhat" id="tyWhat"></div><div class="tySub" id="tySub"></div><div class="tyBtns" id="tyBtns"></div></div><div class="tyBub" id="tyBub" role="status"></div></div>
+    <div class="tyStage"><div class="tyLumi" id="tyLumi" aria-hidden="true"></div><div class="tyCard" id="tyNow"><div class="tyLbl" id="tyLbl"></div><div class="tyBig" id="tyTime"></div><div class="tyWhat" id="tyWhat"></div><div class="tySub" id="tySub"></div><div class="tyNote" id="tyNote"></div><div class="tyBtns" id="tyBtns"></div></div><div class="tyBub" id="tyBub" role="status"></div></div>
     <div id="tyPen"></div>
+    <div class="tyFoot"><div class="tyLineB" id="tyLineB"></div>
     <div class="tyTools"><button type="button" class="tyJar" id="tyJar" data-ty="jar" aria-haspopup="dialog" aria-expanded="false" aria-controls="tyJarM"></button>
-    <div class="tyTop"><button type="button" class="tyWarn" data-ty="warn" id="tyWarn" hidden>⚠</button><button type="button" class="tyKeyB" id="tyKeyB" data-ty="key" aria-expanded="false" aria-controls="tyKeyP">Key</button><button type="button" class="tyEdit" data-ty="edit"><span aria-hidden="true">✎</span> Edit<span class="tyEdW">the day</span><span class="tyPenN" id="tyPenN" hidden></span></button></div></div>
+    <div class="tyStat" id="tyStat" role="status"></div><div class="tyTop"><button type="button" class="tyWarn" data-ty="warn" id="tyWarn" hidden>⚠</button><button type="button" class="tyKeyB" id="tyKeyB" data-ty="key" aria-expanded="false" aria-controls="tyKeyP">Key</button><button type="button" class="tyTh" data-ty="thought" title="Park a thought (T)" aria-label="Park a thought"><span aria-hidden="true">💭</span><span class="tyThN" id="tyThN" hidden></span></button><button type="button" class="tyEdit" data-ty="edit" title="Edit day (E)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"></path></svg><span class="tyEdT">Edit day</span><span class="tyPenN" id="tyPenN" hidden></span></button></div></div>
+    </div>
     <div class="tyNext" id="tyNext"></div><div id="tyForm"></div>
     <div class="tyRibWrap"><div class="tyRib" id="tyBar" role="img" aria-label="Your day"></div><i class="tyFin" id="tyFin" hidden></i><i class="tyHere" id="tyHere"></i></div>
     <div class="tyTicks" id="tyTicks" aria-hidden="true"></div>
@@ -1384,7 +1455,7 @@ body[data-theme=splash] #sbx{display:none}
     </aside>
     <div class="mini2 dayEnd"><button type="button" id="tplBtn">Save as my usual day</button><button type="button" class="dz" id="clearBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span>Start over</span></button><button type="button" class="dz" id="endDayBtn" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>End the day</span></button></div>
   </div>
-  <div id="sbx"></div><div class="credit">A Bouncy Production · Made for Haz · v38</div>
+  <div id="sbx"></div><div class="credit">A Bouncy Production · Made for Haz · v41</div>
 </main>
 
 <div class="sheet" id="sheet" hidden>
@@ -1418,7 +1489,7 @@ body[data-theme=splash] #sbx{display:none}
   const KEY = SIM ? 'loafBasicSandbox1' : 'loafBasic1';                     // bump the number when the saved shape changes
   const NUDGE_GAP = 2 * 60000, NUDGE_MAX = 5, TREAT_MS = 25 * 60000;     // one treat for every 25 min of finished focus
   const LIMITS = { focus: [5, 90, 5], short: [1, 30, 1], long: [5, 60, 5], every: [2, 8, 1], goal: [1, 20, 1], box: [5, 180, 5], pfoc: [1, 4, 1], pbox: [15, 120, 5], psofa: [15, 60, 5], pmeet: [15, 90, 5] };   // min, max, step
-  const DEF = { focus: 25, short: 5, long: 15, every: 4, goal: 8, box: 20, chime: true, notify: true, auto: false, nudge: true, humans: true, fill: 'deep', fstyle: 'deep', agv: 'rib', pfoc: 1, pbox: 30, psofa: 30, pmeet: 30 };
+  const DEF = { focus: 25, short: 5, long: 15, every: 4, goal: 8, box: 20, chime: true, notify: true, auto: false, nudge: false, humans: true, fill: 'deep', fstyle: 'deep', agv: 'rib', pfoc: 1, pbox: 30, psofa: 30, pmeet: 30 };
   const PHASES = ['focus', 'short', 'long', 'box', 'up', 'meet'];     // box = one-off timebox, up = stopwatch, meet = a meeting in the day shape
   // work styles: one tap sets the whole rhythm. Whichever one matches the settings is highlighted.
   const STYLES = [
@@ -1487,7 +1558,7 @@ body[data-theme=splash] #sbx{display:none}
       st: ['todo', 'run', 'done', 'skip', 'drop'].includes(x.st) ? x.st : 'todo', si: clampN(x.si, 0, 60, 0), d: clampN(x.d, 0, 8, 0), sk: clampN(x.sk, 0, 8, 0), g: !!x.g, o: !!x.o, a: !!x.a, sp: !!x.sp, lk: Array.isArray(x.lk) ? x.lk.filter((v) => Number.isInteger(v)).slice(0, 8) : [],
       as: +x.as > 0 ? +x.as : null, ae: +x.ae > 0 ? +x.ae : null, ps: clampN(x.ps, 0, 1439, null),
       prep: x.k === 'meet' ? clampN(x.prep, 0, 60, 5) : 0, stopAt: +x.stopAt > 0 ? +x.stopAt : 0, leftMs: +x.leftMs > 0 ? +x.leftMs : 0,
-      aw: Array.isArray(x.aw) ? x.aw.slice(0, 20).map((w) => (Array.isArray(w) ? [+w[0], w[1] == null ? null : +w[1]] : null)).filter((w) => w && w[0] > 0) : [] };
+      note: typeof x.note === 'string' ? x.note.slice(0, 80) : '', aw: Array.isArray(x.aw) ? x.aw.slice(0, 20).map((w) => (Array.isArray(w) ? [+w[0], w[1] == null ? null : +w[1]] : null)).filter((w) => w && w[0] > 0) : [] };
   }
   function cleanPlan(p, day) {
     if (!p || typeof p !== 'object' || p.day !== (day || today()) || !Array.isArray(p.blocks)) return null;
@@ -1498,9 +1569,13 @@ body[data-theme=splash] #sbx{display:none}
       const b = cleanBlock(x, id);
       if (b) { seen.add(id); blocks.push(b); }
     }
-    return { day: p.day, start: clampN(p.start, 0, 1439, 540), fin: clampN(p.fin, 1, 1439, null), blocks, run: !!p.run, ack: Math.max(0, +p.ack || 0), seen: Math.max(0, +p.seen || 0), warned: 0, hold: !!p.hold, skip: Array.isArray(p.skip) ? p.skip.filter((x) => Number.isInteger(x)).slice(0, 40) : [] };
+    return { day: p.day, start: clampN(p.start, 0, 1439, 540), fin: clampN(p.fin, 1, 1439, null), blocks, run: !!p.run, ack: Math.max(0, +p.ack || 0), seen: Math.max(0, +p.seen || 0), warned: 0, hold: !!p.hold, th: Array.isArray(p.th) ? p.th.filter((x) => x && typeof x.t === 'string' && x.t.trim()).slice(0, 30).map((x, i) => ({ id: +x.id > 0 ? +x.id : i + 1, t: x.t.slice(0, 80) })) : [], skip: Array.isArray(p.skip) ? p.skip.filter((x) => Number.isInteger(x)).slice(0, 40) : [] };
   }
   let plan = cleanPlan(stored.plan);
+  // r41: parked thoughts belong to you, not to a day: they stay until you tick them off or make them a block (v40 kept them on the plan)
+  const cleanTh = (L) => { const seen = new Set(); return (Array.isArray(L) ? L : []).filter((x) => x && typeof x.t === 'string' && x.t.trim() && !seen.has(+x.id) && seen.add(+x.id)).slice(0, 30).map((x, i) => ({ id: +x.id > 0 ? +x.id : i + 1, t: x.t.slice(0, 80) })); };
+  let thoughts = cleanTh([].concat(stored.th || [], (stored.plan && stored.plan.th) || []));
+  if (plan) delete plan.th;
   // days planned ahead, by date
   let future = {}, swapped = null;
   const dayVal = (k) => { const m = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(k); return m ? new Date(+m[1], +m[2] - 1, +m[3]).getTime() : NaN; };
@@ -1518,7 +1593,7 @@ body[data-theme=splash] #sbx{display:none}
   function blockById(id) { return plan ? plan.blocks.find((b) => b.id === id) || null : null; }
   if (sess && sess.pl && (!plan || !blockById(sess.pl.b))) sess = null;
   if (plan) plan.run = !!(sess && sess.pl);
-  const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ settings: set, sess, jar, plan: swapped || plan, tpl, future: Object.fromEntries(Object.entries(future).filter((e) => e[1].blocks.length)) })); } catch (e) {} };
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ settings: set, sess, jar, plan: swapped || plan, th: thoughts, tpl, future: Object.fromEntries(Object.entries(future).filter((e) => e[1].blocks.length)) })); } catch (e) {} };
   // a new day: Lumi has eaten whatever was left in the jar overnight, and yesterday's day shape is cleared
   function rollDay() {
     if (jar.day === today()) return false;
@@ -2035,8 +2110,9 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   }
   function pause() {
     if (!sess || sess.wait || (sess.phase === 'meet' && !sess.paused)) return;
-    const pb = sess.pl && plan ? blockById(sess.pl.b) : null;
+    const pb = sess.pl && plan ? blockById(sess.pl.b) : null, nw = pb && ['focus', 'box', 'up'].includes(sess.phase);
     if (sess.paused) {
+      if (nw) { const ni = $('tyNoteIn'); if (ni) pb.note = ni.value.trim().slice(0, 80); tySaid = null; if (pb.note && todayOn()) setTimeout(() => tySay(`You were on ${pb.note}. Off you go!`, 12000), 0); }
       if (pb && pb.aw && pb.aw.length && pb.aw[pb.aw.length - 1][1] == null) {
         const t0 = pb.aw[pb.aw.length - 1][0], away = Math.round((now() - t0) / 60000);
         if (away >= 2) logAdd(`Away ${away} min (${clock(t0)}–${clock(now())}). Everything after it moved ${away} min later.`);
@@ -2044,7 +2120,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
       }
       if (sess.phase === 'up') sess.startAt = now() - sess.left; else { sess.endAt = now() + sess.left; capToMeeting(); } sess.paused = false; say(''); if (sess.pl && plan) setTimeout(checkpoint, 0);
     } else {
-      sess.left = sess.phase === 'up' ? Math.max(0, now() - sess.startAt) : Math.max(0, sess.endAt - now()); sess.paused = true; say(pick('paused'), 0);
+      sess.left = sess.phase === 'up' ? Math.max(0, now() - sess.startAt) : Math.max(0, sess.endAt - now()); sess.paused = true; say(pick('paused'), 0); if (nw && todayOn()) setTimeout(() => tySay("I'll hold your place. Where were you?", 3600000), 0);
       if (pb) { pb.aw = pb.aw || []; pb.aw.push([now(), null]); }
     }
     save(); scheduleSounds(); renderRun();
@@ -2096,7 +2172,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   function checkStale() {                            // a day left waiting for over an hour: carry on, or start fresh
     if (!plan || !plan.run || viewOff || !$('sheet').hidden) return;
     const t = idleSince();
-    if (t && now() - t >= 3600000) openSheet({ t: 'stale', since: t });
+    if (t && now() - t >= 3600000) { if (todayOn()) { if (tyStale !== t) { tyStale = t; $('tyStat')._h = null; } } else openSheet({ t: 'stale', since: t }); }
   }
   let bitsKey = '';
   function updateBits() {
@@ -3211,7 +3287,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       const fb = plan.blocks.filter((b) => !b.a && b.k !== 'meet' && !isBreak(b) && (b.st === 'done' || b.st === 'skip')), F = fb.map((b) => [b, soFar(b)]);
       const mins = F.reduce((m, x) => m + x[1].mins, 0), ok = F.filter((x) => x[1].cls === 'ok').length, cut = F.filter((x) => x[1].cls === 'cut').length, sk = F.filter((x) => x[1].cls === 'sk').map((x) => bname(x[0]));
       const pen = plan.blocks.filter((b) => b.st === 'drop');
-      openSheet({ t: 'done', night: !mts, title: mts ? 'The rest of the day is set aside' : "That's the day", list: [`${hm(mins).trim()} of focus`, `${ok} block${ok === 1 ? '' : 's'} done${cut ? `, ${cut} cut short` : ''}`].concat(sk.length ? [`${sk.length} skipped: ${[...new Set(sk)].join(', ')}`] : []).concat([`${pen.length} in the holding pen`]).concat(mts ? [`${mts} meeting${mts === 1 ? '' : 's'} still to go`] : []) }); };
+      const P = plan.blocks.flatMap((b) => b.aw || []).filter((w) => w[1] != null && w[1] > w[0]), pm = P.reduce((m, w) => m + (w[1] - w[0]), 0) / 60000;   // r41: the interruption log
+      openSheet({ t: 'done', night: !mts, title: mts ? 'The rest of the day is set aside' : "That's the day", list: [`${hm(mins).trim()} of focus`].concat(P.length ? [`Paused ${P.length} time${P.length === 1 ? '' : 's'}, ${pm < 1 ? 'under a minute' : hm(pm).trim()} away`] : []).concat([`${ok} block${ok === 1 ? '' : 's'} done${cut ? `, ${cut} cut short` : ''}`]).concat(sk.length ? [`${sk.length} skipped: ${[...new Set(sk)].join(', ')}`] : []).concat([`${pen.length} in the holding pen`]).concat(thoughts.length ? [`${thoughts.length} thought${thoughts.length === 1 ? '' : 's'} kept for tomorrow`] : []).concat(mts ? [`${mts} meeting${mts === 1 ? '' : 's'} still to go`] : []) }); };
     if (!gone.length) { if (!mts && sess) { if (sess.paused) pause(); cancelSched(); plan.run = false; sess = null; unwake(); save(); showScreen(); } recap(); return; }
     const kept = hit ? splitRunning() : null;
     if (kept) { gone.splice(gone.indexOf(cur), 1); kept.forEach((x) => { plan.blocks.push(x); gone.push(x); }); }
@@ -3244,9 +3321,24 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     }
     return null;
   }
+  function tyThCount() { const n = thoughts.length, e = $('tyThN'); if (!e) return; e.hidden = !n; e.textContent = n; $('today').querySelector('.tyTh').setAttribute('aria-label', n ? `Park a thought, ${n} parked` : 'Park a thought'); }
+  function thListHtml(A) {                           // r40: parked thoughts, each can become a 15 min Timebox in the pen, or be ticked off
+    const L = thoughts;
+    if (!L.length) return '';
+    return '<div class="thL"><div class="thH">Thoughts</div>' + L.map((x) => `<div class="thI"><span>${esc(x.t)}</span><button type="button" ${A}="th-blk:${x.id}" title="A 15 min Timebox, in the holding pen">Make a block</button><button type="button" class="thOk" ${A}="th-done:${x.id}" aria-label="Done, remove ${esc(x.t)}">✓</button></div>`).join('') + '</div>';
+  }
+  function thAct(a) {
+    const id = +a.split(':')[1], L = thoughts, i = L.findIndex((x) => x.id === id);
+    if (!plan && a.startsWith('th-blk:')) return;
+    if (a === 'th-add') { const ip = $('thIn'), v = ip ? ip.value.trim().slice(0, 80) : ''; if (!v) { if (ip) ip.focus(); return; } thoughts.push({ id: Date.now(), t: v }); if (thoughts.length > 30) thoughts.shift(); sheetClose(); if (todayOn()) tySay('Parked it. Back to it!', 5000); }
+    else if (i < 0) return;
+    else if (a.startsWith('th-blk:')) { plan.blocks.push(newBlock('box', { min: 15, label: L[i].t.slice(0, 30), st: 'drop' })); L.splice(i, 1); }
+    else if (a.startsWith('th-done:')) L.splice(i, 1);
+    save(); if (plan) { renderPlan(); renderRun(); } if (sh && sh.t === 'thought') renderSheet();
+  }
   function penHtml(where) {
-    const dropped = plan.blocks.filter((b) => b.st === 'drop');
-    if (!dropped.length) return '';
+    const dropped = plan.blocks.filter((b) => b.st === 'drop'), thH = where === 'plan' ? thListHtml('data-pa') : '';
+    if (!dropped.length) return thH ? `<div class="pen" id="planPenBox"><div class="penH"><b>Holding pen</b><span>Thoughts you parked</span></div>${thH}</div>` : '';
     const tot = dropped.reduce((m, b) => m + bmin(b), 0), A = where === 'ty' ? 'data-ty' : 'data-pa';
     let fit = null, nb = null;
     const live0 = where === 'ty' || (where === 'plan' && viewOff === 0);
@@ -3264,7 +3356,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (where === 'ty') return fit ? `<div class="pen tyOffer" id="tyPenBox"><div class="penFit"><span>${why}${fit.part ? `<b>${hm(fit.min)} of ${esc(bname(fit.b))}</b> fits` : `<b>${esc(bname(fit.b))} · ${hm(fit.min)}</b> fits`} before ${nb ? esc(bname(nb)) : 'the finish line'}.${fit.part ? ' The rest stays in the holding pen.' : ''}</span><span><button type="button" data-ty="fit:${fit.b.id}:${fit.part}">${fit.part ? 'Fit ' + hm(fit.min) + ' in' : 'Fit it in'}</button><button type="button" class="quiet" data-ty="penleave">Leave it</button></span></div></div>` : '';
     return `<div class="pen" id="${where}PenBox"><div class="penH"><b>Holding pen · ${dropped.length} · ${hm(tot)}</b><span>Tap a piece to add it back${where === 'ty' ? ', or fit one that lights up' : ', or drag it onto the day'}</span></div>` +
       `<div class="penC">${dropped.map(chip).join('')}</div>` +
-      (fit ? `<div class="penFit"><span>${why}${fit.part ? `<b>${hm(fit.min)} of ${esc(bname(fit.b))}</b> fits` : `<b>${esc(bname(fit.b))} · ${hm(fit.min)}</b> fits`} before ${nb ? esc(bname(nb)) : 'the finish line'}.${fit.part ? ' The rest stays in the pen.' : ''}</span><span><button type="button" data-ty="fit:${fit.b.id}:${fit.part}">${fit.part ? 'Fit ' + hm(fit.min) + ' in' : 'Fit it in'}</button><button type="button" class="quiet" data-ty="penleave">Leave it</button></span></div>` : '') + '</div>';
+      (fit ? `<div class="penFit"><span>${why}${fit.part ? `<b>${hm(fit.min)} of ${esc(bname(fit.b))}</b> fits` : `<b>${esc(bname(fit.b))} · ${hm(fit.min)}</b> fits`} before ${nb ? esc(bname(nb)) : 'the finish line'}.${fit.part ? ' The rest stays in the pen.' : ''}</span><span><button type="button" data-ty="fit:${fit.b.id}:${fit.part}">${fit.part ? 'Fit ' + hm(fit.min) + ' in' : 'Fit it in'}</button><button type="button" class="quiet" data-ty="penleave">Leave it</button></span></div>` : '') + thH + '</div>';
   }
   function tyStrip() {
     const items = liveLayout().slice().sort((a, b) => a.s - b.s);
@@ -3319,12 +3411,46 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       else out.push({ a: `${first ? '<b>Next</b> · ' : ''}${esc(bname(b))}${KINDS[b.k].ph ? ` · ${b.n} × ${b.f} min` : ''}`, t: `starts ${b.pin != null ? tm(b.pin) : clock(r.s)}` });
       pe = r.e;
     }
+    tyRowsLast = out;
     const shown = out.slice(0, 3), more = out.length - shown.length;
     let h = shown.map((x) => `<div class="tyRow ${x.cls || ''}"><span>${x.a}</span><span class="t">${x.t}</span></div>`).join('');
     if (more > 0) h += `<div class="tyMore">and ${more} more after that</div>`;
     if (!shown.length) h = `<div class="tyRow"><span><b>Last block of the day</b></span></div>` + h;
 
     return h;
+  }
+  let tyRowsLast = [], tyStale = 0;
+  function tyLineHtml(rows, firstUp) {                // one line: what's next, the next meeting, the finish line
+    const parts = [], mb = plan.blocks.filter((x) => x.k === 'meet' && x.st === 'todo' && x.pin != null && dayMs(x.pin) > now()).sort((a, c) => a.pin - c.pin)[0];
+    const r0 = rows[0];
+    if (r0) {
+      const a = r0.a.replace(/^<b>Next<\/b> · /, ''), t = String(r0.t).replace(/^starts /, '');
+      parts.push(`<span><b>${firstUp ? 'First up' : 'Next'}</b> ${a} <span class="t">${r0.cls === 'free' ? t : 'at ' + t}</span></span>`);
+    } else parts.push(`<span><b>That's the last block</b></span>`);
+    if (mb && !(r0 && r0.a.includes(esc(bname(mb))) && r0.t === 'starts ' + tm(mb.pin))) parts.push(`<span class="o">${esc(bname(mb))} ${tm(mb.pin)}</span>`);
+    if (plan.fin != null) parts.push(`<span class="o">Done by ${tm(plan.fin)}</span>`);
+    return parts.join('<i aria-hidden="true">·</i>');
+  }
+  function tyStatHtml(paused) {                       // On track, or what needs a look (opens Edit day); Carry on / Start fresh after a long gap
+    if (tyStale) { const away = Math.max(60, Math.round((now() - tyStale) / 60000)); return `<span class="aw">Away ${hm(away)}</span><button type="button" class="sb" data-ty="stale-on">Carry on</button><button type="button" class="sb q" data-ty="stale-new">Start fresh</button>`; }
+    const cw = dayChk.filter((c) => c.lv === 'warn');
+    if (cw.length) { const t = cw.length === 1 ? String(cw[0].h).replace(/<[^>]*>/g, '') : cw.length + ' things to look at'; return `<button type="button" class="warn" data-ty="warn" title="${esc(t)}. Opens Edit day.">⚠ ${esc(t)}</button>`; }
+    return `<span class="ok">${paused ? 'Still on track' : 'On track'}</span>`;
+  }
+  const TYI = {
+    pen: '<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"></path></svg>',
+    pause: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg>',
+    play: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M7 4.5v15l13-7.5z"></path></svg>',
+    plus: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2.5M10 2h4"></path></svg>',
+    done: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"></path></svg>',
+    skip: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M5 5v14l10-7zM16 5h3v14h-3z"></path></svg>',
+  };
+  function tyIcons(h) {                               // an icon on each timer button, by what it does
+    return h.replace(/<button type="button"( class="go")? data-ty="(pause|plus|early|skip|skipw|yes)"([^>]*)>/g, (m, g, a, rest) => {
+      const k = a === 'pause' ? (sess && !sess.paused && !sess.wait ? 'pause' : 'play') : a === 'plus' ? 'plus' : a === 'skipw' ? 'skip' : a === 'skip' ? 'done' : 'done';
+      const ti = a === 'pause' && k === 'pause' ? ' title="Pause (Space)"' : a === 'early' ? ' title="I\'m done (D)"' : '';
+      return `<button type="button"${g || ''} data-ty="${a}"${rest}${ti}>${TYI[k]}`;
+    });
   }
   function renderToday() {
     const el = $('today'), on = todayOn(), live = !!(sess && plan && plan.run && sess.pl);
@@ -3358,15 +3484,20 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     else if (prep) { const pre = prepNeed(b) > 0 ? prepOf(b) : 0; time = fmt(Math.max(0, dayMs(b.pin) - now())); lbl = 'Getting ready'; what = `${bname(b)} starts at ${tm(b.pin)}`; sub = pre ? `Prep from ${tm(b.pin - pre)} · grab a drink, open your notes` : ''; }
     else if (w && gap && blockById(sess.pl.b)) { const nb = blockById(sess.pl.b), room = Math.max(0, Math.floor((dayMs(nb.pin) - prepNeed(nb) * 60000 - now()) / 60000)); time = hm(room); big = true; lbl = 'Free until ' + tm(nb.pin - prepNeed(nb)); what = `Then ${bname(nb)} at ${tm(nb.pin)}`; sub = plan.blocks.some((x) => x.st === 'drop') ? 'Nothing planned. Take it, or fit something in from the holding pen.' : 'Nothing planned. Take it, or start a Timebox.'; }
     else if (paused) { const pb = b, aw = pb && pb.aw && pb.aw.length ? pb.aw[pb.aw.length - 1] : null, since = aw && aw[1] == null ? aw[0] : now(), mins = Math.round((now() - since) / 60000); lbl = `<span class="tyPill">⏸ Paused since ${clock(since)} · ${mins} min</span>`; sub = "Everything after moves later while you're away. Anything fixed to a time stays put."; }
+    const plain = !w && !meet && !paused;
+    if (plain) sub = '';
+    $('tyNow').classList.toggle('plain', plain);
     $('tyTime').textContent = time;
     $('tyTime').classList.toggle('dim', w && !prep && !(w && gap));
     $('tyTime').classList.toggle('sm', big);
     if (paused) setH($('tyLbl'), lbl); else { $('tyLbl')._h = null; $('tyLbl').textContent = lbl; }
-    { const wh = esc(what).replace(/ · (\d\d:\d\d)–(\d\d:\d\d)$/, ' · until $2').replace(' · pomodoro ', ' · <span class="tyPomo">pomodoro </span>'); if ($('tyWhat')._w !== wh) { $('tyWhat')._w = wh; $('tyWhat').innerHTML = wh; } }
+    { const wh = esc(what).replace(/ · (\d\d:\d\d)–(\d\d:\d\d)$/, '<span class="tyUntil"> · until $2</span>').replace(' · pomodoro ', ' · <span class="tyPomo">pomodoro </span>'); if ($('tyWhat')._w !== wh) { $('tyWhat')._w = wh; $('tyWhat').innerHTML = wh; } }
     if (meet) setH($('tySub'), sub); else { $('tySub')._h = null; $('tySub').textContent = sub; }
+    renderTyNote(paused, b, p, w);
     $('tyHere').classList.toggle('amb', paused);
     setH($('tyPen'), '');
-    { const n = plan.blocks.filter((b) => b.st === 'drop').length, pn = $('tyPenN'); pn.hidden = !n; pn.textContent = n + ' in pen'; }
+    { const n = plan.blocks.filter((b) => b.st === 'drop').length, pn = $('tyPenN'); pn.hidden = !n; pn.textContent = n + ' in pen'; pn.parentElement.dataset.n = n; }
+    tyThCount();
     const sk = $('skipBtn');
     let btns;
     if (w) {
@@ -3384,6 +3515,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       if (p === 'focus' || p === 'box') btns += `<button type="button" data-ty="early">I'm done</button>`;
       else if (!sk.hidden && p !== 'focus') btns += `<button type="button" data-ty="skip">${esc(p === 'up' ? 'Finish' : 'End break now')}</button>`;
     }
+    btns = tyIcons(btns);
     if (meet) { const hold = pressing && !tyForce; if (!hold) setH($('tyBtns'), btns); }
     const hold = pressing && !tyForce;
     if (!hold && !meet) setH($('tyBtns'), btns);
@@ -3391,13 +3523,14 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (st && !hold) { setH($('tyBar'), st.h); setH($('tyTicks'), st.ticks); }
     { const f = $('tyFin'), on1 = !!(tySpan && plan.fin != null); f.hidden = !on1; $('tyKeyFin').hidden = !on1; if (on1) f.style.left = Math.max(0, Math.min(100, (plan.fin - tySpan.W0) / tySpan.SP * 100)).toFixed(2) + '%'; }
     if (tySpan) $('tyHere').style.left = Math.max(0, Math.min(100, ((now() - dayMs(0)) / 60000 - tySpan.W0) / tySpan.SP * 100)).toFixed(2) + '%';
-    if (!hold) setH($('tyNext'), tyNextRows());
+    if (!hold) { setH($('tyNext'), tyNextRows()); setH($('tyLineB'), tyLineHtml(tyRowsLast)); }
     if (tyForm && $('tyName')) tyForm.label = $('tyName').value;
     if (!hold) setH($('tyForm'), tyFormHtml());
     const cw = dayChk.filter((c) => c.lv === 'warn'), wn = $('tyWarn');
     wn.hidden = !cw.length;
     const wt = cw.length ? (cw.length === 1 ? cw[0].h : cw.length + ' things to look at') + '. Edit the day to see.' : '';
     if (wn.title !== wt) { wn.title = wt; wn.setAttribute('aria-label', wt); }
+    if (!hold) setH($('tyStat'), tyStatHtml(paused));
     const kd = w ? (gap ? 'gap' : prep ? 'meet' : 'wait') : paused ? 'paused' : meet ? 'meet' : p === 'short' ? 'brk' : p === 'long' ? (b && b.k === 'sofa' ? 'you' : 'brk') : p === 'box' || up ? 'box' : 'focus';
     tyKd = kd;
     if (on && document.body.dataset.tk !== kd) document.body.dataset.tk = kd;
@@ -3408,6 +3541,28 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     setH($('tyBub'), esc(said)); lumiLook(said);
     renderTyJar();
   }
+  let tyNoteEd = false;
+  function renderTyNote(paused, b, p, w) {           // r40: "What were you in the middle of?" while paused; a chip with it while that block runs
+    const el = $('tyNote'), work = !!(b && !w && ['focus', 'box', 'up'].includes(p));
+    if (!el) return;
+    el.classList.toggle('ask', !!(paused && work));
+    if (paused && work) {
+      if (!$('tyNoteIn')) { el._h = null; el.innerHTML = `<label for="tyNoteIn">What were you in the middle of?</label><input id="tyNoteIn" type="text" maxlength="80" autocomplete="off" enterkeyhint="done" value="${esc(b.note || '')}"><small>Optional. Enter saves it. Lumi reads it back when you resume.</small>`; }
+      return;
+    }
+    if (tyNoteEd && work && $('tyNoteIn')) return;
+    tyNoteEd = false;
+    setH(el, work && b.note ? `<button type="button" class="tyNoteC" data-ty="note" title="Change the note">${TYI.pen}<span>${esc(b.note)}</span></button>` : '');
+  }
+  function tyNoteSave(blur) {
+    const ni = $('tyNoteIn'), b = sess && sess.pl && plan ? blockById(sess.pl.b) : null;
+    if (!ni || !b) return;
+    b.note = ni.value.trim().slice(0, 80); save();
+    if (blur) { ni.blur(); if (tyNoteEd) { tyNoteEd = false; renderRun(); } }
+  }
+  $('tyNote').addEventListener('keydown', (e) => { if (e.target.id === 'tyNoteIn' && e.key === 'Enter') { e.preventDefault(); tyNoteSave(true); } });
+  $('tyNote').addEventListener('input', (e) => { if (e.target.id === 'tyNoteIn') tyNoteSave(false); });
+  $('tyNote').addEventListener('focusout', (e) => { if (e.target.id === 'tyNoteIn' && tyNoteEd) setTimeout(() => { if (tyNoteEd) { tyNoteEd = false; renderRun(); } }, 0); });
   function renderHoldToday() {                         // the day is planned but it is not time yet
     const st = dayMs(plan.start), m = Math.max(0, Math.ceil((st - now()) / 60000));
     if (document.body.dataset.tk !== 'wait') document.body.dataset.tk = 'wait';
@@ -3419,14 +3574,16 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     $('tySub')._h = null; $('tySub').textContent = '';
     $('tyHere').classList.remove('amb');
     setH($('tyPen'), '');
-    setH($('tyBtns'), '<button type="button" class="go" data-ty="hgo">Start early</button>');
+    setH($('tyBtns'), '<button type="button" class="go" data-ty="hgo">' + TYI.play + 'Start early</button>');
     const rows = project(plan, Math.max(now(), st)).filter((r) => r.b.k !== 'zoom' && !r.b.a).slice(0, 3);
+    setH($('tyLineB'), tyLineHtml(rows.map((r) => ({ a: `${esc(bname(r.b))}${KINDS[r.b.k].ph ? ` · ${r.b.n} × ${r.b.f} min` : ''}`, t: r.b.pin != null ? tm(r.b.pin) : clock(r.s) })), true));
+    setH($('tyStat'), '<span class="ok">Starts by itself</span>');
     setH($('tyNext'), rows.map((r, i) => `<div class="tyRow"><span>${i ? '' : '<b>First up</b> · '}<b>${esc(bname(r.b))}</b>${KINDS[r.b.k].ph ? ` · ${r.b.n} × ${r.b.f} min` : ''}</span><span class="t">starts ${r.b.pin != null ? tm(r.b.pin) : clock(r.s)}</span></div>`).join(''));
     setH($('tyForm'), '');
     const sp = tyStrip();
     if (sp) { setH($('tyBar'), sp.h); setH($('tyTicks'), sp.ticks); }
     { const f = $('tyFin'), on1 = !!(tySpan && plan.fin != null); f.hidden = !on1; $('tyKeyFin').hidden = !on1; if (on1) f.style.left = Math.max(0, Math.min(100, (plan.fin - tySpan.W0) / tySpan.SP * 100)).toFixed(2) + '%'; }
-    $('tyPenN').hidden = true;
+    $('tyPenN').hidden = true; tyThCount();
     if (tySpan) $('tyHere').style.left = Math.max(0, Math.min(100, ((now() - dayMs(0)) / 60000 - tySpan.W0) / tySpan.SP * 100)).toFixed(2) + '%';
     $('tyWarn').hidden = true;
     if (tyLumiKey !== 'hold') { tyLumiKey = 'hold'; if (!lmFed) lumiShow(lumiMood('hold')); tyLine = `Day starts at ${tm(plan.start)}. Five more minutes.`; }
@@ -3604,6 +3761,10 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   $('today').addEventListener('click', (e) => {
     const t = e.target.closest('[data-ty]');
     if (!t || t.disabled) return;
+    if (t.dataset.ty === 'note') { const b = sess && sess.pl ? blockById(sess.pl.b) : null; if (!b) return; tyNoteEd = true; const el = $('tyNote'); el._h = null; el.innerHTML = `<input id="tyNoteIn" type="text" maxlength="80" autocomplete="off" enterkeyhint="done" aria-label="What you were in the middle of" value="${esc(b.note || '')}">`; $('tyNoteIn').focus(); return; }
+    if (t.dataset.ty === 'thought') { openSheet({ t: 'thought' }); return; }
+    if (t.dataset.ty === 'stale-on' || t.dataset.ty === 'stale-new') { const nw = t.dataset.ty === 'stale-new'; tyStale = 0; $('tyStat')._h = null; if (nw) startOver(); else { plan.seen = now(); save(); } bitsKey = ''; updateBits(); renderPlan(); return; }
+    if (tyStale && ['pause', 'plus', 'early', 'yes', 'skip', 'skipw', 'edit', 'warn'].includes(t.dataset.ty)) { tyStale = 0; $('tyStat')._h = null; if (plan) { plan.seen = now(); save(); } }   // any timer tap means carry on
     if (t.dataset.ty === 'jar') { jarMenu(!jarOpen); return; }
     if (t.dataset.ty === 'jarclose') { jarMenu(false); return; }
     if (t.dataset.ty === 'feed') { feedLumi(); return; }
@@ -3673,6 +3834,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       const n = plan.blocks.filter(live).length;
       h = `<h2 id="shTitle">Your day from earlier is still open</h2><p>Nothing has run since ${clock(sh.since)}. ${n} block${n === 1 ? ' is' : 's are'} still to do.</p>` +
         opt('stale-on', 'Carry on', 'Pick the day back up where it is', 'main') + opt('stale-new', 'Start fresh', "Clears today's blocks. Your treats stay.");
+    } else if (sh.t === 'thought') {
+      h = `<h2 id="shTitle">Park a thought</h2><input id="thIn" class="thIn" type="text" maxlength="80" autocomplete="off" enterkeyhint="done" aria-labelledby="shTitle"><p>Enter parks it in the holding pen. Your timer keeps running, and you can sort it out later.</p><div class="thBtns">${opt('th-add', 'Park it', '', 'main')}${opt('close', 'Cancel', '')}</div>` + thListHtml('data-sa');
     } else if (sh.t === 'done') {
       h = `${sh.night ? `<div class="shNight">${lumiMood('night')}</div>` : ''}<h2 id="shTitle">${esc(sh.title)}</h2>${sh.list.length ? '<ul>' + sh.list.map((x) => `<li>${esc(x)}</li>`).join('') + '</ul>' : '<p>Nothing needed changing.</p>'}` + opt('close', 'OK', '', 'main');
     } else if (sh.t === 'how') {
@@ -3748,6 +3911,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   function sheetAct(a) {
     const val = a.includes(':') ? a.split(':')[1] : '';
     if (a === 'close') { sheetClose(); return; }
+    if (a.startsWith('th-')) { thAct(a); return; }
     if (sh.t === 'stale') {
       if (a === 'stale-on') { plan.seen = now(); save(); sheetClose(); }
       else if (a === 'stale-new') startOver();
@@ -3775,6 +3939,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   }
   $('shPanel').addEventListener('click', (e) => { const t = e.target.closest('[data-sa]'); if (t && sh) sheetAct(t.dataset.sa); });
   $('shBack').addEventListener('click', () => sheetClose());
+  $('shPanel').addEventListener('keydown', (e) => { if (e.target.id === 'thIn' && e.key === 'Enter') { e.preventDefault(); thAct('th-add'); } });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && sh) sheetClose(); });
 
   /* ---------- the home card ---------- */
@@ -4232,7 +4397,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (V === 'rib') { const R = ribRange(items); cal.dataset.lo = R.lo; cal.dataset.span = R.hi - R.lo; } else { cal.dataset.lo = 0; cal.dataset.span = 0; }
     scrollNext = false;
     const dropped = plan.blocks.filter((b) => b.st === 'drop');
-    $('ifTime').innerHTML = dropped.length ? `<div class="penPeek" aria-hidden="true">${lumiHead('focus')}</div>` + penHtml('plan') : viewOff === 0 ? '<div class="pcard2 penE"><div class="ph">Holding pen</div><p class="hint2">Nothing set aside.</p></div>' : '';
+    $('ifTime').innerHTML = dropped.length || thoughts.length ? `<div class="penPeek" aria-hidden="true">${lumiHead('focus')}</div>` + penHtml('plan') : viewOff === 0 ? '<div class="pcard2 penE"><div class="ph">Holding pen</div><p class="hint2">Nothing set aside.</p></div>' : '';
     const lgA = run && viewOff === 0 ? (plan.log || []).slice().reverse() : [];
     $('planLog').innerHTML = lgA.length ? `<div class="pcard2 plog"><button type="button" class="plogH" data-pa="logt" aria-expanded="${logOpen}">${logOpen ? '▾' : '▸'} Changes from your plan · ${lgA.length}</button>` +
       (logOpen ? lgA.map((x) => `<div class="tyE"><time>${clock(x.t)}</time><span>${esc(x.txt)}</span></div>`).join('') : '') + '</div>' : '';
@@ -4542,7 +4707,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     document.body.classList.toggle('shAdd', w === 'add'); document.body.classList.toggle('shPen', w === 'pen');
   }
   function trayDraw() {
-    const n = plan.blocks.filter((b) => b.st === 'drop').length, t = $('pTray');
+    const n = plan.blocks.filter((b) => b.st === 'drop').length + thoughts.length, t = $('pTray');   // r40: parked thoughts count too
     if (!t) return;
     t.innerHTML = `<button type="button" class="trLumi" data-pa="tray:lumi" aria-label="How the day looks">${lumiMood(plMood).replace('viewBox="-12 -6 226 140"', plMood === 'look' || plMood === 'ready' ? 'viewBox="30 0 140 132"' : 'viewBox="-12 -6 226 140"')}</button><button type="button" class="tAdd" data-pa="tray:add">+ Add</button><button type="button" class="tPen${n ? ' has' : ' none'}" data-pa="tray:pen">Pen · ${n}</button>`;
   }
@@ -4561,6 +4726,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     toSeg(nb, aid); joinFocus(nb); afterEdit();
   }
   function planAct(a, id) {
+    if (a.startsWith('th-')) { thAct(a); return; }
     if (a.startsWith('tray:')) {
       const w = a.slice(5);
       if (w === 'add') sheet(document.body.classList.contains('shAdd') ? '' : 'add');
@@ -5149,7 +5315,11 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   document.addEventListener('pointerdown', () => { if (!audioOk()) ensureAudio().then((ok) => { if (ok) { scheduleSounds(); soundHints(); } }); });
   document.addEventListener('keydown', (e) => {
     if (!audioOk()) ensureAudio().then((ok) => { if (ok) scheduleSounds(); });
-    if (e.code === 'Space' && sess && !sess.wait && !e.target.closest('button')) { e.preventDefault(); pause(); }
+    if (e.code === 'Space' && sess && !sess.wait && !e.target.closest('button,input,textarea,select,[contenteditable]')) { e.preventDefault(); pause(); }
+    if (!e.ctrlKey && !e.metaKey && !e.altKey && !e.target.closest('input,textarea,select,[contenteditable]') && todayOn() && $('sheet').hidden && $('setSheet').hidden) {
+      const k = e.key.toLowerCase(), b = k === 'e' ? document.querySelector('#today .tyEdit') : k === 'd' ? document.querySelector('#today [data-ty=early]') : k === 't' ? document.querySelector('#today .tyTh') : null;
+      if (b && !b.disabled) { e.preventDefault(); b.click(); }
+    }
   });
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') { tick(); if (sess) wake(); }
@@ -5202,6 +5372,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       $('sbxOpen').addEventListener('click', () => { $('sbxForm').hidden = !$('sbxForm').hidden; });
       $('sbxGo').addEventListener('click', () => { const v = parseT($('sbxT').value); if (v == null) { $('sbxT').focus(); return; } location.href = location.pathname + '?sandbox=' + tm(v); });
     }
+    sbx.style.cssText = 'text-align:left;margin:14px 0 0;font-size:13px;border-top:1px solid rgba(255,255,255,.15);padding-top:12px';
+    $('setSheet').appendChild(sbx);                   // r39: a testing tool, so it sits in Settings rather than on every screen
   }
   /* ---------- r38: the splash (nothing planned yet), Start now and the settings sheet ---------- */
   var splOff;                                         // var: showScreen runs before this line during start-up, so splashOn reads the flag itself
@@ -5256,7 +5428,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   $('setX').addEventListener('click', () => setOpen(false));
   $('setScrim').addEventListener('click', () => setOpen(false));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('setSheet').hidden) setOpen(false); });
-  window.__loaf = { noSplash() { splashSkip(); showScreen(); }, quickStart, openSettings: () => setOpen(true), openMeet: () => inView(() => openMeet(false)), get sess() { return sess; }, get jar() { return jar; }, get plan() { return plan; }, set, tick, now,
+  window.__loaf = { noSplash() { splashSkip(); showScreen(); }, quickStart, openSettings: () => setOpen(true), openMeet: () => inView(() => openMeet(false)), get sess() { return sess; }, get jar() { return jar; }, get plan() { return plan; }, get thoughts() { return thoughts; }, set, tick, now,
     gapsLeft: () => gapIds().length,
     fillGap(n = 0, kind = 'deep') { const g = gapIds(), id = g[n < 0 ? g.length + n : n]; if (id == null) return false; planAct(`gap:${id}:${kind}`); return true; } };
 })();
