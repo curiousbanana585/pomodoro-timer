@@ -1,0 +1,74 @@
+# Builds the LOAF Android app (the thin shell in android/). Run it from the Actions tab: Build LOAF app > Run workflow.
+# You only need to run it again when the android/ folder changes. Changes to LOAF itself reach the app with a normal upload.
+name: Build LOAF app
+on:
+  workflow_dispatch:
+    inputs:
+      address:
+        description: "LOAF's address (leave empty to use this repo's GitHub Pages address)"
+        required: false
+        default: ""
+permissions:
+  contents: read
+  pages: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Work out LOAF's address
+        id: url
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GIVEN: ${{ inputs.address }}
+        run: |
+          if [ -n "$GIVEN" ]; then url="$GIVEN"; else
+            base=$(gh api "repos/${{ github.repository }}/pages" --jq .html_url 2>/dev/null || true)
+            if [ -z "$base" ]; then echo "::error::GitHub Pages isn't on for this repo. Turn it on (Settings > Pages), or type LOAF's address when you run this."; exit 1; fi
+            # find the folder holding LOAF's index.html (the repo root, or a folder such as loaf/)
+            dir=$(grep -l "<title>LOAF</title>" $(git ls-files '*index.html') 2>/dev/null | grep -v '^android/' | head -1 | xargs -r dirname)
+            if [ -z "$dir" ]; then echo "::error::Couldn't find LOAF's index.html in this repo. Type LOAF's address when you run this."; exit 1; fi
+            url="${base%/}/"; [ "$dir" != "." ] && url="${url}${dir}/"
+          fi
+          case "$url" in https://*) ;; *) echo "::error::The address must start with https://"; exit 1;; esac
+          case "$url" in */) ;; *.html) ;; *) url="$url/";; esac
+          echo "LOAF's address: $url"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Check the signing key is there
+        env:
+          LOAF_KEYSTORE: ${{ secrets.LOAF_KEYSTORE }}
+          LOAF_KEY_PASSWORD: ${{ secrets.LOAF_KEY_PASSWORD }}
+        run: |
+          if [ -z "$LOAF_KEYSTORE" ] || [ -z "$LOAF_KEY_PASSWORD" ]; then
+            echo "::error::The two secrets LOAF_KEYSTORE and LOAF_KEY_PASSWORD are missing. See Part 2 of ANDROID-GUIDE.md."; exit 1; fi
+          echo "$LOAF_KEYSTORE" | base64 -d > "$RUNNER_TEMP/loaf.jks"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Android 16 SDK
+        run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.14.3
+
+      - name: Build
+        env:
+          LOAF_KEYSTORE_FILE: ${{ runner.temp }}/loaf.jks
+          LOAF_KEY_PASSWORD: ${{ secrets.LOAF_KEY_PASSWORD }}
+        run: gradle -p android assembleRelease -PloafUrl="${{ steps.url.outputs.url }}" -PloafVersion=${{ github.run_number }}
+
+      - name: Name the app file
+        run: cp android/app/build/outputs/apk/release/app-release.apk "LOAF-${{ github.run_number }}.apk"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: LOAF-app
+          path: LOAF-${{ github.run_number }}.apk

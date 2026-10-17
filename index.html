@@ -1055,7 +1055,7 @@ body[data-theme=splash] #sbx{display:none}
       <span class="sum" id="sum"></span>
       <button type="button" class="go" id="startBtn">START</button>
     </div>
-    <div class="credit">A Bouncy Production · Made for Haz · v41</div>
+    <div class="credit">A Bouncy Production · Made for Haz · v42</div>
   </div>
 </main>
 
@@ -1097,7 +1097,7 @@ body[data-theme=splash] #sbx{display:none}
     <button type="button" class="main" id="pauseBtn">PAUSE</button>
     <button type="button" id="skipBtn">Skip</button>
   </div>
-  <div class="credit">A Bouncy Production · Made for Haz · v41</div>
+  <div class="credit">A Bouncy Production · Made for Haz · v42</div>
 </main>
 
 <!-- ================= TIME'S UP, WAITING FOR A TAP ================= -->
@@ -1116,7 +1116,7 @@ body[data-theme=splash] #sbx{display:none}
   <div class="hint" id="soundHint2" hidden>Tap anywhere to wake the chime up</div>
   <button type="button" class="big" id="goBtn">START FOCUS</button>
   <button type="button" class="quiet" id="stopBtn2">Stop for now</button>
-  <div class="credit">A Bouncy Production · Made for Haz · v41</div>
+  <div class="credit">A Bouncy Production · Made for Haz · v42</div>
 </main>
 
 <!-- ================= DAY SHAPE PLANNER ================= -->
@@ -1145,7 +1145,7 @@ body[data-theme=splash] #sbx{display:none}
         </div>
       </section>
     </div>
-    <div class="credit">A Bouncy Production · Made for Haz · v41</div>
+    <div class="credit">A Bouncy Production · Made for Haz · v42</div>
   </div>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="splScene" viewBox="0 0 1280 800"><defs><linearGradient id="splSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3ff"/><stop offset="1" stop-color="#e6f7ff"/></linearGradient>
 <clipPath id="splL"><path d="M0 0 L700 0 L580 800 L0 800 Z"/></clipPath><clipPath id="splR"><path d="M700 0 L1280 0 L1280 800 L580 800 Z"/></clipPath></defs><g clip-path="url(#splL)"><rect width="1280" height="800" fill="#ffd2bd"/><rect x="0" y="470" width="1280" height="330" fill="#e9a27f"/><path d="M0 470 L1280 470" stroke="#c97f5c" stroke-width="6"/><g><rect x="90" y="70" width="280" height="210" rx="14" fill="#fff4ea" stroke="#9a5a3c" stroke-width="6"/><rect x="104" y="84" width="252" height="182" rx="8" fill="#9ad7ff"/><circle cx="300" cy="140" r="30" fill="#ffd166"/><g fill="#fff" opacity=".95"><ellipse cx="180" cy="200" rx="32.199999999999996" ry="14"/><ellipse cx="201" cy="191.6" rx="21" ry="15.399999999999999"/><ellipse cx="160.4" cy="195.8" rx="16.799999999999997" ry="11.2"/></g><path d="M230 84 L230 266 M104 175 L356 175" stroke="#fff4ea" stroke-width="8"/></g><g><rect x="430" y="150" width="120" height="40" rx="8" fill="#fff" stroke="#9a5a3c" stroke-width="4"/><text x="490" y="177" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="15" font-weight="900" fill="#ef6a52">FOCUS</text></g><g><rect x="40" y="380" width="54" height="90" rx="8" fill="#c2410c" stroke="#7c2d12" stroke-width="4"/><path d="M67 380 L67 300" stroke="#3f7d3a" stroke-width="5"/><ellipse cx="50" cy="330" rx="20" ry="9" fill="#4aa957"/><ellipse cx="86" cy="310" rx="20" ry="9" fill="#4aa957"/><ellipse cx="60" cy="296" rx="16" ry="8" fill="#56b866"/></g><rect x="120" y="455" width="460" height="22" rx="8" fill="#a1623e" stroke="#6b3b22" stroke-width="4"/><svg viewBox="0 0 160 100" x="160" y="340" width="220" height="138">
@@ -1455,7 +1455,7 @@ body[data-theme=splash] #sbx{display:none}
     </aside>
     <div class="mini2 dayEnd"><button type="button" id="tplBtn">Save as my usual day</button><button type="button" class="dz" id="clearBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span>Start over</span></button><button type="button" class="dz" id="endDayBtn" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>End the day</span></button></div>
   </div>
-  <div id="sbx"></div><div class="credit">A Bouncy Production · Made for Haz · v41</div>
+  <div id="sbx"></div><div class="credit">A Bouncy Production · Made for Haz · v42</div>
 </main>
 
 <div class="sheet" id="sheet" hidden>
@@ -1467,7 +1467,12 @@ body[data-theme=splash] #sbx{display:none}
 <script>
 (() => {
   'use strict';
-  const $ = (id) => document.getElementById(id);
+  // r42: DRY is set while LOAF runs its own engine forward on a copy of the day to see what's coming (see "Android app" below).
+  // Nothing is drawn, saved or played during a dry run, and the clock reads DRY.t.
+  let DRY = null, natTimer = 0, natLast = '';
+  const NATIVE = window.LoafAndroid && typeof window.LoafAndroid.schedule === 'function' ? window.LoafAndroid : null;
+  const STUB = new Proxy(function () {}, { get: (t, k) => (k === Symbol.toPrimitive ? () => '' : k === Symbol.iterator ? function* () {} : STUB), set: () => true, apply: () => STUB });
+  const $ = (id) => (DRY ? STUB : document.getElementById(id));
 
   /* ---------- settings + saved session ---------- */
   // sandbox: ?sandbox=HH:MM starts a sandbox clock at that time, one sandbox minute per real second; ?sandbox=off leaves it
@@ -1526,7 +1531,7 @@ body[data-theme=splash] #sbx{display:none}
     if (s0.wait && Number.isFinite(s0.wait.since)) sess.wait = { since: s0.wait.since, nudges: Math.min(NUDGE_MAX, +s0.wait.nudges || 0) };
     else if (!sess.paused && !(sess.phase === 'up' ? sess.startAt : sess.endAt)) sess = null;
   }
-  const now = () => (SIM ? SIM.sim + (Date.now() - SIM.real) * SIM.speed : Date.now());
+  const now = () => (DRY ? DRY.t : SIM ? SIM.sim + (Date.now() - SIM.real) * SIM.speed : Date.now());
   const canNudge = () => set.nudge && !(sess && sess.wait && sess.phase === 'meet') && (!set.auto || (!!sess && ((sess.phase === 'box' && !sess.pl) || !!(sess.pl && sess.pl.bound))));   // a timebox or a gap has no next bit to start by itself, so it nudges even with auto-start on
   // the treat jar: one per day. items are what's in it, in the order they went in: g = golden biscuit, b = biscuit, o = bone
   const today = () => { const d = new Date(now()); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); };
@@ -1593,7 +1598,7 @@ body[data-theme=splash] #sbx{display:none}
   function blockById(id) { return plan ? plan.blocks.find((b) => b.id === id) || null : null; }
   if (sess && sess.pl && (!plan || !blockById(sess.pl.b))) sess = null;
   if (plan) plan.run = !!(sess && sess.pl);
-  const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ settings: set, sess, jar, plan: swapped || plan, th: thoughts, tpl, future: Object.fromEntries(Object.entries(future).filter((e) => e[1].blocks.length)) })); } catch (e) {} };
+  const save = () => { if (DRY) return; nativeSoon(); try { localStorage.setItem(KEY, JSON.stringify({ settings: set, sess, jar, plan: swapped || plan, th: thoughts, tpl, future: Object.fromEntries(Object.entries(future).filter((e) => e[1].blocks.length)) })); } catch (e) {} };
   // a new day: Lumi has eaten whatever was left in the jar overnight, and yesterday's day shape is cleared
   function rollDay() {
     if (jar.day === today()) return false;
@@ -1661,6 +1666,7 @@ body[data-theme=splash] #sbx{display:none}
   function pick(k) {
     const L = lines(k);
     if (!L.length) return '';
+    if (DRY) return fill(L[0]);
     let s = L[0];
     for (let i = 0; i < 5; i++) { s = L[Math.floor(Math.random() * L.length)]; if (s !== lastLine) break; }
     lastLine = s;
@@ -1881,12 +1887,13 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   /* ---------- sound (Web Audio; needs one tap before it can play) ---------- */
   let ac = null, sched = [];
   function ensureAudio() {
+    if (DRY) return Promise.resolve(false);
     if (!ac) { const AC = window.AudioContext || window.webkitAudioContext; if (AC) { try { ac = new AC(); } catch (e) { ac = null; } } }
     if (ac && ac.state !== 'running') return ac.resume().then(() => true, () => false);
     return Promise.resolve(!!ac);
   }
   const audioOk = () => !!ac && ac.state === 'running';
-  function beep(freq, dur, delay, vol, type, keep) {
+  function beep(freq, dur, delay, vol, type, keep) { if (DRY) return;
     if (!audioOk()) return;
     const t = ac.currentTime + Math.max(0, delay);
     const o = ac.createOscillator(), g = ac.createGain();
@@ -1905,12 +1912,12 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     goal: () => [523, 659, 784, 1047, 1319].forEach((f, i) => beep(f, 0.25, i * 0.11, 0.4, 'triangle', false)),
     nudge: (d, k) => { beep(392, 0.13, d, 0.35, 'square', k); beep(392, 0.13, d + 0.2, 0.35, 'square', k); },    // boop boop
   };
-  function cancelSched() { sched.forEach((o) => { try { o.stop(); } catch (e) {} }); sched = []; }
+  function cancelSched() { if (DRY) return; sched.forEach((o) => { try { o.stop(); } catch (e) {} }); sched = []; }
   let chimeFor = 0, nudgesFor = 0;     // which end time / wait we already put sounds on the audio clock for
   // Sounds are put on the audio clock in advance so they ring on time even if the browser slows the page's timers.
-  function scheduleSounds() {
+  function scheduleSounds() { if (DRY) return;
     cancelSched(); chimeFor = 0; nudgesFor = 0;
-    if (!sess || !set.chime || !audioOk()) return;
+    if (!sess || !set.chime || !audioOk() || (NATIVE && document.hidden)) return;
     const t = now();
     if (sess.wait) {
       if (canNudge()) for (let k = sess.wait.nudges + 1; k <= NUDGE_MAX; k++) SOUNDS.nudge((sess.wait.since + k * NUDGE_GAP - t) / 1000 / SPEED, true);
@@ -1927,8 +1934,11 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   }
 
   /* ---------- pop-up notices ---------- */
-  const canNotify = () => 'Notification' in window;
+  const canNotify = () => !!NATIVE || 'Notification' in window;
+  const notePerm = () => { if (NATIVE) { try { return NATIVE.permission(); } catch (e) { return 'default'; } } return Notification.permission; };
   async function notify(title, body) {
+    if (DRY) { DRY.out.push({ title, body }); return; }
+    if (NATIVE) return;                               // the Android app shows its own notices (below)
     if (!set.notify || !canNotify() || Notification.permission !== 'granted') return;
     if (document.visibilityState === 'visible' && document.hasFocus()) return;     // they can see the screen already
     const opts = { body, icon: 'icon-192.png', badge: 'icon-192.png', tag: 'loaf', renotify: true };
@@ -1939,17 +1949,154 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     try { new Notification(title, opts); } catch (e) {}
   }
   function askNotify() {
-    if (!set.notify || !canNotify() || Notification.permission !== 'default') return Promise.resolve();
+    if (DRY || !set.notify || !canNotify() || notePerm() !== 'default') return Promise.resolve();
+    if (NATIVE) { try { NATIVE.askPermission(); } catch (e) {} return Promise.resolve(); }
     try { return Promise.resolve(Notification.requestPermission()).then(renderHome, renderHome); } catch (e) { return Promise.resolve(); }
+  }
+
+  /* ---------- Android app: the phone books the notices ---------- */
+  // In the LOAF Android app, LOAF works out what happens next by running its own engine forward on a copy of the day
+  // (a dry run: the same rules as the real thing, but nothing is saved, drawn or played). It hands the phone a list of
+  // moments: one live notice that changes at each moment and rings when LOAF would have rung, plus the meeting heads-ups.
+  // The phone books them as alarms, so they arrive on time with LOAF closed and the screen locked. A browser skips all this.
+  function nativeChan(title) {                        // which of the phone's notice categories a LOAF notice belongs to
+    if (title === 'Coming up') return 'pop';          // the meeting heads-up pops up on its own
+    if (/ was due to end$|^Still in /.test(title)) return 'meet';
+    if (title === 'Lumi is still waiting') return 'nudge';
+    if (/ has started$|^Spare time$/.test(title)) return '';   // quiet: you'll see it, it doesn't ring
+    return 'bell';
+  }
+  const meetEnd = () => (sess.pl && sess.pl.pe != null ? sess.pl.pe : sess.endAt);
+  // the live notice for the dry run's state at time t. msg is a notice LOAF gave at t (it rings), j0 the treats before it.
+  function nativeNow(t, msg, j0) {
+    const b = sess && sess.pl && plan ? blockById(sess.pl.b) : null, name = b ? bname(b) : '';
+    const s = { at: t, title: '', text: '', sub: '', clock: 0, down: false, acts: [], ring: '', fin: false };
+    if (!sess) {
+      if (plan && plan.hold) { s.title = 'Your day starts at ' + tm(plan.start); s.text = "Lumi's stretching."; s.clock = dayMs(plan.start); s.down = true; return s; }
+      const P = plan ? plan.blocks.flatMap((x) => x.aw || []).filter((w) => w[1] != null && w[1] > w[0]) : [];
+      s.title = "That's the day!"; s.fin = true; s.ring = 'recap';
+      s.text = [homeNote, `🍪 ${jar.earned}${jar.bones ? ' and 🦴 ' + jar.bones : ''} in the jar today.`, P.length ? `Paused ${plural(P.length, 'time')}.` : '',
+        thoughts.length ? `${plural(thoughts.length, 'thought')} kept for tomorrow.` : ''].filter(Boolean).join(' ');
+      return s;
+    }
+    const p = sess.phase, brk = p === 'short' || p === 'long', what = brk ? (p === 'long' ? 'Sofa time' : 'Zoomies') : name || (p === 'focus' ? 'Focus' : p === 'box' ? 'Timebox' : p === 'up' ? 'Stopwatch' : 'Zoomies');
+    if (sess.paused) {
+      s.title = what + ' is paused'; s.text = fmt(sess.left, p === 'up') + (p === 'up' ? ' so far.' : ' left.') + ' Tap to carry on.'; s.acts = ['resume'];
+    } else if (sess.wait) {
+      s.clock = sess.wait.since; s.acts = ['start', 'snooze'];      // counts how long Lumi has been waiting
+      if (sess.pl && sess.pl.gap) {
+        const room = b ? dayMs(b.pin) - prepNeed(b) * 60000 : 0;
+        s.title = 'Spare time'; s.text = b ? `Free until ${clock(room)}, then ${name} at ${tm(b.pin)}.` : ''; s.clock = room; s.down = true; s.acts = [];
+      } else if (sess.pl && sess.pl.bound) {
+        s.title = sess.pl.prev === 'box' ? "Time's up!" : 'Next up'; s.text = `${name} is ready when you are.`;
+        if (b && b.pin != null) { s.text = `${name} at ${tm(b.pin)}.`; s.clock = dayMs(b.pin); s.down = true; }   // it starts by itself then
+      }
+      else if (p === 'focus') { s.title = "Break's over"; s.text = `Pomodoro ${sess.n} of ${b ? b.n : set.every} is ready when you are.`; }
+      else if (p === 'box') { if (b) { s.title = "Break's over"; s.text = `${name} carries on.`; } else { s.title = "Time's up!"; s.text = 'Your timebox is done.'; } }
+      else { s.title = p === 'long' ? 'Set done! Sofa time' : 'Focus done! Zoomies time'; s.text = `Your ${hm(sess.dur / 60000).trim()} ${p === 'long' ? 'long ' : ''}break is ready.`; }
+      if (sess.wait.nudges) s.sub = `Reminder ${sess.wait.nudges} of ${NUDGE_MAX}`;
+    } else if (p === 'meet') {
+      const pe = meetEnd();
+      s.title = what; s.acts = ['ended'];
+      if (t < pe) { s.text = `Until ${clock(pe)}.`; s.clock = pe; s.down = true; }
+      else { s.title = what + ' is running over'; s.text = `Was due to end at ${clock(pe)}. Tap Ended when it does. Everything after it waits.`; s.clock = pe; }
+    } else if (p === 'up') { s.title = what; s.text = 'Counting up.'; s.clock = sess.startAt; s.acts = ['pause']; }
+    else {
+      s.title = p === 'focus' ? (b ? `${name} · pomodoro ${sess.n} of ${b.n}` : `Pomodoro ${sess.n} of ${set.every}`) : what;
+      s.text = brk ? `Back to ${name || 'it'} at ${clock(sess.endAt)}.` : `Bell at ${clock(sess.endAt)}.`; s.clock = sess.endAt; s.down = true; s.acts = ['pause'];
+    }
+    if (msg) {
+      s.ring = nativeChan(msg.title);
+      if (sess.wait || msg.title !== 'Next up') { s.title = msg.title; s.text = msg.body; }   // a block that has already started keeps its own words
+      if (jar.earned > j0) s.text += ` 🍪 ${jar.earned} of ${goalNow()} today.`;
+    }
+    return s;
+  }
+  function nativePlan() {
+    const t0 = Date.now();
+    const keep = { sess, plan, jar, nid, pending, homeNote, party, chimeFor, nudgesFor, chatAt, saidLastMin, lastLine, rhyMemo, planOpen, editing };
+    const cp = (x) => (x == null ? x : JSON.parse(JSON.stringify(x)));
+    const steps = [], pops = [];
+    let key = null, j0 = 0, ok = true;
+    DRY = { t: t0, out: [] };
+    try {
+      sess = cp(sess); plan = cp(plan); jar = cp(jar); rhyMemo = null;
+      const end = Math.min(t0 + 16 * 3600000, dayStart() + 86400000 - 60000);     // up to the end of today
+      const stateKey = () => (!sess ? (plan && plan.hold ? 'hold' : 'none') : [sess.phase, !!sess.wait, sess.paused, sess.pl ? `${sess.pl.b}.${sess.pl.s}${sess.pl.gap ? 'g' : ''}` : '',
+        sess.wait ? sess.wait.since + '/' + sess.wait.nudges : sess.phase === 'meet' ? DRY.t >= meetEnd() : sess.phase === 'up' ? sess.startAt : sess.endAt].join('|'));
+      const look = (first) => {
+        const out = DRY.out.splice(0), t = DRY.t;
+        out.filter((o) => nativeChan(o.title) === 'pop').forEach((o) => pops.push({ at: t, title: o.title, text: o.body }));
+        const msg = out.filter((o) => nativeChan(o.title) !== 'pop').pop(), k = stateKey();
+        if (!msg && k === key) return;
+        key = k;
+        if (first && k === 'none') return;             // nothing on: no notice
+        steps.push(nativeNow(t, first ? null : msg, j0)); j0 = jar.earned;
+      };
+      j0 = jar.earned; look(true);
+      for (let g = 0; g < 3000 && DRY.t < end && steps.length < 80; g++) {
+        if (!sess && !(plan && plan.hold)) break;      // the day is over
+        if (sess && !sess.pl && (sess.paused || (sess.wait && !(canNudge() && sess.wait.nudges < NUDGE_MAX)))) break;   // nothing more happens until you tap
+        const t = DRY.t;
+        let nx = Math.floor(t / 60000) * 60000 + 60000;   // a minute at a time, plus the exact moments LOAF acts on
+        const at = (x) => { if (x > t && x < nx) nx = x; };
+        if (sess && !sess.paused) {
+          if (sess.wait) {
+            if (canNudge() && sess.wait.nudges < NUDGE_MAX) at(sess.wait.since + (sess.wait.nudges + 1) * NUDGE_GAP);
+            const gb = sess.pl && sess.pl.gap ? blockById(sess.pl.b) : null;
+            if (gb && gb.pin != null) at(dayMs(gb.pin) - 10 * 60000 + 250);   // spare time ends 10 min before the pinned block
+          }
+          else if (sess.phase === 'up') at(sess.startAt + (sess.marks + 1) * 3600000);
+          else if (sess.phase === 'meet') { at(meetEnd()); at(meetEnd() + 30 * 60000); at(sess.endAt - 30000); }   // LOAF stretches a meeting's clock just before it runs out
+          else { at(sess.endAt); if (sess.phase === 'box' && boxWarnMs(sess.dur)) at(sess.endAt - boxWarnMs(sess.dur)); }
+        }
+        DRY.t = nx;
+        tick();
+        look(false);
+      }
+    } catch (e) {
+      ok = false;
+      try { console.warn('LOAF: could not work out the notices', e); } catch (e2) {}
+    } finally {
+      ({ sess, plan, jar, nid, pending, homeNote, party, chimeFor, nudgesFor, chatAt, saidLastMin, lastLine, rhyMemo, planOpen, editing } = keep);
+      DRY = null;
+    }
+    return ok ? { steps, pops } : null;
+  }
+  function nativeSync() {                             // tell the phone what's coming (only when it changed)
+    clearTimeout(natTimer); natTimer = 0;
+    if (!NATIVE || SIM || DRY) return;
+    let p = { steps: [], pops: [] };
+    if (set.notify) { p = nativePlan(); if (!p) return; }   // a dry run that failed leaves the phone's notices as they were
+    const msg = JSON.stringify({ v: 1, sound: !!set.chime, steps: p.steps, pops: p.pops });
+    const cmp = msg.replace(/"at":\d+/, '');          // the first step is always "now"
+    if (cmp === natLast) return;
+    natLast = cmp;
+    try { NATIVE.schedule(msg); } catch (e) {}
+  }
+  function nativeSoon() { if (NATIVE && !SIM && !natTimer) natTimer = setTimeout(nativeSync, 400); }
+  function nativeAct(a) {                             // a button on the phone's notice (the app opens, then this runs)
+    if (a === 'start') { if ((sess && sess.wait) || (!sess && plan && plan.hold)) $('goBtn').click(); }
+    else if (a === 'ended') { if (sess && sess.phase === 'meet' && !sess.wait) $('skipBtn').click(); }
+    else if (a === 'pause') { if (sess && !sess.wait && !sess.paused && sess.phase !== 'meet') pause(); }
+    else if (a === 'resume') { if (sess && sess.paused) pause(); }
+    else return;
+    bitsKey = ''; updateBits(); if (plan) renderPlan();
+  }
+  function nativeEvents() {
+    if (!NATIVE || SIM) return;
+    let L = [];
+    try { L = JSON.parse(NATIVE.takeEvents() || '[]'); } catch (e) { L = []; }
+    (Array.isArray(L) ? L : []).forEach((ev) => nativeAct(ev && ev.a));
   }
 
   /* ---------- keep the screen awake while a session is on ---------- */
   let wl = null;
-  async function wake() {
+  async function wake() { if (DRY) return;
     if (wl || !('wakeLock' in navigator) || document.visibilityState !== 'visible') return;
     try { const s = await navigator.wakeLock.request('screen'); if (!sess) { s.release(); return; } wl = s; s.addEventListener('release', () => { if (wl === s) wl = null; }); } catch (e) {}
   }
-  function unwake() { const s = wl; wl = null; try { s && s.release(); } catch (e) {} }
+  function unwake() { if (DRY) return; const s = wl; wl = null; try { s && s.release(); } catch (e) {} }
 
   /* ---------- the engine ---------- */
   const durOf = (p) => set[p] * 60000;
@@ -2030,7 +2177,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   }
   // goal reached: zoomies, a glowing jar and a fanfare
   let partyT = null;
-  function celebrate() {
+  function celebrate() { if (DRY) return;
     party = false;
     if (set.chime) SOUNDS.goal();
     document.querySelectorAll('.jar,.tyJar').forEach((j) => { j.classList.remove('glow'); void j.offsetWidth; j.classList.add('glow'); });
@@ -2045,14 +2192,14 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     return true;
   }
   let noticeT = 0;
-  function notice(text) {                              // a line on the Day view that stays until tapped or about a minute
+  function notice(text) { if (DRY) return;                              // a line on the Day view that stays until tapped or about a minute
     const el = $('planNotice');
     if (!el) return;
     logAdd(text);
     el.textContent = text; el.hidden = false;
     clearTimeout(noticeT); noticeT = setTimeout(() => { el.hidden = true; }, 60000 / Math.min(SPEED, 4));
   }
-  function lateBanner() {                              // the running-late alert is a banner you tap, not a pop-up
+  function lateBanner() { if (DRY) return;                              // the running-late alert is a banner you tap, not a pop-up
     const el = $('lateBanner');
     if (!el) return;
     el.hidden = true; return;
@@ -2175,7 +2322,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     if (t && now() - t >= 3600000) { if (todayOn()) { if (tyStale !== t) { tyStale = t; $('tyStat')._h = null; } } else openSheet({ t: 'stale', since: t }); }
   }
   let bitsKey = '';
-  function updateBits() {
+  function updateBits() { if (DRY) return;
     const on = !!(plan && plan.run && sess && sess.pl), d = new Date(now());
     const clk = clock(now()) + '<small>' + d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }) + '</small>';
     let ban = '', red = false;
@@ -2274,7 +2421,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
 
   /* ---------- speech bubble ---------- */
   let bubbleT = null;
-  function say(text, ms) {
+  function say(text, ms) { if (DRY) return;
     const b = $('bubble');
     clearTimeout(bubbleT);
     if (!text) { b.classList.remove('show'); return; }
@@ -2328,7 +2475,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     $('setLeft').textContent = sess.phase === 'long' ? 'Sofa time' : `About ${hm(rest + frac * sess.dur / 60000)} left in this set`;
   }
   let shown = '', planOpen = false;
-  function showScreen() {
+  function showScreen() { if (DRY) return;
     if (!sess && !plan) plan = freshPlan();
     const which = splashOn() ? 'splash' : 'plan';      // the old home, run and wait screens are mothballed (archive/index-v12.1.html keeps them)
     if (sess || (plan && plan.hold)) planOpen = true;
@@ -2393,7 +2540,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
   }
   const reduced = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   let lastTitle = '';
-  function renderRun() {
+  function renderRun() { if (DRY) return;
     if (!sess || sess.wait) return;
     const up = sess.phase === 'up', plain = up || sess.phase === 'box';
     const el = up ? (sess.paused ? sess.left : Math.max(0, now() - sess.startAt)) : 0;
@@ -2443,7 +2590,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     renderWait();
   }
   let waitPose = '';
-  function renderWaitLumi() {
+  function renderWaitLumi() { if (DRY) return;
     const asleep = set.nudge && sess.wait.nudges >= NUDGE_MAX;
     const pose = asleep ? 'sleep' : 'run';
     if (pose === waitPose && $('waitLumi').innerHTML) return;
@@ -2451,7 +2598,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     $('waitLumi').className = 'lumi ' + (asleep ? 'sleepy' : 'bounce');
     $('waitLumi').innerHTML = asleep ? lumiLoaf(true) : lumiRun();
   }
-  function renderWait() {
+  function renderWait() { if (DRY) return;
     if (!sess || !sess.wait) return;
     const pill = $('pill');
     if (sess.pl && sess.pl.gap) planGapText();
@@ -2501,7 +2648,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const t = 'next treat in ' + nextTreatMin() + ' min';
     for (const id of ['jarRun', 'jarWait']) { const e = $(id).querySelector('.jn'); if (e && e.textContent !== t) e.textContent = t; }
   }
-  function renderJars() {
+  function renderJars() { if (DRY) return;
     rollDay();
     const art = jarArt(), label = `${jar.earned} of ${goalNow()} today`;
     const aria = `Treat jar: ${plural(jar.items.length, 'treat')} in it, ${label}. Tap to feed Lumi.`;
@@ -2533,7 +2680,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   ['jarRun', 'jarWait', 'jarHome'].forEach((id) => $(id).addEventListener('click', feed));
 
   /* ---------- home / settings ---------- */
-  function renderHome() {
+  function renderHome() { if (DRY) return;
     for (const k of ['focus', 'short', 'long', 'every', 'goal', 'box']) {
       $('v-' + k).textContent = set[k];
       document.querySelectorAll(`[data-k="${k}"][data-d]`).forEach((b) => {
@@ -2548,17 +2695,17 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (homeNote) { $('homeTag').textContent = homeNote; homeNote = ''; }
     document.querySelectorAll('#styles .sty').forEach((b) => { const st = STYLES.find((x) => x.id === b.dataset.style); b.setAttribute('aria-pressed', String(STYLE_KEYS.every((k) => set[k] === st[k]))); });
     document.querySelectorAll('#boxChips button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.v === set.box)));
-    $('lockNote').hidden = !(window.matchMedia && matchMedia('(pointer: coarse)').matches);
+    $('lockNote').hidden = !!NATIVE || !(window.matchMedia && matchMedia('(pointer: coarse)').matches);
     for (const k of ['chime', 'notify', 'auto', 'nudge', 'humans']) $('t-' + k).setAttribute('aria-checked', set[k] ? 'true' : 'false');
     // notices: say plainly when they can't work here
     const tn = $('t-notify');
     if (!canNotify()) {
       tn.disabled = true; tn.setAttribute('aria-checked', 'false');
       $('h-notify').textContent = /iPhone|iPad/.test(navigator.userAgent) ? 'On iPhone, add LOAF to your Home Screen first' : "This browser can't show them";
-    } else if (Notification.permission === 'denied') {
+    } else if (notePerm() === 'denied') {
       tn.disabled = true; tn.setAttribute('aria-checked', 'false');
-      $('h-notify').textContent = 'Blocked in this browser’s site settings';
-    } else { tn.disabled = false; $('h-notify').textContent = 'Handy when this tab is in the background'; }
+      $('h-notify').textContent = NATIVE ? 'Turned off for LOAF in Android settings' : 'Blocked in this browser’s site settings';
+    } else { tn.disabled = false; $('h-notify').textContent = NATIVE ? 'A live countdown that rings on time, even with LOAF closed' : 'Handy when this tab is in the background'; }
     const tz = $('t-nudge');
     tz.disabled = set.auto;
     if (set.auto) tz.setAttribute('aria-checked', 'false');
@@ -2991,7 +3138,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       if (last) { last.st = 'run'; last.si = 0; pending = pick('boxMore'); startPhase('box', 1, 0, [], 5 * 60000, { b: last.id, s: 0, gap: false, bound: false, prev: '' }); }
     }
   }
-  function setupPlanWait() {
+  function setupPlanWait() { if (DRY) return;
     const pl = sess.pl, b = blockById(pl.b), p = sess.phase;
     let title, sub, go, alt = 'Stop for now', key = 'waitBreak', act = '';
     if (pl.gap) {
@@ -3014,7 +3161,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     document.title = (pl.bound ? 'Next up' : "Time's up!") + ' · LOAF';
     renderWait();
   }
-  function planGapText() {
+  function planGapText() { if (DRY) return;
     const b = blockById(sess.pl.b);
     if (!b) return;
     const pre = prepNeed(b), room = Math.max(5, b.pin - pre - Math.floor(minDay(now())));
@@ -3071,7 +3218,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       }
     }
   }
-  function planRunText() {
+  function planRunText() { if (DRY) return;
     const pl = sess.pl, b = blockById(pl.b), p = sess.phase, list = plan.blocks.filter((x) => x.st !== 'drop');
     if (!b) return;
     const rows = project(plan, now());
@@ -3452,7 +3599,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       return `<button type="button"${g || ''} data-ty="${a}"${rest}${ti}>${TYI[k]}`;
     });
   }
-  function renderToday() {
+  function renderToday() { if (DRY) return;
     const el = $('today'), on = todayOn(), live = !!(sess && plan && plan.run && sess.pl);
     el.hidden = !on;
     if (!on) delete document.body.dataset.tk;
@@ -3593,13 +3740,13 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   }
   /* ---------- r36: the treat jar on the timer ---------- */
   function E1(e) { return `<span class="tyE1">${e}</span>`; }
-  function tySay(line, ms) {                          // Lumi says something for a while, over the usual line
+  function tySay(line, ms) { if (DRY) return;                          // Lumi says something for a while, over the usual line
     if (!line) return;
     tySaid = { line, until: performance.now() + (ms || 9000) };
     const bb = $('tyBub');
     if (bb && todayOn()) { setH(bb, esc(line)); if (!lmStill()) { bb.classList.remove('pop'); void bb.offsetWidth; bb.classList.add('pop'); } }
   }
-  function jarFx(line) {                              // a treat or bone lands: the jar pops and Lumi says so
+  function jarFx(line) { if (DRY) return;                              // a treat or bone lands: the jar pops and Lumi says so
     renderTyJar();
     const j = $('tyJar');
     if (j && !lmStill()) { j.classList.remove('pop'); void j.offsetWidth; j.classList.add('pop'); }
@@ -3815,7 +3962,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   $('pmOpen').addEventListener('click', () => $('tyBack').click());
 
   /* ---------- the late checkpoint ---------- */
-  function checkpoint() {
+  function checkpoint() { if (DRY) return;
     if (!plan || !plan.run || !$('sheet').hidden) return;
     const L = lateness();
     lateBanner();
@@ -3824,8 +3971,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   /* ---------- sheets (late checkpoint, something came up, how long have you got) ---------- */
   let sh = null;
   const nextQuarter = (plus) => Math.min(1425, Math.ceil((minDay(now()) + plus) / 15) * 15);
-  function openSheet(o) { sh = o; renderSheet(); $('sheet').hidden = false; const f = $('shPanel').querySelector('button,input'); if (f) f.focus(); }
-  function sheetClose() { sh = null; $('sheet').hidden = true; }
+  function openSheet(o) { if (DRY) return; sh = o; renderSheet(); $('sheet').hidden = false; const f = $('shPanel').querySelector('button,input'); if (f) f.focus(); }
+  function sheetClose() { if (DRY) return; sh = null; $('sheet').hidden = true; }
   const opt = (act, title, sub, cls) => `<button type="button" class="opt ${cls || ''}" data-sa="${act}"><b>${title}</b>${sub ? `<small>${sub}</small>` : ''}</button>`;
   const stepper = (what, text) => `<div class="shStep"><button type="button" data-sa="${what}-" aria-label="Less">−</button><output>${text}</output><button type="button" data-sa="${what}+" aria-label="More">+</button></div>`;
   function renderSheet() {
@@ -4351,7 +4498,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     addMeeting(f, t);
   }
   const ptxt = (x) => `${tm(x.f)} – ${tm(x.t)}`;
-  function renderPlan() { inView(draw); }
+  function renderPlan() { if (DRY) return; inView(draw); }
   function draw() {
     if (!plan) return;
     const run = plan.run, today0 = viewOff === 0, began = today0 && startedDay(), cursor = run || began ? now() : dayMs(plan.start), nowM = minDay(now());
@@ -5322,7 +5469,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     }
   });
   document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') { tick(); if (sess) wake(); }
+    if (document.visibilityState === 'visible') { nativeEvents(); tick(); if (sess) wake(); if (NATIVE) scheduleSounds(); }
+    else if (NATIVE) { cancelSched(); nativeSync(); }
   });
 
   /* ---------- go ---------- */
@@ -5333,6 +5481,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     wake();
   }
   setInterval(tick, 250);
+  if (NATIVE && !SIM) { nativeEvents(); nativeSync(); setInterval(nativeEvents, 1000); }
   document.addEventListener('visibilitychange', () => { if (!document.hidden) checkStale(); });
   setTimeout(checkStale, 700);
   const dayOpened = today();
@@ -5430,6 +5579,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('setSheet').hidden) setOpen(false); });
   window.__loaf = { noSplash() { splashSkip(); showScreen(); }, quickStart, openSettings: () => setOpen(true), openMeet: () => inView(() => openMeet(false)), get sess() { return sess; }, get jar() { return jar; }, get plan() { return plan; }, get thoughts() { return thoughts; }, set, tick, now,
     gapsLeft: () => gapIds().length,
+    natSync() { natLast = ''; nativeSync(); }, natReset() { natLast = ''; },
     fillGap(n = 0, kind = 'deep') { const g = gapIds(), id = g[n < 0 ? g.length + n : n]; if (id == null) return false; planAct(`gap:${id}:${kind}`); return true; } };
 })();
 </script>
