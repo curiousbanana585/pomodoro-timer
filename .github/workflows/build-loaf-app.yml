@@ -50,10 +50,22 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - uses: android-actions/setup-android@v3
-
+      # GitHub's runners come with the Android SDK. If one ever doesn't, fetch Google's command-line tools.
       - name: Android 16 SDK
-        run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
+        run: |
+          sdk="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-$HOME/android-sdk}}"
+          sm="$sdk/cmdline-tools/latest/bin/sdkmanager"
+          if [ ! -x "$sm" ]; then
+            echo "No Android SDK on this runner, fetching the command-line tools"
+            mkdir -p "$sdk/cmdline-tools"
+            curl -fsSL -o "$RUNNER_TEMP/tools.zip" https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
+            unzip -q "$RUNNER_TEMP/tools.zip" -d "$RUNNER_TEMP/tools"
+            rm -rf "$sdk/cmdline-tools/latest"; mv "$RUNNER_TEMP/tools/cmdline-tools" "$sdk/cmdline-tools/latest"
+          fi
+          echo "ANDROID_HOME=$sdk" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$sdk" >> "$GITHUB_ENV"
+          yes | "$sm" --licenses > /dev/null || true
+          "$sm" --install "platforms;android-36" "build-tools;36.0.0"
 
       - uses: gradle/actions/setup-gradle@v4
         with:
