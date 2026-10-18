@@ -1,5 +1,5 @@
 // Caches the app so it opens offline once installed. Bump VERSION when you update index.html.
-const VERSION = 'loaf-v42';
+const VERSION = 'loaf-v43';
 const FILES = ['./', './index.html', './basic.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
 const OPTIONAL = ['./lumi-messages.js'];   // missing is fine
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(VERSION).then((c) => c.addAll(FILES).then(() => Promise.all(OPTIONAL.map((u) => c.add(u).catch(() => {}))))).then(() => self.skipWaiting())); });
