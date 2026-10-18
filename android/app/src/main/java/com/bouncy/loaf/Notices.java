@@ -169,7 +169,8 @@ final class Notices {
                 .setOnlyAlertOnce(!ring)
                 .setOngoing(!fin)
                 .setAutoCancel(fin)
-                .setCategory(ring ? Notification.CATEGORY_REMINDER : Notification.CATEGORY_PROGRESS);
+                .setCategory(ring ? Notification.CATEGORY_REMINDER : Notification.CATEGORY_PROGRESS)
+                .setColor(tint(s.optString("tk")));
         if (!sub.isEmpty()) b.setSubText(sub);
         long clock = s.optLong("clock");
         if (clock > 0 && !fin) {
@@ -202,6 +203,17 @@ final class Notices {
             case "pause": return "Pause";
             case "resume": return "Carry on";
             default: return "Open LOAF";
+        }
+    }
+
+    /** The timer screen's colour for what's running: icon, app name and buttons take it (a plain notice can't fill with colour). */
+    private static int tint(String tk) {
+        switch (tk) {
+            case "brk": return 0xFF1F8A4C;
+            case "box": return 0xFF2B6A8E;
+            case "meet": return 0xFF8A5AAE;
+            case "paused": return 0xFFB8892A;
+            default: return ACCENT;
         }
     }
 
