@@ -2416,8 +2416,10 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     else if (sess.wait) $('goBtn').click(); else pause();
     bitsKey = ''; updateBits(); renderPlan();
   });
+  let chkMin = -1;
   function tick() {
     updateBits();
+    if (sess && todayOn() && Math.floor(now() / 60000) !== chkMin) { chkMin = Math.floor(now() / 60000); renderPlan(); }   // the day check (clashes, Lumi's rest offer) keeps up as time passes
     if (rollDay()) { renderJars(); if (!sess) renderHome(); }
     if (!sess && plan && plan.hold) {
       if (now() >= dayMs(plan.start)) { plan.hold = false; planStart(undefined, true); }
