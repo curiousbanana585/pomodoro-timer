@@ -998,7 +998,8 @@ body[data-theme=splash] #sbx{display:none}
   .tyStage{gap:6px}
 }
 @media (max-width:700px) and (max-height:660px){#today:has(.tyNote.ask) .tyLumi>svg{max-height:64px}#today:has(.tyNote.ask) .tyBub{display:none}}
-@media (max-width:400px){.tyStat:has(.ok:only-child){display:none}}   /* keeps the jar, thoughts and Edit on one row */
+.tyOn{display:none}
+@media (max-width:400px){.tyFoot .tyTools,.tyTools .tyTop{gap:8px}.tyStat,.tyStat .warn{font-size:13px}.tyStill{display:none}.tyOn{display:inline}#today .tyJar{gap:6px;padding-right:8px}#today .tyJar .c{gap:3px}#today .tyTh{padding:0 9px}}   /* the jar, On track, thoughts and Edit stay on one row */
 @media (max-width:759px){
   .splCards,.splC{flex:1 0 auto}
   .splBand{flex:1 0 200px;height:auto;min-height:200px}
@@ -3627,7 +3628,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   function tyStatHtml(paused) {                       // On track, or what needs a look (opens Edit day); Carry on / Start fresh after a long gap
     if (tyStale) { const away = Math.max(60, Math.round((now() - tyStale) / 60000)); return `<span class="aw">Away ${hm(away)}</span><button type="button" class="sb" data-ty="stale-on">Carry on</button><button type="button" class="sb q" data-ty="stale-new">Start fresh</button>`; }
     if (dayChk.some((c) => c.kd === 'clash')) return '';   // the clash card above the buttons says it
-    return `<span class="ok">${paused ? 'Still on track' : 'On track'}</span>`;
+    return `<span class="ok">${paused ? '<span class="tyStill">Still on</span><span class="tyOn">On</span> track' : 'On track'}</span>`;
   }
   const TYI = {
     pen: '<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"></path></svg>',
