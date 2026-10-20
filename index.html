@@ -237,7 +237,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
   .pside{display:contents}
   #planNote:empty,#ownCard:empty,#ifTime:empty{display:none}
   .pcal{order:1}#planCard{order:2}#planNote{order:3}#planLog{order:4}#ownCard{order:5}#defCard{order:8}.mini2{order:9}
-  #selCard:not(:empty){position:fixed;left:0;right:0;bottom:0;z-index:40;max-height:70vh;overflow:auto;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));background:var(--bg,#0f1218);box-shadow:0 -8px 24px rgba(0,0,0,.5)}
+  #selCard:not(:empty){box-sizing:border-box;position:fixed;left:0;right:0;bottom:0;z-index:40;max-height:70vh;overflow:auto;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));background:var(--bg,#0f1218);box-shadow:0 -8px 24px rgba(0,0,0,.5)}
   #plan:has(#selCard:not(:empty)){padding-bottom:300px}
 }
 @media (min-width:900px){
@@ -316,11 +316,29 @@ body.paused .tLumi .lumi{animation-play-state:paused}
 .cb.over{box-shadow:0 0 0 3px #f87171}
 .cb.done{opacity:.5}.cb.skip{opacity:.7}.rib .cb.skip .tl{background:repeating-linear-gradient(135deg,#2a313c 0 4px,transparent 4px 9px)!important;outline:2px dashed #6b7380;outline-offset:-2px;color:var(--dim)}
 .cb.skip{background:repeating-linear-gradient(135deg,var(--bc) 0 8px,#3a4250 8px 16px)}
+.dvHd{display:grid;grid-template-columns:50px 34% minmax(0,1fr);gap:0 8px;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);margin:4px 0 10px}
+.dvIn{position:relative;margin:8px 0 34px}
+.dvh{position:absolute;left:50px;right:0;height:1px;background:var(--rule)}
+.dvt{position:absolute;left:0;transform:translateY(-50%);font-size:12px;font-weight:800;color:var(--dim);font-variant-numeric:tabular-nums}
+.dvout{position:absolute;left:50px;right:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.04) 0 6px,transparent 6px 12px)}
+.dvFx{position:absolute;top:0;bottom:0;left:58px;width:calc(34% - 8px)}.dvFl{position:absolute;top:0;bottom:0;left:calc(34% + 58px);right:0}
+.dvb{position:absolute;left:0;right:0;box-sizing:border-box;border-radius:8px;background:var(--bc);color:#16181d;font-size:12px;font-weight:800;padding:4px 8px;display:flex;flex-direction:column;justify-content:flex-start;overflow:hidden;cursor:pointer;line-height:1.2}
+.dvb.sm{padding:0 8px;font-size:11px}
+.dvb .dvn{position:relative;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dvb .dvm{position:relative;font-weight:600}
+.dvb.dn{opacity:.5}.dvb.run{box-shadow:0 0 0 2px #fff}.dvb.sel{box-shadow:0 0 0 3px #fff}.dvb.over{box-shadow:inset 0 0 0 2px #fbbf24}
+.dvb:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.dvsb{position:absolute;left:0;right:0;background:#3fcb7f}
+.dva{border-radius:4px;cursor:default;padding:0 8px;justify-content:center;font-size:11px;color:#0b2414}
+.dvprep{position:absolute;left:0;right:0;background:repeating-linear-gradient(135deg,#3a4358 0 3px,transparent 3px 6px);border-radius:3px}
+.dvfree{position:absolute;left:0;right:0;box-sizing:border-box;border:2px dashed #3b4656;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--dim);cursor:pointer;overflow:hidden}
+.dvfree.on{border-color:var(--accent);color:var(--accent)}
+.dvfin{position:absolute;left:50px;right:0;border-top:2px solid #f1f3f6;pointer-events:none}.dvfin span{position:absolute;left:8px;top:4px;font-size:13px;font-weight:800;white-space:nowrap}.dvfin.over span{color:#ffe08a}
+.dvnow{position:absolute;left:44px;right:0;border-top:2px solid var(--accent);pointer-events:none}.dvnow span{position:absolute;left:-44px;top:-10px;font-size:11px;font-weight:900;color:#0e1116;background:var(--accent);border-radius:6px;padding:2px 5px}
 .agSw{display:flex;align-items:center;gap:10px}.agSw .seg{display:inline-flex;background:var(--card);border-radius:10px;padding:3px}
 .agSw .seg button{background:transparent;min-height:32px;padding:0 14px;border-radius:8px;font-weight:800;font-size:13px;color:var(--dim)}.agSw .seg button[aria-pressed=true]{background:var(--btn);color:#fff}
 .agSw small{color:var(--dim);font-size:12.5px;min-width:0}.agSw .undoRow{margin-left:auto;flex:none}.agSw{flex-wrap:wrap}
 .undoRow{display:flex}.undoRow button{min-height:36px;padding:0 14px;border-radius:10px;background:var(--btn);color:#fff;font:inherit;font-size:14px;font-weight:700}
-.calWrap:has(.cal.rib),.calWrap:has(.cal.list){max-height:none;overflow:visible}
+.calWrap:has(.cal.rib),.calWrap:has(.cal.list),.calWrap:has(.cal.day){max-height:none;overflow:visible}
 /* the ribbon: fixed things in the top lane, work in the lane below, the whole day across the screen */
 .cal.rib{height:196px;background:#141922;border-radius:12px;margin:0;overflow:hidden}
 .rbIn{position:absolute;left:78px;right:14px;top:0;bottom:0}
@@ -926,7 +944,7 @@ body[data-theme=splash] #sbx{display:none}
   .tyFoot .tyTools{justify-content:space-between}
   .tyStat{order:0;justify-content:center;flex:1 1 auto}
   .tyFoot .tyTools{flex-wrap:wrap;row-gap:8px}
-  .tyStat:has(.warn),.tyStat:has(.sb){order:-1;flex:1 1 100%;min-width:0}
+  .tyStat:has(.warn),.tyStat:has(.sb),.tyStat:has(.lt:not(.ok)){order:-1;flex:1 1 100%;min-width:0}
   .tyStat .warn{max-width:100%}
   #today .tyBtns{gap:8px}#today .tyBtns button{padding:0 12px}
 }
@@ -966,6 +984,23 @@ body[data-theme=splash] #sbx{display:none}
 }
 /* v45: a clash (the day doesn't fit) gets a card with Fix it; on a phone the timer and the start screen use the whole screen */
 .tyClash:empty{display:none}
+.tyStat .lt{min-height:44px;min-width:0;max-width:100%;display:flex;align-items:center;gap:8px;padding:0 12px;border-radius:999px;border:1.5px solid #3fcb7f;background:rgba(63,203,127,.14);color:#a7f0c4;font:800 14px Inter,system-ui,sans-serif;cursor:pointer}
+.tyStat .lt i{flex:none;width:20px;height:20px;border-radius:50%;background:#3fcb7f;color:#0b2a17;display:flex;align-items:center;justify-content:center;font:900 12px Inter,system-ui,sans-serif}
+.tyStat .lt span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tyStat .lt.amber{border-color:#ffc94a;background:rgba(255,201,74,.16);color:#ffe08a}.tyStat .lt.amber i{background:#ffc94a;color:#3a2800}
+.tyStat .lt.red{border-color:#ff7a6b;background:rgba(255,122,107,.18);color:#ffc4bb}.tyStat .lt.red i{background:#ff7a6b;color:#3a0b05}
+.tyStat .lt.grey{border-color:#6b7385;background:rgba(0,0,0,.2);color:#e2e8f0}.tyStat .lt.grey i{background:#a7afbb;color:#16181d}
+.tyStat .lt:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media (max-width:400px){.tyStat .lt{padding:0 9px;gap:6px;font-size:13px}.tyStat .lt i{width:18px;height:18px;font-size:11px}.tyStat .lt.ok{border-color:transparent;background:none;padding:0 2px}.tyStat .lt.ok i{display:none}}
+.pIssue{background:var(--card);border:1.5px solid #ffc94a;border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+.pIssue.red{border-color:#ff7a6b}
+.pIssue .ih{display:flex;gap:8px;align-items:center;font-size:15px;font-weight:800;color:#ffe08a}.pIssue.red .ih{color:#ffc4bb}
+.pIssue .ih i{flex:none;width:20px;height:20px;border-radius:50%;background:#ffc94a;color:#3a2800;display:inline-flex;align-items:center;justify-content:center;font:900 12px Inter,system-ui,sans-serif}.pIssue.red .ih i{background:#ff7a6b;color:#3a0b05}
+.pIssue p{margin:0;font-size:13px;color:var(--soft);line-height:1.4}
+.pIssue button{min-height:48px;border-radius:12px;border:0;background:var(--btn);color:#fff;font:800 15px Inter,system-ui,sans-serif;text-align:left;padding:0 14px;cursor:pointer}
+.pIssue button.go{background:var(--go)}
+.pIssue button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media (min-width:900px){.pIssue{flex-direction:row;flex-wrap:wrap;align-items:center}.pIssue .ih,.pIssue p{flex:1 1 100%}.pIssue button{flex:0 0 auto}}
 .tyClash{display:flex;flex-direction:column;align-items:flex-start;gap:8px;max-width:460px;margin:6px 0 2px;padding:12px 14px;border-radius:14px;background:#fff1c9;color:#4a3300;text-align:left}
 .tyClash p{margin:0;font:400 15px/1.4 Inter,system-ui,sans-serif}.tyClash b{font-weight:800}
 .tyClash button{min-height:44px;padding:0 16px;border:0;border-radius:12px;background:#4a3300;color:#fff1c9;font:800 15px Inter,system-ui,sans-serif;cursor:pointer}
@@ -1097,7 +1132,7 @@ body[data-theme=splash] #sbx{display:none}
       <span class="sum" id="sum"></span>
       <button type="button" class="go" id="startBtn">START</button>
     </div>
-    <div class="credit">A Bouncy Production · Made for Haz · v45</div>
+    <div class="credit">A Bouncy Production · Made for Haz · v46</div>
   </div>
 </main>
 
@@ -1139,7 +1174,7 @@ body[data-theme=splash] #sbx{display:none}
     <button type="button" class="main" id="pauseBtn">PAUSE</button>
     <button type="button" id="skipBtn">Skip</button>
   </div>
-  <div class="credit">A Bouncy Production · Made for Haz · v45</div>
+  <div class="credit">A Bouncy Production · Made for Haz · v46</div>
 </main>
 
 <!-- ================= TIME'S UP, WAITING FOR A TAP ================= -->
@@ -1158,7 +1193,7 @@ body[data-theme=splash] #sbx{display:none}
   <div class="hint" id="soundHint2" hidden>Tap anywhere to wake the chime up</div>
   <button type="button" class="big" id="goBtn">START FOCUS</button>
   <button type="button" class="quiet" id="stopBtn2">Stop for now</button>
-  <div class="credit">A Bouncy Production · Made for Haz · v45</div>
+  <div class="credit">A Bouncy Production · Made for Haz · v46</div>
 </main>
 
 <!-- ================= DAY SHAPE PLANNER ================= -->
@@ -1189,7 +1224,7 @@ body[data-theme=splash] #sbx{display:none}
         </div>
       </section>
     </div>
-    <div class="credit">A Bouncy Production · Made for Haz · v45</div>
+    <div class="credit">A Bouncy Production · Made for Haz · v46</div>
   </div>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="splScene" viewBox="0 0 1280 800"><defs><linearGradient id="splSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3ff"/><stop offset="1" stop-color="#e6f7ff"/></linearGradient>
 <clipPath id="splL"><path d="M0 0 L700 0 L580 800 L0 800 Z"/></clipPath><clipPath id="splR"><path d="M700 0 L1280 0 L1280 800 L580 800 Z"/></clipPath></defs><g clip-path="url(#splL)"><rect width="1280" height="800" fill="#ffd2bd"/><rect x="0" y="470" width="1280" height="330" fill="#e9a27f"/><path d="M0 470 L1280 470" stroke="#c97f5c" stroke-width="6"/><g><rect x="90" y="70" width="280" height="210" rx="14" fill="#fff4ea" stroke="#9a5a3c" stroke-width="6"/><rect x="104" y="84" width="252" height="182" rx="8" fill="#9ad7ff"/><circle cx="300" cy="140" r="30" fill="#ffd166"/><g fill="#fff" opacity=".95"><ellipse cx="180" cy="200" rx="32.199999999999996" ry="14"/><ellipse cx="201" cy="191.6" rx="21" ry="15.399999999999999"/><ellipse cx="160.4" cy="195.8" rx="16.799999999999997" ry="11.2"/></g><path d="M230 84 L230 266 M104 175 L356 175" stroke="#fff4ea" stroke-width="8"/></g><g><rect x="430" y="150" width="120" height="40" rx="8" fill="#fff" stroke="#9a5a3c" stroke-width="4"/><text x="490" y="177" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="15" font-weight="900" fill="#ef6a52">FOCUS</text></g><g><rect x="40" y="380" width="54" height="90" rx="8" fill="#c2410c" stroke="#7c2d12" stroke-width="4"/><path d="M67 380 L67 300" stroke="#3f7d3a" stroke-width="5"/><ellipse cx="50" cy="330" rx="20" ry="9" fill="#4aa957"/><ellipse cx="86" cy="310" rx="20" ry="9" fill="#4aa957"/><ellipse cx="60" cy="296" rx="16" ry="8" fill="#56b866"/></g><rect x="120" y="455" width="460" height="22" rx="8" fill="#a1623e" stroke="#6b3b22" stroke-width="4"/><svg viewBox="0 0 160 100" x="160" y="340" width="220" height="138">
@@ -1465,10 +1500,12 @@ body[data-theme=splash] #sbx{display:none}
   </div>
   <div class="pgrid">
     <section class="pcal">
+      <div class="pIssue" id="planIssue" hidden></div>
       <div class="timesRow" id="planStart">
         <span class="tr"><span>Starts</span><button type="button" id="planStartDn" aria-label="Earlier start">−</button><input type="text" id="planStartV" inputmode="numeric" maxlength="5" aria-label="Day starts at" autocomplete="off"><button type="button" id="planStartUp" aria-label="Later start">+</button></span>
         <span class="tr"><span>Finish by</span><button type="button" id="planFinDn" aria-label="Earlier finish">−</button><input type="text" id="planFinV" inputmode="numeric" maxlength="5" aria-label="Day finishes at" autocomplete="off"><button type="button" id="planFinUp" aria-label="Later finish">+</button></span>
         <button type="button" class="linkbtn" id="planFinOff">No finish line</button>
+        <button type="button" class="linkbtn" id="planAuto">Fill gaps myself</button>
       </div>
       <div class="agSw" id="agSw"><span class="seg" role="group" aria-label="Agenda view"><button type="button" data-pa="agv:list">List</button><button type="button" data-pa="agv:rib">Ribbon</button></span><small id="agHint"></small><div class="undoRow" id="undoRow" hidden><button type="button" id="undoBtn">↶ Undo last change</button></div></div>
       <div class="earlier" id="earlier" hidden></div>
@@ -1499,7 +1536,7 @@ body[data-theme=splash] #sbx{display:none}
     </aside>
     <div class="mini2 dayEnd"><button type="button" id="tplBtn">Save as my usual day</button><button type="button" class="dz" id="clearBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span>Start over</span></button><button type="button" class="dz" id="endDayBtn" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>End the day</span></button></div>
   </div>
-  <div id="sbx"></div><div class="credit">A Bouncy Production · Made for Haz · v45</div>
+  <div id="sbx"></div><div class="credit">A Bouncy Production · Made for Haz · v46</div>
 </main>
 
 <div class="sheet" id="sheet" hidden>
@@ -1538,7 +1575,7 @@ body[data-theme=splash] #sbx{display:none}
   const KEY = SIM ? 'loafBasicSandbox1' : 'loafBasic1';                     // bump the number when the saved shape changes
   const NUDGE_GAP = 2 * 60000, NUDGE_MAX = 5, TREAT_MS = 25 * 60000;     // one treat for every 25 min of finished focus
   const LIMITS = { focus: [5, 90, 5], short: [1, 30, 1], long: [5, 60, 5], every: [2, 8, 1], goal: [1, 20, 1], box: [5, 180, 5], pfoc: [1, 4, 1], pbox: [15, 120, 5], psofa: [15, 60, 5], pmeet: [15, 90, 5] };   // min, max, step
-  const DEF = { focus: 25, short: 5, long: 15, every: 4, goal: 8, box: 20, chime: true, notify: true, auto: false, nudge: false, humans: true, fill: 'deep', fstyle: 'deep', agv: 'rib', pfoc: 1, pbox: 30, psofa: 30, pmeet: 30 };
+  const DEF = { focus: 25, short: 5, long: 15, every: 4, goal: 8, box: 20, chime: true, notify: true, auto: false, nudge: false, humans: true, fill: 'deep', fstyle: 'deep', agv: 'rib', agvP: 'list', pfoc: 1, pbox: 30, psofa: 30, pmeet: 30 };
   const PHASES = ['focus', 'short', 'long', 'box', 'up', 'meet'];     // box = one-off timebox, up = stopwatch, meet = a meeting in the day shape
   // work styles: one tap sets the whole rhythm. Whichever one matches the settings is highlighted.
   const STYLES = [
@@ -1558,6 +1595,7 @@ body[data-theme=splash] #sbx{display:none}
       if (k === 'fill' && ['deep', 'admin', 'off'].includes(v)) set[k] = v;
       if (k === 'fstyle' && ['deep', 'lfoc', 'admin'].includes(v)) set[k] = v;
       if (k === 'agv' && ['rib', 'list'].includes(v)) set[k] = v;
+      if (k === 'agvP' && ['day', 'list'].includes(v)) set[k] = v;
       if (typeof DEF[k] === 'number' && Number.isFinite(v)) set[k] = Math.min(LIMITS[k][1], Math.max(LIMITS[k][0], Math.round(v)));
     }
   }
@@ -1602,7 +1640,7 @@ body[data-theme=splash] #sbx{display:none}
   function cleanBlock(x, id) {
     if (!x || typeof x !== 'object' || !KINDS[x.k]) return null;
     const K = KINDS[x.k];
-    return { id, k: x.k, label: typeof x.label === 'string' ? x.label.slice(0, 30) : '', n: K.ph ? clampN(x.n, 1, 8, K.n) : 1, f: K.f || 0, sb: K.sb || 0,
+    return { id, k: x.k, label: typeof x.label === 'string' ? x.label.slice(0, 30) : '', n: K.ph ? clampN(x.n, 1, 8, K.n) : 1, f: K.ph && +x.f ? clampN(x.f, 10, 60, K.f) : K.ph ? K.f : 0, sb: K.ph && +x.sb ? clampN(x.sb, 1, 15, K.sb) : K.ph ? K.sb : 0,
       min: K.ph ? 0 : clampN(x.min, 5, 480, K.min), pin: clampN(x.pin, 0, 1439, null), prio: x.prio === 'nice' ? 'nice' : 'must',
       st: ['todo', 'run', 'done', 'skip', 'drop'].includes(x.st) ? x.st : 'todo', si: clampN(x.si, 0, 60, 0), d: clampN(x.d, 0, 8, 0), sk: clampN(x.sk, 0, 8, 0), g: !!x.g, o: !!x.o, a: !!x.a, sp: !!x.sp, lk: Array.isArray(x.lk) ? x.lk.filter((v) => Number.isInteger(v)).slice(0, 8) : [],
       as: +x.as > 0 ? +x.as : null, ae: +x.ae > 0 ? +x.ae : null, ps: clampN(x.ps, 0, 1439, null),
@@ -1618,7 +1656,7 @@ body[data-theme=splash] #sbx{display:none}
       const b = cleanBlock(x, id);
       if (b) { seen.add(id); blocks.push(b); }
     }
-    return { day: p.day, start: clampN(p.start, 0, 1439, 540), fin: clampN(p.fin, 1, 1439, null), blocks, run: !!p.run, ack: Math.max(0, +p.ack || 0), seen: Math.max(0, +p.seen || 0), restAsk: Math.max(0, +p.restAsk || 0), rest30: !!p.rest30, warned: 0, hold: !!p.hold, th: Array.isArray(p.th) ? p.th.filter((x) => x && typeof x.t === 'string' && x.t.trim()).slice(0, 30).map((x, i) => ({ id: +x.id > 0 ? +x.id : i + 1, t: x.t.slice(0, 80) })) : [], skip: Array.isArray(p.skip) ? p.skip.filter((x) => Number.isInteger(x)).slice(0, 40) : [] };
+    return { day: p.day, start: clampN(p.start, 0, 1439, 540), fin: clampN(p.fin, 1, 1439, null), blocks, run: !!p.run, ack: Math.max(0, +p.ack || 0), seen: Math.max(0, +p.seen || 0), restAsk: Math.max(0, +p.restAsk || 0), rest30: !!p.rest30, warned: 0, hold: !!p.hold, th: Array.isArray(p.th) ? p.th.filter((x) => x && typeof x.t === 'string' && x.t.trim()).slice(0, 30).map((x, i) => ({ id: +x.id > 0 ? +x.id : i + 1, t: x.t.slice(0, 80) })) : [], skip: Array.isArray(p.skip) ? p.skip.filter((x) => Number.isInteger(x)).slice(0, 40) : [], auto: !!p.auto, okFin: clampN(p.okFin, 1, 1439, null), gk: p.gk && typeof p.gk === 'object' ? Object.fromEntries(Object.entries(p.gk).filter(([k, v]) => /^\d+$/.test(k) && ['admin', 'box'].includes(v)).slice(0, 40)) : {} };
   }
   let plan = cleanPlan(stored.plan);
   // r41: parked thoughts belong to you, not to a day: they stay until you tick them off or make them a block (v40 kept them on the plan)
@@ -2780,7 +2818,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   const tm = (m) => clock(dayMs(m));
   const esc = (x) => String(x).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const bmin = (b) => (KINDS[b.k].ph ? steps(b).reduce((m, x) => m + x.m, 0) : b.min);
-  const bname = (b) => b.label || KINDS[b.k].name;
+  const bname = (b) => b.label || (b.g && b.k === 'deep' && plan && plan.auto ? (b.n > 1 ? `Focus ${b.n} × ${b.f}` : `Focus ${b.f}`) : KINDS[b.k].name);   // v46: what a gap filled itself with says its length
   const live = (b) => b.st === 'todo' || b.st === 'run';
   // One rhythm for the whole day. The count is the pomodoros worked since your last long break: each Focus pomodoro adds 1,
   // a Timebox adds 1 for every 25 min. After 4 the next break is a 15 min long break. A long break, a break of your own of
@@ -3106,7 +3144,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     return moved;
   }
   function goNextBlock(endedAt, immediate, prev, hold) {
-    passMeetings(); syncRhythm(); overflowToPen();
+    passMeetings(); syncRhythm(); autoFill(); overflowToPen();
     let nb = plan.blocks.find((b) => b.st === 'todo');
     if (!nb) { planComplete(); return; }
     if (squeeze(nb, now())) { nb = plan.blocks.find((b) => b.st === 'todo'); hold = true; }
@@ -3622,13 +3660,14 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       parts.push(`<span><b>${firstUp ? 'First up' : 'Next'}</b> ${a} <span class="t">${r0.cls === 'free' ? t : 'at ' + t}</span></span>`);
     } else parts.push(`<span><b>That's the last block</b></span>`);
     if (mb && !(r0 && r0.a.includes(esc(bname(mb))) && r0.t === 'starts ' + tm(mb.pin))) parts.push(`<span class="o">${esc(bname(mb))} ${tm(mb.pin)}</span>`);
-    if (plan.fin != null) parts.push(`<span class="o">Done by ${tm(plan.fin)}</span>`);
+    if (plan.fin != null && !['amber', 'grey'].includes(dayLt.c)) parts.push(`<span class="o">Done by ${tm(plan.fin)}</span>`);   // v46: the light says the finish when it's off
     return parts.join('<i aria-hidden="true">·</i>');
   }
   function tyStatHtml(paused) {                       // On track, or what needs a look (opens Edit day); Carry on / Start fresh after a long gap
     if (tyStale) { const away = Math.max(60, Math.round((now() - tyStale) / 60000)); return `<span class="aw">Away ${hm(away)}</span><button type="button" class="sb" data-ty="stale-on">Carry on</button><button type="button" class="sb q" data-ty="stale-new">Start fresh</button>`; }
-    if (dayChk.some((c) => c.kd === 'clash')) return '';   // the clash card above the buttons says it
-    return `<span class="ok">${paused ? '<span class="tyStill">Still on</span><span class="tyOn">On</span> track' : 'On track'}</span>`;
+    const L = dayLt, ic = L.c === 'amber' || L.c === 'red' ? '!' : '✓';   // v46: one light. Tap it to open Edit day at the problem
+    const tx = L.c === 'ok' ? (paused ? '<span class="tyStill">Still on</span><span class="tyOn">On</span> track' : 'On track') : esc(L.t);
+    return `<button type="button" class="lt ${L.c}${L.c === 'ok' ? ' ok' : ''}" data-ty="warn" aria-label="${L.c === 'ok' ? 'On track' : esc(L.t)}. Edit day"><i aria-hidden="true">${ic}</i><span>${tx}</span></button>`;
   }
   const TYI = {
     pen: '<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"></path></svg>',
@@ -3748,7 +3787,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (lk !== tyLumiKey) { tyLumiKey = lk; const md = tyMood(kd, w, mOver, b && p === 'box' ? b.min : 0); if (!lmFed) lumiShow(md[0]); tyLine = md[1]; if (!w && p === 'long' && boneable(b) && !sess.bone) { tyLine = pick('longRest'); if (tySaid && performance.now() < tySaid.until && !tySaid.line.includes('🦴')) tySaid.line += ' ' + tyLine; } }
     const said = ro ? (ro.n === 30 ? '3 hours in. My legs have gone to sleep.' : "That's a lot of focus. Even I'm impressed.") : tySaid && performance.now() < tySaid.until ? tySaid.line : tyLine;
     setH($('tyBub'), esc(said)); lumiLook(said);
-    { const cl = dayChk.find((c) => c.kd === 'clash'); if (!hold) setH($('tyClash'), cl ? `<p><b>${cl.h}.</b></p><button type="button" data-ty="warn">Fix it</button>` : ''); }
+    if (!hold) setH($('tyClash'), '');   // v46: the status light carries this now
     renderTyJar();
   }
   let tyNoteEd = false;
@@ -4089,7 +4128,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     meet: ['A meeting-heavy day', () => [newBlock('admin', { n: 2 }), newBlock('meet', { min: 60, pin: 600 }), newBlock('deep'), newBlock('sofa', { min: 30, label: 'Lunch' }), newBlock('meet', { min: 30, pin: 840 }), newBlock('admin')]],
     admin: ['An admin catch-up', () => [newBlock('admin', { n: 4 }), newBlock('zoom'), newBlock('admin', { n: 4 }), newBlock('sofa', { min: 30, label: 'Lunch' }), newBlock('admin')]],
   };
-  function freshPlan(startMin) { const st = startMin == null ? Math.max(510, nextQuarter(0)) : startMin; return { day: today(), start: st, fin: Math.min(1439, Math.max(1020, st + 240)), blocks: [], run: false, ack: 0, warned: 0, skip: [], hold: false }; }
+  function freshPlan(startMin) { const st = startMin == null ? Math.max(510, nextQuarter(0)) : startMin; return { day: today(), start: st, fin: Math.min(1439, Math.max(1020, st + 240)), blocks: [], run: false, ack: 0, warned: 0, skip: [], hold: false, auto: !window.__loafNoAuto, gk: {} }; }
   // put a block where its time says it belongs: after everything that finishes before it, never ahead of the block on screen
   function insertAt(b) {
     let at = plan.blocks.length;
@@ -4205,12 +4244,12 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   /* ---------- the planner: a calendar-style day ---------- */
   const PXM = 64 / 60;                                 // pixels per minute on the grid (the whole 24 hours scrolls)
   const LOCKSVG = '<svg class="lk" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="currentColor"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>';
-  let dayChk = [];
+  let dayChk = [], dayLt = { c: 'ok', t: '' };
   let editId = 0, planMsg = '', lunchMsg = false, suppress = false, viewOff = 0, own = null, pend = null, scrollNext = true, inV = false, lastToast = '', toastT = 0;
   const isPin = (b) => b.pin != null;
   const isBreak = (b) => b.st !== 'drop' && isPin(b) && (b.label === 'Break' || b.label === 'Lunch');
   const keyFor = (off) => { const d = new Date(now()); d.setDate(d.getDate() + off); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); };
-  const freshFuture = (key) => ({ day: key, start: 510, fin: 1020, blocks: [], run: false, ack: 0, warned: 0, skip: [] });
+  const freshFuture = (key) => ({ day: key, start: 510, fin: 1020, blocks: [], run: false, ack: 0, warned: 0, skip: [], auto: !window.__loafNoAuto, gk: {} });
   // the planner works on today's day, or on a day ahead: swap that plan in for the length of one action
   function inView(fn) {
     if (inV || viewOff === 0) return fn();
@@ -4306,7 +4345,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (kind && !pr.blocks.length) return false;
     const gone = sg.run.filter((it) => it.b.st === 'todo').map((it) => it.b);
     plan.blocks = plan.blocks.filter((b) => !gone.includes(b));
-    pr.blocks.forEach((b) => { b.g = true; });          // made by a preset, so it may be re-fitted later
+    pr.blocks.forEach((b) => { b.g = !plan.auto; });   // made by a preset, so it may be re-fitted later (v46: with gaps filling themselves, a gap you fill is yours)
     plan.blocks.splice(runEnd(sg), 0, ...pr.blocks);
     plan.skip = (plan.skip || []).filter((k) => k !== segKey(sg));
     if (!kind) plan.skip.push(segKey(sg));              // cleared on purpose: don't auto-fill it again
@@ -4437,6 +4476,78 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       plan.skip = keep;
     }
   }
+  // v46 (1B): on a day with meetings you don't place focus. Every free stretch between fixed blocks fills itself, sized to fit
+  // when you get there: one pomodoro stretched up to 40 min, two or more with 5 min zoomies between from 45 min, and under
+  // 15 min becomes zoomies. LOAF's own break rules still run (a long break after 90 min of focus, owed after a meeting), and on
+  // a day over 6 h a 30 min lunch goes in the biggest stretch around midday. A stretch with your own work in it is yours;
+  // Free (plan.skip) keeps it empty and plan.gk makes it Admin or a Timebox. Blocks it makes carry g, and are only swapped
+  // when the right fill changes, so they keep their ids.
+  const AUTO_MAX = 40;
+  function gapSpec(W, kind, first) {
+    if (W < 5) return [];
+    if (kind === 'box') return W >= 10 ? [{ k: 'box', min: Math.floor(W / 5) * 5 || W }] : [];
+    if (W < 15) return first ? [] : [{ k: 'zoom', min: W }];
+    if (kind === 'admin') return [{ k: 'admin', n: Math.max(1, Math.min(8, Math.floor((W + 3) / 18))), f: 15, sb: 3 }];
+    const n = Math.min(8, Math.max(1, Math.ceil((W + 5) / (AUTO_MAX + 5))));
+    return [{ k: 'deep', n, f: Math.min(AUTO_MAX, Math.floor((W - 5 * (n - 1)) / n)), sb: 5 }];
+  }
+  function shrinkSpec(L, W) {                          // the next smaller try when a fill runs into prep
+    const x = L[L.length - 1];
+    if (!x) return null;
+    if (x.k === 'deep') { if (x.f > 15) { x.f--; return L; } if (x.n > 1) { x.n--; x.f = Math.min(AUTO_MAX, Math.floor((W - 5 * (x.n - 1)) / x.n)); return L; } }
+    else if (x.k === 'admin' && x.n > 1) { x.n--; return L; }
+    else if (x.k === 'box' && x.min > 10) { x.min -= 5; return L; }
+    L.pop();
+    return L.length && L[L.length - 1].label !== 'Lunch' ? L : null;
+  }
+  const sameFill = (b, x) => b.k === x.k && (b.label || '') === (x.label || '') && (KINDS[x.k].ph ? b.n === x.n && b.f === x.f : b.min === x.min);
+  function bestFill(i, old, lunch) {                   // tried on a copy of the day, so LOAF's own breaks are counted
+    const keep = plan, nid0 = nid;
+    plan = clonePlan();
+    try {
+      const ids = new Set(old.map((b) => b.id));
+      plan.blocks = plan.blocks.filter((b) => !ids.has(b.id));
+      syncRhythm();
+      const sg = segments().segs[i], room = segRoom(sg), W = Math.floor(room.avail), key = segKey(sg);
+      let L = lunch && W >= 45 ? [{ k: 'sofa', min: 30, label: 'Lunch' }] : [];
+      L = L.concat(gapSpec(W - (L.length ? 30 : 0), (keep.gk || {})[key] || 'deep', i === 0 && !plan.blocks.some((b) => b.st === 'done')));
+      for (let g = 0; L && L.length && g < 120; g++) {
+        const at = runEnd(sg), made = L.map((x) => newBlock(x.k, Object.assign({}, x, { g: true })));
+        plan.blocks.splice(at, 0, ...made);
+        syncRhythm();
+        const it = layout().find((x) => x.b === made[made.length - 1]);
+        plan.blocks = plan.blocks.filter((b) => !made.includes(b));
+        syncRhythm();
+        if (it && it.e <= room.e + 0.5) return L;
+        L = shrinkSpec(L, W - (L[0] && L[0].label === 'Lunch' ? 30 : 0));
+      }
+      return [];
+    } finally { plan = keep; nid = nid0; }
+  }
+  function autoFill() {
+    if (!plan || !plan.auto) return false;
+    let changed = false;
+    const hasLunch = plan.blocks.some((b) => b.st !== 'drop' && b.k === 'sofa' && (b.min >= 30 || b.label === 'Lunch') && !(b.g && b.st === 'todo')) || (plan.fin != null && plan.fin - plan.start <= 360);
+    let lunchI = -1;
+    if (!hasLunch) {                                   // the biggest stretch that touches 11:30 to 14:00
+      let best = 59;
+      segments().segs.forEach((sg, i) => { const r = segRoom(sg); if (r.e != null && r.s0 < 840 && r.e > 690 && r.avail > best && !(plan.skip || []).includes(segKey(sg))) { best = r.avail; lunchI = i; } });
+    }
+    const n = segments().segs.length;
+    for (let i = 0; i < n; i++) {
+      const sg = segments().segs[i];
+      if (!sg || sg.e == null) continue;
+      const mine = sg.run.filter((it) => it.b.st !== 'drop' && !it.b.a);
+      if (mine.some((it) => it.b.st === 'run' || (it.b.st === 'todo' && !it.b.g) || (sess && sess.pl && sess.pl.b === it.b.id))) continue;   // running, waiting to start, or yours
+      const old = mine.filter((it) => it.b.st === 'todo').map((it) => it.b);
+      const want = (plan.skip || []).includes(segKey(sg)) ? [] : bestFill(i, old, i === lunchI);
+      if (old.length === want.length && old.every((b, j) => sameFill(b, want[j]))) continue;
+      plan.blocks = plan.blocks.filter((b) => !old.includes(b));
+      plan.blocks.splice(runEnd(segments().segs[i]), 0, ...want.map((x) => newBlock(x.k, Object.assign({}, x, { g: true }))));
+      syncRhythm(); changed = true;
+    }
+    return changed;
+  }
   // a day laid out by hand (ready-made, usual, how long have you got) looks after its own breaks
   const handDay = () => plan.blocks.some((b) => b.st !== 'drop' && !isPin(b) && !b.g && !b.o && !b.a);
   function hasClash() {
@@ -4457,7 +4568,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     finCheck();
     if (undoPre && plan.run && JSON.stringify(plan.blocks) !== undoPre.blocks) { undoStack.push(undoPre); if (undoStack.length > 20) undoStack.shift(); }
     undoPre = null;
-    ensureBreaks(); syncRhythm();
+    autoFill(); ensureBreaks(); syncRhythm();
     if (plan.run) { plan.ack = 0; resync(); }
     save(); renderPlan();
   }
@@ -4571,7 +4682,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const held = !sess && !!plan.hold;
     if ((!sess || !plan.run) && !held) editing = false;
     renderToday(); document.querySelector('#plan .phd').hidden = todayOn(); document.querySelector('#plan .pgrid').hidden = todayOn(); $('tyBack').hidden = !(run || held) || todayOn();
-    $('planSub').textContent = run ? 'Finished blocks are locked. Change anything still to come.' : today0 ? 'Add your meetings, then drag blocks into your day' : 'Planning ahead. It saves as you go.';
+    $('planSub').textContent = run ? 'Finished blocks are locked. Change anything still to come.' : today0 ? (plan.auto ? 'Add your meetings. The gaps fill themselves with focus.' : 'Add your meetings, then drag blocks into your day') : 'Planning ahead. It saves as you go.';
+    $('planAuto').textContent = plan.auto ? 'Fill gaps myself' : 'Fill gaps for me';
     $('planStart').hidden = run; $('planBack').hidden = run || held;
     $('qStart').hidden = run || held || !today0 || plan.blocks.some((b) => b.st === 'done' || b.st === 'run');
     document.querySelector('#plan .phd h1').textContent = run ? 'Today' : 'Plan your day';
@@ -4598,14 +4710,14 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     items.forEach((it, i) => { if (isPin(it.b)) return; const nx = items.slice(i + 1).find((x) => isPin(x.b)); if (nx && it.e > nx.s) over.add(it.b.id); });
     const V = agView(), cal = $('cal');
     cal.className = 'cal ' + V; cal.style.height = '';
-    $('agSw').hidden = phoneW();
+    { const sb = document.querySelector('#agSw [data-pa="agv:rib"]'), t = phoneW() ? 'Day' : 'Ribbon'; if (sb.textContent !== t) sb.textContent = t; }
     if (undoStack.length && (!plan || !plan.run || undoStack[undoStack.length - 1].stamp !== undoStamp())) undoStack = [];   // the day moved on, so older plans no longer fit
     $('undoRow').hidden = !(viewOff === 0 && undoStack.length);
-    document.querySelectorAll('#agSw [data-pa^="agv:"]').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.pa === 'agv:' + V)));
-    $('agHint').textContent = V === 'rib' ? 'Drag a single pomodoro to the holding pen or a gap. Drag the name to move the whole block.' : 'Drag a block to another gap, or to the holding pen.';
+    document.querySelectorAll('#agSw [data-pa^="agv:"]').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.pa === 'agv:' + (V === 'day' ? 'rib' : V))));
+    $('agHint').textContent = phoneW() ? '' : V === 'rib' ? 'Drag a single pomodoro to the holding pen or a gap. Drag the name to move the whole block.' : 'Drag a block to another gap, or to the holding pen.';
     $('earlier').hidden = true;
     const ctx = { items, segs, run, began, today0, nowM, over };
-    cal.innerHTML = V === 'list' ? listHtml(ctx) : ribHtml(ctx);
+    cal.innerHTML = V === 'list' ? listHtml(ctx) : V === 'day' ? dayHtml(ctx) : ribHtml(ctx);
     if (V === 'rib') { const R = ribRange(items); cal.dataset.lo = R.lo; cal.dataset.span = R.hi - R.lo; } else { cal.dataset.lo = 0; cal.dataset.span = 0; }
     scrollNext = false;
     const dropped = plan.blocks.filter((b) => b.st === 'drop');
@@ -4624,7 +4736,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       sub = nk ? 'Saved work is in the holding pen: tap a piece to keep going, or add a meeting or drag Focus in.' : 'Add a meeting or drag Focus in to keep going.';
     } else if (!liveB.some((b) => !isBreak(b))) { head = 'Start here'; big = 'Add your meetings'; sub = 'Type the times from your calendar. No names needed.'; }
     else if (bad) { head = 'Needs a trim'; warn = true; big = LL && LL.fc && LL.fc.lost >= 2 ? LL.fc.line : ovr >= 1 ? `${hm(ovr)} too long` : LL ? `${LL.amount} min behind` : 'Runs into a meeting'; sub = 'Trim to fit shrinks the nice-to-haves first. Meetings never move.'; }
-    else if (spill.length) { head = 'Too much for the day'; warn = true; big = `${hm(ovr)} past ${tm(plan.fin)}`; sub = 'What won\'t fit goes to the holding pen when you start.'; }
+    else if (ovr >= 15 && plan.fin != null) { head = 'A full day'; big = 'Ends about ' + clock(pr.end); sub = `${hm(ovr)} past ${tm(plan.fin)}.${spill.length && !run ? ' What won\'t fit goes to the holding pen when you start.' : ''}`; }
     else {
       big = 'Ends about ' + clock(pr.end);
       const spare = plan.fin != null ? Math.round((dayMs(plan.fin) - pr.end) / 60000) : 0;
@@ -4654,8 +4766,19 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       plLive = nLive; plView = viewOff;
     };
     const notes = [], chk = [];
-    if (pr.pins.length) chk.push({ lv: 'warn', kd: 'clash', h: pr.pins[0].join > 30000 ? `Runs into ${esc(bname(pr.pins[0].b))}` : `Runs into the prep for ${esc(bname(pr.pins[0].b))}`, s: pr.pins[0].join > 30000 ? `Blocks before ${esc(bname(pr.pins[0].b))} run ${Math.round(pr.pins[0].join / 60000)} min into its start.` : `Blocks before ${esc(bname(pr.pins[0].b))} run into its ${prepOf(pr.pins[0].b)} min prep time.`, fx: ['sel', 'Open ' + esc(bname(pr.pins[0].b)), pr.pins[0].b.id] });
-    else if (ovr >= 1) chk.push({ lv: 'warn', kd: 'clash', h: `Runs ${hm(ovr)} past ${tm(plan.fin)}`, s: spill.length ? `${esc(spill.join(', '))} won't fit before ${tm(plan.fin)}. When you tap Start day ${spill.length === 1 ? 'it goes' : 'they go'} to the holding pen, unless you move the finish line.` : `The day runs ${hm(ovr)} past your finish line.`, fx: ['fixfin', 'Move the finish line'] });
+    {                                                  // v46: the status light, and the card at the top of Edit day
+      const pn = pr.pins[0], okF = plan.okFin != null && plan.okFin === plan.fin;
+      const lt = pn ? { c: 'red', t: pn.join > 30000 ? `Late for ${bname(pn.b)} by ${Math.max(1, Math.round(pn.join / 60000))}` : `Prep for ${bname(pn.b)} cut by ${Math.max(1, Math.round(pn.late / 60000))}` }
+        : ovr >= 15 ? (okF ? { c: 'grey', t: `Ends ${clock(pr.end)}` } : { c: 'amber', t: `Ends ${clock(pr.end)} · finish ${tm(plan.fin)}` }) : { c: 'ok', t: '' };
+      if (today0) dayLt = lt;
+      if (lt.c === 'ok' && !run && spill.length && !okF) lt.c = 'amber';   // before the day starts, say what Start day will put in the pen
+      const iss = $('planIssue');
+      iss.hidden = !(lt.c === 'amber' || lt.c === 'red');
+      iss.className = 'pIssue' + (lt.c === 'red' ? ' red' : '');
+      const fin2 = Math.min(1439, Math.ceil(minDay(pr.end) / 5) * 5);
+      iss.innerHTML = lt.c === 'red' ? `<div class="ih"><i aria-hidden="true">!</i>${esc(lt.t)} min</div><p>${pn.join > 30000 ? `Blocks before ${esc(bname(pn.b))} run into its start. It won't move, so something before it has to give.` : `Blocks before ${esc(bname(pn.b))} run into its ${prepOf(pn.b)} min prep time.`}</p><button type="button" class="go" data-pa="sel" data-id="${pn.b.id}">Open ${esc(bname(pn.b))}</button>`
+        : lt.c === 'amber' ? `<div class="ih"><i aria-hidden="true">!</i>${hm(ovr)} past ${tm(plan.fin)}</div><p>${!run && spill.length ? `${esc(spill.join(', '))} won't fit before ${tm(plan.fin)}. When you tap Start day ${spill.length === 1 ? 'it goes' : 'they go'} to the holding pen, unless you move the finish line.` : `At this pace you finish about ${clock(pr.end)}.`}</p><button type="button" class="go" data-pa="ovfin">Finish at ${tm(fin2)}${today0 ? ' today' : ''}</button>${spill.length ? `<button type="button" data-pa="ovpen">Pen the extra ${hm(ovr)}</button>` : ''}<button type="button" data-pa="ovok">Leave it, I know</button>` : '';
+    }
     { const W = rhythmWalk(plan), nb = items.find((it) => isPin(it.b) && isWork(it.b) && it.b.st === 'todo' && W.get(it.b.id) && W.get(it.b.id).cin >= LONG_AT);
       if (nb) chk.push({ lv: 'warn', kd: 'rest', h: `${hm(W.get(nb.b.id).cin)} of focus with no long break`, s: `No long break before ${esc(bname(nb.b))} at ${tm(nb.b.pin)}, after ${hm(W.get(nb.b.id).cin)} of focus in a row. Move something to make room, or leave it.`, fx: ['fixbrk', 'Add a break'] }); }
     {                                                  // a long day needs a proper break: 30 min or more, as a block or as free time
@@ -4680,7 +4803,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     $('tplBtn').textContent = tpl.length ? 'Update my usual day' : 'Save as my usual day';
     $('endDayBtn').hidden = !(plan.run && sess && viewOff === 0);
     const typing = document.activeElement && document.activeElement.matches && document.activeElement.matches('#selCard .shIn');
-    if (!typing) $('selCard').innerHTML = selHtml(items);   // don't wipe what you're typing
+    if (!typing) { $('selCard').innerHTML = selHtml(items); selSteady(); }   // don't wipe what you're typing
 
     palRender();
     $('defCard').innerHTML = `<div class="ph">Gap buttons</div><div class="dl">Focus style</div><div class="seg3">${[['deep', '25 + 5'], ['lfoc', '50 + 10']].map((o) => `<button type="button" data-pa="fst:${o[0]}" aria-pressed="${set.fstyle === o[0]}">${o[1]}</button>`).join('')}</div>` +
@@ -4699,7 +4822,26 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   // the short breaks inside a focus block show as darker bands across it
   // ---------- the agenda views ----------
   const phoneW = () => matchMedia('(max-width:899px)').matches;
-  const agView = () => (phoneW() || set.agv === 'list' ? 'list' : 'rib');
+  // v46: on a phone the block card sits at the bottom of the screen, so a card that got shorter moved every button down under
+  // your finger. While one block is open the card never shrinks, and a tap on a different button just after a change is ignored.
+  let selKey = null, selMinH = 0, lastTap = null;
+  function selSteady() {
+    const sc = $('selCard'), c = sc.firstElementChild, key = c ? c.dataset.id : null;
+    if (key !== selKey || !c || !phoneW()) { selKey = key; selMinH = 0; sc.style.minHeight = ''; }
+    if (!c || !phoneW()) return;
+    selMinH = Math.max(selMinH, sc.offsetHeight);
+    sc.style.minHeight = selMinH + 'px';
+  }
+  let tapTouch = false;                                // the guard is for fingers: the sheet can move under a thumb, not under a mouse
+  document.addEventListener('pointerdown', (e) => { tapTouch = e.pointerType === 'touch' || e.pointerType === 'pen'; }, true);
+  document.addEventListener('click', (e) => {
+    const bt = e.target.closest && e.target.closest('#selCard button, #selCard .tog, .finPop button');
+    if (!bt || !tapTouch) return;
+    const key = (bt.dataset.pa || bt.id || bt.textContent) + (bt.dataset.id || ''), t = performance.now();
+    if (lastTap && t - lastTap.t < 400 && lastTap.key !== key) { e.preventDefault(); e.stopImmediatePropagation(); return; }
+    lastTap = { key, t };
+  }, true);
+  const agView = () => (phoneW() ? (set.agvP === 'day' ? 'day' : 'list') : set.agv === 'list' ? 'list' : 'rib');   // v46: phones get List or Day
   const cdown = () => '';                              // r35: no meeting countdown on the agenda (Michael found it fussy); the timer counts down
   function tilesOf(b) {                                // a block's pieces in order: pomodoros (or the Timebox) and the breaks between them
     const out = [];
@@ -4774,9 +4916,41 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     }));
     const tail = items.reduce((m, it) => Math.max(m, it.e), 0), ov = plan.fin != null && tail > plan.fin;
     if (plan.fin != null) h += `<div class="edge fn${ov ? ' over' : ''}" style="left:${X(plan.fin)}"></div><button type="button" class="edl fn${ov ? ' over' : ''}" data-pa="finpop" aria-expanded="${finPop}" style="left:${X(plan.fin)}">🏁 Finish ${tm(plan.fin)}${ov ? ' · ' + hm(tail - plan.fin) + ' over' : ''}</button><div class="finAt" style="left:${X(plan.fin)}">` + (finPop ? `<div class="finPop" role="dialog" aria-label="Finish line"><b>Finish line</b><div class="finSt"><button type="button" data-pa="finm" aria-label="Earlier finish">−</button><output>${tm(plan.fin)}</output><button type="button" data-pa="finp" aria-label="Later finish">+</button></div><div class="finNote">${ov ? `Your day ends about ${tm(tail)}, ${hm(tail - plan.fin)} past it.` : `Your day ends about ${tm(tail)}, ${hm(plan.fin - tail)} spare.`}</div><div class="finA"><button type="button" data-pa="finoff">No finish line</button><button type="button" class="go" data-pa="finpop">Done</button></div></div>` : '') + '</div>';
-    if (plan.fin != null && viewOff === 0) { const left = plan.blocks.some((b) => b.st !== 'drop' && live(b) && !isBreak(b)), dn = !left && plan.blocks.some((b) => b.st === 'done'); h += `<div class="finLumi" data-m="${dn ? 'sleep' : 'sit'}" style="left:${X(plan.fin)}" aria-hidden="true">${lumiMood(dn ? 'night' : 'gap')}</div>`; }
+    // v46: no Lumi sitting on the finish line (Michael: it looked odd)
     if (today0 && nowM >= lo && nowM <= hi) h += `<div class="nowl" style="left:${X(nowM)}"></div><span class="nowt" style="left:${X(nowM)}">now</span>`;
     return `<div class="rbLab" aria-hidden="true"><span style="top:58px">Fixed</span><span style="top:128px">Flexible</span></div><div class="rbIn" id="rbIn">${h}</div>`;
+  }
+  function dayHtml(c) {                                // v46: the phone's Day view. Two tracks, Fixed and Flexible, to scale, top to bottom
+    const { items, segs, run, began, today0, nowM, over } = c, { lo, hi } = ribRange(items), PX = 1.5;
+    const Y = (m) => ((m - lo) * PX).toFixed(1) + 'px', H = (a, b) => (Math.max(0, b - a) * PX).toFixed(1) + 'px';
+    let ax = '', fx = '', fl = '';
+    for (let m = lo; m <= hi; m += 60) ax += `<i class="dvh" style="top:${Y(m)}"></i>${m < hi ? `<span class="dvt" style="top:${Y(m)}">${tm(m)}</span>` : ''}`;
+    if (plan.fin != null && plan.fin < hi) ax += `<div class="dvout" style="top:${Y(plan.fin)};height:${H(plan.fin, hi)}"></div>`;
+    segs.forEach((sg0) => {                            // free time: tap it to add something there
+      const sg = sg0.e == null && plan.fin != null ? Object.assign({}, sg0, { e: plan.fin, after: null }) : sg0;
+      if (sg.e == null || sg.e - sg.s < 5) return;
+      if ((run || began) && sg.e <= nowM && today0) return;
+      const empty = !sg.run.some((it) => it.b.st === 'todo') && sg0.e != null, aid = segKey(sg0);
+      const s0 = Math.max(sg.s, sg.run.length ? sg.run[sg.run.length - 1].e : sg.s, (run || began) && today0 ? nowM : 0);
+      if (sg.e - s0 < 15) return;
+      fl += `<div class="dvfree${gapSel === aid ? ' on' : ''}"${empty ? ` data-aid="${aid}"` : ''} data-pa="lz:${aid}" role="button" tabindex="0" style="top:${Y(s0)};height:${H(s0, sg.e)}"><span>${hm(Math.max(0, sg.e - s0 - (sg.after ? prepOf(sg.after) : 0)))} free</span></div>`;
+    });
+    items.forEach((it) => {
+      const b = it.b, pin = isPin(b), lbl = `${esc(bname(b))}, ${tm(it.s)} to ${tm(it.e)}`, dn = b.st === 'done' || b.st === 'skip';
+      const pre = b.st === 'todo' && b.k === 'meet' ? prepNeed(b) : 0;
+      if (pre) fx += `<div class="dvprep" style="top:${Y(it.s - pre)};height:${H(it.s - pre, it.s)}" title="Prep for ${esc(bname(b))}: ${pre} min" aria-hidden="true"></div>`;
+      if (b.a) { fl += `<div class="dvb dva k-${b.k}${dn ? ' dn' : ''}" style="top:${Y(it.s)};height:${H(it.s, it.e)}" aria-label="${lbl}">${it.e - it.s >= 10 ? `<span class="dvn">${esc(bname(b))}</span>` : ''}</div>`; return; }
+      const cls = ['dvb', 'k-' + b.k, dn ? 'dn' : '', b.st === 'run' ? 'run' : '', editId === b.id ? 'sel' : '', over.has(b.id) ? 'over' : '', it.e - it.s < 20 ? 'sm' : ''].filter(Boolean).join(' ');
+      let bands = '';
+      if (!pin && KINDS[b.k].ph) { const T = tilesOf(b); bands = T.out.filter((t) => !t.w).map((t) => `<i class="dvsb" style="top:${(t.a / T.tot * 100).toFixed(2)}%;height:${(t.m / T.tot * 100).toFixed(2)}%"></i>`).join(''); }
+      const el = `<div class="${cls}" data-id="${b.id}" data-pa="sel" role="button" tabindex="0" style="top:${Y(it.s)};height:${H(it.s, it.e)}" aria-label="${lbl}" title="${lbl}">${bands}<span class="dvn">${dn ? '✓ ' : ''}${esc(bname(b))}</span>${pin && it.e - it.s >= 25 ? `<span class="dvm">${tm(it.s)}</span>` : ''}</div>`;
+      if (pin) fx += el; else fl += el;
+    });
+    const tail = items.reduce((m, it) => Math.max(m, it.e), 0), ov = plan.fin != null && tail > plan.fin;
+    let ln = '';
+    if (plan.fin != null) ln += `<div class="dvfin${ov ? ' over' : ''}" style="top:${Y(plan.fin)}"><span>Finish ${tm(plan.fin)} · ${ov ? hm(tail - plan.fin) + ' over' : 'on time'}</span></div>`;
+    if (today0 && nowM >= lo && nowM <= hi) ln += `<div class="dvnow" style="top:${Y(nowM)}"><span>${tm(nowM)}</span></div>`;
+    return `<div class="dvHd" aria-hidden="true"><span></span><span>Fixed</span><span>Flexible</span></div><div class="dvIn" style="height:${H(lo, hi)}">${ax}<div class="dvFx">${fx}</div><div class="dvFl">${fl}</div>${ln}</div>`;
   }
   const awayMs = (b) => (b.aw || []).reduce((m, w) => m + Math.max(0, (w[1] != null ? w[1] : now()) - w[0]), 0);
   function soFar(b) {                                   // how a finished (or running) block really went: { cls, txt, part, mins }
@@ -4846,10 +5020,10 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       }
       if (sg.after) { const it = items.find((x) => x.b === sg.after); if (it && !(live0 && (it.b.st === 'done' || it.b.st === 'skip'))) h += anchor(it); }
     });
-    const tail = items.reduce((m, it) => Math.max(m, it.e), 0);
+    const tail = items.reduce((m, it) => Math.max(m, it.e), Math.max(plan.start, viewOff === 0 && startedDay() ? minDay(now()) : 0));   // v46: nothing planned yet counts from the start, not 00:00
     if (plan.fin != null) {
       const ov = tail > plan.fin, sp = plan.fin - tail;
-      h += `<button type="button" class="agFin${ov ? ' over' : ''}" data-pa="finpop" aria-expanded="${finPop}"><span>🏁 Finish ${tm(plan.fin)} ✎</span><span>${tail ? `ends ${clock(dayMs(tail))} · ` : ''}${ov ? hm(-sp) + ' over' : sp >= 1 ? hm(sp) + ' spare' : 'on time'}</span></button>` + (finPop ? `<div class="finPop inl" role="dialog" aria-label="Finish line"><b>Finish line</b><div class="finSt"><button type="button" data-pa="finm" aria-label="Earlier finish">−</button><output>${tm(plan.fin)}</output><button type="button" data-pa="finp" aria-label="Later finish">+</button></div><div class="finNote">${ov ? `Your day ends about ${tm(tail)}, ${hm(tail - plan.fin)} past it.` : `Your day ends about ${tm(tail)}, ${hm(plan.fin - tail)} spare.`}</div><div class="finA"><button type="button" data-pa="finoff">No finish line</button><button type="button" class="go" data-pa="finpop">Done</button></div></div>` : '');
+      h += `<button type="button" class="agFin${ov ? ' over' : ''}" data-pa="finpop" aria-expanded="${finPop}"><span>🏁 Finish ${tm(plan.fin)} ✎</span><span>${items.length ? `ends ${clock(dayMs(tail))} · ` : ''}${ov ? hm(-sp) + ' over' : sp >= 1 ? hm(sp) + (items.length ? ' spare' : ' free') : 'on time'}</span></button>` + (finPop ? `<div class="finPop inl" role="dialog" aria-label="Finish line"><b>Finish line</b><div class="finSt"><button type="button" data-pa="finm" aria-label="Earlier finish">−</button><output>${tm(plan.fin)}</output><button type="button" data-pa="finp" aria-label="Later finish">+</button></div><div class="finNote">${ov ? `Your day ends about ${tm(tail)}, ${hm(tail - plan.fin)} past it.` : `Your day ends about ${tm(tail)}, ${hm(plan.fin - tail)} spare.`}</div><div class="finA"><button type="button" data-pa="finoff">No finish line</button><button type="button" class="go" data-pa="finpop">Done</button></div></div>` : '');
     }
     return h;
   }
@@ -4888,12 +5062,15 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     rows += `<div class="shRow"><span>Starts</span>${stepIn('st', tm(isPin(b) ? b.pin : it.s), 'Starts at')}</div>`;
     rows += `<div class="shRow"><span>${K.ph && !isPin(b) ? 'Pomodoros' : 'Length'}</span>${K.ph ? stepper2('len', `${b.n} × ${b.f} min`) : stepIn('len', hm(b.min).trim(), 'Length')}</div>` + (b.k === 'meet' ? `<div class="shRow"><span>Prep</span>${stepper2('prep', prepOf(b) + ' min')}</div>` : '');
     if (KINDS[b.k].ph && !isPin(b)) rows += `<div class="shRow"><span>Each one</span><span class="seg3">${[['deep', '25 + 5'], ['lfoc', '50 + 10'], ['admin', '15 + 3']].map((o) => `<button type="button" data-pa="bk:${o[0]}" aria-pressed="${b.k === o[0]}">${o[1]}</button>`).join('')}</span></div>`;
-    if (K.ph && b.n > 1) rows += `<div class="selh">Its breaks are the green bands, worked out from your day's rhythm.</div>`;
+    if (K.ph) rows += `<div class="selh">${b.n > 1 ? 'Its breaks are the green bands, worked out from your day\'s rhythm.' : 'One pomodoro, no break inside.'}</div>`;   // v46: always a line, so the card doesn't shrink under your finger
     if (isPin(b)) del = (isBreak(b) && plan.blocks.filter(isBreak).length <= breakNeed() ? '' : '<button type="button" class="danger" data-pa="del">Remove</button>');
     else {
       del = '<button type="button" class="danger" data-pa="del">Delete</button>';
       const sg = segments().segs.find((x) => x.run && x.run.some((r) => (r.b || r) === b));
-      if (false && sg && b.g) rows += `<div class="shRow"><span>Gap</span><span class="seg3">${[['deep', 'Focus'], ['admin', 'Admin'], ['box', 'Timebox']].map((o) => `<button type="button" data-pa="gap:${segKey(sg)}:${o[0]}">${o[1]}</button>`).join('')}</span></div>`;
+      if (sg && b.g && plan.auto) {                     // v46: a stretch that fills itself: what it's for
+        const key = segKey(sg), cur = (plan.gk || {})[key] || 'deep';
+        rows = `<div class="shRow gkRow"><span>Use this gap for</span><span class="seg3">${[['deep', 'Focus'], ['admin', 'Admin'], ['box', 'Timebox'], ['free', 'Free']].map((o) => `<button type="button" data-pa="gk:${key}:${o[0]}" aria-pressed="${o[0] === cur}">${o[1]}</button>`).join('')}</span></div>` + rows;
+      }
     }
     return `<div class="selc" data-id="${b.id}"><div class="selt">${title}</div>${rows}<div class="sela">${del}<button type="button" data-pa="close">OK</button></div></div>`;
   }
@@ -4947,6 +5124,9 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       else { sheet(''); gapSel = null; renderPlan(); }
       return;
     }
+    if (a === 'ovfin') { const pr = problems(plan, plan.run || startedDay() ? now() : dayMs(plan.start)), f = Math.min(1439, Math.ceil(minDay(pr.end) / 5) * 5); snapEdit(); planMsg = ''; plan.fin = f; plan.finMoved = 1; plan.okFin = null; logAdd(`Finish line moved to ${tm(f)}.`); afterEdit(); return; }
+    if (a === 'ovpen') { snapEdit(); overflowToPen(); afterEdit(); return; }
+    if (a === 'ovok') { plan.okFin = plan.fin; save(); renderPlan(); return; }
     if (a === 'tochk') { const n = $('planNote'); if (n && n.scrollIntoView) n.scrollIntoView({ block: 'nearest', behavior: lmStill() ? 'auto' : 'smooth' }); return; }
     if (a === 'mpick') { if (mOpen) { mOpen = false; renderPlan(); } else openMeet(true); return; }
     if (a.startsWith('mq:')) { const f = +a.slice(3); pend = null; planMsg = ''; sheet(''); addMeeting(f, f + set.pmeet); return; }
@@ -4975,6 +5155,18 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (a === 'close') { editId = 0; renderPlan(); return; }
     if (a === 'go') { if (plan.run) { if (sess) closePlan(); else if (plan.blocks.some(live)) planStart(); else { plan = null; viewOff = 0; save(); showScreen(); } } else planStart(); return; }
     if (a.startsWith('day:')) { setView(+val); return; }
+    if (a.startsWith('gk:')) {                         // v46: Focus, Admin, Timebox or Free for a stretch that fills itself
+      const [, k, kind] = a.split(':'), key = +k;
+      plan.gk = plan.gk || {}; delete plan.gk[key];
+      plan.skip = (plan.skip || []).filter((x) => x !== key);
+      if (kind === 'free') plan.skip.push(key); else if (kind !== 'deep') plan.gk[key] = kind;
+      editId = 0; afterEdit(); return;
+    }
+    if (b && b.g && plan.auto && !['sel', 'close', 'go'].includes(a)) {   // v46: change a block LOAF filled in and it's yours; delete it and that gap stays free
+      const sg = segments().segs.find((x) => x.run.some((it) => it.b === b));
+      if (a === 'del' && sg) { plan.skip = (plan.skip || []).filter((x) => x !== segKey(sg)); plan.skip.push(segKey(sg)); }
+      if (a !== 'del') plan.blocks.forEach((x) => { if (x.g && sg && sg.run.some((it) => it.b === x)) x.g = false; });
+    }
     if (a === 'fixsw' && b && b.pin != null) a = 'unlock';
     if (a === 'fixst' || a === 'fixsw') {
       if (b && b.st === 'todo' && b.pin == null && b.k !== 'meet') {
@@ -4992,7 +5184,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       addMeeting(x.f, x.t); return;
     }
     if (a.startsWith('back:')) { const x = plan.blocks.find((y) => y.id === +val && y.st === 'drop'); if (x) penBack(x); afterEdit(); return; }
-    if (a.startsWith('agv:')) { set.agv = a.slice(4); save(); renderPlan(); return; }
+    if (a.startsWith('agv:')) { const v = a.slice(4); if (phoneW()) set.agvP = v === 'list' ? 'list' : 'day'; else set.agv = v; save(); renderPlan(); return; }
     if (a.startsWith('gap:')) {
       const [, aid, kind] = a.split(':');
       const sg = segments().segs.find((s) => segKey(s) === +aid);
@@ -5062,7 +5254,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('cb')) { e.preventDefault(); inView(() => planAct('sel', +e.target.dataset.id)); }
   });
   $('plan').addEventListener('input', (e) => {
-    if (e.target.id === 'selName') inView(() => { const x = plan.blocks.find((y) => y.id === editId); if (x) { x.label = e.target.value.slice(0, 30); save(); } });
+    if (e.target.id === 'selName') inView(() => { const x = plan.blocks.find((y) => y.id === editId); if (x) { x.label = e.target.value.slice(0, 30); x.g = false; save(); } });
   });
   $('plan').addEventListener('change', (e) => {
     const w = e.target.dataset && e.target.dataset.in;
@@ -5096,6 +5288,12 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   $('planFinDn').addEventListener('click', () => setFin(-15));
   $('planFinUp').addEventListener('click', () => setFin(15));
   $('planFinOff').addEventListener('click', () => inView(() => { planMsg = ''; plan.fin = null; afterEdit(); }));
+  $('planAuto').addEventListener('click', () => inView(() => {   // v46: gaps fill themselves, or you fill them; switching off keeps what's there as yours
+    snapEdit(); planMsg = '';
+    plan.auto = !plan.auto;
+    if (!plan.auto) plan.blocks.forEach((b) => { if (b.g && b.st === 'todo') b.g = false; });
+    afterEdit();
+  }));
   // typed times: Enter or leaving the box applies them
   $('planStartV').addEventListener('change', (e) => { const t = parseT(e.target.value); if (t == null) { renderPlan(); return; } setStart(0, t); });
   $('planFinV').addEventListener('change', (e) => { const t = parseT(e.target.value); if (t == null) { inView(() => { if (e.target.value.trim() === '') plan.fin = null; afterEdit(); }); return; } setFin(0, t); });
@@ -5647,7 +5845,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   $('setX').addEventListener('click', () => setOpen(false));
   $('setScrim').addEventListener('click', () => setOpen(false));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('setSheet').hidden) setOpen(false); });
-  window.__loaf = { noSplash() { splashSkip(); showScreen(); }, quickStart, openSettings: () => setOpen(true), openMeet: () => inView(() => openMeet(false)), get sess() { return sess; }, get jar() { return jar; }, get plan() { return plan; }, get thoughts() { return thoughts; }, set, tick, now,
+  window.__loaf = { autoFill: () => { const c = autoFill(); save(); renderPlan(); return c; }, noSplash() { splashSkip(); showScreen(); }, quickStart, openSettings: () => setOpen(true), openMeet: () => inView(() => openMeet(false)), get sess() { return sess; }, get jar() { return jar; }, get plan() { return plan; }, get thoughts() { return thoughts; }, set, tick, now,
     gapsLeft: () => gapIds().length,
     natSync() { natLast = ''; nativeSync(); }, natReset() { natLast = ''; },
     fillGap(n = 0, kind = 'deep') { const g = gapIds(), id = g[n < 0 ? g.length + n : n]; if (id == null) return false; planAct(`gap:${id}:${kind}`); return true; } };
