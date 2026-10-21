@@ -1149,7 +1149,7 @@ button.sf{border:0;font:inherit;color:inherit;cursor:pointer}
       <span class="sum" id="sum"></span>
       <button type="button" class="go" id="startBtn">START</button>
     </div>
-    <div class="credit">A Bouncy Production · Made for Haz · v48</div>
+    <div class="credit">A Bouncy Production · Made for Haz · v49</div>
   </div>
 </main>
 
@@ -1191,7 +1191,7 @@ button.sf{border:0;font:inherit;color:inherit;cursor:pointer}
     <button type="button" class="main" id="pauseBtn">PAUSE</button>
     <button type="button" id="skipBtn">Skip</button>
   </div>
-  <div class="credit">A Bouncy Production · Made for Haz · v48</div>
+  <div class="credit">A Bouncy Production · Made for Haz · v49</div>
 </main>
 
 <!-- ================= TIME'S UP, WAITING FOR A TAP ================= -->
@@ -1210,7 +1210,7 @@ button.sf{border:0;font:inherit;color:inherit;cursor:pointer}
   <div class="hint" id="soundHint2" hidden>Tap anywhere to wake the chime up</div>
   <button type="button" class="big" id="goBtn">START FOCUS</button>
   <button type="button" class="quiet" id="stopBtn2">Stop for now</button>
-  <div class="credit">A Bouncy Production · Made for Haz · v48</div>
+  <div class="credit">A Bouncy Production · Made for Haz · v49</div>
 </main>
 
 <!-- ================= DAY SHAPE PLANNER ================= -->
@@ -1241,7 +1241,7 @@ button.sf{border:0;font:inherit;color:inherit;cursor:pointer}
         </div>
       </section>
     </div>
-    <div class="credit">A Bouncy Production · Made for Haz · v48</div>
+    <div class="credit">A Bouncy Production · Made for Haz · v49</div>
   </div>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="splScene" viewBox="0 0 1280 800"><defs><linearGradient id="splSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3ff"/><stop offset="1" stop-color="#e6f7ff"/></linearGradient>
 <clipPath id="splL"><path d="M0 0 L700 0 L580 800 L0 800 Z"/></clipPath><clipPath id="splR"><path d="M700 0 L1280 0 L1280 800 L580 800 Z"/></clipPath></defs><g clip-path="url(#splL)"><rect width="1280" height="800" fill="#ffd2bd"/><rect x="0" y="470" width="1280" height="330" fill="#e9a27f"/><path d="M0 470 L1280 470" stroke="#c97f5c" stroke-width="6"/><g><rect x="90" y="70" width="280" height="210" rx="14" fill="#fff4ea" stroke="#9a5a3c" stroke-width="6"/><rect x="104" y="84" width="252" height="182" rx="8" fill="#9ad7ff"/><circle cx="300" cy="140" r="30" fill="#ffd166"/><g fill="#fff" opacity=".95"><ellipse cx="180" cy="200" rx="32.199999999999996" ry="14"/><ellipse cx="201" cy="191.6" rx="21" ry="15.399999999999999"/><ellipse cx="160.4" cy="195.8" rx="16.799999999999997" ry="11.2"/></g><path d="M230 84 L230 266 M104 175 L356 175" stroke="#fff4ea" stroke-width="8"/></g><g><rect x="430" y="150" width="120" height="40" rx="8" fill="#fff" stroke="#9a5a3c" stroke-width="4"/><text x="490" y="177" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="15" font-weight="900" fill="#ef6a52">FOCUS</text></g><g><rect x="40" y="380" width="54" height="90" rx="8" fill="#c2410c" stroke="#7c2d12" stroke-width="4"/><path d="M67 380 L67 300" stroke="#3f7d3a" stroke-width="5"/><ellipse cx="50" cy="330" rx="20" ry="9" fill="#4aa957"/><ellipse cx="86" cy="310" rx="20" ry="9" fill="#4aa957"/><ellipse cx="60" cy="296" rx="16" ry="8" fill="#56b866"/></g><rect x="120" y="455" width="460" height="22" rx="8" fill="#a1623e" stroke="#6b3b22" stroke-width="4"/><svg viewBox="0 0 160 100" x="160" y="340" width="220" height="138">
@@ -1553,7 +1553,7 @@ button.sf{border:0;font:inherit;color:inherit;cursor:pointer}
     </aside>
     <div class="mini2 dayEnd"><button type="button" id="tplBtn">Save as my usual day</button><button type="button" class="dz" id="clearBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span>Start over</span></button><button type="button" class="dz" id="endDayBtn" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>End the day</span></button></div>
   </div>
-  <div id="sbx"></div><div class="credit">A Bouncy Production · Made for Haz · v48</div>
+  <div id="sbx"></div><div class="credit">A Bouncy Production · Made for Haz · v49</div>
 </main>
 
 <div class="sheet" id="sheet" hidden>
@@ -4573,6 +4573,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   // Free (plan.skip) keeps it empty and plan.gk makes it Admin or a Timebox. Blocks it makes carry g, and are only swapped
   // when the right fill changes, so they keep their ids.
   const AUTO_MAX = 40;
+  const LUNCH_AT = 12 * 60;                          // v49: where lunch aims to start, inside the stretch that gets it
   // v48: on a day that fills itself, the last 30 min before the finish line stays empty. It's catch-up time: when the day
   // slips (an overrun, a late start, a break that comes back) it soaks that up first, so you still finish on time.
   const CATCH = 30;
@@ -4604,8 +4605,15 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       syncRhythm();
       const sg = segments().segs[i], room = segRoom(sg), cu = catchOf(sg, keep), W = Math.floor(room.avail - cu), key = segKey(sg);
       room.e -= cu;
-      let L = lunch && W >= 45 ? [{ k: 'sofa', min: 30, label: 'Lunch' }] : [];
-      L = L.concat(gapSpec(W - (L.length ? 30 : 0), (keep.gk || {})[key] || 'deep', i === 0 && !plan.blocks.some((b) => b.st === 'done')));
+      const kind = (keep.gk || {})[key] || 'deep', first = i === 0 && !plan.blocks.some((b) => b.st === 'done'), LU = { k: 'sofa', min: 30, label: 'Lunch' };
+      let A = [], B, WA = 0, WB, L;
+      if (lunch && W >= 45) {                          // v49: lunch goes at about 12:00, with focus before it when the stretch starts earlier
+        WA = Math.max(0, Math.floor(Math.min(Math.max(LUNCH_AT, room.s0), room.e - 30) - room.s0));
+        A = WA >= 15 ? gapSpec(WA, kind, first) : [];
+        if (!A.length) WA = 0;
+        WB = W - WA - 30; B = gapSpec(WB, kind, false);
+        L = A.concat([LU], B);
+      } else L = gapSpec(W, kind, first);
       for (let g = 0; L && L.length && g < 120; g++) {
         const at = runEnd(sg), made = L.map((x) => newBlock(x.k, Object.assign({}, x, { g: true })));
         plan.blocks.splice(at, 0, ...made);
@@ -4614,7 +4622,10 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
         plan.blocks = plan.blocks.filter((b) => !made.includes(b));
         syncRhythm();
         if (it && it.e <= room.e + 0.5) return L;
-        L = shrinkSpec(L, W - (L[0] && L[0].label === 'Lunch' ? 30 : 0));
+        if (!A.length && !B) L = shrinkSpec(L, W);
+        else if (B.length) { B = shrinkSpec(B, WB) || []; L = A.concat([LU], B); }
+        else if (A.length) { A = shrinkSpec(A, WA) || []; L = A.length ? A.concat([LU]) : null; }
+        else return [];
       }
       return [];
     } finally { plan = keep; nid = nid0; }
