@@ -991,6 +991,22 @@ body[data-theme=splash] #sbx{display:none}
 .tyStat .lt.red{border-color:#ff7a6b;background:rgba(255,122,107,.18);color:#ffc4bb}.tyStat .lt.red i{background:#ff7a6b;color:#3a0b05}
 .tyStat .lt.grey{border-color:#6b7385;background:rgba(0,0,0,.2);color:#e2e8f0}.tyStat .lt.grey i{background:#a7afbb;color:#16181d}
 .tyStat .lt:focus-visible{outline:2px solid #fff;outline-offset:2px}
+/* v48: LOAF's own focus is outlined and striped, yours stays solid; catch-up time is a yellow band; hints in Add to your day */
+.atag,.ytag{display:inline-block;margin-left:7px;padding:0 7px;border-radius:999px;font-size:11px;font-weight:800;line-height:17px;vertical-align:1px;letter-spacing:0}
+.atag{border:1.5px dashed #ef6a52;color:#ffb8a8}.ytag{background:#ef6a52;color:#fff}
+.list .cb.gA .tk:not(.sb){background:repeating-linear-gradient(135deg,rgba(239,106,82,.2) 0 4px,transparent 4px 8px);box-shadow:inset 0 0 0 2px #ef6a52;color:#ffb8a8}
+.rib .cb.gA .tl:not(.sb){background:repeating-linear-gradient(135deg,rgba(239,106,82,.2) 0 4px,transparent 4px 8px)!important;box-shadow:inset 0 0 0 2px #ef6a52;color:#ffb8a8}
+.dvb.gA{background:repeating-linear-gradient(135deg,rgba(239,106,82,.2) 0 4px,transparent 4px 8px);box-shadow:inset 0 0 0 2px #ef6a52;color:#ffb8a8}.dvb.gA .atag{margin-left:4px}
+.dvb.gA.run{box-shadow:inset 0 0 0 2px #ef6a52,0 0 0 2px #fff}.dvb.gA.sel{box-shadow:inset 0 0 0 2px #ef6a52,0 0 0 3px #fff}
+#today .tyWhat .atag{font-size:11px;vertical-align:2px}
+.cuBand{margin:8px 0 0;padding:8px 12px;border-radius:10px;border:2px dashed #fbbf24;background:rgba(251,191,36,.1);display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 10px;font-size:13px;color:#fde68a}
+.cuBand b{font-weight:800}.cuBand span{font-variant-numeric:tabular-nums;color:#fcd34d}.cuBand small{flex-basis:100%;font-size:12px;color:var(--dim);line-height:1.35}
+.dvcu{position:absolute;left:0;right:0;box-sizing:border-box;border:2px dashed #fbbf24;background:rgba(251,191,36,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fde68a;overflow:hidden}
+.rib .ribcu{position:absolute;top:104px;height:64px;box-sizing:border-box;border:2px dashed #fbbf24;background:rgba(251,191,36,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;color:#fde68a;overflow:hidden}
+button.sf{border:0;font:inherit;color:inherit;cursor:pointer}
+.palc .phint{flex-basis:100%;font-size:12px;font-weight:600;color:var(--dim);padding-left:18px;margin-top:-3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#palCard .palc{flex-wrap:wrap;row-gap:0;align-content:center;justify-content:flex-start;text-align:left;padding-top:6px;padding-bottom:6px;min-width:0}
+#palCard .pals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
 @media (max-width:899px){.tyStat .lt{padding:0 9px;gap:6px}.tyStat .lt.ok{border-color:transparent;background:none;padding:0 2px;gap:5px}.tyStat .lt.ok i{width:16px;height:16px;font-size:10px}.tyStat .tyStill{display:none}.tyStat .tyOn{display:inline}}   /* phones: green is just a tick and words, so the bar stays on one row */
 @media (max-width:400px){.tyStat .lt{font-size:13px}.tyStat .lt i{width:18px;height:18px;font-size:11px}.tyStat .lt.ok i{display:none}}
 .pIssue{background:var(--card);border:1.5px solid #ffc94a;border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
@@ -1133,7 +1149,7 @@ body[data-theme=splash] #sbx{display:none}
       <span class="sum" id="sum"></span>
       <button type="button" class="go" id="startBtn">START</button>
     </div>
-    <div class="credit">A Bouncy Production · Made for Haz · v47</div>
+    <div class="credit">A Bouncy Production · Made for Haz · v48</div>
   </div>
 </main>
 
@@ -1175,7 +1191,7 @@ body[data-theme=splash] #sbx{display:none}
     <button type="button" class="main" id="pauseBtn">PAUSE</button>
     <button type="button" id="skipBtn">Skip</button>
   </div>
-  <div class="credit">A Bouncy Production · Made for Haz · v47</div>
+  <div class="credit">A Bouncy Production · Made for Haz · v48</div>
 </main>
 
 <!-- ================= TIME'S UP, WAITING FOR A TAP ================= -->
@@ -1194,7 +1210,7 @@ body[data-theme=splash] #sbx{display:none}
   <div class="hint" id="soundHint2" hidden>Tap anywhere to wake the chime up</div>
   <button type="button" class="big" id="goBtn">START FOCUS</button>
   <button type="button" class="quiet" id="stopBtn2">Stop for now</button>
-  <div class="credit">A Bouncy Production · Made for Haz · v47</div>
+  <div class="credit">A Bouncy Production · Made for Haz · v48</div>
 </main>
 
 <!-- ================= DAY SHAPE PLANNER ================= -->
@@ -1225,7 +1241,7 @@ body[data-theme=splash] #sbx{display:none}
         </div>
       </section>
     </div>
-    <div class="credit">A Bouncy Production · Made for Haz · v47</div>
+    <div class="credit">A Bouncy Production · Made for Haz · v48</div>
   </div>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="splScene" viewBox="0 0 1280 800"><defs><linearGradient id="splSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3ff"/><stop offset="1" stop-color="#e6f7ff"/></linearGradient>
 <clipPath id="splL"><path d="M0 0 L700 0 L580 800 L0 800 Z"/></clipPath><clipPath id="splR"><path d="M700 0 L1280 0 L1280 800 L580 800 Z"/></clipPath></defs><g clip-path="url(#splL)"><rect width="1280" height="800" fill="#ffd2bd"/><rect x="0" y="470" width="1280" height="330" fill="#e9a27f"/><path d="M0 470 L1280 470" stroke="#c97f5c" stroke-width="6"/><g><rect x="90" y="70" width="280" height="210" rx="14" fill="#fff4ea" stroke="#9a5a3c" stroke-width="6"/><rect x="104" y="84" width="252" height="182" rx="8" fill="#9ad7ff"/><circle cx="300" cy="140" r="30" fill="#ffd166"/><g fill="#fff" opacity=".95"><ellipse cx="180" cy="200" rx="32.199999999999996" ry="14"/><ellipse cx="201" cy="191.6" rx="21" ry="15.399999999999999"/><ellipse cx="160.4" cy="195.8" rx="16.799999999999997" ry="11.2"/></g><path d="M230 84 L230 266 M104 175 L356 175" stroke="#fff4ea" stroke-width="8"/></g><g><rect x="430" y="150" width="120" height="40" rx="8" fill="#fff" stroke="#9a5a3c" stroke-width="4"/><text x="490" y="177" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="15" font-weight="900" fill="#ef6a52">FOCUS</text></g><g><rect x="40" y="380" width="54" height="90" rx="8" fill="#c2410c" stroke="#7c2d12" stroke-width="4"/><path d="M67 380 L67 300" stroke="#3f7d3a" stroke-width="5"/><ellipse cx="50" cy="330" rx="20" ry="9" fill="#4aa957"/><ellipse cx="86" cy="310" rx="20" ry="9" fill="#4aa957"/><ellipse cx="60" cy="296" rx="16" ry="8" fill="#56b866"/></g><rect x="120" y="455" width="460" height="22" rx="8" fill="#a1623e" stroke="#6b3b22" stroke-width="4"/><svg viewBox="0 0 160 100" x="160" y="340" width="220" height="138">
@@ -1516,7 +1532,7 @@ body[data-theme=splash] #sbx{display:none}
     <aside class="pside">
       <div class="pcol pcolA">
       <div class="pcard2" id="palCard"><div class="palHd"><div class="ph">Add to your day</div><button type="button" class="shX" data-pa="tray:close" aria-label="Close">×</button></div>
-        <div class="pals"><button type="button" class="palc" data-k="deep"><i style="background:#ef6a52"></i>Focus<small class="pv"></small></button><button type="button" class="palc" data-k="admin"><i style="background:#ef6a52"></i>Admin</button><button type="button" class="palc" data-k="box"><i style="background:#5fb0e2"></i>Timebox<small class="pv"></small></button><button type="button" class="palc" data-k="sofa"><i style="background:#3fcb7f"></i>Break<small class="pv"></small></button><button type="button" class="palc" data-k="meet"><i style="background:#b089d0"></i>Meeting<small class="pv"></small></button></div>
+        <div class="pals"><button type="button" class="palc" data-k="deep"><i style="background:#ef6a52"></i>Focus<small class="pv"></small><span class="phint">breaks built in</span></button><button type="button" class="palc" data-k="admin"><i style="background:#ef6a52"></i>Admin</button><button type="button" class="palc" data-k="box"><i style="background:#5fb0e2"></i>Timebox<small class="pv"></small><span class="phint">one go, no breaks</span></button><button type="button" class="palc" data-k="sofa"><i style="background:#3fcb7f"></i>Break<small class="pv"></small><span class="phint">time off</span></button><button type="button" class="palc" data-k="meet"><i style="background:#b089d0"></i>Meeting<small class="pv"></small><span class="phint">at a set time</span></button></div>
         <div class="palLens" id="palLens"></div>
         <form class="mForm" id="mForm" autocomplete="off">
         <div class="mrow"><input id="mFrom" type="text" inputmode="numeric" maxlength="7" placeholder="09:00" aria-label="Meeting starts" autocomplete="off"><span>to</span><input id="mTo" type="text" inputmode="numeric" maxlength="7" placeholder="09:30" aria-label="Meeting ends" autocomplete="off"><button type="submit" class="pgo sm">+ Add</button></div>
@@ -1537,7 +1553,7 @@ body[data-theme=splash] #sbx{display:none}
     </aside>
     <div class="mini2 dayEnd"><button type="button" id="tplBtn">Save as my usual day</button><button type="button" class="dz" id="clearBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span>Start over</span></button><button type="button" class="dz" id="endDayBtn" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>End the day</span></button></div>
   </div>
-  <div id="sbx"></div><div class="credit">A Bouncy Production · Made for Haz · v47</div>
+  <div id="sbx"></div><div class="credit">A Bouncy Production · Made for Haz · v48</div>
 </main>
 
 <div class="sheet" id="sheet" hidden>
@@ -1646,7 +1662,7 @@ body[data-theme=splash] #sbx{display:none}
       st: ['todo', 'run', 'done', 'skip', 'drop'].includes(x.st) ? x.st : 'todo', si: clampN(x.si, 0, 60, 0), d: clampN(x.d, 0, 8, 0), sk: clampN(x.sk, 0, 8, 0), g: !!x.g, o: !!x.o, a: !!x.a, sp: !!x.sp, lk: Array.isArray(x.lk) ? x.lk.filter((v) => Number.isInteger(v)).slice(0, 8) : [],
       as: +x.as > 0 ? +x.as : null, ae: +x.ae > 0 ? +x.ae : null, ps: clampN(x.ps, 0, 1439, null),
       prep: x.k === 'meet' ? clampN(x.prep, 0, 60, 5) : 0, stopAt: +x.stopAt > 0 ? +x.stopAt : 0, leftMs: +x.leftMs > 0 ? +x.leftMs : 0,
-      note: typeof x.note === 'string' ? x.note.slice(0, 80) : '', aw: Array.isArray(x.aw) ? x.aw.slice(0, 20).map((w) => (Array.isArray(w) ? [+w[0], w[1] == null ? null : +w[1]] : null)).filter((w) => w && w[0] > 0) : [] };
+      note: typeof x.note === 'string' ? x.note.slice(0, 80) : '', ow: !!x.ow, ovp: !!x.ovp, mis: !!x.mis, aw: Array.isArray(x.aw) ? x.aw.slice(0, 20).map((w) => (Array.isArray(w) ? [+w[0], w[1] == null ? null : +w[1]] : null)).filter((w) => w && w[0] > 0) : [] };
   }
   function cleanPlan(p, day) {
     if (!p || typeof p !== 'object' || p.day !== (day || today()) || !Array.isArray(p.blocks)) return null;
@@ -2231,8 +2247,8 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     if (party) celebrate();
   }
   // The current bit has ended (time ran out, or skipped). quiet = skipped, so no sound or notice.
-  function finishPhase(quiet) {
-    const done = sess, endedAt = quiet ? now() : done.endAt;
+  function finishPhase(quiet, at) {                  // at: when it really ended, if you said so (v48: a meeting you tapped Ended on late)
+    const done = sess, endedAt = at || (quiet ? now() : done.endAt);
     if (done.pl) { planFinish(done, quiet, endedAt); return; }
     if (done.phase === 'box') {          // a timebox has no next bit: it just waits for you
       if (!quiet) pending = earnTime(done.dur).line;
@@ -2270,7 +2286,7 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     partyT = setTimeout(() => { delete $('pal').dataset.party; setPal(); }, 7000);
   }
   function saveCut(b, ms, after) {                    // work time cut off by a meeting is kept as a Timebox: under If there's time, or (paused through a meeting) first thing after it
-    if (!b || ms < 5 * 60000 || (sess.phase !== 'focus' && sess.phase !== 'box')) return false;
+    if (!b || ms < 5 * 60000 || (sess.phase !== 'focus' && sess.phase !== 'box') || isAutoF(b)) return false;
     const lb = newBlock('box', { min: Math.round(ms / 60000), label: b.label || (KINDS[b.k].ph ? 'Rest of focus' : '') });
     lb.st = 'drop'; plan.blocks.push(lb);
     return true;
@@ -2297,8 +2313,9 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     if (!KINDS[b.k].ph) return;
     const n = steps(b).slice(from).filter((x) => x.ph === 'focus').length;
     if (!n) return;
-    const lb = newBlock(b.k, { n, label: b.label }); lb.st = 'drop'; plan.blocks.push(lb);
     const mt = meetAhead(b, at || now());
+    if (isAutoF(b)) { logAdd(`${n === 1 ? 'A pomodoro' : n + ' pomodoros'} of LOAF's own focus gave way${mt ? ' before ' + bname(mt) : ''}.`); return; }   // v48: LOAF's own focus isn't saved in the pen
+    const lb = newBlock(b.k, { n, label: b.label }); lb.st = 'drop'; plan.blocks.push(lb);
     notice(`${n === 1 ? 'A pomodoro' : n + ' pomodoros'} did not fit${mt ? ' before ' + bname(mt) : ''}. It's in the holding pen.`);
   }
   // a meeting in the day runs until you tap Ended: one soft chime at its planned end, one check 30 min later,
@@ -2819,6 +2836,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   const tm = (m) => clock(dayMs(m));
   const esc = (x) => String(x).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const bmin = (b) => (KINDS[b.k].ph ? steps(b).reduce((m, x) => m + x.m, 0) : b.min);
+  const isAutoF = (b) => !!(b && b.g && plan && plan.auto && KINDS[b.k].ph);   // v48: focus LOAF filled in, drawn outlined so it reads as LOAF's, not yours
   const bname = (b) => b.label || (b.g && b.k === 'deep' && plan && plan.auto ? (b.n > 1 ? `Focus ${b.n} × ${b.f}` : `Focus ${b.f}`) : KINDS[b.k].name);   // v46: what a gap filled itself with says its length
   const live = (b) => b.st === 'todo' || b.st === 'run';
   // One rhythm for the whole day. The count is the pomodoros worked since your last long break: each Focus pomodoro adds 1,
@@ -3079,11 +3097,14 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       return;
     }
     if (done.phase === 'focus') { b.d++; if (quiet) b.sk++; }
-    const longCut = done.phase === 'long' && quiet && done.dur - (done.paused ? done.left : Math.max(0, done.endAt - now())) < LONG_MIN * 60000;
+    const took = done.dur - (done.paused ? done.left : Math.max(0, done.endAt - now()));
+    const miss = done.phase === 'long' && quiet && plan.run && b.k === 'sofa' && took < done.dur / 2;   // v48: a break ended in its first half comes back later (a long break inside Focus is owed by the rhythm, as before)
+    const longCut = miss || (done.phase === 'long' && quiet && took < LONG_MIN * 60000);
     if (longCut && KINDS[b.k].ph) { b.lk = b.lk || []; if (!b.lk.includes(pl.s)) b.lk.push(pl.s); }
     if (done.phase === 'long' && !longCut && !done.bone && boneable(b)) pending = earnBone();
     const earnIt = (ms) => (done.phase === 'focus' && KINDS[b.k].ph ? earnTime(early ? ms : done.dur, early ? 'early' : 'pomo') : earnTime(ms));
     b.si = pl.s + 1;
+    if (miss) { if (b.k === 'sofa') b.mis = true; oweBreak((done.dur - took) / 60000, brkName(b)); }
     if (early && done.phase === 'box') b.si = steps(b).length;   // the rest of the Timebox, inner breaks too, is done with
     const all = steps(b);
     const wrap = b.si < all.length && tooTight(b, b.si, endedAt);
@@ -3122,30 +3143,73 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   }
   function overflowToPen(quiet) {                     // work pushed past the finish line waits in the holding pen, latest first
     if (!plan || plan.fin == null) return [];
-    const moved = [];
+    const moved = [], gave = [];
     for (let g = 0; g < 60; g++) {
       syncRhythm();
       const pr = problems(plan, plan.run ? now() : Math.max(now(), dayMs(plan.start)));
       if (pr.over <= 60000) break;
-      const last = pr.rows.map((r) => r.b).reverse().find((b) => b.pin == null && !b.a && b.k !== 'meet' && (b.st === 'todo' || (b.st === 'run' && KINDS[b.k].ph && b.n > b.d + 1)));
+      const can = (b) => b.pin == null && !b.a && b.k !== 'meet' && (b.st === 'todo' || (b.st === 'run' && KINDS[b.k].ph && b.n > b.d + 1));
+      const lp = pr.rows.map((r) => r.b.pin != null).lastIndexOf(true), R = pr.rows.slice(lp + 1).map((r) => r.b).reverse();   // only what comes after the last fixed block can make the day end sooner
+      // v48: LOAF's own focus gives way first, then your work goes to the pen, and a break that came back goes last
+      const gv = plan.auto ? R.find((b) => can(b) && b.g && (KINDS[b.k].ph || b.k === 'zoom')) : null;
+      if (gv) {
+        if (KINDS[gv.k].ph && gv.n > 1) gv.n--; else plan.blocks = plan.blocks.filter((x) => x !== gv);
+        if (!quiet && !gave.includes(bname(gv))) gave.push(bname(gv));
+        continue;
+      }
+      const last = R.find((b) => can(b) && !b.ow) || R.find((b) => can(b));
       if (!last) break;
+      if (last.ow) { plan.blocks = plan.blocks.filter((x) => x !== last); if (!quiet) logAdd(`${bname(last)} no longer fits before ${tm(plan.fin)}, so it's dropped.`, true); continue; }
       if (KINDS[last.k].ph && last.n > 1) {
         last.n--;
         const pen = plan.blocks.find((x) => x.st === 'drop' && x.k === last.k && (x.label || '') === (last.label || '') && x.ov);
-        if (pen) pen.n++; else { const nb = newBlock(last.k, { n: 1, label: last.label, ov: true }); nb.st = 'drop'; plan.blocks.push(nb); }
+        if (pen) { pen.n++; pen.ovp = true; } else { const nb = newBlock(last.k, { n: 1, label: last.label, ov: true, ovp: true }); nb.st = 'drop'; plan.blocks.push(nb); }
       } else if (last.k === 'box' && last.st === 'todo' && last.min - Math.ceil(pr.over / 300000) * 5 >= 10) {
         const cutM = Math.ceil(pr.over / 300000) * 5;
         last.min -= cutM;
-        const nb = newBlock('box', { min: cutM, label: last.label, prio: last.prio }); nb.st = 'drop'; plan.blocks.push(nb);
-      } else last.st = 'drop';
+        const nb = newBlock('box', { min: cutM, label: last.label, prio: last.prio, ovp: true }); nb.st = 'drop'; plan.blocks.push(nb);
+      } else { last.st = 'drop'; last.ovp = true; }
       if (!moved.includes(bname(last))) moved.push(bname(last));
     }
     plan.blocks.forEach((x) => { delete x.ov; });
+    if (gave.length) logAdd(`Running late, so LOAF's own ${gave.join(', ')} gave way to keep ${tm(plan.fin)}.`, true);
     if (moved.length && !quiet) logAdd(`${moved.join(', ')} won't fit before ${tm(plan.fin)}. In the holding pen.`, true);
     return moved;
   }
+  const brkName = (b) => (b.k === 'sofa' && b.label ? b.label.toLowerCase() : b.k === 'sofa' ? 'your break' : 'your long break');
+  // v48: a break you missed (ended in its first half, or marked "I missed this" afterwards) comes back by itself at the
+  // start of your next gap, after the next fixed block. With no fixed block left it goes at the end, into catch-up time.
+  // It's LOAF's, so the focus LOAF filled in shrinks around it. Only one comes back at a time, up to 30 min.
+  function oweBreak(mins, what) {
+    if (!plan || !plan.run) return null;
+    const m = Math.min(30, Math.max(5, Math.ceil(mins / 5) * 5));
+    const had = plan.blocks.find((b) => b.ow && b.st === 'todo');
+    if (had) { had.min = Math.min(30, Math.max(had.min, m)); logAdd(`You missed ${what}, so the break waiting for you is now ${had.min} min.`, true); return had; }
+    const L = plan.blocks.filter((b) => (b.st === 'todo' || b.st === 'run') && !b.a);
+    let i = -1, after = null;
+    for (let j = 1; j < L.length; j++) if (L[j - 1].pin != null && L[j].pin == null) { i = plan.blocks.indexOf(L[j]); after = L[j - 1]; break; }
+    if (i < 0) { const lp = L.filter((b) => b.pin != null).pop(); after = lp || null; i = plan.blocks.findIndex((b) => b.st === 'drop'); if (i < 0) i = plan.blocks.length; }
+    const nb = newBlock('sofa', { min: m, label: 'Sofa time', ow: true, prio: 'nice' });
+    plan.blocks.splice(i, 0, nb);
+    syncRhythm(); autoFill(); overflowToPen(); penPull();
+    if (!plan.blocks.includes(nb)) { logAdd(`You missed ${what}, but there's no room for it before ${tm(plan.fin)}.`, true); return null; }
+    logAdd(`You missed ${what}, so ${m} min of sofa time comes back ${after && plan.blocks.indexOf(after) < plan.blocks.indexOf(nb) ? 'after ' + bname(after) + ' at ' + tm(after.pin) : plan.fin != null ? 'before the finish line' : 'at the end of your day'}.`, true);
+    return nb;
+  }
+  // v48: work LOAF put in the pen because the day ran long comes back by itself when catch-up time has room for it
+  function penPull() {
+    if (!plan || !plan.run || !plan.auto || plan.fin == null) return;
+    plan.blocks.filter((b) => b.st === 'drop' && b.ovp).reverse().forEach((x) => {
+      const keep = plan.blocks.slice(), i = plan.blocks.findIndex((b) => b.st === 'drop');
+      plan.blocks = plan.blocks.filter((b) => b !== x);
+      plan.blocks.splice(i < 0 ? plan.blocks.length : i, 0, x);
+      x.st = 'todo'; syncRhythm();
+      if (problems(plan, now()).over <= 0) { delete x.ovp; logAdd(`${bname(x)} came back from the holding pen into catch-up time.`, true); return; }
+      x.st = 'drop'; plan.blocks = keep; syncRhythm();
+    });
+  }
   function goNextBlock(endedAt, immediate, prev, hold) {
-    passMeetings(); syncRhythm(); autoFill(); overflowToPen();
+    passMeetings(); syncRhythm(); autoFill(); overflowToPen(); penPull();
     let nb = plan.blocks.find((b) => b.st === 'todo');
     if (!nb) { planComplete(); return; }
     if (squeeze(nb, now())) { nb = plan.blocks.find((b) => b.st === 'todo'); hold = true; }
@@ -3739,7 +3803,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     $('tyTime').classList.toggle('head', head);
     $('tyLbl').hidden = head;
     if (paused) setH($('tyLbl'), lbl); else { $('tyLbl')._h = null; $('tyLbl').textContent = lbl; }
-    { const wh = esc(what).replace(/ · (\d\d:\d\d)–(\d\d:\d\d)$/, '<span class="tyUntil"> · until $2</span>').replace(' · pomodoro ', ' · <span class="tyPomo">pomodoro </span>'); if ($('tyWhat')._w !== wh) { $('tyWhat')._w = wh; $('tyWhat').innerHTML = wh; } }
+    { const wh = esc(what).replace(/ · (\d\d:\d\d)–(\d\d:\d\d)$/, '<span class="tyUntil"> · until $2</span>').replace(' · pomodoro ', ' · <span class="tyPomo">pomodoro </span>').replace(/^([^<·]+)/, (m0) => m0 + (isAutoF(b) && !gap ? '<span class="atag">auto</span>' : '')); if ($('tyWhat')._w !== wh) { $('tyWhat')._w = wh; $('tyWhat').innerHTML = wh; } }
     if (meet) setH($('tySub'), sub); else { $('tySub')._h = null; $('tySub').textContent = sub; }
     renderTyNote(paused, b, p, w);
     $('tyHere').classList.toggle('amb', paused);
@@ -3751,6 +3815,14 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (w) {
       btns = `<button type="button" class="go" data-ty="pause">${esc(prep ? 'Start meeting now' : gap ? 'Start a Timebox' : $('goBtn').textContent)}</button>`;
       if (!gap && !prep && p === 'focus') btns += `<button type="button" data-ty="skipw">Skip this one</button>`;
+      const wt = now() - sess.wait.since, sm = b && steps(b)[sess.pl.s] ? steps(b)[sess.pl.s].m : 0;   // v48: you got going without tapping Start
+      if (!gap && !prep && (p === 'focus' || p === 'box') && wt >= 5 * 60000 && wt < (sm - 2) * 60000) btns += `<button type="button" data-ty="startat">I started at ${clock(sess.wait.since)}</button>`;
+    }
+    else if (meet && (tyAsk === 'ended' || tyAsk === 'ended2')) {   // v48: Ended tapped well after it was due: when did it really end?
+      const mb = blockById(sess.pl.b), pe = sess.pl.pe != null ? sess.pl.pe : sess.endAt, nw = now();
+      btns = `<div class="tyAsk"><b>When did ${esc(bname(mb))} end?</b> It was due at ${clock(pe)}.</div>`;
+      if (tyAsk === 'ended') btns += `<button type="button" class="go" data-ty="endat:${pe}">At ${clock(pe)}, on time</button><button type="button" data-ty="endat:0">Just now, ${clock(nw)}</button><button type="button" data-ty="endmore">Another time…</button>`;
+      else { const span = Math.floor((nw - pe) / 60000), st = Math.max(5, Math.ceil(span / 8 / 5) * 5); for (let m = st; m < span - 2; m += st) btns += `<button type="button" data-ty="endat:${pe + m * 60000}">${clock(pe + m * 60000)}</button>`; btns += `<button type="button" data-ty="endat:0">Just now</button>`; }
     }
     else if (meet) btns = `<button type="button" class="go" data-ty="skip">Ended</button>`;
     else if (paused) btns = `<button type="button" class="go" data-ty="pause">Resume</button>`;
@@ -4050,8 +4122,25 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     else if (a === 'yes') { tyAsk = ''; doneEarly(); }
     else if (a === 'skip') {
       const mb = sess && sess.phase === 'meet' && sess.pl ? blockById(sess.pl.b) : null;
-      if (mb && sess.pl.pe != null) { const o = Math.floor((now() - sess.pl.pe) / 60000); if (o >= 1) logAdd(`${bname(mb)} ended at ${clock(now())}, ${o} min over.`); }
-      $('skipBtn').click();
+      if (mb && sess.pl.pe != null && now() - sess.pl.pe >= 10 * 60000 && !sess.wait) tyAsk = 'ended';   // v48: late by 10 min or more: ask first
+      else {
+        if (mb && sess.pl.pe != null) { const o = Math.floor((now() - sess.pl.pe) / 60000); if (o >= 1) logAdd(`${bname(mb)} ended at ${clock(now())}, ${o} min over.`); }
+        $('skipBtn').click();
+      }
+    }
+    else if (a === 'endmore') tyAsk = 'ended2';
+    else if (a.startsWith('endat:')) {
+      const mb = sess && sess.phase === 'meet' && sess.pl && !sess.wait ? blockById(sess.pl.b) : null, pe = mb && sess.pl.pe != null ? sess.pl.pe : 0;
+      tyAsk = '';
+      if (mb) {
+        const T = Math.min(now(), Math.max(mb.as || 0, +a.slice(6) || now())), o = pe ? Math.floor((T - pe) / 60000) : 0;
+        logAdd(o >= 1 ? `${bname(mb)} ended at ${clock(T)}, ${o} min over.` : `${bname(mb)} ended on time, at ${clock(T)}.`);
+        cancelSched(); finishPhase(true, T < now() - 60000 ? T : 0);
+      }
+    }
+    else if (a === 'startat') {                          // v48: you began without tapping Start: it counts from when it was ready
+      const wb = sess && sess.wait && sess.pl && !sess.pl.gap ? blockById(sess.pl.b) : null;
+      if (wb) { const t0 = sess.wait.since; ensureAudio(); logAdd(`${bname(wb)} started at ${clock(t0)}, before you tapped Start.`); startPlanStep(wb, sess.pl.s, t0); }
     }
     else if (a.startsWith('back:')) { const x = plan.blocks.find((y) => y.id === +a.slice(5) && y.st === 'drop'); if (x) { penBack(x); afterEdit(); } }
     else if (a.startsWith('fit:') || a === 'penleave') penAct(a);
@@ -4484,6 +4573,10 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   // Free (plan.skip) keeps it empty and plan.gk makes it Admin or a Timebox. Blocks it makes carry g, and are only swapped
   // when the right fill changes, so they keep their ids.
   const AUTO_MAX = 40;
+  // v48: on a day that fills itself, the last 30 min before the finish line stays empty. It's catch-up time: when the day
+  // slips (an overrun, a late start, a break that comes back) it soaks that up first, so you still finish on time.
+  const CATCH = 30;
+  const catchOf = (sg, pl) => (pl && pl.auto && !sg.after && pl.fin != null ? CATCH : 0);
   function gapSpec(W, kind, first) {
     if (W < 5) return [];
     if (kind === 'box') return W >= 10 ? [{ k: 'box', min: Math.floor(W / 5) * 5 || W }] : [];
@@ -4509,7 +4602,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       const ids = new Set(old.map((b) => b.id));
       plan.blocks = plan.blocks.filter((b) => !ids.has(b.id));
       syncRhythm();
-      const sg = segments().segs[i], room = segRoom(sg), W = Math.floor(room.avail), key = segKey(sg);
+      const sg = segments().segs[i], room = segRoom(sg), cu = catchOf(sg, keep), W = Math.floor(room.avail - cu), key = segKey(sg);
+      room.e -= cu;
       let L = lunch && W >= 45 ? [{ k: 'sofa', min: 30, label: 'Lunch' }] : [];
       L = L.concat(gapSpec(W - (L.length ? 30 : 0), (keep.gk || {})[key] || 'deep', i === 0 && !plan.blocks.some((b) => b.st === 'done')));
       for (let g = 0; L && L.length && g < 120; g++) {
@@ -4538,7 +4632,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     for (let i = 0; i < n; i++) {
       const sg = segments().segs[i];
       if (!sg || sg.e == null) continue;
-      const mine = sg.run.filter((it) => it.b.st !== 'drop' && !it.b.a);
+      const mine = sg.run.filter((it) => it.b.st !== 'drop' && !it.b.a && !it.b.ow);   // v48: a break that came back is LOAF's too
       if (mine.some((it) => it.b.st === 'run' || (it.b.st === 'todo' && !it.b.g) || (sess && sess.pl && sess.pl.b === it.b.id))) continue;   // running, waiting to start, or yours
       const old = mine.filter((it) => it.b.st === 'todo').map((it) => it.b);
       const want = (plan.skip || []).includes(segKey(sg)) ? [] : bestFill(i, old, i === lunchI);
@@ -4885,8 +4979,9 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       const empty = !sg.run.some((it) => it.b.st === 'todo') && sg0.e != null;   // data-aid (fillGap, gapIds) only on gaps with nothing planned, as before
       const s0 = Math.max(sg.s, sg.run.length ? sg.run[sg.run.length - 1].e : sg.s, (run || began) && today0 ? nowM : 0);
       if (sg.e - s0 < 15) return;
-      const nar = (sg.e - s0) / span < 0.1;
-      h += `<div class="civ${nar ? ' nar' : ''}${gapSel === aid ? ' on' : ''}" ${empty ? ` data-aid="${aid}"` : ''} data-pa="lz:${aid}" role="button" tabindex="0" style="left:${X(s0)};width:${W(s0, sg.e)}"><span class="civl">${hm(Math.max(0, sg.e - s0 - (sg.after ? prepOf(sg.after) : 0)))} free</span></div>`;
+      const cu = catchOf(sg0, plan), c0 = Math.max(s0, sg.e - cu), nar = (c0 - s0) / span < 0.1;
+      if (cu) h += `<div class="ribcu" style="left:${X(c0)};width:${W(c0, sg.e)}"><span>Catch-up</span></div>`;
+      if (c0 - s0 >= 15) h += `<div class="civ${nar ? ' nar' : ''}${gapSel === aid ? ' on' : ''}" ${empty ? ` data-aid="${aid}"` : ''} data-pa="lz:${aid}" role="button" tabindex="0" style="left:${X(s0)};width:${W(s0, c0)}"><span class="civl">${hm(Math.max(0, c0 - s0 - (sg.after ? prepOf(sg.after) : 0)))} free</span></div>`;
     });
     items.forEach((it) => {
       const pre = it.b.st === 'todo' && it.b.k === 'meet' ? prepNeed(it.b) : 0;
@@ -4895,7 +4990,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     items.forEach((it) => {
       const b = it.b, pin = isPin(b), ed = b.st === 'todo', lbl = `${esc(bname(b))}, ${tm(it.s)} to ${tm(it.e)}`;
       if (b.a) { h += `<div class="cb auto k-${b.k}${b.st !== 'todo' ? ' ' + b.st : ''}" style="left:${X(it.s)};width:${W(it.s, it.e)}" aria-label="${lbl}"><span>${esc(bname(b))}</span></div>`; return; }
-      const cls = ['cb', 'k-' + b.k, pin ? 'pin' : 'fill', b.st !== 'todo' ? b.st : '', ed ? 'ed' : '', editId === b.id ? 'sel' : '', over.has(b.id) ? 'over' : ''].filter(Boolean).join(' ');
+      const cls = ['cb', 'k-' + b.k, pin ? 'pin' : 'fill', isAutoF(b) ? 'gA' : '', b.st !== 'todo' ? b.st : '', ed ? 'ed' : '', editId === b.id ? 'sel' : '', over.has(b.id) ? 'over' : ''].filter(Boolean).join(' ');
       let inner = '';
       if (!pin) {
         const T = tilesOf(b), many = KINDS[b.k].ph && b.n > 1 && ed;
@@ -4934,17 +5029,19 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       const empty = !sg.run.some((it) => it.b.st === 'todo') && sg0.e != null, aid = segKey(sg0);
       const s0 = Math.max(sg.s, sg.run.length ? sg.run[sg.run.length - 1].e : sg.s, (run || began) && today0 ? nowM : 0);
       if (sg.e - s0 < 15) return;
-      fl += `<div class="dvfree${gapSel === aid ? ' on' : ''}"${empty ? ` data-aid="${aid}"` : ''} data-pa="lz:${aid}" role="button" tabindex="0" style="top:${Y(s0)};height:${H(s0, sg.e)}"><span>${hm(Math.max(0, sg.e - s0 - (sg.after ? prepOf(sg.after) : 0)))} free</span></div>`;
+      const cu = catchOf(sg0, plan), c0 = Math.max(s0, sg.e - cu);   // v48: catch-up time is drawn as its own band, not as free time
+      if (cu) fl += `<div class="dvcu" style="top:${Y(c0)};height:${H(c0, sg.e)}"><span>Catch-up${sg.e - c0 >= 20 ? ' time' : ''}</span></div>`;
+      if (c0 - s0 >= 15) fl += `<div class="dvfree${gapSel === aid ? ' on' : ''}"${empty ? ` data-aid="${aid}"` : ''} data-pa="lz:${aid}" role="button" tabindex="0" style="top:${Y(s0)};height:${H(s0, c0)}"><span>${hm(Math.max(0, c0 - s0 - (sg.after ? prepOf(sg.after) : 0)))} free</span></div>`;
     });
     items.forEach((it) => {
       const b = it.b, pin = isPin(b), lbl = `${esc(bname(b))}, ${tm(it.s)} to ${tm(it.e)}`, dn = b.st === 'done' || b.st === 'skip';
       const pre = b.st === 'todo' && b.k === 'meet' ? prepNeed(b) : 0;
       if (pre) fx += `<div class="dvprep" style="top:${Y(it.s - pre)};height:${H(it.s - pre, it.s)}" title="Prep for ${esc(bname(b))}: ${pre} min" aria-hidden="true"></div>`;
       if (b.a) { fl += `<div class="dvb dva k-${b.k}${dn ? ' dn' : ''}" style="top:${Y(it.s)};height:${H(it.s, it.e)}" aria-label="${lbl}">${it.e - it.s >= 10 ? `<span class="dvn">${esc(bname(b))}</span>` : ''}</div>`; return; }
-      const cls = ['dvb', 'k-' + b.k, dn ? 'dn' : '', b.st === 'run' ? 'run' : '', editId === b.id ? 'sel' : '', over.has(b.id) ? 'over' : '', it.e - it.s < 20 ? 'sm' : ''].filter(Boolean).join(' ');
+      const cls = ['dvb', 'k-' + b.k, isAutoF(b) ? 'gA' : '', dn ? 'dn' : '', b.st === 'run' ? 'run' : '', editId === b.id ? 'sel' : '', over.has(b.id) ? 'over' : '', it.e - it.s < 20 ? 'sm' : ''].filter(Boolean).join(' ');
       let bands = '';
       if (!pin && KINDS[b.k].ph) { const T = tilesOf(b); bands = T.out.filter((t) => !t.w).map((t) => `<i class="dvsb" style="top:${(t.a / T.tot * 100).toFixed(2)}%;height:${(t.m / T.tot * 100).toFixed(2)}%"></i>`).join(''); }
-      const el = `<div class="${cls}" data-id="${b.id}" data-pa="sel" role="button" tabindex="0" style="top:${Y(it.s)};height:${H(it.s, it.e)}" aria-label="${lbl}" title="${lbl}">${bands}<span class="dvn">${dn ? '✓ ' : ''}${esc(bname(b))}</span>${pin && it.e - it.s >= 25 ? `<span class="dvm">${tm(it.s)}</span>` : ''}</div>`;
+      const el = `<div class="${cls}" data-id="${b.id}" data-pa="sel" role="button" tabindex="0" style="top:${Y(it.s)};height:${H(it.s, it.e)}" aria-label="${lbl}" title="${lbl}">${bands}<span class="dvn">${dn ? '✓ ' : ''}${esc(bname(b))}${isAutoF(b) && !dn && it.e - it.s >= 20 ? ' <span class="atag">auto</span>' : ''}</span>${pin && it.e - it.s >= 25 ? `<span class="dvm">${tm(it.s)}</span>` : ''}</div>`;
       if (pin) fx += el; else fl += el;
     });
     const tail = items.reduce((m, it) => Math.max(m, it.e), 0), ov = plan.fin != null && tail > plan.fin;
@@ -4968,12 +5065,13 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     return { cls: 'ok', txt: hm(b.min).trim(), part: 1, mins: b.min };
   }
   function doneStrip(items) {                          // what's happened so far, honestly: done, cut short or skipped
-    const dn = items.filter((it) => (it.b.st === 'done' || it.b.st === 'skip') && !it.b.a), runB = items.find((it) => it.b.st === 'run');
+    const dn = items.filter((it) => (it.b.st === 'done' || it.b.st === 'skip') && (!it.b.a || it.b.k === 'sofa')), runB = items.find((it) => it.b.st === 'run');
     const parts = [];
     dn.concat(runB && KINDS[runB.b.k].ph && runB.b.d ? [runB] : []).forEach((it) => {
       const b = it.b, f = soFar(b), c = (DAYC[b.k] || DAYC.meet)[0];
-      const ic = f.cls === 'sk' ? '<i class="sk">↷</i>' : f.cls === 'cut' ? `<i class="pt" style="--c:${c};--p:${Math.round(f.part * 100)}%"></i>` : `<i style="background:${c}">✓</i>`;
-      parts.push(`<span class="sf ${f.cls}">${ic}${f.cls === 'sk' ? `<s>${esc(bname(b))}</s>` : esc(bname(b))}${f.txt ? ' · ' + esc(f.txt) : ''}</span>`);
+      const ic = b.mis ? '<i class="sk">↷</i>' : f.cls === 'sk' ? '<i class="sk">↷</i>' : f.cls === 'cut' ? `<i class="pt" style="--c:${c};--p:${Math.round(f.part * 100)}%"></i>` : `<i style="background:${c}">✓</i>`;
+      const tx = `${ic}${f.cls === 'sk' ? `<s>${esc(bname(b))}</s>` : esc(bname(b))}${b.mis ? ' · missed' : f.txt ? ' · ' + esc(f.txt) : ''}`;
+      parts.push(b.k === 'sofa' && b.st !== 'run' ? `<button type="button" class="sf ${f.cls}" data-pa="sel" data-id="${b.id}" aria-label="${esc(bname(b))}: tap if you missed it">${tx}</button>` : `<span class="sf ${f.cls}">${tx}</span>`);   // v48: tap a break to say you missed it
     });
     return parts.length ? `<div class="agDone" title="${dn.map((it) => esc(bname(it.b)) + ' ' + tm(it.s) + '–' + tm(it.e)).join(', ')}"><span class="lb0">So far</span>${parts.join('')}</div>` : '';
   }
@@ -4996,7 +5094,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
         const aid = segKey(sg), td = work.filter((it) => it.b.st === 'todo'), names = [];
         work.filter((it) => !it.b.a).forEach((it) => { const n = bname(it.b); if (names[names.length - 1] !== n) names.push(n); });
         const s0 = live0 ? Math.max(sg.s, nowM) : sg.s, end = work.length ? work[work.length - 1].e : s0;
-        const room = sg.e == null ? null : sg.e - (sg.after ? prepOf(sg.after) : 0), spare = room == null ? null : room - Math.max(end, s0);
+        const cu = catchOf(sg, plan), room = sg.e == null ? null : sg.e - (sg.after ? prepOf(sg.after) : 0) - cu, spare = room == null ? null : room - Math.max(end, s0);
         const isNow = work.some((it) => it.b.st === 'run');
         let tag = '';
         if (room != null && work.length) tag = spare < 0 ? `<span class="ov">over by ${hm(-spare)}</span>` : spare < 5 ? `<span>${tm(work[0].s)}–${tm(end)} · full</span>` : `<span>${tm(work[0].s)}–${tm(end)} · ${hm(spare)} spare</span>`;
@@ -5004,17 +5102,19 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
         else if (room != null) tag = `<span>${tm(s0)}–${tm(sg.e)}</span>`;
         const fr = room == null ? (plan.fin != null ? plan.fin - Math.max(end, s0) : null) : room - Math.max(end, s0);
         const loz = fr != null && fr >= 5 ? `<button type="button" class="loz${gapSel === aid ? ' on' : ''}" data-pa="lz:${aid}"><span>${hm(fr)} free</span><span class="add">${gapSel === aid ? 'Now tap a block to add' : '+ Add'}</span></button>` : '';
-        h += `<div class="bay${isNow ? ' now' : ''}${work.length ? '' : ' empty'}" data-seg="${aid}" data-s="${sg.s}" data-e="${sg.e == null ? 1440 : sg.e}">${work.length ? `<div class="bh"><b>${esc(names.join(', '))}</b>${tag}</div>` : ''}`;
+        const wk = work.filter((it) => isWork(it.b) && !it.b.a), who = !plan.auto || !wk.length ? '' : wk.some((it) => isAutoF(it.b)) ? '<span class="atag">auto</span>' : '<span class="ytag">yours</span>';
+        h += `<div class="bay${isNow ? ' now' : ''}${work.length ? '' : ' empty'}" data-seg="${aid}" data-s="${sg.s}" data-e="${sg.e == null ? 1440 : sg.e}">${work.length ? `<div class="bh"><b>${esc(names.join(', '))}${who}</b>${tag}</div>` : ''}`;
         if (work.length) {
           h += '<div class="bfill">' + work.map((it, i) => {
             const b = it.b, lbl = `${esc(bname(b))}, ${tm(it.s)} to ${tm(it.e)}`;
             if (b.a) return `<div class="cb auto k-${b.k}" aria-label="${lbl}"><i class="tk sb${it.e - it.s >= 15 ? ' lb' : ''}">${it.e - it.s >= 15 ? it.e - it.s : ''}</i></div>`;
-            const ed = b.st === 'todo', cls = ['cb', 'k-' + b.k, 'fill', b.st !== 'todo' ? b.st : '', ed ? 'ed' : '', editId === b.id ? 'sel' : '', over.has(b.id) ? 'over' : ''].filter(Boolean).join(' ');
+            const ed = b.st === 'todo', cls = ['cb', 'k-' + b.k, 'fill', isAutoF(b) ? 'gA' : '', b.st !== 'todo' ? b.st : '', ed ? 'ed' : '', editId === b.id ? 'sel' : '', over.has(b.id) ? 'over' : ''].filter(Boolean).join(' ');
             const gap = i && !work[i - 1].b.a ? '<i class="tk sb"></i>' : '';
             return `${gap}<div class="${cls}" data-id="${b.id}" data-pa="sel" role="button" tabindex="0" aria-label="${lbl}"><span class="cbn">${esc(bname(b))}</span>${tokens(b)}</div>`;
           }).join('') + '</div>';
         }
         h += loz;
+        if (cu && Math.max(end, s0) < sg.e) { const c0 = Math.max(end, s0, sg.e - cu); h += `<div class="cuBand"><b>Catch-up time</b><span>${tm(c0)}–${tm(sg.e)}${c0 > sg.e - cu ? ` · ${hm(sg.e - c0)} left` : ''}</span><small>Kept free so a late meeting, a slow start or a missed break doesn't push you past ${tm(sg.e)}.</small></div>`; }
         if (!td.length && room != null && room - s0 >= 15) h += `<i class="civ" data-aid="${aid}" hidden></i>`;
         if (sg.e == null && !work.length) h += `<span class="bnote" style="color:var(--dim)">Set a finish line to plan after your last meeting</span>`;
         h += '</div>';
@@ -5049,7 +5149,10 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
         (planMsg ? `<div class="selMsg">${esc(planMsg)}</div>` : '') +
         `<div class="sela">${b.n > minN(b) ? '<button type="button" data-pa="raside">Set the rest aside</button>' : ''}<button type="button" data-pa="close">OK</button></div></div>`;
     }
-    if (b.st !== 'todo') return `<div class="selc" data-id="${b.id}"><div class="selt">${title}</div><span class="seln">${b.st === 'run' ? 'On now' : b.st === 'skip' ? 'Skipped' : 'Done'}</span><button type="button" data-pa="close">OK</button></div>`;
+    if (b.st !== 'todo') {
+      const brk = b.k === 'sofa' && (b.st === 'done' || b.st === 'skip') && plan.run && viewOff === 0;   // v48: say you missed a break, and it comes back
+      return `<div class="selc" data-id="${b.id}"><div class="selt">${title}</div><span class="seln">${b.mis ? 'Missed. It comes back later today.' : b.st === 'run' ? 'On now' : b.st === 'skip' ? 'Skipped' : 'Done'}</span>${brk && !b.mis ? '<button type="button" data-pa="missed">I missed this break</button>' : ''}<button type="button" data-pa="close">OK</button></div>`;
+    }
     let rows = '', del = '';
     if (b.k === 'sofa' && isPin(b)) {
       return `<div class="selc" data-id="${b.id}"><div class="selt"><b>Your break</b> <span>${tm(it.s)}–${tm(it.e)} · holds its time</span></div>` +
@@ -5153,6 +5256,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (a === 'earlier') { showEarlier = !showEarlier; renderPlan(); return; }
     if (a === 'logt') { logOpen = !logOpen; renderPlan(); return; }
     if (a === 'sel') { editId = editId === id ? 0 : id; renderPlan(); return; }
+    if (a === 'missed') { const b = blockById(id); if (b && b.k === 'sofa' && !b.mis && (b.st === 'done' || b.st === 'skip')) { b.mis = true; oweBreak(b.min, brkName(b)); save(); } editId = 0; renderPlan(); return; }
     if (a === 'close') { editId = 0; renderPlan(); return; }
     if (a === 'go') { if (plan.run) { if (sess) closePlan(); else if (plan.blocks.some(live)) planStart(); else { plan = null; viewOff = 0; save(); showScreen(); } } else planStart(); return; }
     if (a.startsWith('day:')) { setView(+val); return; }
@@ -5340,7 +5444,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       if (x.k === 'box') x.min -= f.part; else x.n -= f.part;
       plan.blocks.push(y); sg = best;
     }
-    y.st = 'todo'; y.pin = null; slot(y, at(sg));
+    y.st = 'todo'; y.pin = null; delete y.ovp; delete x.ovp; slot(y, at(sg));
     let cut = 0;                                       // the breaks the rhythm adds can take a few minutes more: trim until nothing runs into anything
     while (bad()) {
       if (y.k === 'box' && y.min - 5 >= 10) { y.min -= 5; cut += 5; }
@@ -5379,7 +5483,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
       b.n--;
       const nb = newBlock(b.k, { n: 1, label: b.label }); nb.st = 'drop'; plan.blocks.push(nb);
       logAdd(`A pomodoro of ${bname(b)} is in the holding pen.`);
-    } else { b.st = 'drop'; plan.blocks = plan.blocks.filter((x) => x !== b).concat([b]); logAdd(`${bname(b)} is in the holding pen.`); }
+    } else { b.st = 'drop'; delete b.ovp; plan.blocks = plan.blocks.filter((x) => x !== b).concat([b]); logAdd(`${bname(b)} is in the holding pen.`); }
   }
   function toSeg(b, aid) {                             // a flowing block moved to the end of another gap's work
     const sg = segments().segs.find((x) => segKey(x) === aid);
