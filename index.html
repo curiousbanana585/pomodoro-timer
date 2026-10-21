@@ -245,11 +245,19 @@ body.paused .tLumi .lumi{animation-play-state:paused}
   .pgrid{grid-template-columns:minmax(0,1fr) 360px;column-gap:40px;align-items:start}
   .calWrap{max-height:calc(100vh - 250px)}
 }
-.timesRow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;background:var(--card);border-radius:14px;padding:8px 12px}
-.timesRow .tr{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:700}
-.timesRow button:not(.linkbtn){width:40px;height:40px;border-radius:10px;background:var(--btn);font-size:20px;font-weight:700}
+.timesRow{display:grid;grid-template-columns:repeat(2,minmax(0,220px));gap:10px;justify-content:start}   /* v50: two tiles, then two switches */
+.timesRow .tr{display:flex;flex-direction:column;gap:4px;background:var(--card);border-radius:14px;padding:8px 8px 10px}
+.timesRow .tl{font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);padding-left:4px}
+.timesRow .tc{display:flex;align-items:center;justify-content:space-between;gap:4px}
+.timesRow .tc button{flex:none;width:36px;height:40px;border-radius:10px;background:var(--btn);font-size:20px;font-weight:700}
+.timesRow .tc input{width:0;min-width:0;flex:1;padding:0;border:0;background:transparent;font-size:22px}
+.timesRow .tr.off input{color:var(--dim)}
+.tsw{display:flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 10px;border-radius:12px;background:var(--card);border:0;color:#dfe3e8;font:600 14px Inter,system-ui,sans-serif;cursor:pointer}
+.tsw i{flex:none;width:30px;height:18px;border-radius:9px;background:var(--btn);position:relative;transition:background .2s}
+.tsw i:after{content:"";position:absolute;left:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:left .2s}
+.tsw[aria-checked=true] i{background:#3fcb7f}.tsw[aria-checked=true] i:after{left:14px}
+.agH{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-right:auto}
 .timesRow input,.mrow input{width:84px;min-height:44px;border-radius:12px;border:2px solid var(--btn);background:#10141a;color:#fff;font:inherit;font-size:19px;font-weight:800;text-align:center;font-variant-numeric:tabular-nums}
-.timesRow .linkbtn{margin-left:auto;font-size:13px}
 .dtabs{display:flex;gap:8px;overflow-x:auto}
 .dtab{flex:none;display:flex;flex-direction:column;justify-content:center;min-height:46px;padding:0 16px;border-radius:12px;background:var(--card);color:#fff;text-align:left;line-height:1.15}
 .dtab b{font-size:15px}.dtab small{font-size:12.5px;opacity:.7}
@@ -577,7 +585,7 @@ body.paused .tLumi .lumi{animation-play-state:paused}
   #wait .stage .lumi{width:min(30vw,300px)}
 }
   /* basic: day mode only, no extra block types, no other days */
-  #dtabs,#defCard,#tplBtn,#planBack,.dseg,.pgoal{display:none!important}
+  #defCard,#tplBtn,#planBack,.dseg,.pgoal{display:none!important}
   .seg3 button{white-space:nowrap}
   .palc[data-k=admin],.palc[data-k=own]{display:none!important}
   .gp[data-pa$=":admin"],.gp[data-pa$=":box"],.gp[data-pa$=":own"]{display:none!important}
@@ -894,7 +902,8 @@ body[data-theme=splash] #sbx{display:none}
 .qStart button{min-height:40px;padding:0 14px;border:0;border-radius:10px;background:var(--btn);color:#fff;font:800 14px Inter,system-ui,sans-serif;cursor:pointer}
 .qStart button:first-of-type{box-shadow:inset 0 0 0 1.5px #ef6a52}
 @media (max-width:759px){
-  .phd{flex-wrap:wrap}.qStart{margin-left:0;width:100%}
+  .phd{flex-wrap:wrap}.qStart{margin-left:0;width:100%;display:grid;grid-template-columns:1.3fr 1fr 1fr}.qStart span{grid-column:1/-1}.qStart[hidden]{display:none}.qStart button{padding:0 6px}
+  .timesRow{grid-template-columns:repeat(2,minmax(0,1fr))}
   .spl{background:#fff4e6}
   .splArt{display:none}
   .splSay{position:absolute;right:16px;top:10px;margin:0;width:170px;font-size:14px;padding:9px 12px;z-index:2;text-align:left}
@@ -1149,7 +1158,7 @@ button.sf{border:0;font:inherit;color:inherit;cursor:pointer}
       <span class="sum" id="sum"></span>
       <button type="button" class="go" id="startBtn">START</button>
     </div>
-    <div class="credit">A Bouncy Production · Made for Haz · v49</div>
+    <div class="credit">A Bouncy Production · Made for Haz · v50</div>
   </div>
 </main>
 
@@ -1191,7 +1200,7 @@ button.sf{border:0;font:inherit;color:inherit;cursor:pointer}
     <button type="button" class="main" id="pauseBtn">PAUSE</button>
     <button type="button" id="skipBtn">Skip</button>
   </div>
-  <div class="credit">A Bouncy Production · Made for Haz · v49</div>
+  <div class="credit">A Bouncy Production · Made for Haz · v50</div>
 </main>
 
 <!-- ================= TIME'S UP, WAITING FOR A TAP ================= -->
@@ -1210,7 +1219,7 @@ button.sf{border:0;font:inherit;color:inherit;cursor:pointer}
   <div class="hint" id="soundHint2" hidden>Tap anywhere to wake the chime up</div>
   <button type="button" class="big" id="goBtn">START FOCUS</button>
   <button type="button" class="quiet" id="stopBtn2">Stop for now</button>
-  <div class="credit">A Bouncy Production · Made for Haz · v49</div>
+  <div class="credit">A Bouncy Production · Made for Haz · v50</div>
 </main>
 
 <!-- ================= DAY SHAPE PLANNER ================= -->
@@ -1241,7 +1250,7 @@ button.sf{border:0;font:inherit;color:inherit;cursor:pointer}
         </div>
       </section>
     </div>
-    <div class="credit">A Bouncy Production · Made for Haz · v49</div>
+    <div class="credit">A Bouncy Production · Made for Haz · v50</div>
   </div>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="splScene" viewBox="0 0 1280 800"><defs><linearGradient id="splSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3ff"/><stop offset="1" stop-color="#e6f7ff"/></linearGradient>
 <clipPath id="splL"><path d="M0 0 L700 0 L580 800 L0 800 Z"/></clipPath><clipPath id="splR"><path d="M700 0 L1280 0 L1280 800 L580 800 Z"/></clipPath></defs><g clip-path="url(#splL)"><rect width="1280" height="800" fill="#ffd2bd"/><rect x="0" y="470" width="1280" height="330" fill="#e9a27f"/><path d="M0 470 L1280 470" stroke="#c97f5c" stroke-width="6"/><g><rect x="90" y="70" width="280" height="210" rx="14" fill="#fff4ea" stroke="#9a5a3c" stroke-width="6"/><rect x="104" y="84" width="252" height="182" rx="8" fill="#9ad7ff"/><circle cx="300" cy="140" r="30" fill="#ffd166"/><g fill="#fff" opacity=".95"><ellipse cx="180" cy="200" rx="32.199999999999996" ry="14"/><ellipse cx="201" cy="191.6" rx="21" ry="15.399999999999999"/><ellipse cx="160.4" cy="195.8" rx="16.799999999999997" ry="11.2"/></g><path d="M230 84 L230 266 M104 175 L356 175" stroke="#fff4ea" stroke-width="8"/></g><g><rect x="430" y="150" width="120" height="40" rx="8" fill="#fff" stroke="#9a5a3c" stroke-width="4"/><text x="490" y="177" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="15" font-weight="900" fill="#ef6a52">FOCUS</text></g><g><rect x="40" y="380" width="54" height="90" rx="8" fill="#c2410c" stroke="#7c2d12" stroke-width="4"/><path d="M67 380 L67 300" stroke="#3f7d3a" stroke-width="5"/><ellipse cx="50" cy="330" rx="20" ry="9" fill="#4aa957"/><ellipse cx="86" cy="310" rx="20" ry="9" fill="#4aa957"/><ellipse cx="60" cy="296" rx="16" ry="8" fill="#56b866"/></g><rect x="120" y="455" width="460" height="22" rx="8" fill="#a1623e" stroke="#6b3b22" stroke-width="4"/><svg viewBox="0 0 160 100" x="160" y="340" width="220" height="138">
@@ -1513,20 +1522,20 @@ button.sf{border:0;font:inherit;color:inherit;cursor:pointer}
   <div class="phd">
     <button type="button" class="back" id="planBack">‹ Back</button><button type="button" class="linkbtn" id="tyBack" hidden>‹ Back to timer</button>
     <div><h1>Plan your day</h1><div class="sub" id="planSub">Meetings in, then drag blocks in or use the gap buttons</div></div>
-    <div class="qStart" id="qStart" hidden><span>Or just start:</span><button type="button" data-q="deep">Focus 25 + 5</button><button type="button" data-q="lfoc">50 + 10</button><button type="button" data-q="box">Timebox</button></div>
+    <div class="qStart" id="qStart" hidden><span>Or skip planning and just start a timer:</span><button type="button" data-q="deep">Focus 25 + 5</button><button type="button" data-q="lfoc">50 + 10</button><button type="button" data-q="box">Timebox</button></div>
   </div>
   <div class="pgrid">
     <section class="pcal">
       <div class="pIssue" id="planIssue" hidden></div>
-      <div class="timesRow" id="planStart">
-        <span class="tr"><span>Starts</span><button type="button" id="planStartDn" aria-label="Earlier start">−</button><input type="text" id="planStartV" inputmode="numeric" maxlength="5" aria-label="Day starts at" autocomplete="off"><button type="button" id="planStartUp" aria-label="Later start">+</button></span>
-        <span class="tr"><span>Finish by</span><button type="button" id="planFinDn" aria-label="Earlier finish">−</button><input type="text" id="planFinV" inputmode="numeric" maxlength="5" aria-label="Day finishes at" autocomplete="off"><button type="button" id="planFinUp" aria-label="Later finish">+</button></span>
-        <button type="button" class="linkbtn" id="planFinOff">No finish line</button>
-        <button type="button" class="linkbtn" id="planAuto">Fill gaps myself</button>
-      </div>
-      <div class="agSw" id="agSw"><span class="seg" role="group" aria-label="Agenda view"><button type="button" data-pa="agv:list">List</button><button type="button" data-pa="agv:rib">Ribbon</button></span><small id="agHint"></small><div class="undoRow" id="undoRow" hidden><button type="button" id="undoBtn">↶ Undo last change</button></div></div>
-      <div class="earlier" id="earlier" hidden></div>
       <div class="dtabs" id="dtabs"></div>
+      <div class="timesRow" id="planStart">
+        <span class="tr"><span class="tl">Start</span><span class="tc"><button type="button" id="planStartDn" aria-label="Earlier start">−</button><input type="text" id="planStartV" inputmode="numeric" maxlength="5" aria-label="Day starts at" autocomplete="off"><button type="button" id="planStartUp" aria-label="Later start">+</button></span></span>
+        <span class="tr" id="finTile"><span class="tl">Finish by</span><span class="tc"><button type="button" id="planFinDn" aria-label="Earlier finish">−</button><input type="text" id="planFinV" inputmode="numeric" maxlength="5" aria-label="Day finishes at" autocomplete="off"><button type="button" id="planFinUp" aria-label="Later finish">+</button></span></span>
+        <button type="button" class="tsw" id="planFinOff" role="switch" aria-checked="true"><i></i>Finish line</button>
+        <button type="button" class="tsw" id="planAuto" role="switch" aria-checked="true"><i></i>Auto-fill gaps</button>
+      </div>
+      <div class="agSw" id="agSw"><span class="agH">Your day</span><span class="seg" role="group" aria-label="Agenda view"><button type="button" data-pa="agv:list">List</button><button type="button" data-pa="agv:rib">Ribbon</button></span><small id="agHint"></small><div class="undoRow" id="undoRow" hidden><button type="button" id="undoBtn">↶ Undo last change</button></div></div>
+      <div class="earlier" id="earlier" hidden></div>
       <div class="calWrap" id="calWrap"><div class="toastS"><div class="toast2" id="calToast" role="status" hidden></div></div><div class="cal" id="cal"></div></div>
     </section>
     <aside class="pside">
@@ -1553,7 +1562,7 @@ button.sf{border:0;font:inherit;color:inherit;cursor:pointer}
     </aside>
     <div class="mini2 dayEnd"><button type="button" id="tplBtn">Save as my usual day</button><button type="button" class="dz" id="clearBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span>Start over</span></button><button type="button" class="dz" id="endDayBtn" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>End the day</span></button></div>
   </div>
-  <div id="sbx"></div><div class="credit">A Bouncy Production · Made for Haz · v49</div>
+  <div id="sbx"></div><div class="credit">A Bouncy Production · Made for Haz · v50</div>
 </main>
 
 <div class="sheet" id="sheet" hidden>
@@ -2473,11 +2482,15 @@ ${h ? `<div class="hm ha lg">${human('a', 'cheer')}</div><div class="hm hb">${hu
     else if (sess.wait) $('goBtn').click(); else pause();
     bitsKey = ''; updateBits(); renderPlan();
   });
-  let chkMin = -1;
+  let chkMin = -1, fillMin = -1;
   function tick() {
     updateBits();
     if (sess && todayOn() && Math.floor(now() / 60000) !== chkMin) { chkMin = Math.floor(now() / 60000); renderPlan(); }   // the day check (clashes, Lumi's rest offer) keeps up as time passes
     if (rollDay()) { renderJars(); if (!sess) renderHome(); }
+    if (!sess && plan && !plan.run && !plan.hold && Math.floor(now() / 60000) !== fillMin) {   // v50: a day not started yet whose start has passed refills its gaps from now
+      fillMin = Math.floor(now() / 60000);
+      if (plan.day === today() && !inV && plan.blocks.some((b) => b.g && b.st === 'todo') && startedDay() && autoFill()) { save(); if (!$('plan').hidden && viewOff === 0) renderPlan(); }
+    }
     if (!sess && plan && plan.hold) {
       if (now() >= dayMs(plan.start)) { plan.hold = false; planStart(undefined, true); }
       else if (todayOn()) renderToday();
@@ -4788,8 +4801,8 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     const held = !sess && !!plan.hold;
     if ((!sess || !plan.run) && !held) editing = false;
     renderToday(); document.querySelector('#plan .phd').hidden = todayOn(); document.querySelector('#plan .pgrid').hidden = todayOn(); $('tyBack').hidden = !(run || held) || todayOn();
-    $('planSub').textContent = run ? 'Finished blocks are locked. Change anything still to come.' : today0 ? (plan.auto ? 'Add your meetings. The gaps fill themselves with focus.' : 'Add your meetings, then drag blocks into your day') : 'Planning ahead. It saves as you go.';
-    $('planAuto').textContent = plan.auto ? 'Fill gaps myself' : 'Fill gaps for me';
+    $('planSub').textContent = run ? 'Finished blocks are locked. Change anything still to come.' : today0 ? (plan.auto ? 'Pick a day, set your hours, add your meetings.' : 'Add your meetings, then drag blocks into your day') : 'Planning ahead. It saves as you go.';
+    $('planAuto').setAttribute('aria-checked', String(!!plan.auto));
     $('planStart').hidden = run; $('planBack').hidden = run || held;
     $('qStart').hidden = run || held || !today0 || plan.blocks.some((b) => b.st === 'done' || b.st === 'run');
     document.querySelector('#plan .phd h1').textContent = run ? 'Today' : 'Plan your day';
@@ -4797,7 +4810,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
     if (document.activeElement !== sv) sv.value = tm(plan.start);
     if (document.activeElement !== fv) fv.value = plan.fin != null ? tm(plan.fin) : '';
     fv.placeholder = 'none';
-    $('planFinOff').hidden = plan.fin == null;
+    $('planFinOff').setAttribute('aria-checked', String(plan.fin != null)); $('finTile').classList.toggle('off', plan.fin == null);
     // the day tabs
     let tabs = '';
     for (let o = 0; o < 6; o++) {
@@ -5403,7 +5416,7 @@ ${t}<path d="M27 ${gy} L93 ${gy}" stroke="#ff9a7d" stroke-width="2.5" stroke-das
   $('planStartUp').addEventListener('click', () => setStart(15));
   $('planFinDn').addEventListener('click', () => setFin(-15));
   $('planFinUp').addEventListener('click', () => setFin(15));
-  $('planFinOff').addEventListener('click', () => inView(() => { planMsg = ''; plan.fin = null; afterEdit(); }));
+  $('planFinOff').addEventListener('click', () => { if (inView(() => plan.fin) == null) setFin(0, inView(() => Math.min(1439, Math.max(1020, plan.start + 240)))); else inView(() => { planMsg = ''; plan.fin = null; afterEdit(); }); });   // v50: a switch
   $('planAuto').addEventListener('click', () => inView(() => {   // v46: gaps fill themselves, or you fill them; switching off keeps what's there as yours
     snapEdit(); planMsg = '';
     plan.auto = !plan.auto;
